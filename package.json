@@ -1,0 +1,71 @@
+{
+	"name": "Bookmarks",
+	"displayName": "Bookmarks",
+	"description": "Mark lines and jump to them",
+	"version": "0.0.1",
+	"publisher": "alefragnani",
+	"galleryBanner": {
+		"color": "#0000FF",
+		"theme": "dark"
+	},
+	"engines": {
+		"vscode": "0.10.x"
+	},
+	"categories": [
+		"Others"	
+	],
+	"homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/alefragnani/vscode-bookmarks.git"
+	},
+	"bugs": {
+		"url": "https://github.com/alefragnani/vscode-bookmarks/issues"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension",
+	"contributes": {
+		"commands": [{
+			"command": "bookmarks.toggle",
+			"title": "Bookmarks: Toggle"
+		},{
+			"command": "bookmarks.jumpToNext",
+			"title": "Bookmarks: Jump to Next"
+		},{
+			"command": "bookmarks.jumpToPrevious",
+			"title": "Bookmarks: Jump to Previous"
+		},{
+			"command": "bookmarks.clear",
+			"title": "Bookmarks: Clear"
+		}],
+		"keybindings": [
+			{
+				"command": "bookmarks.toggle",
+				"key": "ctrl+alt+k",
+				"mac": "cmd+alt+k",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "bookmarks.jumpToNext",
+				"key": "ctrl+alt+l",
+				"mac": "cmd+alt+l",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "bookmarks.jumpToPrevious",
+				"key": "ctrl+alt+j",
+				"mac": "cmd+alt+j",
+				"when": "editorTextFocus"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+	},
+	"devDependencies": {
+		"vscode": "0.10.0"
+	}
+}
