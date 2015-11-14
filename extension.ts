@@ -63,9 +63,8 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	// Connect it to the Editors Events
-	var activeEditor = vscode.window.activeTextEditor;
-	
-	var activeBookmark = bookmarks.fromUri(activeEditor.document.uri);
+	var activeEditor = vscode.window.activeTextEditor;	
+	var activeBookmark: Bookmark;// = bookmarks.fromUri(activeEditor.document.uri);
 	
 	if (activeEditor) {
 		bookmarks.add(activeEditor.document.uri);
