@@ -9,10 +9,12 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	class Bookmark {
 		uri: vscode.Uri;
+		fsPath: string;
 		bookmarks: number[];
 		
 		constructor(uri: vscode.Uri) {
 			this.uri = uri;
+			this.fsPath = uri.fsPath;
 			this.bookmarks = [];
 		}	
 	}
@@ -28,7 +30,8 @@ export function activate(context: vscode.ExtensionContext) {
 			for (var index = 0; index < this.bookmarks.length; index++) {
 				var element = this.bookmarks[index];
 				
-				if (element.uri == uri) {
+				//if (element.uri == uri) {
+				if (element.fsPath == uri.fsPath) {
 					return element;
 				}				
 			}
@@ -76,9 +79,11 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.workspace.onDidOpenTextDocument(doc => {
 		bookmarks.add(doc.uri);
 	});
-	vscode.workspace.onDidCloseTextDocument(doc => {
-		bookmarks.delete(doc.uri);
-	});
+	
+	// don't close, so it remains 'in memory'
+	// vscode.workspace.onDidCloseTextDocument(doc => {
+	// 	bookmarks.delete(doc.uri);
+	// });
 	
 
 	vscode.window.onDidChangeActiveTextEditor(editor => {
