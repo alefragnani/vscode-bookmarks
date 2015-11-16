@@ -8,12 +8,12 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	
 	class Bookmark {
-		uri: vscode.Uri;
+		//uri: vscode.Uri;
 		fsPath: string;
 		bookmarks: number[];
 		
 		constructor(uri: vscode.Uri) {
-			this.uri = uri;
+			//this.uri = uri;
 			this.fsPath = uri.fsPath;
 			this.bookmarks = [];
 		}	
