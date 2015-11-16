@@ -57,17 +57,13 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	// Define the Bookmark Decoration	
  	let pathIcon = context.asAbsolutePath('images\\bookmark.png');
- 	let pathIconLight = context.asAbsolutePath('images\\bookmarklight.png');
 	var bookmarkDecorationType = vscode.window.createTextEditorDecorationType({
-		gutterIconPath: pathIcon,
-		light: {
-			gutterIconPath: pathIconLight
-		}
+		gutterIconPath: pathIcon
 	});
 
 	// Connect it to the Editors Events
 	var activeEditor = vscode.window.activeTextEditor;	
-	var activeBookmark: Bookmark;// = bookmarks.fromUri(activeEditor.document.uri);
+	var activeBookmark: Bookmark;
 	
 	if (activeEditor) {
 		bookmarks.add(activeEditor.document.uri);
