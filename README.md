@@ -12,10 +12,6 @@ Bookmark lines in the editor.
 
 ![Toggle](images/bookmarks-toggle.png)
 
-## TODO List
-
-- Transparent bookmark icon
-
 ## Known Issues
 
 - Hiting `Enter` in lines with bookmarks, temporarily also moves the bookmarks
