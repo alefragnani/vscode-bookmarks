@@ -2,10 +2,10 @@
 	"name": "Bookmarks",
 	"displayName": "Bookmarks",
 	"description": "Mark lines and jump to them",
-	"version": "0.0.5",
+	"version": "0.1.0",
 	"publisher": "alefragnani",
 	"galleryBanner": {
-		"color": "#0000FF",
+		"color": "#000000",
 		"theme": "dark"
 	},
 	"engines": {
@@ -14,6 +14,7 @@
 	"categories": [
 		"Other"	
 	],
+	"icon": "images/icon.png",
 	"homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
 	"repository": {
 		"type": "git",
