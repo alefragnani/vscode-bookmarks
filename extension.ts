@@ -135,6 +135,13 @@ export function activate(context: vscode.ExtensionContext) {
 	// other commands
 	vscode.commands.registerCommand('bookmarks.toggle', () => {
 		let line = vscode.window.activeTextEditor.selection.active.line;
+
+        // fix issue emptyAtLaunch
+        if (!activeBookmark) {
+            bookmarks.add(vscode.window.activeTextEditor.document.uri);
+            activeBookmark = bookmarks.fromUri(vscode.window.activeTextEditor.document.uri);
+        }        
+
 		let index = activeBookmark.bookmarks.indexOf(line);
 		if (index < 0) {
 			activeBookmark.bookmarks.push(line);
@@ -160,6 +167,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 	vscode.commands.registerCommand('bookmarks.jumpToNext', () => {		
 
+		if (!activeBookmark) {
+			return;
+		}
+		
 		// Is there any bookmark?
 		if (activeBookmark.bookmarks.length == 0) {
 			return;
@@ -188,6 +199,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 	vscode.commands.registerCommand('bookmarks.jumpToPrevious', () => {		
 
+		if (!activeBookmark) {
+			return;
+		}
+		
 		// Is there any bookmark?
 		if (activeBookmark.bookmarks.length == 0) {
 			return;
