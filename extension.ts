@@ -8,12 +8,10 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	
 	class Bookmark {
-		//uri: vscode.Uri;
 		fsPath: string;
 		bookmarks: number[];
 		
 		constructor(uri: vscode.Uri) {
-			//this.uri = uri;
 			this.fsPath = uri.fsPath;
 			this.bookmarks = [];
 		}	
@@ -22,15 +20,18 @@ export function activate(context: vscode.ExtensionContext) {
 	class Bookmarks {
 		bookmarks: Bookmark[];
 		
-		constructor() {
+		constructor(jsonObject) {
 			this.bookmarks = [];
+			
+			if (jsonObject != '') {
+				for (let prop in jsonObject) this[prop] = jsonObject[prop];
+			}
 		}
 				
 		fromUri(uri: vscode.Uri) {
 			for (var index = 0; index < this.bookmarks.length; index++) {
 				var element = this.bookmarks[index];
 				
-				//if (element.uri == uri) {
 				if (element.fsPath == uri.fsPath) {
 					return element;
 				}				
@@ -53,7 +54,17 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	console.log('Bookmarks is activated');
 	
-	var bookmarks = new Bookmarks();
+	var bookmarks: Bookmarks;// = new Bookmarks();
+	
+	// load pre-saved bookmarks
+	let savedBookmarks = context.workspaceState.get('bookmarks', '');
+	if (savedBookmarks != '') {
+		//bookmarks = <Bookmarks>JSON.parse(savedBookmarks);
+		bookmarks = new Bookmarks(JSON.parse(savedBookmarks));
+	} else {
+		bookmarks = new Bookmarks('');
+	}
+	// //
 	
 	// Define the Bookmark Decoration	
  	let pathIcon = context.asAbsolutePath('images\\bookmark.png');
@@ -66,7 +77,9 @@ export function activate(context: vscode.ExtensionContext) {
 	var activeBookmark: Bookmark;
 	
 	if (activeEditor) {
-		bookmarks.add(activeEditor.document.uri);
+		if (savedBookmarks == '') {
+			bookmarks.add(activeEditor.document.uri);
+		}
 		activeBookmark = bookmarks.fromUri(activeEditor.document.uri);
 		triggerUpdateDecorations();
 	}
@@ -76,12 +89,6 @@ export function activate(context: vscode.ExtensionContext) {
 		bookmarks.add(doc.uri);
 	});
 	
-	// don't close, so it remains 'in memory'
-	// vscode.workspace.onDidCloseTextDocument(doc => {
-	// 	bookmarks.delete(doc.uri);
-	// });
-	
-
 	vscode.window.onDidChangeActiveTextEditor(editor => {
 		activeEditor = editor;
 		if (editor) {			
@@ -161,6 +168,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 			return 0;
 		});
+		
+		context.workspaceState.update('bookmarks', JSON.stringify(bookmarks));
+				
 		updateDecorations();
 	});
 	
@@ -232,6 +242,8 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	vscode.commands.registerCommand('bookmarks.clear', () => {
 		activeBookmark.bookmarks.length = 0;
+
+		context.workspaceState.update('bookmarks', JSON.stringify(bookmarks));
 		updateDecorations();
 	});
 			
