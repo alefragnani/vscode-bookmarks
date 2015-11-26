@@ -4,7 +4,7 @@ Mark lines in the editor and easily jump to them.
 
 # Usage
 
-### Availble commands
+### Available commands
 
 * **Bookmarks: Toggle** Mark/unmark lines with bookmarks
 * **Bookmarks: Jump to Next** Move the cursor forward, to the bookmark below
@@ -12,6 +12,13 @@ Mark lines in the editor and easily jump to them.
 * **Bookmarks: Clear** remove all bookmarks from the current file
 
 ![Commands](images/bookmarks-commands.png)
+
+### Available settings
+
+* Allow bookmarks to be saved and restored, even if you close or change the Project
+```
+    "bookmarks.saveBookmarksBetweenSessions": true
+```
 
 ### Toggle Bookmark
 
@@ -21,7 +28,7 @@ You can easily Mark/Unmark bookmarks on any line. Works even for wrapped lines.
 
 ### Project and Session Based
 
-The bookmarks are saved _per session_ for the project that you are using. You don´t have to worry about closing files in _Working Files_. When you reopen the file, the bookmaks are restored.
+The bookmarks are saved _per session_ for the project that you are using. You don't have to worry about closing files in _Working Files_. When you reopen the file, the bookmarks are restored.
 
 It also works even if you only _preview_ a file (simple click in TreeView). You can put bookmarks in any file and when you preview it again, the bookmarks will be there.
 
@@ -29,9 +36,9 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 
 Here are some ideas that will be added soon:
 
-* **Save bookmarks between sessions:** Allow the bookmarks to be saved and restored, even if you close **Code** or change the active Project/Folder.
-* **Preview bookmarked lines:** Create a new command (**Bookmarks: List**) that will show all bookmarked lines, with its content, so you easily identify which bookmark you would want to go.
+* ~~**Save bookmarks between sessions:** Allow the bookmarks to be saved and restored, even if you close **Code** or change the active Project/Folder.~~
 * **Change the bookmark icon:** Allow you to define which icon do you want to use as bookmark
+* **Preview bookmarked lines:** Create a new command (**Bookmarks: List**) that will show all bookmarked lines, with its content, so you easily identify which bookmark you would want to go.
 
 ## Known Issues
 
