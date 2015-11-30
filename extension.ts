@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import path = require('path');
+import fs = require('fs');
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -53,8 +54,18 @@ export function activate(context: vscode.ExtensionContext) {
 	// load pre-saved bookmarks
 	let didLoadBookmarks: boolean = loadWorkspaceState();
 	
-	// Define the Bookmark Decoration	
- 	let pathIcon = context.asAbsolutePath('images\\bookmark.png');
+	// Define the Bookmark Decoration
+	let pathIcon: string = vscode.workspace.getConfiguration('bookmarks').get('gutterIconPath', '');
+	if (pathIcon != '') {
+		if (!fs.existsSync(pathIcon)) {
+			vscode.window.showErrorMessage('The file "' + pathIcon + '" used for "bookmarks.gutterIconPath" does not exists.');
+			pathIcon = context.asAbsolutePath('images\\bookmark.png');
+		}
+	} else {
+		pathIcon = context.asAbsolutePath('images\\bookmark.png');
+	}
+	
+ //	let pathIcon = context.asAbsolutePath('images\\bookmark.png');
 	var bookmarkDecorationType = vscode.window.createTextEditorDecorationType({
 		gutterIconPath: pathIcon
 	});

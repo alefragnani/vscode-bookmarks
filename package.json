@@ -49,6 +49,11 @@
 					"type": "boolean",
 					"default": false,
 					"description": "Allow bookmarks to be saved and restored, even if you close or change the Project"
+				},				
+				"bookmarks.gutterIconPath": {
+					"type": "string",
+					"default": "",
+					"description": "Path to another image to be presented as Bookmark"
 				}
 			}
 		},
