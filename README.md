@@ -2,6 +2,9 @@
 
 Mark lines in the editor and easily jump to them.
 
+# Installation
+Press `F1` in VSCode and write `ext install bookmarks`.
+
 # Usage
 
 ## Available commands
