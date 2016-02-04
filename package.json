@@ -2,14 +2,14 @@
 	"name": "Bookmarks",
 	"displayName": "Bookmarks",
 	"description": "Mark lines and jump to them",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"publisher": "alefragnani",
 	"galleryBanner": {
 		"color": "#000000",
 		"theme": "dark"
 	},
 	"engines": {
-		"vscode": "^0.10.1"
+		"vscode": "0.10.7-insiders"
 	},
 	"categories": [
 		"Other"	
@@ -38,6 +38,9 @@
 		},{
 			"command": "bookmarks.jumpToPrevious",
 			"title": "Bookmarks: Jump to Previous"
+		},{
+			"command": "bookmarks.list",
+			"title": "Bookmarks: List"
 		},{
 			"command": "bookmarks.clear",
 			"title": "Bookmarks: Clear"
@@ -81,10 +84,11 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
 	},
 	"devDependencies": {
-		"vscode": "0.10.x",
+		"vscode": "~0.11.0",
 		"typescript": "^1.6.2"
 	}
 }

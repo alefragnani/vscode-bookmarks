@@ -235,6 +235,45 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.activeTextEditor.selection = newSe;	
 		vscode.window.activeTextEditor.revealRange(newSe, vscode.TextEditorRevealType.InCenter)	
 	});
+    
+    
+    vscode.commands.registerCommand('bookmarks.list', () => {
+		// no bookmark
+		if (activeBookmark.bookmarks.length == 0) {
+			vscode.window.showInformationMessage("No Bookmark found");
+			return;
+		}
+
+		// push the items
+		let items: vscode.QuickPickItem[] = [];
+		for (var index = 0; index < activeBookmark.bookmarks.length; index++) {
+			var element = activeBookmark.bookmarks[index] + 1;
+
+			let lineText = vscode.window.activeTextEditor.document.lineAt(element).text;
+			items.push({ label: element.toString(), description: lineText });
+		}
+		
+		// pick one
+		let options = <vscode.QuickPickOptions>{
+			matchOnDescription: true,
+            onDidSelectItem: item => { 
+                revealLine(parseInt(item.label) - 1);
+            }			
+		};
+		
+		vscode.window.showQuickPick(items, options).then(selection => {
+			if (typeof selection == 'undefined') {
+				return;
+			}			
+            revealLine(parseInt(selection.label) - 1);			
+		});		
+	});
+
+    function revealLine(line: number) {
+        var newSe = new vscode.Selection(line, 0, line,0);
+        vscode.window.activeTextEditor.selection = newSe;	
+        vscode.window.activeTextEditor.revealRange(newSe, vscode.TextEditorRevealType.InCenter);        
+    }
 	
 	
 	vscode.commands.registerCommand('bookmarks.clear', () => {
