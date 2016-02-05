@@ -199,9 +199,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		
 		// go to found line
-		var newSe = new vscode.Selection(nextBookmark, 0, nextBookmark,0);
-		vscode.window.activeTextEditor.selection = newSe;	
-		vscode.window.activeTextEditor.revealRange(newSe, vscode.TextEditorRevealType.InCenter)	
+        revealLine(nextBookmark);
 	});
 
 	vscode.commands.registerCommand('bookmarks.jumpToPrevious', () => {		
@@ -231,9 +229,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		
 		// go to found line
-		var newSe = new vscode.Selection(nextBookmark, 0, nextBookmark,0);
-		vscode.window.activeTextEditor.selection = newSe;	
-		vscode.window.activeTextEditor.revealRange(newSe, vscode.TextEditorRevealType.InCenter)	
+        revealLine(nextBookmark);
 	});
     
     
@@ -249,12 +245,14 @@ export function activate(context: vscode.ExtensionContext) {
 		for (var index = 0; index < activeBookmark.bookmarks.length; index++) {
 			var element = activeBookmark.bookmarks[index] + 1;
 
-			let lineText = vscode.window.activeTextEditor.document.lineAt(element).text;
-			items.push({ label: element.toString(), description: lineText });
+			let lineText = vscode.window.activeTextEditor.document.lineAt(element - 1).text;
+			items.push({ label: element.toString(), description: lineText});
 		}
 		
 		// pick one
+        let currentLine: number = vscode.window.activeTextEditor.selection.active.line + 1;
 		let options = <vscode.QuickPickOptions>{
+            placeHolder: 'Type a line number or a piece of code to navigate to',
 			matchOnDescription: true,
             onDidSelectItem: item => { 
                 revealLine(parseInt(item.label) - 1);
@@ -263,6 +261,7 @@ export function activate(context: vscode.ExtensionContext) {
 		
 		vscode.window.showQuickPick(items, options).then(selection => {
 			if (typeof selection == 'undefined') {
+                revealLine(currentLine - 1);			
 				return;
 			}			
             revealLine(parseInt(selection.label) - 1);			
