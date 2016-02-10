@@ -3,7 +3,8 @@
 Mark lines in the editor and easily jump to them.
 
 # Installation
-Press `F1` in VSCode and write `ext install bookmarks`.
+
+Press `F1` in VSCode, then type `ext install bookmarks`.
 
 # Usage
 
@@ -12,15 +13,24 @@ Press `F1` in VSCode and write `ext install bookmarks`.
 * **Bookmarks: Toggle** Mark/unmark lines with bookmarks
 * **Bookmarks: Jump to Next** Move the cursor forward, to the bookmark below
 * **Bookmarks: Jump to Previous** Move the cursor backward, to the bookmark above
+* **Bookmarks: List** List all bookmarks from the current file
 * **Bookmarks: Clear** remove all bookmarks from the current file
 
 ![Commands](images/bookmarks-commands.png)
 
-### Toggle Bookmark
+### Bookmark - Toggle
 
 You can easily Mark/Unmark bookmarks on any line. Works even for wrapped lines.
 
 ![Toggle](images/bookmarks-toggle.png)
+
+> _new in version 0.4.0_  
+
+### Bookmarks - List
+
+List all bookmarks from the current file and easily navigate to any one. It shows you the line contents and temporarily scroll to that line.
+
+![List](images/bookmarks-list.gif)
 
 ## Available settings
 
@@ -42,19 +52,15 @@ The bookmarks are saved _per session_ for the project that you are using. You do
 
 It also works even if you only _preview_ a file (simple click in TreeView). You can put bookmarks in any file and when you preview it again, the bookmarks will be there.
 
-# TODO List
-
-Here are some ideas that will be added soon:
-
-* ~~**Save bookmarks between sessions:** Allow the bookmarks to be saved and restored, even if you close **Code** or change the active Project/Folder.~~
-* ~~**Change the bookmark icon:** Allow you to define which icon do you want to use as bookmark~~
-* **Preview bookmarked lines:** Create a new command (**Bookmarks: List**) that will show all bookmarked lines, with its content, so you easily identify which bookmark you would want to go.
-
 # Known Issues
 
 - Hiting `Enter` in lines with bookmarks, temporarily also moves the bookmarks, but when you stop typing, the bookmark is correctly presented on the original line.
 
 # Changelog
+
+## Version 0.4.0
+
+* **New Command:** List all bookmarks from the current file
 
 ## Version 0.3.0
 
@@ -62,8 +68,8 @@ Here are some ideas that will be added soon:
 
 ## Version 0.2.0
 
-* **New:** Save bookmarks between sessions
-* **New:** Change the bookmark icon
+* **New Setting:** Save bookmarks between sessions
+* **New Setting:** Change the bookmark icon
 
 ## Version 0.1.1
 
