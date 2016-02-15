@@ -18,7 +18,7 @@ Press `F1` in VSCode, then type `ext install bookmarks`.
 
 ![Commands](images/bookmarks-commands.png)
 
-### Bookmark - Toggle
+### Bookmark: Toggle
 
 You can easily Mark/Unmark bookmarks on any line. Works even for wrapped lines.
 
@@ -26,7 +26,7 @@ You can easily Mark/Unmark bookmarks on any line. Works even for wrapped lines.
 
 > _new in version 0.4.0_  
 
-### Bookmarks - List
+### Bookmarks: List
 
 List all bookmarks from the current file and easily navigate to any one. It shows you the line contents and temporarily scroll to that line.
 

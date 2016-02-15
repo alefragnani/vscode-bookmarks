@@ -9,7 +9,7 @@
 		"theme": "dark"
 	},
 	"engines": {
-		"vscode": "0.10.7-insiders"
+		"vscode": "0.10.8"
 	},
 	"categories": [
 		"Other"	
@@ -88,7 +88,7 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
 	},
 	"devDependencies": {
-		"vscode": "~0.11.0",
+		"vscode": "^0.11.x",
 		"typescript": "^1.6.2"
 	}
 }
