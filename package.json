@@ -9,7 +9,7 @@
 		"theme": "dark"
 	},
 	"engines": {
-		"vscode": "0.10.8"
+		"vscode": "^0.10.7"
 	},
 	"categories": [
 		"Other"	
