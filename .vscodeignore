@@ -7,3 +7,4 @@ issues/**
 tsconfig.json
 vsc-extension-quickstart.md
 debug.log
+npm-debug.log
