@@ -31,8 +31,14 @@ export function activate(context: vscode.ExtensionContext) {
                   reject('typeof this.bookmarks == "undefined"');
                 }
 
+                let lookOtherFiles: boolean = vscode.workspace.getConfiguration('bookmarks').get('lookOtherFiles', false);
+                
                 if (this.bookmarks.length == 0) {
-                    resolve(NO_BOOKMARKS);
+                    if (lookOtherFiles) {
+                        resolve(NO_BOOKMARKS);
+                    } else {
+                        resolve(currentline);
+                    }
                 }
 
                 let nextBookmark: number;
@@ -47,7 +53,11 @@ export function activate(context: vscode.ExtensionContext) {
                   }
                   
                   if (typeof nextBookmark == 'undefined') {
-                    resolve(NO_MORE_BOOKMARKS)
+                      if (lookOtherFiles) {
+                        resolve(NO_MORE_BOOKMARKS);
+                      } else {                     
+                        resolve(this.bookmarks[0]);
+                    }
                   } else {
                     resolve(nextBookmark);
                   }
@@ -60,8 +70,11 @@ export function activate(context: vscode.ExtensionContext) {
                       }
                   }
                   if (typeof nextBookmark == 'undefined') {
-                      //resolve(activeBookmark.bookmarks[activeBookmark.bookmarks.length - 1]);
-                      resolve(NO_MORE_BOOKMARKS);
+                      if (lookOtherFiles) {
+                        resolve(NO_MORE_BOOKMARKS);
+                      } else {
+                        resolve(activeBookmark.bookmarks[activeBookmark.bookmarks.length - 1]);
+                      }
                   } else {
                     resolve(nextBookmark);
                   }       

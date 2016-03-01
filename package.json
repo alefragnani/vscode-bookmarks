@@ -58,7 +58,12 @@
 					"type": "string",
 					"default": "",
 					"description": "Path to another image to be presented as Bookmark"
-				}
+				},
+                "bookmarks.navigateOtherFiles": {
+                    "type": "boolean",
+                    "default": "false",
+                    "description": "Allow navigation look all files, not only the current"
+                }
 			}
 		},
 		"keybindings": [
