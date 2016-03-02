@@ -59,10 +59,10 @@
 					"default": "",
 					"description": "Path to another image to be presented as Bookmark"
 				},
-                "bookmarks.navigateOtherFiles": {
+                "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
-                    "default": "false",
-                    "description": "Allow navigation look all files, not only the current"
+                    "default": false,
+                    "description": "Allow navigation look for bookmakrs in all files in the project, instead of only the current"
                 }
 			}
 		},

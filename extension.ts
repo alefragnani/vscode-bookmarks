@@ -29,15 +29,19 @@ export function activate(context: vscode.ExtensionContext) {
               
                 if (typeof this.bookmarks == 'undefined') {
                   reject('typeof this.bookmarks == "undefined"');
+                  return;
                 }
-
-                let lookOtherFiles: boolean = vscode.workspace.getConfiguration('bookmarks').get('lookOtherFiles', false);
+                
+                let navigateThroughAllFiles: boolean;
+                navigateThroughAllFiles = vscode.workspace.getConfiguration('bookmarks').get('navigateThroughAllFiles', false);
                 
                 if (this.bookmarks.length == 0) {
-                    if (lookOtherFiles) {
+                    if (navigateThroughAllFiles) {
                         resolve(NO_BOOKMARKS);
+                        return;
                     } else {
                         resolve(currentline);
+                        return;
                     }
                 }
 
@@ -53,13 +57,16 @@ export function activate(context: vscode.ExtensionContext) {
                   }
                   
                   if (typeof nextBookmark == 'undefined') {
-                      if (lookOtherFiles) {
+                      if (navigateThroughAllFiles) {
                         resolve(NO_MORE_BOOKMARKS);
+                        return;
                       } else {                     
                         resolve(this.bookmarks[0]);
+                        return;
                     }
                   } else {
                     resolve(nextBookmark);
+                    return;
                   }
                 } else { 
                   for (var index = activeBookmark.bookmarks.length; index >= 0; index--) {
@@ -70,13 +77,16 @@ export function activate(context: vscode.ExtensionContext) {
                       }
                   }
                   if (typeof nextBookmark == 'undefined') {
-                      if (lookOtherFiles) {
+                      if (navigateThroughAllFiles) {
                         resolve(NO_MORE_BOOKMARKS);
+                        return;
                       } else {
                         resolve(activeBookmark.bookmarks[activeBookmark.bookmarks.length - 1]);
+                        return;
                       }
                   } else {
                     resolve(nextBookmark);
+                    return;
                   }       
                 }
 
@@ -147,18 +157,22 @@ export function activate(context: vscode.ExtensionContext) {
                 
                 if (currentBookmark.bookmarks.length == 0) {                    
                     if (currentBookmark == activeBookmark) {
-                        reject('undefined');
+                        resolve(NO_MORE_BOOKMARKS);
+                        return;
                     } else {
                         this.nextDocumentWithBookmarks(currentBookmark, direction)
                             .then((nextDocument) => {
                                 resolve(nextDocument);
+                                return;
                             })
                             .catch((error) => {
                                 reject(error);
+                                return;
                             })
                     }                   
                 } else {
-                    resolve(currentBookmark.fsPath)
+                    resolve(currentBookmark.fsPath);
+                    return;
                 }
 
             });
@@ -181,6 +195,7 @@ export function activate(context: vscode.ExtensionContext) {
                 currentBookmark.nextBookmark(currentLine)
                     .then((newLine) => {
                         resolve(newLine);
+                        return;
                     })
                     .catch((error) => {
                         // next document                  
@@ -193,17 +208,6 @@ export function activate(context: vscode.ExtensionContext) {
                     });
 
             });
-            // return new Promise((resolve, reject) => {
-                
-            //     if (currentBookmark.bookmarks.length == 0) {                    
-            //         currentBookmarkId++;
-            //         if (currentBookmarkId = bookmarks.bookmarks.length) {
-            //             currentBookmarkId = 0;
-            //         }                                        
-            //         currentBookmark = this.bookmarks[currentBookmarkId];        
-            //     }
-                
-            // });
         }
     }
 
@@ -352,6 +356,10 @@ export function activate(context: vscode.ExtensionContext) {
               if ( (nextLine == NO_MORE_BOOKMARKS) || (nextLine == NO_BOOKMARKS) ) {
                 bookmarks.nextDocumentWithBookmarks(activeBookmark)
                   .then((nextDocument) => {
+                      
+                      if (nextDocument == NO_MORE_BOOKMARKS) {
+                          return;
+                      }
                     
                       // same document?
                       if (nextDocument.toString() == vscode.window.activeTextEditor.document.uri.fsPath) {
@@ -368,48 +376,14 @@ export function activate(context: vscode.ExtensionContext) {
                       vscode.window.showInformationMessage('No more bookmarks...');
                   })
               } else {
-                revealLine(parseInt(nextLine.toString()));
+                if (nextLine != vscode.window.activeTextEditor.selection.active.line) {
+                  revealLine(parseInt(nextLine.toString()));
+                }
               }
             })
             .catch((error) => {
               console.log('activeBookmark.nextBookmark REJECT' + error)
             })
-        
-        
-        // // promisses        
-        // bookmarks.nextBookmark(activeBookmark, vscode.window.activeTextEditor.selection.active.line)
-        //     .then((nextBookmark) => {
-        //         // go to found line
-        //         revealLine(nextBookmark);
-        //     })
-        //     .catch((error) => {
-                
-        //     });
-        
-		
-        // original code .....
-        // // Is there any bookmark?
-        // if (activeBookmark.bookmarks.length == 0) {
-        // 	return;
-        // }				
-		
-        // // There is anyone below?
-        // let line = vscode.window.activeTextEditor.selection.active.line;
-        // let nextBookmark: number;
-        // for (var index = 0; index < activeBookmark.bookmarks.length; index++) {
-        // 	var element = activeBookmark.bookmarks[index];
-        // 	if (element > line) {				
-        // 		nextBookmark = element;
-        // 		break;
-        // 	}
-        // }
-		
-        // if (typeof nextBookmark == 'undefined') {
-        // 	nextBookmark = activeBookmark.bookmarks[0];
-        // }
-		
-        // // go to found line
-        // revealLine(nextBookmark);
     });
 
     vscode.commands.registerCommand('bookmarks.jumpToPrevious', () => {
@@ -424,6 +398,10 @@ export function activate(context: vscode.ExtensionContext) {
               if ( (nextLine == NO_MORE_BOOKMARKS) || (nextLine == NO_BOOKMARKS) ) {
                 bookmarks.nextDocumentWithBookmarks(activeBookmark, JUMP_BACKWARD)
                   .then((nextDocument) => {
+                      
+                      if (nextDocument == NO_MORE_BOOKMARKS) {
+                          return;
+                      }
                     
                       // same document?
                       if (nextDocument.toString() == vscode.window.activeTextEditor.document.uri.fsPath) {
@@ -442,39 +420,14 @@ export function activate(context: vscode.ExtensionContext) {
                       vscode.window.showInformationMessage('No more bookmarks...');
                   })
               } else {
-                revealLine(parseInt(nextLine.toString()));
+                if (nextLine != vscode.window.activeTextEditor.selection.active.line) {
+                  revealLine(parseInt(nextLine.toString()));
+                }
               }
             })
             .catch((error) => {
               console.log('activeBookmark.nextBookmark REJECT' + error)
             })
-
-        // if (!activeBookmark) {
-        //     return;
-        // }
-		
-        // // Is there any bookmark?
-        // if (activeBookmark.bookmarks.length == 0) {
-        //     return;
-        // }				
-		
-        // // There is anyone below?
-        // let line = vscode.window.activeTextEditor.selection.active.line;
-        // let nextBookmark: number;
-        // for (var index = activeBookmark.bookmarks.length; index >= 0; index--) {
-        //     var element = activeBookmark.bookmarks[index];
-        //     if (element < line) {
-        //         nextBookmark = element;
-        //         break;
-        //     }
-        // }
-
-        // if (typeof nextBookmark == 'undefined') {
-        //     nextBookmark = activeBookmark.bookmarks[activeBookmark.bookmarks.length - 1];
-        // }
-		
-        // // go to found line
-        // revealLine(nextBookmark);
     });
 
 
@@ -524,6 +477,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     function loadWorkspaceState(): boolean {
         let saveBookmarksBetweenSessions: boolean = vscode.workspace.getConfiguration('bookmarks').get('saveBookmarksBetweenSessions', false);
+
         if (!saveBookmarksBetweenSessions) {
             bookmarks = new Bookmarks('');
             return false;
