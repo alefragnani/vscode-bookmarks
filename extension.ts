@@ -345,7 +345,11 @@ export function activate(context: vscode.ExtensionContext) {
 
 
     vscode.commands.registerCommand('bookmarks.jumpToNext', () => {
-
+        
+        if (!vscode.window.activeTextEditor) {
+          return;
+        }
+        
         if (!activeBookmark) {
             return;
         }      
@@ -387,6 +391,10 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     vscode.commands.registerCommand('bookmarks.jumpToPrevious', () => {
+      
+        if (!vscode.window.activeTextEditor) {
+          return;
+        }
       
       if (!activeBookmark) {
             return;
@@ -432,6 +440,11 @@ export function activate(context: vscode.ExtensionContext) {
 
 
     vscode.commands.registerCommand('bookmarks.list', () => {
+        
+        if (!vscode.window.activeTextEditor) {
+          return;
+        }
+      
         // no bookmark
         if (activeBookmark.bookmarks.length == 0) {
             vscode.window.showInformationMessage("No Bookmark found");
