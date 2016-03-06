@@ -80,19 +80,19 @@
 				"mac": "cmd+alt+j",
 				"when": "editorTextFocus"
 			},
-      {
+			{
 				"command": "bookmarks.moveLineUp",
 				"key": "alt+up",
 				"mac": "alt+up",
 				"when": "editorTextFocus"
 			},
-      {
+			{
 				"command": "bookmarks.moveLineDown",
 				"key": "alt+down",
 				"mac": "alt+down",
 				"when": "editorTextFocus"
 			},
-      {
+			{
 				"command": "bookmarks.paste",
 				"key": "ctrl+v",
 				"mac": "cmd+v",
@@ -103,7 +103,7 @@
 	"scripts": {
 		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
 		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
+		"postinstall": "node ./node_modules/vscode/bin/install"
 	},
 	"devDependencies": {
 		"vscode": "^0.11.x",
