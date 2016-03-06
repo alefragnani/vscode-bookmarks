@@ -2,3 +2,4 @@ out
 node_modules
 issues
 debug.log
+.editorconfig
