@@ -2,17 +2,17 @@
 	"name": "Bookmarks",
 	"displayName": "Bookmarks",
 	"description": "Mark lines and jump to them",
-	"version": "0.3.0",
+	"version": "0.5.0",
 	"publisher": "alefragnani",
 	"galleryBanner": {
 		"color": "#000000",
 		"theme": "dark"
 	},
 	"engines": {
-		"vscode": "^0.10.1"
+		"vscode": "^0.10.7"
 	},
 	"categories": [
-		"Other"	
+		"Other"
 	],
 	"icon": "images/icon.png",
     "license": "SEE LICENSE IN LICENSE.md",
@@ -39,6 +39,9 @@
 			"command": "bookmarks.jumpToPrevious",
 			"title": "Bookmarks: Jump to Previous"
 		},{
+			"command": "bookmarks.list",
+			"title": "Bookmarks: List"
+		},{
 			"command": "bookmarks.clear",
 			"title": "Bookmarks: Clear"
 		}],
@@ -50,7 +53,7 @@
 					"type": "boolean",
 					"default": false,
 					"description": "Allow bookmarks to be saved and restored, even if you close or change the Project"
-				},				
+				},
 				"bookmarks.gutterIconPath": {
 					"type": "string",
 					"default": "",
@@ -76,15 +79,34 @@
 				"key": "ctrl+alt+j",
 				"mac": "cmd+alt+j",
 				"when": "editorTextFocus"
+			},
+      {
+				"command": "bookmarks.moveLineUp",
+				"key": "alt+up",
+				"mac": "alt+up",
+				"when": "editorTextFocus"
+			},
+      {
+				"command": "bookmarks.moveLineDown",
+				"key": "alt+down",
+				"mac": "alt+down",
+				"when": "editorTextFocus"
+			},
+      {
+				"command": "bookmarks.paste",
+				"key": "ctrl+v",
+				"mac": "cmd+v",
+				"when": "editorTextFocus"
 			}
 		]
 	},
 	"scripts": {
 		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
 	},
 	"devDependencies": {
-		"vscode": "0.10.x",
+		"vscode": "^0.11.x",
 		"typescript": "^1.6.2"
 	}
 }
