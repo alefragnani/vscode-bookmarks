@@ -13,15 +13,27 @@ export function activate(context: vscode.ExtensionContext) {
     const JUMP_FORWARD = 1;
     const JUMP_BACKWARD = -1;
     enum JUMP_DIRECTION {JUMP_FORWARD, JUMP_BACKWARD};
+    
+    var bookmarks: Bookmarks;
+
 
     class Bookmark {
         fsPath: string;
         bookmarks: number[];
 
-        constructor(uri: vscode.Uri) {
-            this.fsPath = uri.fsPath;
+        constructor(fsPath: string) {
+        //constructor(uri: vscode.Uri) {
+            //if (fsPath == 'undefined') {
+                
+            //}
+            this.fsPath = fsPath;//uri.fsPath;
             this.bookmarks = [];
         }
+
+        // constructor(uri: string) {
+        //     this.fsPath = uri;
+        //     this.bookmarks = [];
+        // }
 
         public nextBookmark(currentline: number, direction: JUMP_DIRECTION = JUMP_FORWARD) {
 
@@ -89,13 +101,14 @@ export function activate(context: vscode.ExtensionContext) {
                     return;
                   }       
                 }
-
-                // if (typeof nextBookmark == 'undefined') {
-                //     resolve(NO_MORE_BOOKMARKS)
-                // } else {
-                //     resolve(nextBookmark);
-                // }
             })
+        }
+        
+        /**
+         * name
+         */
+        public clear() {
+          this.bookmarks.length = 0;          
         }
     }
 
@@ -105,22 +118,52 @@ export function activate(context: vscode.ExtensionContext) {
         constructor(jsonObject) {
             this.bookmarks = [];
 
-            if (jsonObject != '') {
-                for (let prop in jsonObject) this[prop] = jsonObject[prop];
+            // if (jsonObject != '') {
+            //     for (let prop in jsonObject) 
+            //         this[prop] = jsonObject[prop];
+            // }
+        }
+        
+        public loadFrom(jsonObject) {
+            if (jsonObject == '') {
+                return;
             }
+            
+            let jsonBookmarks = jsonObject.bookmarks;
+            for (var idx = 0; idx < jsonBookmarks.length; idx++) {
+              let jsonBookmark = jsonBookmarks[idx];
+              
+              // each bookmark (line)
+              this.add(jsonBookmark.fsPath);
+              for (let index = 0; index < jsonBookmark.bookmarks.length; index++) {
+                  this.bookmarks[idx].bookmarks.push(jsonBookmark.bookmarks[index])
+              }
+            }
+            // for (let prop in jsonObject) {
+                
+            //     //uri.fsPath e náo so path. preciso criar 'alternativa'
+            //     //let uri: vscode.Uri = new vscode.Uri;
+            //     //uri.fsPath = jsonObject[prop][idx].fsPath;
+            //     this.add(jsonObject[prop][idx].fsPath); // "" ?
+            //     for (let index = 0; index < jsonObject[prop][idx].bookmarks.length; index++) {
+            //         // var element = jsonObject[prop][idx].bookmarks[index];
+            //         this.bookmarks[idx].bookmarks.push(jsonObject[prop][idx].bookmarks[index])
+            //     }
+            //     idx++;
+            // }
         }
 
-        fromUri(uri: vscode.Uri) {
+        fromUri(uri: string) {
             for (var index = 0; index < this.bookmarks.length; index++) {
                 var element = this.bookmarks[index];
 
-                if (element.fsPath == uri.fsPath) {
+                if (element.fsPath == uri) {
                     return element;
                 }
             }
         }
 
-        add(uri: vscode.Uri) {
+        add(uri: string) {
             let existing: Bookmark = this.fromUri(uri);
             if (typeof existing == 'undefined') {
                 var bookmark = new Bookmark(uri);
@@ -213,7 +256,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     console.log('Bookmarks is activated');
 
-    var bookmarks: Bookmarks;
+    //var bookmarks: Bookmarks;
 	
     // load pre-saved bookmarks
     let didLoadBookmarks: boolean = loadWorkspaceState();
@@ -242,21 +285,21 @@ export function activate(context: vscode.ExtensionContext) {
 
     if (activeEditor) {
         if (!didLoadBookmarks) {
-            bookmarks.add(activeEditor.document.uri);
+            bookmarks.add(activeEditor.document.uri.fsPath);
         }
-        activeBookmark = bookmarks.fromUri(activeEditor.document.uri);
+        activeBookmark = bookmarks.fromUri(activeEditor.document.uri.fsPath);
         triggerUpdateDecorations();
     }
 	
     // new docs
     vscode.workspace.onDidOpenTextDocument(doc => {
-        bookmarks.add(doc.uri);
+        bookmarks.add(doc.uri.fsPath);
     });
 
     vscode.window.onDidChangeActiveTextEditor(editor => {
         activeEditor = editor;
         if (editor) {
-            activeBookmark = bookmarks.fromUri(editor.document.uri);
+            activeBookmark = bookmarks.fromUri(editor.document.uri.fsPath);
             triggerUpdateDecorations();
         }
     }, null, context.subscriptions);
@@ -288,6 +331,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (activeBookmark.bookmarks.length == 0) {
             var books: vscode.Range[] = [];
+          
             activeEditor.setDecorations(bookmarkDecorationType, books);
             return;
         }
@@ -303,7 +347,13 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     vscode.commands.registerCommand('bookmarks.clear', () => {
-        activeBookmark.bookmarks.length = 0;
+        
+        if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage('Open a file first to clear bookmarks');
+          return;
+        }      
+      
+        activeBookmark.clear();
 
         saveWorkspaceState();
         updateDecorations();
@@ -311,12 +361,18 @@ export function activate(context: vscode.ExtensionContext) {
 	
     // other commands
     vscode.commands.registerCommand('bookmarks.toggle', () => {
+        
+        if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage('Open a file first to toggle bookmarks');
+          return;
+        }         
+      
         let line = vscode.window.activeTextEditor.selection.active.line;
 
         // fix issue emptyAtLaunch
         if (!activeBookmark) {
-            bookmarks.add(vscode.window.activeTextEditor.document.uri);
-            activeBookmark = bookmarks.fromUri(vscode.window.activeTextEditor.document.uri);
+            bookmarks.add(vscode.window.activeTextEditor.document.uri.fsPath);
+            activeBookmark = bookmarks.fromUri(vscode.window.activeTextEditor.document.uri.fsPath);
         }
 
         let index = activeBookmark.bookmarks.indexOf(line);
@@ -347,6 +403,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('bookmarks.jumpToNext', () => {
         
         if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage('Open a file first to jump bookmarks');
           return;
         }
         
@@ -393,6 +450,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('bookmarks.jumpToPrevious', () => {
       
         if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage('Open a file first to jump bookmarks');
           return;
         }
       
@@ -442,6 +500,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('bookmarks.list', () => {
         
         if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage('Open a file first to list bookmarks');
           return;
         }
       
@@ -491,16 +550,16 @@ export function activate(context: vscode.ExtensionContext) {
     function loadWorkspaceState(): boolean {
         let saveBookmarksBetweenSessions: boolean = vscode.workspace.getConfiguration('bookmarks').get('saveBookmarksBetweenSessions', false);
 
-        if (!saveBookmarksBetweenSessions) {
+        //if (!saveBookmarksBetweenSessions) {
             bookmarks = new Bookmarks('');
-            return false;
-        }
+        //    return false;
+        //}
 
         let savedBookmarks = context.workspaceState.get('bookmarks', '');
         if (savedBookmarks != '') {
-            bookmarks = new Bookmarks(JSON.parse(savedBookmarks));
-        } else {
-            bookmarks = new Bookmarks('');
+            bookmarks.loadFrom(JSON.parse(savedBookmarks));
+//        } else {
+//            bookmarks = new Bookmarks('');
         }
         return savedBookmarks != '';
     }
@@ -515,5 +574,3 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
 }
-
-
