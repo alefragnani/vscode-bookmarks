@@ -34,6 +34,13 @@ List all bookmarks from the current file and easily navigate to any one. It show
 
 ## Available settings
 
+> _new in version 0.6.0_  
+
+* Allow navigation through all files that contains bookmarks
+```
+    "bookmarks.navigateThroughAllFiles": true
+```
+
 > _new in version 0.2.0_  
 
 * Allow bookmarks to be saved and restored, even if you close or change the Project
@@ -57,6 +64,12 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 - Hiting `Enter` in lines with bookmarks, temporarily also moves the bookmarks, but when you stop typing, the bookmark is correctly presented on the original line.
 
 # Changelog
+
+## Version 0.6.0
+
+* **New:** Abitity to navigate to bookmarks in all files
+* **New Setting:** Navigate through all files
+* **Fix:** Error when there is no active file (issue [#18](https://github.com/alefragnani/vscode-bookmarks/issues/18))
 
 ## Version 0.5.0
 
