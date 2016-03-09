@@ -214,8 +214,20 @@ export function activate(context: vscode.ExtensionContext) {
                             })
                     }                   
                 } else {
-                    resolve(currentBookmark.fsPath);
-                    return;
+                    if (fs.existsSync(currentBookmark.fsPath)) {
+                        resolve(currentBookmark.fsPath);
+                        return;
+                    } else {
+                        this.nextDocumentWithBookmarks(currentBookmark, direction)
+                            .then((nextDocument) => {
+                                resolve(nextDocument);
+                                return;
+                            })
+                            .catch((error) => {
+                                reject(error);
+                                return;
+                            })
+                    }
                 }
 
             });
@@ -403,7 +415,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('bookmarks.jumpToNext', () => {
         
         if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage('Open a file first to jump bookmarks');
+          vscode.window.showInformationMessage('Open a file first to jump to bookmarks');
           return;
         }
         
@@ -450,7 +462,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('bookmarks.jumpToPrevious', () => {
       
         if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage('Open a file first to jump bookmarks');
+          vscode.window.showInformationMessage('Open a file first to jump to bookmarks');
           return;
         }
       
