@@ -79,24 +79,6 @@
 				"key": "ctrl+alt+j",
 				"mac": "cmd+alt+j",
 				"when": "editorTextFocus"
-			},
-			{
-				"command": "bookmarks.moveLineUp",
-				"key": "alt+up",
-				"mac": "alt+up",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "bookmarks.moveLineDown",
-				"key": "alt+down",
-				"mac": "alt+down",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "bookmarks.paste",
-				"key": "ctrl+v",
-				"mac": "cmd+v",
-				"when": "editorTextFocus"
 			}
 		]
 	},
