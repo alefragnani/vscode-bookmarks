@@ -2,7 +2,7 @@
 	"name": "Bookmarks",
 	"displayName": "Bookmarks",
 	"description": "Mark lines and jump to them",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"publisher": "alefragnani",
 	"galleryBanner": {
 		"color": "#000000",
@@ -12,7 +12,7 @@
 		"vscode": "^0.10.7"
 	},
 	"categories": [
-		"Other"	
+		"Other"
 	],
 	"icon": "images/icon.png",
     "license": "SEE LICENSE IN LICENSE.md",
@@ -53,7 +53,7 @@
 					"type": "boolean",
 					"default": false,
 					"description": "Allow bookmarks to be saved and restored, even if you close or change the Project"
-				},				
+				},
 				"bookmarks.gutterIconPath": {
 					"type": "string",
 					"default": "",
