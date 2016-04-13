@@ -2,7 +2,7 @@
 	"name": "Bookmarks",
 	"displayName": "Bookmarks",
 	"description": "Mark lines and jump to them",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"publisher": "alefragnani",
 	"galleryBanner": {
 		"color": "#000000",
@@ -12,8 +12,12 @@
 		"vscode": "^0.10.7"
 	},
 	"categories": [
-		"Other"	
+		"Other"
 	],
+    "keywords": [
+        "bookmarks",
+        "sticky"
+    ],
 	"icon": "images/icon.png",
     "license": "SEE LICENSE IN LICENSE.md",
 	"homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
@@ -53,7 +57,7 @@
 					"type": "boolean",
 					"default": false,
 					"description": "Allow bookmarks to be saved and restored, even if you close or change the Project"
-				},				
+				},
 				"bookmarks.gutterIconPath": {
 					"type": "string",
 					"default": "",
@@ -62,7 +66,12 @@
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Allow navigation look for bookmakrs in all files in the project, instead of only the current"
+                    "description": "Allow navigation look for bookmarks in all files in the project, instead of only the current"
+                },
+                "bookmarks.useStickyBookmarks": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "The bookmarks will be glued to the line of code instead of the line of the file"
                 }
 			}
 		},
