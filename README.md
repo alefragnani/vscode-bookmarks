@@ -34,14 +34,21 @@ List all bookmarks from the current file and easily navigate to any one. It show
 
 ## Available settings
 
+> _new in version 0.7.0_  
+
+* The bookmarks will be glued to the line of code _(context)_ instead of the line of the file
+```
+    "bookmarks.useStickyBookmarks": true
+```
+
+![Sticky](images/bookmarks-sticky.gif)
+
 > _new in version 0.6.0_  
 
 * Allow navigation through all files that contains bookmarks
 ```
     "bookmarks.navigateThroughAllFiles": true
 ```
-
-> _new in version 0.2.0_  
 
 * Allow bookmarks to be saved and restored, even if you close or change the Project
 ```
@@ -59,11 +66,11 @@ The bookmarks are saved _per session_ for the project that you are using. You do
 
 It also works even if you only _preview_ a file (simple click in TreeView). You can put bookmarks in any file and when you preview it again, the bookmarks will be there.
 
-# Known Issues
-
-- Hiting `Enter` in lines with bookmarks, temporarily also moves the bookmarks, but when you stop typing, the bookmark is correctly presented on the original line.
-
 # Changelog
+
+## Version 0.7.0
+
+* **New Setting:** Sticky Bookmarks (kudos to @Terminux)
 
 ## Version 0.6.0
 
