@@ -23,18 +23,9 @@ export function activate(context: vscode.ExtensionContext) {
         bookmarks: number[];
 
         constructor(fsPath: string) {
-        //constructor(uri: vscode.Uri) {
-            //if (fsPath == 'undefined') {
-                
-            //}
-            this.fsPath = fsPath;//uri.fsPath;
+            this.fsPath = fsPath;
             this.bookmarks = [];
         }
-
-        // constructor(uri: string) {
-        //     this.fsPath = uri;
-        //     this.bookmarks = [];
-        // }
 
         public nextBookmark(currentline: number, direction: JUMP_DIRECTION = JUMP_FORWARD) {
 
@@ -105,9 +96,6 @@ export function activate(context: vscode.ExtensionContext) {
             })
         }
         
-        /**
-         * name
-         */
         public clear() {
           this.bookmarks.length = 0;          
         }
@@ -118,11 +106,6 @@ export function activate(context: vscode.ExtensionContext) {
 
         constructor(jsonObject) {
             this.bookmarks = [];
-
-            // if (jsonObject != '') {
-            //     for (let prop in jsonObject) 
-            //         this[prop] = jsonObject[prop];
-            // }
         }
         
         public loadFrom(jsonObject) {
@@ -140,18 +123,6 @@ export function activate(context: vscode.ExtensionContext) {
                   this.bookmarks[idx].bookmarks.push(jsonBookmark.bookmarks[index])
               }
             }
-            // for (let prop in jsonObject) {
-                
-            //     //uri.fsPath e náo so path. preciso criar 'alternativa'
-            //     //let uri: vscode.Uri = new vscode.Uri;
-            //     //uri.fsPath = jsonObject[prop][idx].fsPath;
-            //     this.add(jsonObject[prop][idx].fsPath); // "" ?
-            //     for (let index = 0; index < jsonObject[prop][idx].bookmarks.length; index++) {
-            //         // var element = jsonObject[prop][idx].bookmarks[index];
-            //         this.bookmarks[idx].bookmarks.push(jsonObject[prop][idx].bookmarks[index])
-            //     }
-            //     idx++;
-            // }
         }
 
         fromUri(uri: string) {
@@ -583,16 +554,11 @@ export function activate(context: vscode.ExtensionContext) {
     function loadWorkspaceState(): boolean {
         let saveBookmarksBetweenSessions: boolean = vscode.workspace.getConfiguration('bookmarks').get('saveBookmarksBetweenSessions', false);
 
-        //if (!saveBookmarksBetweenSessions) {
-            bookmarks = new Bookmarks('');
-        //    return false;
-        //}
+        bookmarks = new Bookmarks('');
 
         let savedBookmarks = context.workspaceState.get('bookmarks', '');
         if (savedBookmarks != '') {
             bookmarks.loadFrom(JSON.parse(savedBookmarks));
-//        } else {
-//            bookmarks = new Bookmarks('');
         }
         return savedBookmarks != '';
     }
@@ -631,12 +597,6 @@ export function activate(context: vscode.ExtensionContext) {
 				diffLine = 0 - diffLine;
                 
                 // one line up
-                // if ((event.contentChanges[0].range.end.character == 0) && (event.contentChanges[0].range.end.character == 0)) {
-                    
-                // }
-                
-                // if endline.character == 0, só decrementa?
-                // one line up
                 if (event.contentChanges[0].range.end.line - event.contentChanges[0].range.start.line == 1) {
                     
                    if ((event.contentChanges[0].range.end.character == 0) &&
@@ -655,14 +615,7 @@ export function activate(context: vscode.ExtensionContext) {
                     for (let i = event.contentChanges[0].range.start.line/* + 1*/; i <= event.contentChanges[0].range.end.line; i++) {
                         let index = activeBookmark.bookmarks.indexOf(i);
                         
-                        // if ends in the first char, it should only move the bookmark UP
-                        if //(
-                            (index > -1) //&& 
-                            //(
-                            //    (event.contentChanges[0].range.end.character > 0) || 
-                            //    (event.contentChanges[0].range.start.character == 0)
-                        //)) 
-                        {
+                        if (index > -1) {
                             activeBookmark.bookmarks.splice(index, 1);
                             updatedBookmark = true;
                         }
