@@ -238,7 +238,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    console.log('Bookmarks is activated');
+    // console.log('Bookmarks is activated');
 
     //var bookmarks: Bookmarks;
 	
