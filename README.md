@@ -68,6 +68,14 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 
 # Changelog
 
+## Version 0.7.2
+
+* **Fix:** Cannot jump to bookmark when scrolling with mouse (issue [#26](https://github.com/alefragnani/vscode-bookmarks/issues/26))
+
+## Version 0.7.1
+
+* **Fix:** Remove extension activation log (issue [#25](https://github.com/alefragnani/vscode-bookmarks/issues/25))
+
 ## Version 0.7.0
 
 * **New Setting:** Sticky Bookmarks (kudos to @Terminux)

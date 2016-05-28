@@ -441,9 +441,7 @@ export function activate(context: vscode.ExtensionContext) {
                       vscode.window.showInformationMessage('No more bookmarks...');
                   })
               } else {
-                if (nextLine != vscode.window.activeTextEditor.selection.active.line) {
                   revealLine(parseInt(nextLine.toString()));
-                }
               }
             })
             .catch((error) => {
@@ -490,9 +488,7 @@ export function activate(context: vscode.ExtensionContext) {
                       vscode.window.showInformationMessage('No more bookmarks...');
                   })
               } else {
-                if (nextLine != vscode.window.activeTextEditor.selection.active.line) {
                   revealLine(parseInt(nextLine.toString()));
-                }
               }
             })
             .catch((error) => {
@@ -543,9 +539,13 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     function revealLine(line: number) {
+        let reviewType: vscode.TextEditorRevealType = vscode.TextEditorRevealType.InCenter;
+        if (line == vscode.window.activeTextEditor.selection.active.line) {
+            reviewType = vscode.TextEditorRevealType.InCenterIfOutsideViewport;
+        }
         var newSe = new vscode.Selection(line, 0, line, 0);
         vscode.window.activeTextEditor.selection = newSe;
-        vscode.window.activeTextEditor.revealRange(newSe, vscode.TextEditorRevealType.InCenter);
+        vscode.window.activeTextEditor.revealRange(newSe, reviewType);
     }
 
 
