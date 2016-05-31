@@ -48,6 +48,12 @@
 		},{
 			"command": "bookmarks.clear",
 			"title": "Bookmarks: Clear"
+		},{
+			"command": "bookmarks.listFromAllFiles",
+			"title": "Bookmarks: List from All Files"
+		},{
+			"command": "bookmarks.clearInAllFiles",
+			"title": "Bookmarks: Clear in All Files"
 		}],
 		"configuration": {
 			"type": "object",

@@ -14,7 +14,9 @@ Press `F1` in VSCode, type `ext install` and then look for `Bookmarks`.
 * **Bookmarks: Jump to Next** Move the cursor forward, to the bookmark below
 * **Bookmarks: Jump to Previous** Move the cursor backward, to the bookmark above
 * **Bookmarks: List** List all bookmarks from the current file
+* **Bookmarks: List from All Files** List all bookmarks from all files
 * **Bookmarks: Clear** remove all bookmarks from the current file
+* **Bookmarks: Clear in All Files** remove all bookmarks from all files
 
 ![Commands](images/bookmarks-commands.png)
 
@@ -31,6 +33,14 @@ You can easily Mark/Unmark bookmarks on any line. Works even for wrapped lines.
 List all bookmarks from the current file and easily navigate to any one. It shows you the line contents and temporarily scroll to that line.
 
 ![List](images/bookmarks-list.gif)
+
+> _new in version 0.8.0_  
+
+### Bookmarks: List from All Files
+
+List all bookmarks from all files and easily navigate to any one. It shows you the line contents and temporarily scroll to that line.
+
+![List](images/bookmarks-list-from-all-files.gif)
 
 ## Available settings
 
@@ -67,6 +77,11 @@ The bookmarks are saved _per session_ for the project that you are using. You do
 It also works even if you only _preview_ a file (simple click in TreeView). You can put bookmarks in any file and when you preview it again, the bookmarks will be there.
 
 # Changelog
+
+## Version 0.8.0
+
+* **New Command:** List all bookmarks from all files
+* **New Command:** Clear bookmarks in all files
 
 ## Version 0.7.2
 

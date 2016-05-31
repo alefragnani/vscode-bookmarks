@@ -96,6 +96,35 @@ export function activate(context: vscode.ExtensionContext) {
             })
         }
         
+        public listBookmarks() {
+            
+            return new Promise((resolve, reject) => {
+                
+                if (this.bookmarks.length == 0) {
+                    resolve({});
+                    return;
+                }
+                
+                let uriDocBookmark: vscode.Uri = vscode.Uri.file(this.fsPath);
+                vscode.workspace.openTextDocument(uriDocBookmark).then(doc => {    
+                    
+                    let items = [];
+                    for (var index = 0; index < this.bookmarks.length; index++) {
+                        var element = this.bookmarks[index] + 1;
+                        let lineText = doc.lineAt(element - 1).text;
+                        items.push({
+                            label: element.toString(),
+                            description: lineText,
+                            detail: doc.uri.fsPath
+                        });                        
+                    }
+                    
+                    resolve(items);
+                    return;
+                });
+            })
+        }
+        
         public clear() {
           this.bookmarks.length = 0;          
         }
@@ -363,6 +392,17 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     });
 	
+    vscode.commands.registerCommand('bookmarks.clearInAllFiles', () => {
+        
+        for (let index = 0; index < bookmarks.bookmarks.length; index++) {
+            let element = bookmarks.bookmarks[index];
+            element.clear();
+        }
+      
+        saveWorkspaceState();
+        updateDecorations();
+    });
+	
     // other commands
     vscode.commands.registerCommand('bookmarks.toggle', () => {
         
@@ -536,6 +576,112 @@ export function activate(context: vscode.ExtensionContext) {
             }
             revealLine(parseInt(selection.label) - 1);
         });
+    });
+    
+     vscode.commands.registerCommand('bookmarks.listFromAllFiles', () => {
+
+        // no bookmark
+        let totalBookmarkCount: number = 0;
+        for (let index = 0; index < bookmarks.bookmarks.length; index++) {
+            totalBookmarkCount = totalBookmarkCount + bookmarks.bookmarks.length;
+        }
+        if (totalBookmarkCount == 0) {
+            vscode.window.showInformationMessage("No Bookmark found");
+            return;
+        }
+
+        // push the items
+        let items: vscode.QuickPickItem[] = [];
+        let activeTextEditorPath = vscode.window.activeTextEditor.document.uri.fsPath;
+        let promisses = [];
+        
+        for (var index = 0; index < bookmarks.bookmarks.length; index++) {
+            let bookmark = bookmarks.bookmarks[index];
+            
+            let pp = bookmark.listBookmarks();
+            promisses.push(pp);
+        }
+        
+        Promise.all(promisses).then(
+          (values) => {
+              
+              for (var index = 0; index < values.length; index++) {
+                  var element = values[index];
+
+                  for (var indexInside = 0; indexInside < element.length; indexInside++) {
+                      var elementInside = element[indexInside];
+
+                      items.push(
+                          {
+                              label: elementInside.label,
+                              description: elementInside.description,
+                              detail: elementInside.detail
+                          }
+                      );
+                  }
+
+              }
+
+              let options = <vscode.QuickPickOptions>{
+                  placeHolder: 'Type a line number or a piece of code to navigate to',
+                  matchOnDescription: true,
+                  onDidSelectItem: item => {
+                      //console.log(item.toString());
+                      //??console.log(item);
+                      
+                       if (item.detail.toString().toLowerCase() == vscode.window.activeTextEditor.document.uri.fsPath.toLowerCase()) {
+                           revealLine(parseInt(item.label) - 1);
+                       } else {
+                          let uriDocument: vscode.Uri = vscode.Uri.file(item.detail.toString());
+                          vscode.workspace.openTextDocument(uriDocument).then(doc => {
+                            vscode.window.showTextDocument(doc).then(editor => {
+                               // revealLine(parseInt(item.label) - 1);
+                            });
+                          });
+                      }
+                  }
+              };
+              vscode.window.showQuickPick(items, options).then(selection => {
+                  if (typeof selection == 'undefined') {
+                      //revealLine(currentLine - 1);
+                      return;
+                  }
+                  //revealLine(parseInt(selection.label) - 1);
+                  
+                    if (selection.detail.toString().toLowerCase() == vscode.window.activeTextEditor.document.uri.fsPath) {
+                        revealLine(parseInt(selection.label) - 1);
+                    } else {
+                        let uriDocument: vscode.Uri = vscode.Uri.file(selection.detail.toString());
+                        vscode.workspace.openTextDocument(uriDocument).then(doc => {
+                        vscode.window.showTextDocument(doc).then(editor => {
+                             revealLine(parseInt(selection.label) - 1);
+                        });
+                        });
+                    }
+              });
+
+              //??console.log(values)
+              //vscode.window.showWarningMessage('temrinou...')
+            }  
+        );
+		
+        // // pick one
+        // let currentLine: number = vscode.window.activeTextEditor.selection.active.line + 1;
+        // let options = <vscode.QuickPickOptions>{
+        //     placeHolder: 'Type a line number or a piece of code to navigate to',
+        //     matchOnDescription: true,
+        //     onDidSelectItem: item => {
+        //         revealLine(parseInt(item.label) - 1);
+        //     }
+        // };
+
+        // vscode.window.showQuickPick(items, options).then(selection => {
+        //     if (typeof selection == 'undefined') {
+        //         revealLine(currentLine - 1);
+        //         return;
+        //     }
+        //     revealLine(parseInt(selection.label) - 1);
+        // });
     });
 
     function revealLine(line: number) {
