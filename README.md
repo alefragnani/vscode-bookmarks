@@ -16,7 +16,7 @@ Press `F1` in VSCode, type `ext install` and then look for `Bookmarks`.
 * **Bookmarks: List** List all bookmarks from the current file
 * **Bookmarks: List from All Files** List all bookmarks from all files
 * **Bookmarks: Clear** remove all bookmarks from the current file
-* **Bookmarks: Clear in All Files** remove all bookmarks from all files
+* **Bookmarks: Clear from All Files** remove all bookmarks from all files
 
 ![Commands](images/bookmarks-commands.png)
 
@@ -41,6 +41,11 @@ List all bookmarks from the current file and easily navigate to any one. It show
 List all bookmarks from all files and easily navigate to any one. It shows you the line contents and temporarily scroll to that line.
 
 ![List](images/bookmarks-list-from-all-files.gif)
+
+* Bookmarks from the active file only shows the line number and its contents
+* Bookmarks from other files in the project also shows the relative path and filename
+* Bookmarks from files outside the project are denoted with ![Folder](/images/bookmarks-folder-icon.png)
+
 
 ## Available settings
 
@@ -80,8 +85,8 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 
 ## Version 0.8.0
 
-* **New Command:** List all bookmarks from all files
-* **New Command:** Clear bookmarks in all files
+* **New Command:** List Bookmarks from all files
+* **New Command:** Clear Bookmarks from all files
 
 ## Version 0.7.2
 

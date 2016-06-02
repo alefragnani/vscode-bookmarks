@@ -96,6 +96,7 @@ export function activate(context: vscode.ExtensionContext) {
             })
         }
         
+       
         public listBookmarks() {
             
             return new Promise((resolve, reject) => {
@@ -112,10 +113,11 @@ export function activate(context: vscode.ExtensionContext) {
                     for (var index = 0; index < this.bookmarks.length; index++) {
                         var element = this.bookmarks[index] + 1;
                         let lineText = doc.lineAt(element - 1).text;
+                        let normalizedPath = doc.uri.fsPath;//removeRootPathFrom(doc.uri.fsPath);
                         items.push({
                             label: element.toString(),
                             description: lineText,
-                            detail: doc.uri.fsPath
+                            detail: normalizedPath
                         });                        
                     }
                     
@@ -392,7 +394,7 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     });
 	
-    vscode.commands.registerCommand('bookmarks.clearInAllFiles', () => {
+    vscode.commands.registerCommand('bookmarks.clearFromAllFiles', () => {
         
         for (let index = 0; index < bookmarks.bookmarks.length; index++) {
             let element = bookmarks.bookmarks[index];
@@ -583,17 +585,18 @@ export function activate(context: vscode.ExtensionContext) {
         // no bookmark
         let totalBookmarkCount: number = 0;
         for (let index = 0; index < bookmarks.bookmarks.length; index++) {
-            totalBookmarkCount = totalBookmarkCount + bookmarks.bookmarks.length;
+            totalBookmarkCount = totalBookmarkCount + bookmarks.bookmarks[index].bookmarks.length;
         }
         if (totalBookmarkCount == 0) {
-            vscode.window.showInformationMessage("No Bookmark found");
+            vscode.window.showInformationMessage("No Bookmarks found");
             return;
         }
 
         // push the items
         let items: vscode.QuickPickItem[] = [];
-        let activeTextEditorPath = vscode.window.activeTextEditor.document.uri.fsPath;
+        let activeTextEditorPath = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.document.uri.fsPath : '';
         let promisses = [];
+        let currentLine: number = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.selection.active.line + 1 : -1;
         
         for (var index = 0; index < bookmarks.bookmarks.length; index++) {
             let bookmark = bookmarks.bookmarks[index];
@@ -611,77 +614,120 @@ export function activate(context: vscode.ExtensionContext) {
                   for (var indexInside = 0; indexInside < element.length; indexInside++) {
                       var elementInside = element[indexInside];
 
-                      items.push(
-                          {
-                              label: elementInside.label,
-                              description: elementInside.description,
-                              detail: elementInside.detail
-                          }
-                      );
+                      if (elementInside.detail.toString().toLowerCase() == activeTextEditorPath.toLowerCase()) {
+                          items.push(
+                              {
+                                  label: elementInside.label,
+                                  description: elementInside.description
+                              }
+                          );
+                      } else {
+                          let itemPath = removeRootPathFrom(elementInside.detail);
+                          items.push(
+                              {
+                                  label: elementInside.label,
+                                  description: elementInside.description,
+                                  detail: itemPath
+                              }
+                          );
+                      }
                   }
 
               }
+
+              // sort
+              // - active document
+              // - no octicon - document inside project
+              // - with octicon - document outside project
+              let itemsSorted: vscode.QuickPickItem[];
+              itemsSorted = items.sort(function (a: vscode.QuickPickItem, b: vscode.QuickPickItem): number {
+                  if (!a.detail && !b.detail) {
+                      return 0;
+                  } else {
+                      if (!a.detail && b.detail) {
+                          return -1
+                      } else {
+                          if (a.detail && !b.detail) {
+                              return 1;
+                          } else {
+                              if ((a.detail.toString().indexOf('$(file-directory) ') == 0) && (b.detail.toString().indexOf('$(file-directory) ') == -1)) {
+                                  return 1
+                              } else {
+                                  if ((a.detail.toString().indexOf('$(file-directory) ') == -1) && (b.detail.toString().indexOf('$(file-directory) ') == 0)) {
+                                      return -1
+                                  } else {
+                                      return 0;
+                                  }
+                              }
+                          }
+                      }
+                  }
+              });
 
               let options = <vscode.QuickPickOptions>{
                   placeHolder: 'Type a line number or a piece of code to navigate to',
                   matchOnDescription: true,
                   onDidSelectItem: item => {
-                      //console.log(item.toString());
-                      //??console.log(item);
-                      
-                       if (item.detail.toString().toLowerCase() == vscode.window.activeTextEditor.document.uri.fsPath.toLowerCase()) {
-                           revealLine(parseInt(item.label) - 1);
-                       } else {
-                          let uriDocument: vscode.Uri = vscode.Uri.file(item.detail.toString());
-                          vscode.workspace.openTextDocument(uriDocument).then(doc => {
-                            vscode.window.showTextDocument(doc).then(editor => {
-                               // revealLine(parseInt(item.label) - 1);
-                            });
-                          });
+
+                      let filePath: string;
+                      // no detail - previously active document
+                      if (!item.detail) {
+                          filePath = activeTextEditorPath;
+                      } else {
+                          // with octicon - document outside project
+                          if (item.detail.toString().indexOf('$(file-directory) ') == 0) {
+                              filePath = item.detail.toString().split('$(file-directory) ').pop();
+                          } else {// no octicon - document inside project
+                              filePath = vscode.workspace.rootPath + item.detail.toString();
+                          }
                       }
+
+                      if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri.fsPath.toLowerCase() == filePath.toLowerCase()) {
+                          revealLine(parseInt(item.label) - 1);
+                      } else {
+                        let uriDocument: vscode.Uri = vscode.Uri.file(filePath);
+                        vscode.workspace.openTextDocument(uriDocument).then(doc => {
+                            vscode.window.showTextDocument(doc, undefined, true).then(editor => {
+                                revealLine(parseInt(item.label) - 1);
+                            });
+                        });
+                      }                  
                   }
               };
-              vscode.window.showQuickPick(items, options).then(selection => {
+              vscode.window.showQuickPick(itemsSorted, options).then(selection => {
                   if (typeof selection == 'undefined') {
-                      //revealLine(currentLine - 1);
+                      if (activeTextEditorPath == '') {
+                          vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+                          return;
+                      } else {
+                        let uriDocument: vscode.Uri = vscode.Uri.file(activeTextEditorPath);
+                        vscode.workspace.openTextDocument(uriDocument).then(doc => {
+                            vscode.window.showTextDocument(doc).then(editor => {
+                                revealLine(currentLine - 1);
+                                return;
+                            });
+                        });                          
+                      }
+                  }
+                  
+                  if (typeof selection == 'undefined') {
                       return;
                   }
-                  //revealLine(parseInt(selection.label) - 1);
-                  
-                    if (selection.detail.toString().toLowerCase() == vscode.window.activeTextEditor.document.uri.fsPath) {
-                        revealLine(parseInt(selection.label) - 1);
-                    } else {
-                        let uriDocument: vscode.Uri = vscode.Uri.file(selection.detail.toString());
-                        vscode.workspace.openTextDocument(uriDocument).then(doc => {
-                        vscode.window.showTextDocument(doc).then(editor => {
-                             revealLine(parseInt(selection.label) - 1);
-                        });
-                        });
-                    }
-              });
 
-              //??console.log(values)
-              //vscode.window.showWarningMessage('temrinou...')
+                  if (!selection.detail) {
+                      revealLine(parseInt(selection.label) - 1);
+                  } else {
+                      let newPath = vscode.workspace.rootPath + selection.detail.toString();
+                      let uriDocument: vscode.Uri = vscode.Uri.file(newPath);
+                      vscode.workspace.openTextDocument(uriDocument).then(doc => {
+                          vscode.window.showTextDocument(doc).then(editor => {
+                              revealLine(parseInt(selection.label) - 1);
+                          });
+                      });
+                  }
+              });
             }  
         );
-		
-        // // pick one
-        // let currentLine: number = vscode.window.activeTextEditor.selection.active.line + 1;
-        // let options = <vscode.QuickPickOptions>{
-        //     placeHolder: 'Type a line number or a piece of code to navigate to',
-        //     matchOnDescription: true,
-        //     onDidSelectItem: item => {
-        //         revealLine(parseInt(item.label) - 1);
-        //     }
-        // };
-
-        // vscode.window.showQuickPick(items, options).then(selection => {
-        //     if (typeof selection == 'undefined') {
-        //         revealLine(currentLine - 1);
-        //         return;
-        //     }
-        //     revealLine(parseInt(selection.label) - 1);
-        // });
     });
 
     function revealLine(line: number) {
@@ -890,5 +936,17 @@ export function activate(context: vscode.ExtensionContext) {
 
 		return updatedBookmark;
 	}
+    
+    function removeRootPathFrom(path: string): string {
+        if (!vscode.workspace.rootPath) {
+            return path;
+        }
+        
+        if (path.indexOf(vscode.workspace.rootPath) == 0) {
+            return path.split(vscode.workspace.rootPath).pop();
+        } else {
+            return '$(file-directory) ' + path;
+        }
+    }
 
 }
