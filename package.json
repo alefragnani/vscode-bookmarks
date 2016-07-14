@@ -2,7 +2,7 @@
 	"name": "Bookmarks",
 	"displayName": "Bookmarks",
 	"description": "Mark lines and jump to them",
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"publisher": "alefragnani",
 	"galleryBanner": {
 		"color": "#000000",
@@ -55,7 +55,26 @@
 			"command": "bookmarks.clearFromAllFiles",
 			"title": "Bookmarks: Clear from All Files"
 		}],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "bookmarks.toggle",
+					"group": "bookmarks"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "bookmarks.list",
+					"group": "bookmarks"
+				},
+				{
+					"command": "bookmarks.clear",
+					"group": "bookmarks"
+				}
+			]
+		},
 		"configuration": {
+			
 			"type": "object",
 			"title": "Bookmarks Configuration",
 			"properties": {

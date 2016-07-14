@@ -83,6 +83,10 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 
 # Changelog
 
+## Version 0.9.0
+
+* **New:** Commands added to Context Menus (Editor and Title) (issue [#16](https://github.com/alefragnani/vscode-bookmarks/issues/16))
+
 ## Version 0.8.0
 
 * **New Command:** List Bookmarks from all files
