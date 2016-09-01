@@ -156,7 +156,14 @@ export function activate(context: vscode.ExtensionContext) {
             }
         }
 
+        public static normalize(uri: string): string {
+            // a simple workaround for what appears to be a vscode.Uri bug
+            // (inconsistent fsPath values for the same document, ex. ///foo/x.cpp and /foo/x.cpp)
+            return uri.replace('///', '/');
+        }
+
         fromUri(uri: string) {
+            uri = Bookmarks.normalize(uri);
             for (var index = 0; index < this.bookmarks.length; index++) {
                 var element = this.bookmarks[index];
 
@@ -167,6 +174,9 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         add(uri: string) {
+            //console.log(`Adding bookmark/file: ${uri}`);
+            uri = Bookmarks.normalize(uri);
+            
             let existing: Bookmark = this.fromUri(uri);
             if (typeof existing == 'undefined') {
                 var bookmark = new Bookmark(uri);
@@ -469,7 +479,8 @@ export function activate(context: vscode.ExtensionContext) {
                       }
                     
                       // same document?
-                      if (nextDocument.toString() == vscode.window.activeTextEditor.document.uri.fsPath) {
+                      let activeDocument = Bookmarks.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
+                      if (nextDocument.toString() == activeDocument) {
                         revealLine(activeBookmark.bookmarks[0]);
                       } else { 
                         vscode.workspace.openTextDocument(nextDocument.toString()).then(doc => {
@@ -514,7 +525,8 @@ export function activate(context: vscode.ExtensionContext) {
                       }
                     
                       // same document?
-                      if (nextDocument.toString() == vscode.window.activeTextEditor.document.uri.fsPath) {
+                      let activeDocument = Bookmarks.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
+                      if (nextDocument.toString() == activeDocument) {
                         // revealLine(activeBookmark.bookmarks[0]);
                         revealLine(activeBookmark.bookmarks[activeBookmark.bookmarks.length - 1]);
                       } else { 
@@ -812,7 +824,7 @@ export function activate(context: vscode.ExtensionContext) {
                             updatedBookmark = true;
                         }
                     }
-                    }
+                }
 			}
 
 			for (let index in activeBookmark.bookmarks) {
