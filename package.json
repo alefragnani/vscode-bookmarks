@@ -2,7 +2,7 @@
 	"name": "Bookmarks",
 	"displayName": "Bookmarks",
 	"description": "Mark lines and jump to them",
-	"version": "0.9.0",
+	"version": "0.9.1",
 	"publisher": "alefragnani",
 	"galleryBanner": {
 		"color": "#000000",
