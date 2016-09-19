@@ -296,7 +296,8 @@ export function activate(context: vscode.ExtensionContext) {
     } else {
         pathIcon = context.asAbsolutePath('images\\bookmark.png');
     }
-	
+	pathIcon = pathIcon.replace(/\\/g, "/");
+    
     //	let pathIcon = context.asAbsolutePath('images\\bookmark.png');
     var bookmarkDecorationType = vscode.window.createTextEditorDecorationType({
         gutterIconPath: pathIcon,
