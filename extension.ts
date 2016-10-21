@@ -415,6 +415,34 @@ export function activate(context: vscode.ExtensionContext) {
         saveWorkspaceState();
         updateDecorations();
     });
+    
+    function selectLines(editor: vscode.TextEditor, lines: number[]): void {
+		const doc = editor.document;
+        editor.selections.shift();
+        let sels = new Array<vscode.Selection>();
+        let newSe;
+        lines.forEach(line => {
+            newSe = new vscode.Selection(line, 0, line, doc.lineAt(line).text.length);
+            sels.push(newSe); 
+        });
+        editor.selections = sels;
+	}
+    
+    vscode.commands.registerCommand('bookmarks.selectLines', () => {
+        
+        if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage('Open a file first to clear bookmarks');
+          return;
+        }
+        
+        if (activeBookmark.bookmarks.length == 0) {
+          vscode.window.showInformationMessage('No Bookmark found');
+          return;
+        }      
+      
+        selectLines(vscode.window.activeTextEditor, activeBookmark.bookmarks);
+    });
+    
 	
     // other commands
     vscode.commands.registerCommand('bookmarks.toggle', () => {

@@ -43,6 +43,9 @@
 			"command": "bookmarks.jumpToPrevious",
 			"title": "Bookmarks: Jump to Previous"
 		},{
+			"command": "bookmarks.selectLines",
+			"title": "Bookmarks (Selection): Select Lines"
+		},{
 			"command": "bookmarks.list",
 			"title": "Bookmarks: List"
 		},{
