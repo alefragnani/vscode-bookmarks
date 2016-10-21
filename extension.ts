@@ -443,6 +443,55 @@ export function activate(context: vscode.ExtensionContext) {
         selectLines(vscode.window.activeTextEditor, activeBookmark.bookmarks);
     });
     
+    function selectLineRange(editor: vscode.TextEditor, fromLine: number, fromCharacter: number, toLine: number,
+      direction: JUMP_DIRECTION) {
+		const doc = editor.document;
+        editor.selections = [];
+        let newSe: vscode.Selection;
+        if (direction == JUMP_FORWARD) {
+            newSe = new vscode.Selection(fromLine, fromCharacter, toLine, doc.lineAt(toLine).text.length);
+        } else {
+            newSe = new vscode.Selection(fromLine, fromCharacter, toLine, 0);
+        }
+        editor.selection = newSe;
+    }
+    
+    
+    vscode.commands.registerCommand('bookmarks.selectToNext', () => selectToBookmark(JUMP_FORWARD));
+    vscode.commands.registerCommand('bookmarks.selectToPrevious', () => selectToBookmark(JUMP_BACKWARD));
+    
+    function selectToBookmark(direction: JUMP_DIRECTION) {        
+        if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage('Open a file first to clear bookmarks');
+          return;
+        }
+        
+        if (activeBookmark.bookmarks.length == 0) {
+          vscode.window.showInformationMessage('No Bookmark found');
+          return;
+        }      
+      
+        if (activeBookmark.bookmarks.length == 1) {
+          vscode.window.showInformationMessage('There is only one bookmark in this file');
+          return;
+        }      
+        
+        activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active.line, direction)
+            .then((nextLine) => {
+              if ( (nextLine == NO_MORE_BOOKMARKS) || (nextLine == NO_BOOKMARKS) ) {
+                    vscode.window.showInformationMessage('No more bookmarks...');
+                    return;
+              } else {
+                  selectLineRange(vscode.window.activeTextEditor, vscode.window.activeTextEditor.selection.active.line, 
+                    vscode.window.activeTextEditor.selection.active.character, 
+                    parseInt(nextLine.toString()), direction);
+              }
+            })
+            .catch((error) => {
+              console.log('activeBookmark.nextBookmark REJECT' + error)
+            });    
+        //selectLines(vscode.window.activeTextEditor, activeBookmark.bookmarks);
+    };
 	
     // other commands
     vscode.commands.registerCommand('bookmarks.toggle', () => {
