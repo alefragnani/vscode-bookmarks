@@ -46,11 +46,14 @@
 			"command": "bookmarks.selectLines",
 			"title": "Bookmarks (Selection): Select Lines"
 		},{
-			"command": "bookmarks.selectToNext",
-			"title": "Bookmarks (Selection): Select to Next"
+			"command": "bookmarks.expandSelectionToNext",
+			"title": "Bookmarks (Selection): Expand Selection to Next"
 		},{
-			"command": "bookmarks.selectToPrevious",
-			"title": "Bookmarks (Selection): Select to Previous"
+			"command": "bookmarks.expandSelectionToPrevious",
+			"title": "Bookmarks (Selection): Expand Selection to Previous"
+		},{
+			"command": "bookmarks.shrinkSelection",
+			"title": "Bookmarks (Selection): Shrink Selection"
 		},{
 			"command": "bookmarks.list",
 			"title": "Bookmarks: List"

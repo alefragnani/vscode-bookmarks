@@ -455,12 +455,100 @@ export function activate(context: vscode.ExtensionContext) {
         }
         editor.selection = newSe;
     }
+
+    function expandLineRange(editor: vscode.TextEditor, toLine: number, direction: JUMP_DIRECTION) {
+        const doc = editor.document;
+        let newSe: vscode.Selection;   
+        let actualSelection: vscode.Selection = editor.selection;  
+        let actualStartPosition: vscode.Position = editor.selection.start;//end?
+        
+        // no matter 'the previous selection'. going FORWARD will become 'isReversed = FALSE'
+        if (direction == JUMP_FORWARD) {            
+            
+            if (actualSelection.isEmpty || !actualSelection.isReversed) {
+                newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, toLine, doc.lineAt(toLine).text.length);
+            } else {
+                newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, toLine, doc.lineAt(toLine).text.length);
+            }
+            
+            //if (actualSelection.isReversed) {
+            //    newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, toLine, 
+            //        doc.lineAt(toLine).text.length);
+            //} else {
+               //?? newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, toLine, doc.lineAt(toLine).text.length);
+            //}
+        } else { // going BACKWARD will become 'isReversed = TRUE'
+        
+            if (actualSelection.isEmpty || !actualSelection.isReversed) {
+                newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, toLine, 0);
+            } else {
+                newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, toLine, 0);
+            }
+        
+            //if (actualSelection.isReversed) {
+                //??newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, toLine, 0);                
+            //} else {
+            //    newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, toLine, 0);                
+            //}
+        }
+        editor.selection = newSe;
+    }    
     
+    vscode.commands.registerCommand('bookmarks.expandSelectionToNext', () => expandSelectionToNextBookmark(JUMP_FORWARD));
+    vscode.commands.registerCommand('bookmarks.expandSelectionToPrevious', () => expandSelectionToNextBookmark(JUMP_BACKWARD));
+    vscode.commands.registerCommand('bookmarks.shrinkSelection', () => shrinkSelection());
+
+    function shrinkSelection() {
+        if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage('Open a file first to shrink bookmark selection');
+          return;
+        }
+        
+        if (vscode.window.activeTextEditor.selections.length > 1) {
+          vscode.window.showInformationMessage('Command not supported with more than one selection');
+          return;
+        }
+        
+        if (vscode.window.activeTextEditor.selection.isEmpty) {
+          vscode.window.showInformationMessage('No selection found');
+          return;
+        }              
+        
+        if (activeBookmark.bookmarks.length == 0) {
+          vscode.window.showInformationMessage('No Bookmark found');
+          return;
+        }      
+      
+        // if (activeBookmark.bookmarks.length == 1) {
+        //   vscode.window.showInformationMessage('There is only one bookmark in this file');
+        //   return;
+        // }  
+        
+        // which direction?
+        let direction: JUMP_DIRECTION = vscode.window.activeTextEditor.selection.isReversed ? JUMP_FORWARD : JUMP_BACKWARD;
+        let offset: number = direction === JUMP_BACKWARD ? 1 : 0;
+        let activeSelectionStartLine: number = vscode.window.activeTextEditor.selection.isReversed ? vscode.window.activeTextEditor.selection.end.line : vscode.window.activeTextEditor.selection.start.line; 
+        activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active.line, direction)
+            .then((nextLine) => {
+              if ( (nextLine == NO_MORE_BOOKMARKS) || (nextLine == NO_BOOKMARKS) ) {
+                    vscode.window.showInformationMessage('No more bookmarks...');
+                    return;
+              } else {
+                  if ((direction === JUMP_BACKWARD && nextLine < activeSelectionStartLine) || 
+                    (direction === JUMP_FORWARD && nextLine > activeSelectionStartLine)) {
+                      vscode.window.showInformationMessage('No shrink...');
+                  } else {
+                     expandLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString()) + offset, direction);
+                  }
+              }
+            })
+            .catch((error) => {
+              console.log('activeBookmark.nextBookmark REJECT' + error)
+            });        
+    }
     
-    vscode.commands.registerCommand('bookmarks.selectToNext', () => selectToBookmark(JUMP_FORWARD));
-    vscode.commands.registerCommand('bookmarks.selectToPrevious', () => selectToBookmark(JUMP_BACKWARD));
-    
-    function selectToBookmark(direction: JUMP_DIRECTION) {        
+
+    function shrinkToBookmark(direction: JUMP_DIRECTION) {
         if (!vscode.window.activeTextEditor) {
           vscode.window.showInformationMessage('Open a file first to clear bookmarks');
           return;
@@ -474,23 +562,62 @@ export function activate(context: vscode.ExtensionContext) {
         if (activeBookmark.bookmarks.length == 1) {
           vscode.window.showInformationMessage('There is only one bookmark in this file');
           return;
-        }      
-        
+        }  
+
         activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active.line, direction)
             .then((nextLine) => {
               if ( (nextLine == NO_MORE_BOOKMARKS) || (nextLine == NO_BOOKMARKS) ) {
                     vscode.window.showInformationMessage('No more bookmarks...');
                     return;
               } else {
-                  selectLineRange(vscode.window.activeTextEditor, vscode.window.activeTextEditor.selection.active.line, 
-                    vscode.window.activeTextEditor.selection.active.character, 
-                    parseInt(nextLine.toString()), direction);
+                    expandLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString()) + 1 /*?*/, direction);
               }
             })
             .catch((error) => {
               console.log('activeBookmark.nextBookmark REJECT' + error)
-            });    
-        //selectLines(vscode.window.activeTextEditor, activeBookmark.bookmarks);
+            });        
+    }
+
+   
+    function expandSelectionToNextBookmark(direction: JUMP_DIRECTION) {
+        if (!vscode.window.activeTextEditor) {
+            vscode.window.showInformationMessage('Open a file first to clear bookmarks');
+            return;
+        }
+
+        if (activeBookmark.bookmarks.length == 0) {
+            vscode.window.showInformationMessage('No Bookmark found');
+            return;
+        }
+
+        if (activeBookmark.bookmarks.length == 1) {
+            vscode.window.showInformationMessage('There is only one bookmark in this file');
+            return;
+        }
+
+        let baseLine: number;
+        if (vscode.window.activeTextEditor.selection.isEmpty) {
+            baseLine = vscode.window.activeTextEditor.selection.active.line;
+        } else {
+            if (direction === JUMP_FORWARD) {
+                baseLine = vscode.window.activeTextEditor.selection.end.line;
+            } else {
+                baseLine = vscode.window.activeTextEditor.selection.start.line;
+            }
+        }
+
+        activeBookmark.nextBookmark(baseLine, direction)
+            .then((nextLine) => {
+                if ((nextLine == NO_MORE_BOOKMARKS) || (nextLine == NO_BOOKMARKS)) {
+                    vscode.window.showInformationMessage('No more bookmarks...');
+                    return;
+                } else {
+                    expandLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString()), direction);
+                }
+            })
+            .catch((error) => {
+                console.log('activeBookmark.nextBookmark REJECT' + error)
+            });
     };
 	
     // other commands
