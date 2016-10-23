@@ -541,7 +541,8 @@ export function activate(context: vscode.ExtensionContext) {
                    
                   if ((direction === JUMP_BACKWARD && nextLine < activeSelectionStartLine) || 
                     (direction === JUMP_FORWARD && nextLine > activeSelectionStartLine)) {
-                      vscode.window.showInformationMessage('No more bookmarks to shrink...');
+                      //vscode.window.showInformationMessage('No more bookmarks to shrink...');
+                      vscode.window.setStatusBarMessage('No more bookmarks to shrink', 2000);
                   } else {                  
                     shrinkLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString()), direction);                    
                   }
@@ -583,7 +584,8 @@ export function activate(context: vscode.ExtensionContext) {
         activeBookmark.nextBookmark(baseLine, direction)
             .then((nextLine) => {
                 if ((nextLine == NO_MORE_BOOKMARKS) || (nextLine == NO_BOOKMARKS)) {
-                    vscode.window.showInformationMessage('No more bookmarks...');
+                    // vscode.window.showInformationMessage('No more bookmarks...');
+                    vscode.window.setStatusBarMessage('No more bookmarks', 2000);
                     return;
                 } else {
                     expandLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString()), direction);

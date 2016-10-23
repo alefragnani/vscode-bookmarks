@@ -1,6 +1,8 @@
 # Functionality
 
-Mark lines in the editor and easily jump to them.
+Mark lines in the editor and easily jump to them. 
+
+Now you also can quickly select these lines or the text betweem them.
 
 # Installation
 
@@ -13,10 +15,14 @@ Press `F1` in VSCode, type `ext install` and then look for `Bookmarks`.
 * **Bookmarks: Toggle** Mark/unmark lines with bookmarks
 * **Bookmarks: Jump to Next** Move the cursor forward, to the bookmark below
 * **Bookmarks: Jump to Previous** Move the cursor backward, to the bookmark above
-* **Bookmarks: List** List all bookmarks from the current file
+* **Bookmarks: List** List all bookmarks in the current file
 * **Bookmarks: List from All Files** List all bookmarks from all files
-* **Bookmarks: Clear** remove all bookmarks from the current file
+* **Bookmarks: Clear** remove all bookmarks in the current file
 * **Bookmarks: Clear from All Files** remove all bookmarks from all files
+* **Bookmarks (Selection): Select Lines** Select all lines that contains bookmarks
+* **Bookmarks (Selection): Expand Selection to Next** Expand the selected text to the next bookmark
+* **Bookmarks (Selection): Expand Selection to Previous** Expand the selected text to the previous bookmark
+* **Bookmarks (Selection): Shrink Selection** Shrink the select text to the Previous/Next bookmark
 
 ![Commands](images/bookmarks-commands.png)
 
@@ -26,15 +32,11 @@ You can easily Mark/Unmark bookmarks on any line. Works even for wrapped lines.
 
 ![Toggle](images/bookmarks-toggle.png)
 
-> _new in version 0.4.0_  
-
 ### Bookmarks: List
 
 List all bookmarks from the current file and easily navigate to any one. It shows you the line contents and temporarily scroll to that line.
 
 ![List](images/bookmarks-list.gif)
-
-> _new in version 0.8.0_  
 
 ### Bookmarks: List from All Files
 
@@ -44,12 +46,27 @@ List all bookmarks from all files and easily navigate to any one. It shows you t
 
 * Bookmarks from the active file only shows the line number and its contents
 * Bookmarks from other files in the project also shows the relative path and filename
-* Bookmarks from files outside the project are denoted with ![Folder](/images/bookmarks-folder-icon.png)
+* Bookmarks from files outside the project are denoted with ![Folder](images/bookmarks-folder-icon.png)
 
+> _new in version 0.10.0_  
+
+### Bookmarks (Selection)
+
+You can use **Bookmarks** to easily select lines or text blocks. Simply toggle bookmarks in any line of interest and use some of the _Selection_ commands available.
+
+#### Bookmarks (Selection): Select Lines
+
+Select all bookmarked lines. Specially useful while working with log files.
+
+![Select Lines](images/bookmarks-selection-select-line.gif)
+
+#### Bookmarks (Selection): Expand Selection to the Next/Previous Bookmark or Shrink the Selection
+
+Manipulate the selection of lines _between_ bookmarks, up and down.
+
+![Expand/Shrink](images/bookmarks-selection-expand-shrink.gif)
 
 ## Available settings
-
-> _new in version 0.7.0_  
 
 * The bookmarks will be glued to the line of code _(context)_ instead of the line of the file
 ```
@@ -57,8 +74,6 @@ List all bookmarks from all files and easily navigate to any one. It shows you t
 ```
 
 ![Sticky](images/bookmarks-sticky.gif)
-
-> _new in version 0.6.0_  
 
 * Allow navigation through all files that contains bookmarks
 ```
@@ -82,6 +97,14 @@ The bookmarks are saved _per session_ for the project that you are using. You do
 It also works even if you only _preview_ a file (simple click in TreeView). You can put bookmarks in any file and when you preview it again, the bookmarks will be there.
 
 # Changelog
+
+## Version 0.10.0
+
+* **New**: Now you can select lines and text block via bookmarks
+* **New Command:** Select Lines
+* **New Command:** Expand Selection to Next
+* **New Command:** Expand Selection to Previous
+* **New Command:** Shrink Selection
 
 ## Version 0.9.2
 
