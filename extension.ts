@@ -535,7 +535,7 @@ export function activate(context: vscode.ExtensionContext) {
         activeBookmark.nextBookmark(baseLine, direction)
             .then((nextLine) => {
               if ( (nextLine == NO_MORE_BOOKMARKS) || (nextLine == NO_BOOKMARKS) ) {
-                    vscode.window.showInformationMessage('No more bookmarks...');
+                    vscode.window.setStatusBarMessage('No more bookmarks', 2000);
                     return;
               } else {
                    
