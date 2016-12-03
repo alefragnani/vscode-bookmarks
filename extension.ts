@@ -110,15 +110,28 @@ export function activate(context: vscode.ExtensionContext) {
                 vscode.workspace.openTextDocument(uriDocBookmark).then(doc => {    
                     
                     let items = [];
+                    let invalids = [];
                     for (var index = 0; index < this.bookmarks.length; index++) {
                         var element = this.bookmarks[index] + 1;
-                        let lineText = doc.lineAt(element - 1).text;
-                        let normalizedPath = doc.uri.fsPath;//removeRootPathFrom(doc.uri.fsPath);
-                        items.push({
-                            label: element.toString(),
-                            description: lineText,
-                            detail: normalizedPath
-                        });                        
+                        // check for 'invalidated' bookmarks, when its outside the document length
+                        if (element <= doc.lineCount) {
+                            let lineText = doc.lineAt(element - 1).text;
+                            let normalizedPath = doc.uri.fsPath;
+                            items.push({
+                                label: element.toString(),
+                                description: lineText,
+                                detail: normalizedPath
+                            });       
+                        } else {
+                            invalids.push(element);
+                        }                                             
+                    }
+                    if (invalids.length > 0) {
+                        let idxInvalid: number;
+                        for (let indexI = 0; indexI < invalids.length; indexI++) {
+                            idxInvalid = this.bookmarks.indexOf(invalids[indexI] - 1);
+                            this.bookmarks.splice(idxInvalid, 1);
+                        }
                     }
                     
                     resolve(items);
@@ -382,11 +395,24 @@ export function activate(context: vscode.ExtensionContext) {
 		if (activeEditor.document.lineCount === 1 && activeEditor.document.lineAt(0).text === "") {
 			activeBookmark.bookmarks = [];
 		} else {
+            let invalids = [];
             for (var index = 0; index < activeBookmark.bookmarks.length; index++) {
                 var element = activeBookmark.bookmarks[index];
 
-                var decoration = new vscode.Range(element, 0, element, 0);
-                books.push(decoration);
+                if (element <= activeEditor.document.lineCount) { 
+                    var decoration = new vscode.Range(element, 0, element, 0);
+                    books.push(decoration);
+                } else {
+                    invalids.push(element);
+                }
+            }
+
+            if (invalids.length > 0) {
+                let idxInvalid: number;
+                for (let indexI = 0; indexI < invalids.length; indexI++) {
+                    idxInvalid = activeBookmark.bookmarks.indexOf(invalids[indexI]);
+                    activeBookmark.bookmarks.splice(idxInvalid, 1);
+                }
             }
         }
         activeEditor.setDecorations(bookmarkDecorationType, books);
