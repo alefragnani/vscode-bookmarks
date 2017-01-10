@@ -814,7 +814,6 @@ export function activate(context: vscode.ExtensionContext) {
         // push the items
         let items: vscode.QuickPickItem[] = [];
         let activeTextEditorPath = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.document.uri.fsPath : '';
-        let totalPreviewed: number = 0;
         let promisses = [];
         let currentLine: number = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.selection.active.line + 1 : -1;
         
@@ -909,7 +908,6 @@ export function activate(context: vscode.ExtensionContext) {
                         vscode.workspace.openTextDocument(uriDocument).then(doc => {
                             vscode.window.showTextDocument(doc, undefined, true).then(editor => {
                                 revealLine(parseInt(item.label) - 1);
-                                totalPreviewed++;
                             });
                         });
                       }                  
@@ -917,8 +915,7 @@ export function activate(context: vscode.ExtensionContext) {
               };
               vscode.window.showQuickPick(itemsSorted, options).then(selection => {
                   if (typeof selection == 'undefined') {
-                      if ((activeTextEditorPath == '') && (totalPreviewed < 2)) {
-                          vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+                      if (activeTextEditorPath == '')  {
                           return;
                       } else {
                         let uriDocument: vscode.Uri = vscode.Uri.file(activeTextEditorPath);
