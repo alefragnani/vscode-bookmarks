@@ -98,6 +98,10 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 
 # Changelog
 
+## Version 0.10.2
+
+* **Fix:** `List from All Files` command was closing active file when canceling navigation (issue [#46](https://github.com/alefragnani/vscode-bookmarks/issues/46))
+
 ## Version 0.10.1
 
 * **Fix:** Bookmarks becomes invalid when documents are modified outside VSCode (issue [#33](https://github.com/alefragnani/vscode-bookmarks/issues/33))
