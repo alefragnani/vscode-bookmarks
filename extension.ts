@@ -101,9 +101,16 @@ export function activate(context: vscode.ExtensionContext) {
             
             return new Promise((resolve, reject) => {
                 
+                // no bookmark, returns empty
                 if (this.bookmarks.length == 0) {
                     resolve({});
                     return;
+                }
+                
+                // file does not exist, returns empty
+                if (!fs.existsSync(this.fsPath)) {
+                    resolve({});
+                    return    
                 }
                 
                 let uriDocBookmark: vscode.Uri = vscode.Uri.file(this.fsPath);
