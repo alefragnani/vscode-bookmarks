@@ -786,6 +786,12 @@ export function activate(context: vscode.ExtensionContext) {
           vscode.window.showInformationMessage("Open a file first to list bookmarks");
           return;
         }
+        
+        // no active bookmark
+        if (!bookmarks.activeBookmark) {
+            vscode.window.showInformationMessage("No Bookmark found");
+            return;  
+        }
       
         // no bookmark
         if (bookmarks.activeBookmark.bookmarks.length === 0) {
