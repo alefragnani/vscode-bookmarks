@@ -135,7 +135,7 @@ export class Bookmark {
                 resolve(items);
                 return;
             });
-        })
+        });
     }
 
     public clear() {

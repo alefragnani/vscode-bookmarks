@@ -3,11 +3,8 @@
 import * as vscode from "vscode";
 import fs = require("fs");
 
-import {Bookmark, JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS} from "./Bookmark";
+import {JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS} from "./Bookmark";
 import {Bookmarks} from "./Bookmarks";
-
-let bb: string = "asdf";
-let bookmarks: Bookmarks;
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -19,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
     // const JUMP_BACKWARD = -1;
     // enum JUMP_DIRECTION {JUMP_FORWARD, JUMP_BACKWARD};
     
-//    let bookmarks: Bookmarks;
+    let bookmarks: Bookmarks;
     let activeEditorCountLine: number;
 
     // class Bookmark {
@@ -348,7 +345,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Connect it to the Editors Events
     let activeEditor = vscode.window.activeTextEditor;
-    //let activeBookmark: Bookmark;
+    // let activeBookmark: Bookmark;
 
     if (activeEditor) {
         if (!didLoadBookmarks) {
@@ -536,7 +533,6 @@ export function activate(context: vscode.ExtensionContext) {
     function shrinkLineRange(editor: vscode.TextEditor, toLine: number, direction: JUMP_DIRECTION) {
         const doc = editor.document;
         let newSe: vscode.Selection;   
-        let actualSelection: vscode.Selection = editor.selection;  
                 
         // no matter 'the previous selection'. going FORWARD will become 'isReversed = FALSE'
         if (direction === JUMP_FORWARD) {    
@@ -576,7 +572,6 @@ export function activate(context: vscode.ExtensionContext) {
         let direction: JUMP_DIRECTION = vscode.window.activeTextEditor.selection.isReversed ? JUMP_FORWARD : JUMP_BACKWARD;
         let offset: number = direction === JUMP_BACKWARD ? 1 : 0;
         let activeSelectionStartLine: number = vscode.window.activeTextEditor.selection.isReversed ? vscode.window.activeTextEditor.selection.end.line : vscode.window.activeTextEditor.selection.start.line; 
-
 
         let baseLine: number;
         if (direction === JUMP_FORWARD) {
@@ -688,7 +683,6 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     });
 
-
     vscode.commands.registerCommand("bookmarks.jumpToNext", () => {
         
         if (!vscode.window.activeTextEditor) {
@@ -782,7 +776,6 @@ export function activate(context: vscode.ExtensionContext) {
               console.log("activeBookmark.nextBookmark REJECT" + error)
             })
     });
-
 
     vscode.commands.registerCommand("bookmarks.list", () => {
         
@@ -984,9 +977,6 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.activeTextEditor.revealRange(newSe, reviewType);
     }
 
-
-
-
     function loadWorkspaceState(): boolean {
         let saveBookmarksBetweenSessions: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksBetweenSessions", false);
 
@@ -1005,13 +995,9 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        // ??bookmarks.zip(activeBookmark);
-        context.workspaceState.update("bookmarks", JSON.stringify(bookmarks));
+        // context.workspaceState.update("bookmarks", JSON.stringify(bookmarks));
+        context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
     }
-
-
-
-//............................................................................................
 
 	// function used to attach bookmarks at the line
     function stickyBookmarks(event): boolean {
@@ -1044,8 +1030,6 @@ export function activate(context: vscode.ExtensionContext) {
                             }
                         }
                     }
-
-
 
                     if (event.contentChanges[ 0 ].range.end.line - event.contentChanges[ 0 ].range.start.line > 1) {
                         for (let i = event.contentChanges[ 0 ].range.start.line/* + 1*/; i <= event.contentChanges[ 0 ].range.end.line; i++) {
@@ -1193,10 +1177,4 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-}
-
-
-// this method is called when your extension is deactivated
-export function deactivate() {
-    bookmarks.dispose();
 }

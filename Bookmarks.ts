@@ -163,17 +163,18 @@ export class Bookmarks {
             });
         }
         
-        public zip() {
+        public zip(): Bookmarks {
             function isNotEmpty(book: Bookmark): boolean {
                 return book.bookmarks.length > 0;
             }
             
-            let newBookmarks: Bookmark[] = this.bookmarks.filter(isNotEmpty);
+            let newBookmarks: Bookmarks = new Bookmarks("");
+            newBookmarks.bookmarks = this.bookmarks.filter(isNotEmpty);
             console.log("before");
-            console.log("newBookmarks.length" + newBookmarks.length);
+            console.log("newBookmarks.length" + newBookmarks.bookmarks.length);
             console.log("this.bookmarks" + this.bookmarks.length);
-            this.bookmarks = newBookmarks;
-            console.log("after");
-            console.log("this.bookmarks" + this.bookmarks.length);
+            return newBookmarks;
+            // console.log("after");
+            // console.log("this.bookmarks" + this.bookmarks.length);
         }
     }
