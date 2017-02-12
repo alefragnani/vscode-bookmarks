@@ -22,14 +22,6 @@ export class Bookmarks {
             this.zip();
         }
         
-        // public getActiveBookmark(): Bookmark {
-        //     return this.activeBookmark;
-        // }
-        
-        // public setActiveBookmark(book: Bookmark) {
-        //     this.activeBookmark = book;
-        // }
-
         public loadFrom(jsonObject) {
             if (jsonObject === "") {
                 return;
@@ -41,16 +33,18 @@ export class Bookmarks {
               
               // each bookmark (line)
               this.add(jsonBookmark.fsPath);
-              for (let index = 0; index < jsonBookmark.bookmarks.length; index++) {
-                  this.bookmarks[idx].bookmarks.push(jsonBookmark.bookmarks[index]);
+              // for (let index = 0; index < jsonBookmark.bookmarks.length; index++) {
+              for (let element of jsonBookmark.bookmarks) {
+                  this.bookmarks[idx].bookmarks.push(element); // jsonBookmark.bookmarks[index]);
               }
             }
         }
 
         public fromUri(uri: string) {
             uri = Bookmarks.normalize(uri);
-            for (let index = 0; index < this.bookmarks.length; index++) {
-                let element = this.bookmarks[index];
+            // for (let index = 0; index < this.bookmarks.length; index++) {
+            for (let element of this.bookmarks) {
+                // let element = this.bookmarks[index];
 
                 if (element.fsPath === uri) {
                     return element;
@@ -170,11 +164,6 @@ export class Bookmarks {
             
             let newBookmarks: Bookmarks = new Bookmarks("");
             newBookmarks.bookmarks = this.bookmarks.filter(isNotEmpty);
-            console.log("before");
-            console.log("newBookmarks.length" + newBookmarks.bookmarks.length);
-            console.log("this.bookmarks" + this.bookmarks.length);
             return newBookmarks;
-            // console.log("after");
-            // console.log("this.bookmarks" + this.bookmarks.length);
         }
     }

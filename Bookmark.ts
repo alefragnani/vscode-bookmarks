@@ -44,8 +44,9 @@ export class Bookmark {
             let nextBookmark: number;
 
             if (direction === JUMP_FORWARD) {
-                for (let index = 0; index < this.bookmarks.length; index++) {
-                    let element = this.bookmarks[ index ];
+                // for (let index = 0; index < this.bookmarks.length; index++) {
+                for (let element of this.bookmarks) {
+                    // let element = this.bookmarks[ index ];
                     if (element > currentline) {
                         nextBookmark = element;
                         break;
@@ -109,6 +110,7 @@ export class Bookmark {
 
                 let items = [];
                 let invalids = [];
+                // tslint:disable-next-line:prefer-for-of
                 for (let index = 0; index < this.bookmarks.length; index++) {
                     let element = this.bookmarks[ index ] + 1;
                     // check for 'invalidated' bookmarks, when its outside the document length
@@ -126,6 +128,7 @@ export class Bookmark {
                 }
                 if (invalids.length > 0) {
                     let idxInvalid: number;
+                    // tslint:disable-next-line:prefer-for-of
                     for (let indexI = 0; indexI < invalids.length; indexI++) {
                         idxInvalid = this.bookmarks.indexOf(invalids[ indexI ] - 1);
                         this.bookmarks.splice(idxInvalid, 1);
