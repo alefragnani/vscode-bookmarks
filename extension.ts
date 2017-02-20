@@ -1058,7 +1058,8 @@ export function activate(context: vscode.ExtensionContext) {
                     }
                 }
 
-                for (let index in bookmarks.activeBookmark.bookmarks) {
+                // for (let index in bookmarks.activeBookmark.bookmarks) {
+                for (let index = 0; index < bookmarks.activeBookmark.bookmarks.length; index++) {
                     let eventLine = event.contentChanges[ 0 ].range.start.line;
                     let eventcharacter = event.contentChanges[ 0 ].range.start.character;
 
@@ -1079,7 +1080,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
 
             // paste case
-            if (event.contentChanges[ 0 ].text.length > 1) {
+            if (!updatedBookmark && (event.contentChanges[ 0 ].text.length > 1)) {
                 let selection = vscode.window.activeTextEditor.selection;
                 let lineRange = [ selection.start.line, selection.end.line ];
                 let lineMin = Math.min.apply(this, lineRange);
