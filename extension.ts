@@ -392,11 +392,11 @@ export function activate(context: vscode.ExtensionContext) {
     // Timeout
     let timeout = null;
     function triggerUpdateDecorations() {
-        // if (timeout) {
-        //     clearTimeout(timeout);
-        // }
-        // timeout = setTimeout(updateDecorations, 100);
-        updateDecorations();
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(updateDecorations, 100);
+//        updateDecorations();
     }
 	
     // Evaluate (prepare the list) and DRAW
