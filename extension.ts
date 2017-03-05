@@ -1015,6 +1015,36 @@ export function activate(context: vscode.ExtensionContext) {
         context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
     }
 
+    function HadOnlyOneValidContentChange(event): boolean {
+        
+        // not valid
+        if ((event.contentChanges.length > 2) || (event.contentChanges.length === 0)) {
+            return false;
+        }
+        
+        // normal behavior - only 1
+        if (event.contentChanges.length === 1) {
+            return true;
+        } else { // has 2, but is it a trimAutoWhitespace issue?
+            if (event.contentChanges.length === 2) {
+                let trimAutoWhitespace: boolean = vscode.workspace.getConfiguration("editor").get("trimAutoWhitespace", true);
+                if (!trimAutoWhitespace) {
+                    return false;
+                }
+                
+                // check if the first range is 'equal' and if the second is 'empty'
+                let fistRangeEquals: boolean = 
+                    (event.contentChanges[ 0 ].range.start.character === event.contentChanges[ 0 ].range.start.character) &&
+                    (event.contentChanges[ 0 ].range.end.character === event.contentChanges[ 0 ].range.end.character) &&             
+                    (event.contentChanges[ 0 ].range.start.line === event.contentChanges[ 0 ].range.start.line) &&
+                    (event.contentChanges[ 0 ].range.end.line === event.contentChanges[ 0 ].range.end.line);             
+                let secondRangeEmpty: boolean = event.contentChanges[ 1 ].text === "";
+                
+                return fistRangeEquals && secondRangeEmpty;
+            } 
+        }
+     }
+
 	// function used to attach bookmarks at the line
     function stickyBookmarks(event): boolean {
         let useStickyBookmarks: boolean = vscode.workspace.getConfiguration("bookmarks").get("useStickyBookmarks", false);
@@ -1024,8 +1054,10 @@ export function activate(context: vscode.ExtensionContext) {
 
         let diffLine: number;
         let updatedBookmark: boolean = false;
-
-        if (event.contentChanges.length === 1) {
+        
+        // fix autoTrimWhitespace
+        // if (event.contentChanges.length === 1) {
+        if (HadOnlyOneValidContentChange) {
             // add or delete line case
             if (event.document.lineCount !== activeEditorCountLine) {
                 if (event.document.lineCount > activeEditorCountLine) {
