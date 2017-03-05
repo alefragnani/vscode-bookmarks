@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.12.0
+
+* **Fix:** Sticky Bookmarks fails with `trimAutoWhitespace` set to `true` (issue [#35](https://github.com/alefragnani/vscode-bookmarks/issues/35))
+* **Fix:** Sticky Bookmarks fails with unstaged files (issue [#40](https://github.com/alefragnani/vscode-bookmarks/issues/40))
+
 ## Version 0.11.0
 
 * **New:** Storage optimizations (issue [#51](https://github.com/alefragnani/vscode-bookmarks/issues/51))
