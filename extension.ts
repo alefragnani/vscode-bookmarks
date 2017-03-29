@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import fs = require("fs");
+import path = require("path");
 
 import {JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS} from "./Bookmark";
 import {Bookmarks} from "./Bookmarks";
@@ -673,25 +674,45 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function loadWorkspaceState(): boolean {
-        let saveBookmarksBetweenSessions: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksBetweenSessions", false);
+        let saveBookmarksBetweenSessions: boolean = true;//vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksBetweenSessions", false);
+        let saveBookmarksInProject: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
 
         bookmarks = new Bookmarks("");
 
-        let savedBookmarks = context.workspaceState.get("bookmarks", "");
-        if (saveBookmarksBetweenSessions && (savedBookmarks !== "")) {
-            bookmarks.loadFrom(JSON.parse(savedBookmarks));
-        }
-        return savedBookmarks !== "";
+        if (saveBookmarksInProject) {
+            let bookmarksFileInProject: string = path.join(vscode.workspace.rootPath, ".vscode\\bookmarks.json");
+            if (!fs.existsSync(bookmarksFileInProject)) {
+                return false;
+            }
+            try {
+                bookmarks.loadFrom(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()));
+                return true;
+            } catch (error) {
+                vscode.window.showErrorMessage("Error loading bookmarks: " + error.toString());
+                return false;
+            }
+        } else {
+            let savedBookmarks = context.workspaceState.get("bookmarks", "");
+            if (saveBookmarksBetweenSessions && (savedBookmarks !== "")) {
+                bookmarks.loadFrom(JSON.parse(savedBookmarks));
+            }
+            return savedBookmarks !== "";
+        }        
     }
 
     function saveWorkspaceState(): void {
-        let saveBookmarksBetweenSessions: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksBetweenSessions", false);
+        let saveBookmarksBetweenSessions: boolean = true;//vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksBetweenSessions", false);
+        let saveBookmarksInProject: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
         if (!saveBookmarksBetweenSessions) {
             return;
         }
 
-        // context.workspaceState.update("bookmarks", JSON.stringify(bookmarks));
-        context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
+        if (saveBookmarksInProject) {
+            let bookmarksFileInProject: string = path.join(vscode.workspace.rootPath, ".vscode\\bookmarks.json");
+            fs.writeFileSync(bookmarksFileInProject, JSON.stringify(bookmarks.zip(), null, "\t"));   
+        } else {
+            context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
+        }
     }
 
     function HadOnlyOneValidContentChange(event): boolean {
