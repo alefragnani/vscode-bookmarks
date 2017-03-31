@@ -1,5 +1,6 @@
 "use strict";
 
+import * as vscode from "vscode";
 import fs = require("fs");
 import {Bookmark, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS} from "./Bookmark";
 
@@ -22,7 +23,7 @@ export class Bookmarks {
             this.zip();
         }
         
-        public loadFrom(jsonObject) {
+        public loadFrom(jsonObject, relativePath?: boolean) {
             if (jsonObject === "") {
                 return;
             }
@@ -37,6 +38,12 @@ export class Bookmarks {
               for (let element of jsonBookmark.bookmarks) {
                   this.bookmarks[idx].bookmarks.push(element); // jsonBookmark.bookmarks[index]);
               }
+            }
+
+            if (relativePath) {
+                for (let element of this.bookmarks) {
+                    element.fsPath = element.fsPath.replace("$ROOTPATH$", vscode.workspace.rootPath);
+                }
             }
         }
 
@@ -157,13 +164,22 @@ export class Bookmarks {
             });
         }
         
-        public zip(): Bookmarks {
+        public zip(relativePath?: boolean): Bookmarks {
             function isNotEmpty(book: Bookmark): boolean {
                 return book.bookmarks.length > 0;
             }
             
             let newBookmarks: Bookmarks = new Bookmarks("");
-            newBookmarks.bookmarks = this.bookmarks.filter(isNotEmpty);
+            //  newBookmarks.bookmarks = this.bookmarks.filter(isNotEmpty);
+            newBookmarks.bookmarks = JSON.parse(JSON.stringify(this.bookmarks)).filter(isNotEmpty);
+
+            if (!relativePath) {
+                return newBookmarks;
+            }
+
+            for (let element of newBookmarks.bookmarks) {
+                element.fsPath = element.fsPath.replace(vscode.workspace.rootPath, "$ROOTPATH$");
+            }
             return newBookmarks;
         }
     }

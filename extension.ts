@@ -674,7 +674,6 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function loadWorkspaceState(): boolean {
-        let saveBookmarksBetweenSessions: boolean = true;//vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksBetweenSessions", false);
         let saveBookmarksInProject: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
 
         bookmarks = new Bookmarks("");
@@ -685,15 +684,15 @@ export function activate(context: vscode.ExtensionContext) {
                 return false;
             }
             try {
-                bookmarks.loadFrom(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()));
+                bookmarks.loadFrom(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()), true);
                 return true;
             } catch (error) {
-                vscode.window.showErrorMessage("Error loading bookmarks: " + error.toString());
+                vscode.window.showErrorMessage("Error loading Bookmarks: " + error.toString());
                 return false;
             }
         } else {
             let savedBookmarks = context.workspaceState.get("bookmarks", "");
-            if (saveBookmarksBetweenSessions && (savedBookmarks !== "")) {
+            if (savedBookmarks !== "") {
                 bookmarks.loadFrom(JSON.parse(savedBookmarks));
             }
             return savedBookmarks !== "";
@@ -701,15 +700,14 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function saveWorkspaceState(): void {
-        let saveBookmarksBetweenSessions: boolean = true;//vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksBetweenSessions", false);
         let saveBookmarksInProject: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
-        if (!saveBookmarksBetweenSessions) {
-            return;
-        }
 
         if (saveBookmarksInProject) {
             let bookmarksFileInProject: string = path.join(vscode.workspace.rootPath, ".vscode\\bookmarks.json");
-            fs.writeFileSync(bookmarksFileInProject, JSON.stringify(bookmarks.zip(), null, "\t"));   
+            if (!fs.existsSync(path.dirname(bookmarksFileInProject))) {
+                fs.mkdirSync(path.dirname(bookmarksFileInProject)); 
+            }
+            fs.writeFileSync(bookmarksFileInProject, JSON.stringify(bookmarks.zip(true), null, "\t"));   
         } else {
             context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
         }
@@ -737,7 +735,6 @@ export function activate(context: vscode.ExtensionContext) {
                     (event.contentChanges[ 0 ].range.start.character === event.contentChanges[ 0 ].range.end.character) &&
                     (event.contentChanges[ 0 ].range.start.line === event.contentChanges[ 0 ].range.end.line);    
                     
-                             
                 let secondRangeEmpty: boolean = (event.contentChanges[ 1 ].text === "") && 
                     (event.contentChanges[ 1 ].range.start.line === event.contentChanges[ 1 ].range.end.line) &&
                     (event.contentChanges[ 1 ].range.start.character === 0) &&

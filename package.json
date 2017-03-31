@@ -98,21 +98,16 @@
 			"type": "object",
 			"title": "Bookmarks Configuration",
 			"properties": {
-				"bookmarks.saveBookmarksBetweenSessions": {
-					"type": "boolean",
-					"default": false,
-					"description": "Allow bookmarks to be saved and restored, even if you close or change the Project"
-				},
-				"bookmarks.saveBookmarksInProject": {
-					"type": "boolean",
-					"default": false,
-					"description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code"
-				},
-				"bookmarks.gutterIconPath": {
-					"type": "string",
-					"default": "",
-					"description": "Path to another image to be presented as Bookmark"
-				},
+								"bookmarks.saveBookmarksInProject": {
+									"type": "boolean",
+									"default": false,
+									"description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code"
+								},
+								"bookmarks.gutterIconPath": {
+									"type": "string",
+									"default": "",
+									"description": "Path to another image to be presented as Bookmark"
+								},
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
                     "default": false,
