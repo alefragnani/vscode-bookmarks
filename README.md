@@ -68,13 +68,6 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ## Available settings
 
-* The bookmarks will be glued to the line of code _(context)_ instead of the line of the file
-```
-    "bookmarks.useStickyBookmarks": true
-```
-
-![Sticky](images/bookmarks-sticky.gif)
-
 * Allow navigation through all files that contains bookmarks
 ```
     "bookmarks.navigateThroughAllFiles": true

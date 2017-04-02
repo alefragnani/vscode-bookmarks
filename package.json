@@ -123,11 +123,6 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Allow navigation look for bookmarks in all files in the project, instead of only the current"
-                },
-                "bookmarks.useStickyBookmarks": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "The bookmarks will be glued to the line of code instead of the line of the file"
                 }
             }
         },
