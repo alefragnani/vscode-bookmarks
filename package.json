@@ -1,113 +1,124 @@
 {
-	"name": "Bookmarks",
-	"displayName": "Bookmarks",
-	"description": "Mark lines and jump to them",
-	"version": "0.12.0",
-	"publisher": "alefragnani",
-	"galleryBanner": {
-		"color": "#000000",
-		"theme": "dark"
-	},
-	"engines": {
-		"vscode": "^0.10.7"
-	},
-	"categories": [
-		"Other"
-	],
+    "name": "Bookmarks",
+    "displayName": "Bookmarks",
+    "description": "Mark lines and jump to them",
+    "version": "0.13.0",
+    "publisher": "alefragnani",
+    "galleryBanner": {
+        "color": "#000000",
+        "theme": "dark"
+    },
+    "engines": {
+        "vscode": "^0.10.7"
+    },
+    "categories": [
+        "Other"
+    ],
     "keywords": [
         "bookmark",
         "sticky",
-		"jump",
-		"mark",
-		"selection",
-		"navigation"
+        "jump",
+        "mark",
+        "selection",
+        "navigation"
     ],
-	"icon": "images/icon.png",
+    "icon": "images/icon.png",
     "license": "SEE LICENSE IN LICENSE.md",
-	"homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/alefragnani/vscode-bookmarks.git"
-	},
-	"bugs": {
-		"url": "https://github.com/alefragnani/vscode-bookmarks/issues"
-	},
-	"activationEvents": [
-		"*"
-	],
-	"main": "./out/extension",
-	"contributes": {
-		"commands": [{
-			"command": "bookmarks.toggle",
-			"title": "Bookmarks: Toggle"
-		},{
-			"command": "bookmarks.jumpToNext",
-			"title": "Bookmarks: Jump to Next"
-		},{
-			"command": "bookmarks.jumpToPrevious",
-			"title": "Bookmarks: Jump to Previous"
-		},{
-			"command": "bookmarks.selectLines",
-			"title": "Bookmarks (Selection): Select Lines"
-		},{
-			"command": "bookmarks.expandSelectionToNext",
-			"title": "Bookmarks (Selection): Expand Selection to Next"
-		},{
-			"command": "bookmarks.expandSelectionToPrevious",
-			"title": "Bookmarks (Selection): Expand Selection to Previous"
-		},{
-			"command": "bookmarks.shrinkSelection",
-			"title": "Bookmarks (Selection): Shrink Selection"
-		},{
-			"command": "bookmarks.list",
-			"title": "Bookmarks: List"
-		},{
-			"command": "bookmarks.clear",
-			"title": "Bookmarks: Clear"
-		},{
-			"command": "bookmarks.listFromAllFiles",
-			"title": "Bookmarks: List from All Files"
-		},{
-			"command": "bookmarks.clearFromAllFiles",
-			"title": "Bookmarks: Clear from All Files"
-		}],
-		"menus": {
-			"editor/context": [
-				{
-					"command": "bookmarks.toggle",
-					"group": "bookmarks"
-				}
-			],
-			"editor/title": [
-				{
-					"command": "bookmarks.list",
-					"group": "bookmarks"
-				},
-				{
-					"command": "bookmarks.clear",
-					"group": "bookmarks"
-				},
-				{
-					"command": "bookmarks.selectLines",
-					"group": "bookmarks"
-				}
-			]
-		},
-		"configuration": {
-			
-			"type": "object",
-			"title": "Bookmarks Configuration",
-			"properties": {
-								"bookmarks.saveBookmarksInProject": {
-									"type": "boolean",
-									"default": false,
-									"description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code"
-								},
-								"bookmarks.gutterIconPath": {
-									"type": "string",
-									"default": "",
-									"description": "Path to another image to be presented as Bookmark"
-								},
+    "homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alefragnani/vscode-bookmarks.git"
+    },
+    "bugs": {
+        "url": "https://github.com/alefragnani/vscode-bookmarks/issues"
+    },
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "bookmarks.toggle",
+                "title": "Bookmarks: Toggle"
+            },
+            {
+                "command": "bookmarks.jumpToNext",
+                "title": "Bookmarks: Jump to Next"
+            },
+            {
+                "command": "bookmarks.jumpToPrevious",
+                "title": "Bookmarks: Jump to Previous"
+            },
+            {
+                "command": "bookmarks.selectLines",
+                "title": "Bookmarks (Selection): Select Lines"
+            },
+            {
+                "command": "bookmarks.expandSelectionToNext",
+                "title": "Bookmarks (Selection): Expand Selection to Next"
+            },
+            {
+                "command": "bookmarks.expandSelectionToPrevious",
+                "title": "Bookmarks (Selection): Expand Selection to Previous"
+            },
+            {
+                "command": "bookmarks.shrinkSelection",
+                "title": "Bookmarks (Selection): Shrink Selection"
+            },
+            {
+                "command": "bookmarks.list",
+                "title": "Bookmarks: List"
+            },
+            {
+                "command": "bookmarks.clear",
+                "title": "Bookmarks: Clear"
+            },
+            {
+                "command": "bookmarks.listFromAllFiles",
+                "title": "Bookmarks: List from All Files"
+            },
+            {
+                "command": "bookmarks.clearFromAllFiles",
+                "title": "Bookmarks: Clear from All Files"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "bookmarks.toggle",
+                    "group": "bookmarks"
+                }
+            ],
+            "editor/title": [
+                {
+                    "command": "bookmarks.list",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "bookmarks.clear",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "bookmarks.selectLines",
+                    "group": "bookmarks"
+                }
+            ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "Bookmarks Configuration",
+            "properties": {
+                "bookmarks.saveBookmarksInProject": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code"
+                },
+                "bookmarks.gutterIconPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Path to another image to be presented as Bookmark"
+                },
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
                     "default": false,
@@ -118,54 +129,54 @@
                     "default": false,
                     "description": "The bookmarks will be glued to the line of code instead of the line of the file"
                 }
-			}
-		},
-		"keybindings": [
-			{
-				"command": "bookmarks.toggle",
-				"key": "ctrl+alt+k",
-				"mac": "cmd+alt+k",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "bookmarks.jumpToNext",
-				"key": "ctrl+alt+l",
-				"mac": "cmd+alt+l",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "bookmarks.jumpToPrevious",
-				"key": "ctrl+alt+j",
-				"mac": "cmd+alt+j",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "bookmarks.shrinkSelection",
-				"key": "shift+alt+k",
-				"mac": "shift+alt+k",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "bookmarks.expandSelectionToNext",
-				"key": "shift+alt+l",
-				"mac": "shift+alt+l",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "bookmarks.expandSelectionToPrevious",
-				"key": "shift+alt+j",
-				"mac": "shift+alt+j",
-				"when": "editorTextFocus"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+            }
+        },
+        "keybindings": [
+            {
+                "command": "bookmarks.toggle",
+                "key": "ctrl+alt+k",
+                "mac": "cmd+alt+k",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "bookmarks.jumpToNext",
+                "key": "ctrl+alt+l",
+                "mac": "cmd+alt+l",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "bookmarks.jumpToPrevious",
+                "key": "ctrl+alt+j",
+                "mac": "cmd+alt+j",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "bookmarks.shrinkSelection",
+                "key": "shift+alt+k",
+                "mac": "shift+alt+k",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "bookmarks.expandSelectionToNext",
+                "key": "shift+alt+l",
+                "mac": "shift+alt+l",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "bookmarks.expandSelectionToPrevious",
+                "key": "shift+alt+j",
+                "mac": "shift+alt+j",
+                "when": "editorTextFocus"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install"
-	},
-	"devDependencies": {
-		"vscode": "^0.11.x",
-		"typescript": "^1.6.2"
-	}
+    },
+    "devDependencies": {
+        "vscode": "^0.11.x",
+        "typescript": "^1.6.2"
+    }
 }

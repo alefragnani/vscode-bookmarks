@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.13.0
+
+* **New Setting:** Bookmarks can now be saved in the project (inside `.vscode` folder)
+
 ## Version 0.12.0
 
 * **Fix:** Sticky Bookmarks fails with `trimAutoWhitespace` set to `true` (issue [#35](https://github.com/alefragnani/vscode-bookmarks/issues/35))

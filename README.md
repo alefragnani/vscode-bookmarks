@@ -80,10 +80,12 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.navigateThroughAllFiles": true
 ```
 
-* Allow bookmarks to be saved and restored, even if you close or change the Project
+* Bookmarks are always saved between sessions, and you can decide if it should be saved _in the Project_, so you can add it to your Git/SVN repo and have it in all your machines _(`false` by default)_
 ```
-    "bookmarks.saveBookmarksBetweenSessions": true
+    "bookmarks.saveBookmarksInProject": true
 ```
+
+> the `saveBookmarksBetweenSessions` setting was replaced by this this in version 0.13.0
 
 * Path to another image to be shown as Bookmark (16x16 px)
 ```
