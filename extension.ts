@@ -797,6 +797,15 @@ export function activate(context: vscode.ExtensionContext) {
                     let eventLine = event.contentChanges[ 0 ].range.start.line;
                     let eventcharacter = event.contentChanges[ 0 ].range.start.character;
 
+                    // indent ?
+                    if (eventcharacter > 0) {
+                        let textInEventLine = activeEditor.document.lineAt(eventLine).text;
+                        textInEventLine = textInEventLine.replace(/\t/g, "").replace(/\s/g, "");
+                        if (textInEventLine === "") {
+                            eventcharacter = 0;
+                        }
+                    }
+
                     // also =
                     if (
                         ((bookmarks.activeBookmark.bookmarks[ index ] > eventLine) && (eventcharacter > 0)) ||
