@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.14.0
+
+* **New:** Sticky bookmarks are now moved in _indented_ lines (issue [#62](https://github.com/alefragnani/vscode-bookmarks/issues/62))
+
 ## Version 0.13.0
 
 * **New Setting:** Bookmarks can now be saved in the project (inside `.vscode` folder)
