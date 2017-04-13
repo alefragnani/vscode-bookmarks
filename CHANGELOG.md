@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.14.1
+
+* **Fix:** Bookmarks saved in Project were not working fine for _non-Windows_ OS (Thanks to @fzzr- [PR #67](https://github.com/alefragnani/vscode-bookmarks/pull/67))
+
 ## Version 0.14.0
 
 * **New:** Sticky bookmarks are now moved in _indented_ lines (issue [#62](https://github.com/alefragnani/vscode-bookmarks/issues/62))
