@@ -35,7 +35,7 @@
     "activationEvents": [
         "*"
     ],
-    "main": "./out/extension",
+    "main": "./out/src/extension",
     "contributes": {
         "commands": [
             {

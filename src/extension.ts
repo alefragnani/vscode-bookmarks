@@ -12,6 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
   
     let bookmarks: Bookmarks;
     let activeEditorCountLine: number;
+    let timeout: NodeJS.Timer;
 
     // load pre-saved bookmarks
     let didLoadBookmarks: boolean = loadWorkspaceState();
@@ -80,7 +81,6 @@ export function activate(context: vscode.ExtensionContext) {
     }, null, context.subscriptions);
 
     // Timeout
-    let timeout = null;
     function triggerUpdateDecorations() {
         if (timeout) {
             clearTimeout(timeout);
