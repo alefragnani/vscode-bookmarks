@@ -343,6 +343,9 @@ export function activate(context: vscode.ExtensionContext) {
         let index = bookmarks.activeBookmark.bookmarks.indexOf(line);
         if (index < 0) {
             bookmarks.activeBookmark.bookmarks.push(line);
+
+            // toggle editing mode
+            vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false} );
         } else {
             bookmarks.activeBookmark.bookmarks.splice(index, 1);
         }		
