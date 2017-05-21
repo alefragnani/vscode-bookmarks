@@ -21,14 +21,12 @@ export function activate(context: vscode.ExtensionContext) {
     if (pathIcon !== "") {
         if (!fs.existsSync(pathIcon)) {
             vscode.window.showErrorMessage('The file "' + pathIcon + '" used for "bookmarks.gutterIconPath" does not exists.');
-            pathIcon = context.asAbsolutePath("images\\bookmark.png");
+            pathIcon = context.asAbsolutePath("images/bookmark.svg");
         }
     } else {
-        pathIcon = context.asAbsolutePath("images\\bookmark.png");
+        pathIcon = context.asAbsolutePath("images/bookmark.svg");
     }
-    pathIcon = pathIcon.replace(/\\/g, "/");
     
-    // let pathIcon = context.asAbsolutePath('images\\bookmark.png');
     let bookmarkDecorationType = vscode.window.createTextEditorDecorationType({
         gutterIconPath: pathIcon,
         overviewRulerLane: vscode.OverviewRulerLane.Full,
