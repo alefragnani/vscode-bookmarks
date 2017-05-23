@@ -545,27 +545,31 @@ export function activate(context: vscode.ExtensionContext) {
               for (let element of values) {
                   // let element = values[index];
 
-                  // for (let indexInside = 0; indexInside < element.length; indexInside++) {
-                  for (let elementInside of element) {
-                      // let elementInside = element[indexInside];
+                  if (element) {
 
-                      if (elementInside.detail.toString().toLowerCase() === activeTextEditorPath.toLowerCase()) {
-                          items.push(
-                              {
-                                  label: elementInside.label,
-                                  description: elementInside.description
-                              }
-                          );
-                      } else {
-                          let itemPath = removeRootPathFrom(elementInside.detail);
-                          items.push(
-                              {
-                                  label: elementInside.label,
-                                  description: elementInside.description,
-                                  detail: itemPath
-                              }
-                          );
-                      }
+                    // for (let indexInside = 0; indexInside < element.length; indexInside++) {
+                    for (let elementInside of element) {
+                        // let elementInside = element[indexInside];
+
+                        if (elementInside.detail.toString().toLowerCase() === activeTextEditorPath.toLowerCase()) {
+                            items.push(
+                                {
+                                    label: elementInside.label,
+                                    description: elementInside.description
+                                }
+                            );
+                        } else {
+                            let itemPath = removeRootPathFrom(elementInside.detail);
+                            items.push(
+                                {
+                                    label: elementInside.label,
+                                    description: elementInside.description,
+                                    detail: itemPath
+                                }
+                            );
+                        }
+                    }
+
                   }
 
               }
@@ -622,7 +626,8 @@ export function activate(context: vscode.ExtensionContext) {
                       } else {
                         let uriDocument: vscode.Uri = vscode.Uri.file(filePath);
                         vscode.workspace.openTextDocument(uriDocument).then(doc => {
-                            vscode.window.showTextDocument(doc, undefined, true).then(editor => {
+                            // vscode.window.showTextDocument(doc, undefined, true).then(editor => {
+                            vscode.window.showTextDocument(doc, {preserveFocus: true, preview: true}).then(editor => {
                                 revealLine(parseInt(item.label, 10) - 1);
                             });
                         });

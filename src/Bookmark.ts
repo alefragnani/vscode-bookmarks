@@ -95,13 +95,13 @@ export class Bookmark {
 
             // no bookmark, returns empty
             if (this.bookmarks.length === 0) {
-                resolve({});
+                resolve(undefined);
                 return;
             }
 
             // file does not exist, returns empty
             if (!fs.existsSync(this.fsPath)) {
-                resolve({});
+                resolve(undefined);
                 return;
             }
 
