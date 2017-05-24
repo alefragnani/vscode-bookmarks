@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 0.15.0
+
+* **New:** Support Retina Displays (issue [#70](https://github.com/alefragnani/vscode-bookmarks/issues/70))
+* **New:** `Toggle` command now put documents on _non preview mode_ (issue [#30](https://github.com/alefragnani/vscode-bookmarks/issues/30))
+* **Fix:** `List from All Files` command not working since VS Code 1.12 (issue [#69](https://github.com/alefragnani/vscode-bookmarks/issues/69))
+* **Internal**: **TypeScript** and **VS Code engine** updated
+* **Internal**: Source code moved to `src` folder
+
 ## Version 0.14.1
 
 * **Fix:** Bookmarks saved in Project were not working fine for _non-Windows_ OS (Thanks to @fzzr- [PR #67](https://github.com/alefragnani/vscode-bookmarks/pull/67))
