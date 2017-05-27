@@ -656,7 +656,14 @@ export function activate(context: vscode.ExtensionContext) {
                   if (!selection.detail) {
                       revealLine(parseInt(selection.label, 10) - 1);
                   } else {
-                      let newPath = vscode.workspace.rootPath + selection.detail.toString();
+                      let newPath: string;
+                      // with octicon - document outside project
+                      if (selection.detail.toString().indexOf("$(file-directory) ") === 0) {
+                          newPath = selection.detail.toString().split("$(file-directory) ").pop();
+                      } else {// no octicon - document inside project
+                          newPath = vscode.workspace.rootPath + selection.detail.toString();
+                      }
+                      // let newPath = vscode.workspace.rootPath + selection.detail.toString();
                       let uriDocument: vscode.Uri = vscode.Uri.file(newPath);
                       vscode.workspace.openTextDocument(uriDocument).then(doc => {
                           vscode.window.showTextDocument(doc).then(editor => {
