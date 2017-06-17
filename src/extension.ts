@@ -345,7 +345,8 @@ export function activate(context: vscode.ExtensionContext) {
             bookmarks.activeBookmark.bookmarks.push(line);
 
             // toggle editing mode
-            vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false} );
+            // vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false} );
+            vscode.window.showTextDocument(vscode.window.activeTextEditor.document, vscode.window.activeTextEditor.viewColumn);
         } else {
             bookmarks.activeBookmark.bookmarks.splice(index, 1);
         }		
