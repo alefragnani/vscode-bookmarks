@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.15.2
+
+* **Fix:** Toggling bookmark on Center/Right editors were opening the same file on Left editor (issue [#74](https://github.com/alefragnani/vscode-bookmarks/issues/74))
+
 ## Version 0.15.1
 
 * **Fix:** Error opening files outside the project in `List from All Files`  (issue [#72](https://github.com/alefragnani/vscode-bookmarks/issues/72))
