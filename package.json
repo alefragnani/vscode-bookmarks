@@ -2,14 +2,14 @@
     "name": "Bookmarks",
     "displayName": "Bookmarks",
     "description": "Mark lines and jump to them",
-    "version": "0.15.2",
+    "version": "0.16.0",
     "publisher": "alefragnani",
     "galleryBanner": {
         "color": "#000000",
         "theme": "dark"
     },
     "engines": {
-        "vscode": "^1.12.0"
+        "vscode": "^1.13.0"
     },
     "categories": [
         "Other"
@@ -33,10 +33,19 @@
         "url": "https://github.com/alefragnani/vscode-bookmarks/issues"
     },
     "activationEvents": [
-        "*"
+        "*",
+        "onView:bookmarksExplorer"
     ],
     "main": "./out/src/extension",
     "contributes": {
+        "views": {
+            "explorer": [
+                {
+                    "id": "bookmarksExplorer",
+                    "name": "Bookmarks"
+                }
+            ]
+        },
         "commands": [
             {
                 "command": "bookmarks.toggle",
@@ -68,7 +77,11 @@
             },
             {
                 "command": "bookmarks.list",
-                "title": "Bookmarks: List"
+                "title": "Bookmarks: List",
+                "icon": {
+					"light": "images/refresh-light.svg",
+					"dark": "images/refresh-dark.svg"
+				}
             },
             {
                 "command": "bookmarks.clear",
@@ -103,7 +116,24 @@
                     "command": "bookmarks.selectLines",
                     "group": "bookmarks"
                 }
-            ]
+            ],
+            "view/title": [
+				{
+					"command": "bookmarks.list",
+					"when": "view == bookmarksExplorer",
+					"group": "navigation"
+				},
+				{
+					"command": "bookmarks.toggle",
+					"when": "view == bookmarksExplorer"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "bookmarks.clear",
+					"when": "view == bookmarksExplorer && viewItem == dependency"
+				}
+			]
         },
         "configuration": {
             "type": "object",

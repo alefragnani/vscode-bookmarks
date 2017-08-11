@@ -7,6 +7,8 @@ import path = require("path");
 import {JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS} from "./Bookmark";
 import {Bookmarks} from "./Bookmarks";
 
+import { BookmarkProvider } from "./BookmarkProvider";
+
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
   
@@ -16,6 +18,10 @@ export function activate(context: vscode.ExtensionContext) {
 
     // load pre-saved bookmarks
     let didLoadBookmarks: boolean = loadWorkspaceState();
+
+    // tree-view
+    const bookmarkProvider = new BookmarkProvider(vscode.workspace.rootPath);
+    vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
 	
     // Define the Bookmark Decoration
     let pathIcon: string = vscode.workspace.getConfiguration("bookmarks").get("gutterIconPath", "");
@@ -498,7 +504,8 @@ export function activate(context: vscode.ExtensionContext) {
             placeHolder: "Type a line number or a piece of code to navigate to",
             matchOnDescription: true,
             onDidSelectItem: item => {
-                revealLine(parseInt(item.label, 10) - 1);
+                let itemT = <vscode.QuickPickItem>item;
+                revealLine(parseInt(itemT.label, 10) - 1);
             }
         };
 
@@ -609,27 +616,29 @@ export function activate(context: vscode.ExtensionContext) {
                   matchOnDescription: true,
                   onDidSelectItem: item => {
 
+                        let itemT = <vscode.QuickPickItem>item;
+
                       let filePath: string;
                       // no detail - previously active document
-                      if (!item.detail) {
+                      if (!itemT.detail) {
                           filePath = activeTextEditorPath;
                       } else {
                           // with octicon - document outside project
-                          if (item.detail.toString().indexOf("$(file-directory) ") === 0) {
-                              filePath = item.detail.toString().split("$(file-directory) ").pop();
+                          if (itemT.detail.toString().indexOf("$(file-directory) ") === 0) {
+                              filePath = itemT.detail.toString().split("$(file-directory) ").pop();
                           } else {// no octicon - document inside project
-                              filePath = vscode.workspace.rootPath + item.detail.toString();
+                              filePath = vscode.workspace.rootPath + itemT.detail.toString();
                           }
                       }
 
                       if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri.fsPath.toLowerCase() === filePath.toLowerCase()) {
-                          revealLine(parseInt(item.label, 10) - 1);
+                          revealLine(parseInt(itemT.label, 10) - 1);
                       } else {
                         let uriDocument: vscode.Uri = vscode.Uri.file(filePath);
                         vscode.workspace.openTextDocument(uriDocument).then(doc => {
                             // vscode.window.showTextDocument(doc, undefined, true).then(editor => {
                             vscode.window.showTextDocument(doc, {preserveFocus: true, preview: true}).then(editor => {
-                                revealLine(parseInt(item.label, 10) - 1);
+                                revealLine(parseInt(itemT.label, 10) - 1);
                             });
                         });
                       }                  
