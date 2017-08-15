@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
     let didLoadBookmarks: boolean = loadWorkspaceState();
 
     // tree-view
-    const bookmarkProvider = new BookmarkProvider(vscode.workspace.rootPath);
+    const bookmarkProvider = new BookmarkProvider(vscode.workspace.rootPath, bookmarks);
     vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
 	
     // Define the Bookmark Decoration
@@ -518,7 +518,7 @@ export function activate(context: vscode.ExtensionContext) {
         });
     });
     
-     vscode.commands.registerCommand("bookmarks.listFromAllFiles", () => {
+    vscode.commands.registerCommand("bookmarks.listFromAllFiles", () => {
 
         // no bookmark
         let totalBookmarkCount: number = 0;
