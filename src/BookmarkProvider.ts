@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
-import {Bookmarks} from "./Bookmarks";
+import { Bookmarks } from "./Bookmarks";
 
 export const NODE_FILE = 0;
 export const NODE_BOOKMARK = 1;
@@ -29,7 +29,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
     // no bookmark
     let totalBookmarkCount: number = 0;
     for (let elem of this.bookmarks.bookmarks) {
-        totalBookmarkCount = totalBookmarkCount + elem.bookmarks.length; 
+      totalBookmarkCount = totalBookmarkCount + elem.bookmarks.length;
     }
 
     if (totalBookmarkCount === 0) {
@@ -45,13 +45,24 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
           //resolve(return new BookmarkNode(element.label, vscode.TreeItemCollapsibleState.Collapsed, element.)));
           let ll: BookmarkNode[] = [];
 
-          for (let bb of this.bookmarks.bookmarks) {
-            if (bb.fsPath === element.label) {
-              for (let obb of bb.bookmarks) {
-                ll.push(new BookmarkNode(obb.toString(), vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK))
-              }
-            }
+
+          for (let bbb of element.books) {
+            ll.push(new BookmarkNode(bbb, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, [], {
+              command: "bookmarks.gotoBookmark",
+              title: "",
+              arguments: [element.label, 10],
+            }));
           }
+
+          // for (let bb of this.bookmarks.bookmarks) {
+          //   if (bb.fsPath === element.label) {
+          //     for (let obb of bb.bookmarks) {
+          //       ll.push(new BookmarkNode(obb.toString(), vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK))
+          //     }
+          //   }
+          // }
+
+
           // ll.push(new BookmarkNode("ASDFASDF", vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK));
           // ll.push(new BookmarkNode("ASDFASDF", vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK));
           // ll.push(new BookmarkNode("ASDFADSF", vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK));
@@ -61,6 +72,64 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
         }
         //resolve(this.getDepsInPackageJson(path.join(this.workspaceRoot, "node_modules", element.label, "package.json")));
       } else {
+
+        //*
+        // ROOT
+        let promisses = [];
+        for (let bookmark of this.bookmarks.bookmarks) {
+          let pp = bookmark.listBookmarks();
+          promisses.push(pp);
+        }
+
+        Promise.all(promisses).then(
+          (values) => {
+
+            // raw list
+            let lll: BookmarkNode[] = [];
+            for (let bb of this.bookmarks.bookmarks) {
+
+              // this bookmark has bookmarks?
+              if (this.bookmarks.bookmarks.length > 0) {
+
+                let books: string[] = [];
+
+                // search from `values`
+                for (let element of values) {
+                  if (element) {
+                    for (let elementInside of element) {
+
+                      if (bb.fsPath === elementInside.detail) {
+                        let itemPath = removeRootPathFrom(elementInside.detail);
+                        //lll.push(new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
+                        books.push("Line " + elementInside.label + ": " + elementInside.description);
+                      }
+                    }
+                  }
+                }
+
+                lll.push(new BookmarkNode(bb.fsPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, books));
+              }
+            }
+
+            // let ll: BookmarkNode[] = [];
+            // for (let element of values) {
+            //     if (element) {
+            //       for (let elementInside of element) {
+            //           let itemPath = removeRootPathFrom(elementInside.detail);
+            //           ll.push(new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
+            //       }    
+            //     }    
+            // }
+            resolve(lll);
+          }
+        );
+
+
+        //*/  
+
+
+        /*
+
         // const packageJsonPath = path.join(this.workspaceRoot, "package.json");
         // if (this.pathExists(packageJsonPath)) {
         //   resolve(this.getDepsInPackageJson(packageJsonPath));
@@ -70,14 +139,18 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
         // }
         let ll: BookmarkNode[] = [];
         for (let bb of this.bookmarks.bookmarks) {
-          ll.push(new BookmarkNode(bb.fsPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
+          if (this.bookmarks.bookmarks.length > 0) {
+            ll.push(new BookmarkNode(bb.fsPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
+          }
         }
         // ll.push(new BookmarkNode("um", vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
         // ll.push(new BookmarkNode("dopis", vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
         // ll.push(new BookmarkNode("tres", vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
         resolve(ll);
+        
+        */
       }
-    });  
+    });
   }
 
   // getChildrenDEPS(element?: BookmarkNode): Thenable<BookmarkNode[]> {
@@ -100,7 +173,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
   //     }
   //   });  
   // }
-  
+
   // /**
   //  * Given the path to package.json, read all its dependencies and devDependencies.
   //  */
@@ -143,12 +216,25 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
   }
 }
 
+function removeRootPathFrom(path: string): string {
+  if (!vscode.workspace.rootPath) {
+    return path;
+  }
+
+  if (path.indexOf(vscode.workspace.rootPath) === 0) {
+    return path.split(vscode.workspace.rootPath).pop();
+  } else {
+    return "$(file-directory) " + path;
+  }
+}
+
 class BookmarkNode extends vscode.TreeItem {
 
   constructor(
     public readonly label: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     public readonly kind: BookmarkNodeKind,
+    public readonly books?: string[],
     public readonly command?: vscode.Command
   ) {
     super(label, collapsibleState);
