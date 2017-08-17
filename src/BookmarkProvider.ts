@@ -7,12 +7,20 @@ export const NODE_FILE = 0;
 export const NODE_BOOKMARK = 1;
 export enum BookmarkNodeKind { NODE_FILE, NODE_BOOKMARK };
 
+export interface BookmarkPreview {
+  line: number;     // the name that the user defines for the project
+  preview: string; // the root path of this project
+};
+
+let context: vscode.ExtensionContext;
+
 export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
   private _onDidChangeTreeData: vscode.EventEmitter<BookmarkNode | undefined> = new vscode.EventEmitter<BookmarkNode | undefined>();
   readonly onDidChangeTreeData: vscode.Event<BookmarkNode | undefined> = this._onDidChangeTreeData.event;
 
-  constructor(private workspaceRoot: string, private bookmarks: Bookmarks) {
+  constructor(private workspaceRoot: string, private bookmarks: Bookmarks, ctx: vscode.ExtensionContext) {
+    context = ctx;
   }
 
   refresh(): void {
@@ -47,10 +55,10 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
 
           for (let bbb of element.books) {
-            ll.push(new BookmarkNode(bbb, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, [], {
-              command: "bookmarks.gotoBookmark",
+            ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, [], {
+              command: "bookmarks.jumpTo",
               title: "",
-              arguments: [element.label, 10],
+              arguments: [element.label, bbb.line],
             }));
           }
 
@@ -91,7 +99,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
               // this bookmark has bookmarks?
               if (this.bookmarks.bookmarks.length > 0) {
 
-                let books: string[] = [];
+                let books: BookmarkPreview[] = [];
 
                 // search from `values`
                 for (let element of values) {
@@ -99,14 +107,21 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                     for (let elementInside of element) {
 
                       if (bb.fsPath === elementInside.detail) {
-                        let itemPath = removeRootPathFrom(elementInside.detail);
+                        //let itemPath = removeRootPathFrom(elementInside.detail);
                         //lll.push(new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
-                        books.push("Line " + elementInside.label + ": " + elementInside.description);
+                        //books.push("Line " + elementInside.label + ": " + elementInside.description);
+                        books.push(
+                          {
+                            line: elementInside.label,
+                            preview: "Line " + elementInside.label + ": " + elementInside.description
+                          }
+                          );
                       }
                     }
                   }
                 }
 
+                // let itemPath = removeRootPathFrom(bb.fsPath);
                 lll.push(new BookmarkNode(bb.fsPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, books));
               }
             }
@@ -234,15 +249,17 @@ class BookmarkNode extends vscode.TreeItem {
     public readonly label: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     public readonly kind: BookmarkNodeKind,
-    public readonly books?: string[],
+    public readonly books?: BookmarkPreview[],
     public readonly command?: vscode.Command
   ) {
     super(label, collapsibleState);
   }
 
   iconPath = {
-    light: path.join(__filename, "..", "..", "..", "resources", "light", "images/bookmark.svg"),
-    dark: path.join(__filename, "..", "..", "..", "resources", "dark", "bookmark/bookmark.svg")
+    // light: path.join(__filename, "..", "..", "..", "resources", "light", "images/bookmark.svg"),
+    // dark: path.join(__filename, "..", "..", "..", "resources", "dark", "bookmark/bookmark.svg")
+    light: context.asAbsolutePath("images/bookmark.svg"),
+    dark: context.asAbsolutePath("images/bookmark.svg")
   };
 
   contextValue = "BookmarkNode";

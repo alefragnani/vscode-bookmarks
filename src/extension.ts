@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
     let didLoadBookmarks: boolean = loadWorkspaceState();
 
     // tree-view
-    const bookmarkProvider = new BookmarkProvider(vscode.workspace.rootPath, bookmarks);
+    const bookmarkProvider = new BookmarkProvider(vscode.workspace.rootPath, bookmarks, context);
     vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
 	
     // Define the Bookmark Decoration
@@ -141,6 +141,16 @@ export function activate(context: vscode.ExtensionContext) {
         }
         activeEditor.setDecorations(bookmarkDecorationType, books);
     }
+
+    vscode.commands.registerCommand("bookmarks.jumpTo", (documentPath, line: string) => {
+        let uriDocBookmark: vscode.Uri = vscode.Uri.file(documentPath);
+        vscode.workspace.openTextDocument(uriDocBookmark).then(doc => {
+            vscode.window.showTextDocument(doc ).then(editor => {
+                let lineInt: number = parseInt(line, 10);
+                revealLine(lineInt - 1);
+            });
+        });
+    });
 
     vscode.commands.registerCommand("bookmarks.clear", () => {
         

@@ -60,6 +60,10 @@
                 "title": "Bookmarks: Jump to Previous"
             },
             {
+                "command": "bookmarks.jumpTo",
+                "title": "Bookmarks: Jump to Document/Line"
+            },
+            {
                 "command": "bookmarks.selectLines",
                 "title": "Bookmarks (Selection): Select Lines"
             },
