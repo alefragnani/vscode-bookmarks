@@ -253,14 +253,26 @@ class BookmarkNode extends vscode.TreeItem {
     public readonly command?: vscode.Command
   ) {
     super(label, collapsibleState);
+
+    if (kind === BookmarkNodeKind.NODE_FILE) {
+      this.iconPath = {
+        light: context.asAbsolutePath("images/document-light.svg"),
+        dark: context.asAbsolutePath("images/document-dark.svg")
+      }; 
+    } else {
+      this.iconPath = {
+        light: context.asAbsolutePath("images/bookmark.svg"),
+        dark: context.asAbsolutePath("images/bookmark.svg")
+      }; 
+    }
   }
 
-  iconPath = {
-    // light: path.join(__filename, "..", "..", "..", "resources", "light", "images/bookmark.svg"),
-    // dark: path.join(__filename, "..", "..", "..", "resources", "dark", "bookmark/bookmark.svg")
-    light: context.asAbsolutePath("images/bookmark.svg"),
-    dark: context.asAbsolutePath("images/bookmark.svg")
-  };
+  // iconPath = {
+  //   // light: path.join(__filename, "..", "..", "..", "resources", "light", "images/bookmark.svg"),
+  //   // dark: path.join(__filename, "..", "..", "..", "resources", "dark", "bookmark/bookmark.svg")
+  //   light: context.asAbsolutePath("images/bookmark.svg"),
+  //   dark: context.asAbsolutePath("images/bookmark.svg")
+  // };
 
   contextValue = "BookmarkNode";
 
