@@ -8,11 +8,13 @@ export const NODE_BOOKMARK = 1;
 export enum BookmarkNodeKind { NODE_FILE, NODE_BOOKMARK };
 
 export interface BookmarkPreview {
-  line: number;     // the name that the user defines for the project
-  preview: string; // the root path of this project
+  file: string;
+  line: number;    
+  preview: string; 
 };
 
 let context: vscode.ExtensionContext;
+let hasIcons: boolean = vscode.workspace.getConfiguration("workbench").get("iconTheme", "") !== null;
 
 export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
@@ -47,6 +49,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
     // loop !!!
     return new Promise(resolve => {
+
       if (element) {
 
         if (element.kind === BookmarkNodeKind.NODE_FILE) {
@@ -58,7 +61,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, [], {
               command: "bookmarks.jumpTo",
               title: "",
-              arguments: [element.label, bbb.line],
+              arguments: [bbb.file/*element.label*/, bbb.line],
             }));
           }
 
@@ -69,19 +72,12 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
           //     }
           //   }
           // }
-
-
-          // ll.push(new BookmarkNode("ASDFASDF", vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK));
-          // ll.push(new BookmarkNode("ASDFASDF", vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK));
-          // ll.push(new BookmarkNode("ASDFADSF", vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK));
           resolve(ll);
         } else {
           resolve([]);
         }
-        //resolve(this.getDepsInPackageJson(path.join(this.workspaceRoot, "node_modules", element.label, "package.json")));
       } else {
 
-        //*
         // ROOT
         let promisses = [];
         for (let bookmark of this.bookmarks.bookmarks) {
@@ -112,6 +108,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                         //books.push("Line " + elementInside.label + ": " + elementInside.description);
                         books.push(
                           {
+                            file: elementInside.detail,
                             line: elementInside.label,
                             preview: "Line " + elementInside.label + ": " + elementInside.description
                           }
@@ -121,114 +118,18 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                   }
                 }
 
-                // let itemPath = removeRootPathFrom(bb.fsPath);
-                lll.push(new BookmarkNode(bb.fsPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, books));
+                let itemPath = removeRootPathFrom(bb.fsPath);
+                lll.push(new BookmarkNode(itemPath/*bb.fsPath*/, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, books));
               }
             }
 
-            // let ll: BookmarkNode[] = [];
-            // for (let element of values) {
-            //     if (element) {
-            //       for (let elementInside of element) {
-            //           let itemPath = removeRootPathFrom(elementInside.detail);
-            //           ll.push(new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
-            //       }    
-            //     }    
-            // }
             resolve(lll);
           }
         );
-
-
-        //*/  
-
-
-        /*
-
-        // const packageJsonPath = path.join(this.workspaceRoot, "package.json");
-        // if (this.pathExists(packageJsonPath)) {
-        //   resolve(this.getDepsInPackageJson(packageJsonPath));
-        // } else {
-        //   vscode.window.showInformationMessage("Workspace has no package.json");
-        //   resolve([]);
-        // }
-        let ll: BookmarkNode[] = [];
-        for (let bb of this.bookmarks.bookmarks) {
-          if (this.bookmarks.bookmarks.length > 0) {
-            ll.push(new BookmarkNode(bb.fsPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
-          }
-        }
-        // ll.push(new BookmarkNode("um", vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
-        // ll.push(new BookmarkNode("dopis", vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
-        // ll.push(new BookmarkNode("tres", vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
-        resolve(ll);
-        
-        */
       }
     });
   }
 
-  // getChildrenDEPS(element?: BookmarkNode): Thenable<BookmarkNode[]> {
-  //   if (!this.workspaceRoot) {
-  //     vscode.window.showInformationMessage("No BookmarkNode in empty workspace");
-  //     return Promise.resolve([]);
-  //   }
-
-  //   return new Promise(resolve => {
-  //     if (element) {
-  //       resolve(this.getDepsInPackageJson(path.join(this.workspaceRoot, "node_modules", element.label, "package.json")));
-  //     } else {
-  //       const packageJsonPath = path.join(this.workspaceRoot, "package.json");
-  //       if (this.pathExists(packageJsonPath)) {
-  //         resolve(this.getDepsInPackageJson(packageJsonPath));
-  //       } else {
-  //         vscode.window.showInformationMessage("Workspace has no package.json");
-  //         resolve([]);
-  //       }
-  //     }
-  //   });  
-  // }
-
-  // /**
-  //  * Given the path to package.json, read all its dependencies and devDependencies.
-  //  */
-  // private getDepsInPackageJson(packageJsonPath: string): BookmarkNode[] {
-  //   if (this.pathExists(packageJsonPath)) {
-  //     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-
-  //     const toDep = (moduleName: string): BookmarkNode => {
-  //       if (this.pathExists(path.join(this.workspaceRoot, "node_modules", moduleName))) {
-  //         return new BookmarkNode(moduleName, vscode.TreeItemCollapsibleState.Collapsed);
-  //       } else {
-  //         return new BookmarkNode(moduleName, vscode.TreeItemCollapsibleState.None, {
-  //           command: "extension.openPackageOnNpm",
-  //           title: "",
-  //           arguments: [moduleName],
-  //         });
-  //       }
-  //     }
-
-  //     const deps = packageJson.dependencies
-  //       ? Object.keys(packageJson.dependencies).map(toDep)
-  //       : [];
-  //     const devDeps = packageJson.devDependencies
-  //       ? Object.keys(packageJson.devDependencies).map(toDep)
-  //       : [];
-  //     return deps.concat(devDeps);
-  //   } else {
-  //     return [];
-  //   }
-  // }
-
-  private pathExists(p: string): boolean {
-    try {
-      fs.accessSync(p);
-    } catch (err) {
-      return false;
-    }
-
-    return true;
-  }
 }
 
 function removeRootPathFrom(path: string): string {
@@ -237,9 +138,9 @@ function removeRootPathFrom(path: string): string {
   }
 
   if (path.indexOf(vscode.workspace.rootPath) === 0) {
-    return path.split(vscode.workspace.rootPath).pop();
+    return path.split(vscode.workspace.rootPath).pop().substr(1);
   } else {
-    return "$(file-directory) " + path;
+    return path;
   }
 }
 
@@ -255,10 +156,12 @@ class BookmarkNode extends vscode.TreeItem {
     super(label, collapsibleState);
 
     if (kind === BookmarkNodeKind.NODE_FILE) {
-      this.iconPath = {
-        light: context.asAbsolutePath("images/document-light.svg"),
-        dark: context.asAbsolutePath("images/document-dark.svg")
-      }; 
+      if (hasIcons) {
+        this.iconPath = {
+          light: context.asAbsolutePath("images/bookmark-explorer-light.svg"),
+          dark: context.asAbsolutePath("images/bookmark-explorer-dark.svg")
+        }; 
+      }
     } else {
       this.iconPath = {
         light: context.asAbsolutePath("images/bookmark.svg"),
@@ -266,13 +169,6 @@ class BookmarkNode extends vscode.TreeItem {
       }; 
     }
   }
-
-  // iconPath = {
-  //   // light: path.join(__filename, "..", "..", "..", "resources", "light", "images/bookmark.svg"),
-  //   // dark: path.join(__filename, "..", "..", "..", "resources", "dark", "bookmark/bookmark.svg")
-  //   light: context.asAbsolutePath("images/bookmark.svg"),
-  //   dark: context.asAbsolutePath("images/bookmark.svg")
-  // };
 
   contextValue = "BookmarkNode";
 
