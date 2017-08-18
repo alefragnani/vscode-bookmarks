@@ -53,7 +53,6 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
       if (element) {
 
         if (element.kind === BookmarkNodeKind.NODE_FILE) {
-          //resolve(return new BookmarkNode(element.label, vscode.TreeItemCollapsibleState.Collapsed, element.)));
           let ll: BookmarkNode[] = [];
 
 
@@ -61,17 +60,10 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, [], {
               command: "bookmarks.jumpTo",
               title: "",
-              arguments: [bbb.file/*element.label*/, bbb.line],
+              arguments: [bbb.file, bbb.line],
             }));
           }
 
-          // for (let bb of this.bookmarks.bookmarks) {
-          //   if (bb.fsPath === element.label) {
-          //     for (let obb of bb.bookmarks) {
-          //       ll.push(new BookmarkNode(obb.toString(), vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK))
-          //     }
-          //   }
-          // }
           resolve(ll);
         } else {
           resolve([]);
@@ -103,14 +95,11 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                     for (let elementInside of element) {
 
                       if (bb.fsPath === elementInside.detail) {
-                        //let itemPath = removeRootPathFrom(elementInside.detail);
-                        //lll.push(new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE));
-                        //books.push("Line " + elementInside.label + ": " + elementInside.description);
                         books.push(
                           {
                             file: elementInside.detail,
                             line: elementInside.label,
-                            preview: "Line " + elementInside.label + ": " + elementInside.description
+                            preview: elementInside.label + ": " + elementInside.description
                           }
                           );
                       }
@@ -119,7 +108,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                 }
 
                 let itemPath = removeRootPathFrom(bb.fsPath);
-                lll.push(new BookmarkNode(itemPath/*bb.fsPath*/, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, books));
+                lll.push(new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, books));
               }
             }
 
