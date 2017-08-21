@@ -135,7 +135,7 @@
 			"view/item/context": [
 				{
 					"command": "bookmarks.clear",
-					"when": "view == bookmarksExplorer && viewItem == dependency"
+					"when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile"
 				}
 			]
         },

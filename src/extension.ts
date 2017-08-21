@@ -159,7 +159,8 @@ export function activate(context: vscode.ExtensionContext) {
           return;
         }      
       
-        bookmarks.activeBookmark.clear();
+//        bookmarks.activeBookmark.clear();
+        bookmarks.clear();
 
         saveWorkspaceState();
         updateDecorations();
@@ -168,10 +169,11 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => {
         
         // for (let index = 0; index < bookmarks.bookmarks.length; index++) {
-        for (let element of bookmarks.bookmarks) {
-            // let element = bookmarks.bookmarks[index];
-            element.clear();
-        }
+        // for (let element of bookmarks.bookmarks) {
+        //     // let element = bookmarks.bookmarks[index];
+        //     element.clear();
+        // }
+        bookmarks.clearAll();
       
         saveWorkspaceState();
         updateDecorations();
@@ -358,13 +360,15 @@ export function activate(context: vscode.ExtensionContext) {
 
         let index = bookmarks.activeBookmark.bookmarks.indexOf(line);
         if (index < 0) {
-            bookmarks.activeBookmark.bookmarks.push(line);
-
+            // bookmarks.activeBookmark.bookmarks.push(line);
+            bookmarks.addBookmark(line);
+            
             // toggle editing mode
             // vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false} );
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, vscode.window.activeTextEditor.viewColumn);
         } else {
-            bookmarks.activeBookmark.bookmarks.splice(index, 1);
+            // bookmarks.activeBookmark.bookmarks.splice(index, 1);
+            bookmarks.removeBookmark(index);
         }		
 		
         // sorted

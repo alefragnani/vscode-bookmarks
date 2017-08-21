@@ -23,11 +23,28 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
   constructor(private workspaceRoot: string, private bookmarks: Bookmarks, ctx: vscode.ExtensionContext) {
     context = ctx;
+
+    bookmarks.onDidClearBookmark( bkm => {
+      // this.refresh(); // 
+      this._onDidChangeTreeData.fire();
+    });
+
+    bookmarks.onDidClearAllBookmarks( bkm => {
+      this._onDidChangeTreeData.fire();
+    });
+
+    bookmarks.onDidAddBookmark( bkm => {
+      this._onDidChangeTreeData.fire();
+    });
+
+    bookmarks.onDidRemoveBookmark( bkm => {
+      this._onDidChangeTreeData.fire();
+    });
   }
 
-  refresh(): void {
-    this._onDidChangeTreeData.fire();
-  }
+  // refresh(): void {
+  //   this._onDidChangeTreeData.fire();
+  // }
 
   getTreeItem(element: BookmarkNode): vscode.TreeItem {
     return element;
@@ -54,7 +71,6 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
         if (element.kind === BookmarkNodeKind.NODE_FILE) {
           let ll: BookmarkNode[] = [];
-
 
           for (let bbb of element.books) {
             ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, [], {
@@ -85,7 +101,8 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             for (let bb of this.bookmarks.bookmarks) {
 
               // this bookmark has bookmarks?
-              if (this.bookmarks.bookmarks.length > 0) {
+              //if (this.bookmarks.bookmarks.length > 0) {
+              if (bb.bookmarks.length > 0) {
 
                 let books: BookmarkPreview[] = [];
 
@@ -151,14 +168,16 @@ class BookmarkNode extends vscode.TreeItem {
           dark: context.asAbsolutePath("images/bookmark-explorer-dark.svg")
         }; 
       }
+      this.contextValue = "BookmarkNodeFile";
     } else {
       this.iconPath = {
         light: context.asAbsolutePath("images/bookmark.svg"),
         dark: context.asAbsolutePath("images/bookmark.svg")
       }; 
+      this.contextValue = "BookmarkNodeBookmark";
     }
   }
 
-  contextValue = "BookmarkNode";
+  // contextValue = "BookmarkNode";
 
 }

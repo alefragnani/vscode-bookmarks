@@ -6,7 +6,19 @@ import {Bookmark, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS} from "./Bookm
 
 export class Bookmarks {
 
-        public static normalize(uri: string): string {
+    private onDidClearBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
+    get onDidClearBookmark(): vscode.Event<Bookmark> { return this.onDidClearBookmarkEmitter.event; }
+
+    private onDidClearAllBookmarksEmitter = new vscode.EventEmitter<Bookmark>();
+    get onDidClearAllBookmarks(): vscode.Event<Bookmark> { return this.onDidClearAllBookmarksEmitter.event; }
+
+    private onDidAddBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
+    get onDidAddBookmark(): vscode.Event<Bookmark> { return this.onDidAddBookmarkEmitter.event; }
+
+    private onDidRemoveBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
+    get onDidRemoveBookmark(): vscode.Event<Bookmark> { return this.onDidRemoveBookmarkEmitter.event; }
+
+    public static normalize(uri: string): string {
             // a simple workaround for what appears to be a vscode.Uri bug
             // (inconsistent fsPath values for the same document, ex. ///foo/x.cpp and /foo/x.cpp)
             return uri.replace("///", "/");
@@ -181,5 +193,27 @@ export class Bookmarks {
                 element.fsPath = element.fsPath.replace(vscode.workspace.rootPath, "$ROOTPATH$");
             }
             return newBookmarks;
+        }
+
+        public clear(): void {
+            this.activeBookmark.clear();
+            this.onDidClearBookmarkEmitter.fire(this.activeBookmark);
+        }
+
+        public clearAll(): void {
+            for (let element of this.bookmarks) {
+                element.clear();
+            }     
+            this.onDidClearAllBookmarksEmitter.fire();       
+        }
+
+        public addBookmark(line: number): void {
+            this.activeBookmark.bookmarks.push(line);
+            this.onDidAddBookmarkEmitter.fire(this.activeBookmark);
+        }
+
+        public removeBookmark(index: number): void {
+            this.activeBookmark.bookmarks.splice(index, 1);
+            this.onDidRemoveBookmarkEmitter.fire(this.activeBookmark);
         }
     }
