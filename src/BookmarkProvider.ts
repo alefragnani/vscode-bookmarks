@@ -60,7 +60,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
     }
 
     if (totalBookmarkCount === 0) {
-      vscode.window.showInformationMessage("No Bookmarks in this project.");
+      // vscode.window.showInformationMessage("No Bookmarks in this project.");
       return Promise.resolve([]);
     }
 
