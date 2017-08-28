@@ -10,17 +10,9 @@ export const JUMP_FORWARD = 1;
 export const JUMP_BACKWARD = -1;
 export enum JUMP_DIRECTION { JUMP_FORWARD, JUMP_BACKWARD };
 
-export interface BookmarkNotification {
-    cleared(): void;
-}
-
-// export class Bookmark implements BookmarkNotification {
 export class Bookmark  {
     public fsPath: string;
     public bookmarks: number[];
-
-    private onDidClearBookmarkEmitter = new vscode.EventEmitter<number>();
-    get onDidClearBookmark(): vscode.Event<number> { return this.onDidClearBookmarkEmitter.event; }
 
     constructor(fsPath: string) {
         this.fsPath = fsPath;
@@ -151,8 +143,6 @@ export class Bookmark  {
 
     public clear() {
         this.bookmarks.length = 0;
-        // this.cleared();
-        this.onDidClearBookmarkEmitter.fire(0);
     }
 
     // public cleared(): void {

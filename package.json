@@ -92,6 +92,14 @@
                 "title": "Bookmarks: Clear"
             },
             {
+                "command": "bookmarks.clearFromFile",
+                "title": "Bookmarks: Clear"
+            },
+            {
+                "command": "bookmarks.deleteBookmark",
+                "title": "Bookmarks: Delete Bookmark"
+            },
+            {
                 "command": "bookmarks.listFromAllFiles",
                 "title": "Bookmarks: List from All Files"
             },
@@ -101,6 +109,16 @@
             }
         ],
         "menus": {
+            "commandPalette": [
+                {
+                    "command": "bookmarks.clearFromFile",
+                    "when": "false"
+                },
+                {
+                    "command": "bookmarks.deleteBookmark",
+                    "when": "false"
+                }
+            ],
             "editor/context": [
                 {
                     "command": "bookmarks.toggle",
@@ -134,8 +152,12 @@
 			],
 			"view/item/context": [
 				{
-					"command": "bookmarks.clear",
+					"command": "bookmarks.clearFromFile",
 					"when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile"
+				},
+				{
+					"command": "bookmarks.deleteBookmark",
+					"when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
 				}
 			]
         },

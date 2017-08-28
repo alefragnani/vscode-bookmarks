@@ -206,9 +206,10 @@ export class Bookmarks {
             return newBookmarks;
         }
 
-        public clear(): void {
-            this.activeBookmark.clear();
-            this.onDidClearBookmarkEmitter.fire(this.activeBookmark);
+        public clear(book?: Bookmark): void {
+            let b: Bookmark = book ? book : this.activeBookmark;
+            b.clear();
+            this.onDidClearBookmarkEmitter.fire(b);
         }
 
         public clearAll(): void {
@@ -227,10 +228,11 @@ export class Bookmarks {
             });
         }
 
-        public removeBookmark(index, aline: number): void {
-            this.activeBookmark.bookmarks.splice(index, 1);
+        public removeBookmark(index, aline: number, book?: Bookmark): void {
+            let b: Bookmark = book ? book : this.activeBookmark;
+            b.bookmarks.splice(index, 1);
             this.onDidRemoveBookmarkEmitter.fire({
-                bookmark: this.activeBookmark, 
+                bookmark: b, 
                 line: aline + 1
             });
         }

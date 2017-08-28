@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 import fs = require("fs");
 import path = require("path");
 
-import {JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS} from "./Bookmark";
+import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, Bookmark } from "./Bookmark";
 import {Bookmarks} from "./Bookmarks";
 
 import { BookmarkProvider } from "./BookmarkProvider";
@@ -150,6 +150,22 @@ export function activate(context: vscode.ExtensionContext) {
                 revealLine(lineInt - 1);
             });
         });
+    });
+
+    vscode.commands.registerCommand("bookmarks.clearFromFile", node => {
+        // vscode.window.showInformationMessage("bookmarks.clearFromFile" + node.toString());
+        bookmarks.clear(node.bookmark);
+        saveWorkspaceState();
+        updateDecorations();
+    });
+
+    vscode.commands.registerCommand("bookmarks.deleteBookmark", node => {
+        // vscode.window.showInformationMessage("bookmarks.deleteBookmark" + node.toString());
+        let book: Bookmark = bookmarks.fromUri(node.command.arguments[0]);
+        let index = book.bookmarks.indexOf(node.command.arguments[1] - 1);
+        bookmarks.removeBookmark(index, node.command.arguments[1] - 1, book);
+        saveWorkspaceState();
+        updateDecorations();
     });
 
     vscode.commands.registerCommand("bookmarks.clear", () => {
