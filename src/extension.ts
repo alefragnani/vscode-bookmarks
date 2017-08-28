@@ -368,7 +368,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, vscode.window.activeTextEditor.viewColumn);
         } else {
             // bookmarks.activeBookmark.bookmarks.splice(index, 1);
-            bookmarks.removeBookmark(index);
+            bookmarks.removeBookmark(index, line);
         }		
 		
         // sorted
@@ -518,7 +518,7 @@ export function activate(context: vscode.ExtensionContext) {
             placeHolder: "Type a line number or a piece of code to navigate to",
             matchOnDescription: true,
             onDidSelectItem: item => {
-                let itemT = <vscode.QuickPickItem>item;
+                let itemT = <vscode.QuickPickItem> item;
                 revealLine(parseInt(itemT.label, 10) - 1);
             }
         };
@@ -630,7 +630,7 @@ export function activate(context: vscode.ExtensionContext) {
                   matchOnDescription: true,
                   onDidSelectItem: item => {
 
-                        let itemT = <vscode.QuickPickItem>item;
+                        let itemT = <vscode.QuickPickItem> item;
 
                       let filePath: string;
                       // no detail - previously active document

@@ -1,6 +1,5 @@
-import * as fs from "fs";
-import * as path from "path";
 import * as vscode from "vscode";
+import { Bookmark } from "./Bookmark";
 import { Bookmarks } from "./Bookmarks";
 
 export const NODE_FILE = 0;
@@ -21,10 +20,27 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
   private _onDidChangeTreeData: vscode.EventEmitter<BookmarkNode | undefined> = new vscode.EventEmitter<BookmarkNode | undefined>();
   readonly onDidChangeTreeData: vscode.Event<BookmarkNode | undefined> = this._onDidChangeTreeData.event;
 
+  private tree: BookmarkNode[] = [];
+
   constructor(private workspaceRoot: string, private bookmarks: Bookmarks, ctx: vscode.ExtensionContext) {
     context = ctx;
 
     bookmarks.onDidClearBookmark( bkm => {
+
+      // // no bookmark in this file
+      // if (this.tree.length === 0) {
+      //   this._onDidChangeTreeData.fire();
+      //   return;
+      // } 
+
+      // // has bookmarks - find it
+      // for (let index = 0; index < this.tree.length; index++) {
+      //   let element = this.tree[index];
+      //   if (element.bookmark === bkm) {
+      //     this.tree.splice(index, 1);
+      //     return;
+      //   }
+      // }
       // this.refresh(); // 
       this._onDidChangeTreeData.fire();
     });
@@ -34,11 +50,78 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
     });
 
     bookmarks.onDidAddBookmark( bkm => {
+
+      // no bookmark in this file
+      if (this.tree.length === 0) {
+        this._onDidChangeTreeData.fire();
+        return;
+      } 
+      
+      // has bookmarks - find it
+      for (let bn of this.tree) {
+        if (bn.bookmark === bkm.bookmark) {
+          
+          bn.books.push({
+            file: bn.books[0].file,
+            line: bkm.line,
+            preview: bkm.line + ": " + bkm.preview
+          });
+
+          bn.books.sort((n1, n2) => {
+              if (n1.line > n2.line) {
+                  return 1;
+              }
+
+              if (n1.line < n2.line) {
+                  return -1;
+              }
+
+              return 0;
+          });
+          // // update BookmarkNode.book array with updated line/preview
+          // for (let idx; 0; bkm.bookmarks.length - 1) {
+
+          // }
+          this._onDidChangeTreeData.fire(bn);
+          return;
+        }
+      }
+
+      // not found - new file
       this._onDidChangeTreeData.fire();
     });
 
     bookmarks.onDidRemoveBookmark( bkm => {
-      this._onDidChangeTreeData.fire();
+
+      // no bookmark in this file
+      if (this.tree.length === 0) {
+        this._onDidChangeTreeData.fire();
+        return;
+      } 
+      
+      // has bookmarks - find it
+      for (let bn of this.tree) {
+        if (bn.bookmark === bkm.bookmark) {
+
+          // last one - reset
+          if (bn.books.length === 1) {
+            this._onDidChangeTreeData.fire(null);
+            return;
+          }
+
+          // remove just that one
+          for (let index = 0; index < bn.books.length; index++) {
+            let element = bn.books[index];
+            if (element.line == bkm.line) {
+              bn.books.splice(index, 1);
+              this._onDidChangeTreeData.fire(bn);
+              return;
+            }
+          }
+        }
+      }
+
+      //this._onDidChangeTreeData.fire();
     });
   }
 
@@ -61,6 +144,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
     if (totalBookmarkCount === 0) {
       // vscode.window.showInformationMessage("No Bookmarks in this project.");
+      this.tree = [];
       return Promise.resolve([]);
     }
 
@@ -73,7 +157,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
           let ll: BookmarkNode[] = [];
 
           for (let bbb of element.books) {
-            ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, [], {
+            ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, null, [], {
               command: "bookmarks.jumpTo",
               title: "",
               arguments: [bbb.file, bbb.line],
@@ -87,6 +171,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
       } else {
 
         // ROOT
+        this.tree = [];
         let promisses = [];
         for (let bookmark of this.bookmarks.bookmarks) {
           let pp = bookmark.listBookmarks();
@@ -101,7 +186,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             for (let bb of this.bookmarks.bookmarks) {
 
               // this bookmark has bookmarks?
-              //if (this.bookmarks.bookmarks.length > 0) {
+              // if (this.bookmarks.bookmarks.length > 0) {
               if (bb.bookmarks.length > 0) {
 
                 let books: BookmarkPreview[] = [];
@@ -115,7 +200,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                         books.push(
                           {
                             file: elementInside.detail,
-                            line: elementInside.label,
+                            line: parseInt(elementInside.label, 10),
                             preview: elementInside.label + ": " + elementInside.description
                           }
                           );
@@ -125,7 +210,9 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                 }
 
                 let itemPath = removeRootPathFrom(bb.fsPath);
-                lll.push(new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, books));
+                let bn: BookmarkNode = new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, bb, books);
+                lll.push(bn);
+                this.tree.push(bn);
               }
             }
 
@@ -156,6 +243,7 @@ class BookmarkNode extends vscode.TreeItem {
     public readonly label: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     public readonly kind: BookmarkNodeKind,
+    public readonly bookmark: Bookmark,
     public readonly books?: BookmarkPreview[],
     public readonly command?: vscode.Command
   ) {

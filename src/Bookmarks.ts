@@ -4,6 +4,17 @@ import * as vscode from "vscode";
 import fs = require("fs");
 import {Bookmark, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS} from "./Bookmark";
 
+interface BookmarkAdded {
+    bookmark: Bookmark;
+    line: number;
+    preview: string;
+}
+
+interface BookmarkRemoved {
+    bookmark: Bookmark;
+    line: number;
+}
+
 export class Bookmarks {
 
     private onDidClearBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
@@ -12,11 +23,11 @@ export class Bookmarks {
     private onDidClearAllBookmarksEmitter = new vscode.EventEmitter<Bookmark>();
     get onDidClearAllBookmarks(): vscode.Event<Bookmark> { return this.onDidClearAllBookmarksEmitter.event; }
 
-    private onDidAddBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
-    get onDidAddBookmark(): vscode.Event<Bookmark> { return this.onDidAddBookmarkEmitter.event; }
+    private onDidAddBookmarkEmitter = new vscode.EventEmitter<BookmarkAdded>();
+    get onDidAddBookmark(): vscode.Event<BookmarkAdded> { return this.onDidAddBookmarkEmitter.event; }
 
-    private onDidRemoveBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
-    get onDidRemoveBookmark(): vscode.Event<Bookmark> { return this.onDidRemoveBookmarkEmitter.event; }
+    private onDidRemoveBookmarkEmitter = new vscode.EventEmitter<BookmarkRemoved>();
+    get onDidRemoveBookmark(): vscode.Event<BookmarkRemoved> { return this.onDidRemoveBookmarkEmitter.event; }
 
     public static normalize(uri: string): string {
             // a simple workaround for what appears to be a vscode.Uri bug
@@ -207,13 +218,20 @@ export class Bookmarks {
             this.onDidClearAllBookmarksEmitter.fire();       
         }
 
-        public addBookmark(line: number): void {
-            this.activeBookmark.bookmarks.push(line);
-            this.onDidAddBookmarkEmitter.fire(this.activeBookmark);
+        public addBookmark(aline: number): void {
+            this.activeBookmark.bookmarks.push(aline);
+            this.onDidAddBookmarkEmitter.fire({
+                bookmark: this.activeBookmark, 
+                line: aline + 1,
+                preview: vscode.window.activeTextEditor.document.lineAt(aline).text
+            });
         }
 
-        public removeBookmark(index: number): void {
+        public removeBookmark(index, aline: number): void {
             this.activeBookmark.bookmarks.splice(index, 1);
-            this.onDidRemoveBookmarkEmitter.fire(this.activeBookmark);
+            this.onDidRemoveBookmarkEmitter.fire({
+                bookmark: this.activeBookmark, 
+                line: aline + 1
+            });
         }
     }
