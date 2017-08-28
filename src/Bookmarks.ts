@@ -15,6 +15,13 @@ interface BookmarkRemoved {
     line: number;
 }
 
+interface BookmarkUpdated {
+    bookmark: Bookmark;
+    index: number;
+    line: number;
+    preview: string;
+}
+
 export class Bookmarks {
 
     private onDidClearBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
@@ -28,6 +35,9 @@ export class Bookmarks {
 
     private onDidRemoveBookmarkEmitter = new vscode.EventEmitter<BookmarkRemoved>();
     get onDidRemoveBookmark(): vscode.Event<BookmarkRemoved> { return this.onDidRemoveBookmarkEmitter.event; }
+
+    private onDidUpdateBookmarkEmitter = new vscode.EventEmitter<BookmarkUpdated>();
+    get onDidUpdateBookmark(): vscode.Event<BookmarkUpdated> { return this.onDidUpdateBookmarkEmitter.event; }
 
     public static normalize(uri: string): string {
             // a simple workaround for what appears to be a vscode.Uri bug
@@ -235,5 +245,16 @@ export class Bookmarks {
                 bookmark: b, 
                 line: aline + 1
             });
+        }
+
+        public updateBookmark(index, oldLine, newLine: number, book?: Bookmark): void {
+            let b: Bookmark = book ? book : this.activeBookmark;
+            b.bookmarks[index] = newLine;
+            this.onDidUpdateBookmarkEmitter.fire({
+                bookmark: b,
+                index: index,
+                line: newLine + 1,
+                preview: vscode.window.activeTextEditor.document.lineAt(newLine).text
+            })
         }
     }

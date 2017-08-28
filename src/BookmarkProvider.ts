@@ -123,6 +123,30 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
       //this._onDidChangeTreeData.fire();
     });
+
+    bookmarks.onDidUpdateBookmark( bkm => {
+      
+      // no bookmark in this file
+      if (this.tree.length === 0) {
+        this._onDidChangeTreeData.fire();
+        return;
+      } 
+        
+      // has bookmarks - find it
+      for (let bn of this.tree) {
+        if (bn.bookmark === bkm.bookmark) {
+          
+          bn.books[bkm.index].line = bkm.line;
+          bn.books[bkm.index].preview = bkm.line.toString() + ': ' + bkm.preview;
+          
+          this._onDidChangeTreeData.fire(bn);
+          return;
+        }
+      }
+  
+      // not found - new file
+      this._onDidChangeTreeData.fire();
+    });
   }
 
   // refresh(): void {

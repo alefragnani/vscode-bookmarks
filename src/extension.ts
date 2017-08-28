@@ -828,7 +828,8 @@ export function activate(context: vscode.ExtensionContext) {
                             // the bookmarked one
                             let idxbk = bookmarks.activeBookmark.bookmarks.indexOf(event.contentChanges[ 0 ].range.start.line);
                             if (idxbk > -1) {
-                                bookmarks.activeBookmark.bookmarks.splice(idxbk, 1);
+                                // bookmarks.activeBookmark.bookmarks.splice(idxbk, 1);
+                                bookmarks.removeBookmark(idxbk, event.contentChanges[ 0 ].range.start.line);
                             }
                         }
                     }
@@ -838,7 +839,8 @@ export function activate(context: vscode.ExtensionContext) {
                             let index = bookmarks.activeBookmark.bookmarks.indexOf(i);
 
                             if (index > -1) {
-                                bookmarks.activeBookmark.bookmarks.splice(index, 1);
+                                // bookmarks.activeBookmark.bookmarks.splice(index, 1);
+                                bookmarks.removeBookmark(index, i);
                                 updatedBookmark = true;
                             }
                         }
@@ -869,7 +871,8 @@ export function activate(context: vscode.ExtensionContext) {
                             newLine = 0;
                         }
 
-                        bookmarks.activeBookmark.bookmarks[ index ] = newLine;
+                        // bookmarks.activeBookmark.bookmarks[ index ] = newLine;
+                        bookmarks.updateBookmark(index, bookmarks.activeBookmark.bookmarks[index], newLine);
                         updatedBookmark = true;
                     }
                 }
@@ -894,7 +897,8 @@ export function activate(context: vscode.ExtensionContext) {
                     for (let i = lineMin; i <= lineMax; i++) {
                         let index = bookmarks.activeBookmark.bookmarks.indexOf(i);
                         if (index > -1) {
-                            bookmarks.activeBookmark.bookmarks.splice(index, 1);
+                            // bookmarks.activeBookmark.bookmarks.splice(index, 1);
+                            bookmarks.removeBookmark(index, i);
                             updatedBookmark = true;
                         }
                     }
@@ -937,7 +941,8 @@ export function activate(context: vscode.ExtensionContext) {
             let index = bookmarks.activeBookmark.bookmarks.indexOf(lineMin - 1);
             if (index > -1) {
                 diffChange = lineMax;
-                bookmarks.activeBookmark.bookmarks.splice(index, 1);
+                // bookmarks.activeBookmark.bookmarks.splice(index, 1);
+                bookmarks.removeBookmark(index, lineMin - 1);
                 updatedBookmark = true;
             }
         } else if (direction === "down") {
@@ -947,7 +952,8 @@ export function activate(context: vscode.ExtensionContext) {
             index = bookmarks.activeBookmark.bookmarks.indexOf(lineMax + 1);
             if (index > -1) {
                 diffChange = lineMin;
-                bookmarks.activeBookmark.bookmarks.splice(index, 1);
+                // bookmarks.activeBookmark.bookmarks.splice(index, 1);
+                bookmarks.removeBookmark(index, lineMax + 1);
                 updatedBookmark = true;
             }
         }
@@ -964,13 +970,16 @@ export function activate(context: vscode.ExtensionContext) {
         for (let i in lineRange) {
             let index = bookmarks.activeBookmark.bookmarks.indexOf(lineRange[i]);
             if (index > -1) {
-                bookmarks.activeBookmark.bookmarks[index] -= diffLine;
+                // bookmarks.activeBookmark.bookmarks[index] -= diffLine;
+                bookmarks.updateBookmark(index, lineRange[i], 
+                    bookmarks.activeBookmark.bookmarks[index] - diffLine);
                 updatedBookmark = true;
             }
         }
 
         if (diffChange > -1) {
-            bookmarks.activeBookmark.bookmarks.push(diffChange);
+            // bookmarks.activeBookmark.bookmarks.push(diffChange);
+            bookmarks.addBookmark(diffChange);
             updatedBookmark = true;
         }
 
