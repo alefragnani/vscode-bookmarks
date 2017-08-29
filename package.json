@@ -115,6 +115,10 @@
         "menus": {
             "commandPalette": [
                 {
+                    "command": "bookmarks.jumpTo",
+                    "when": "false"
+                },
+                {
                     "command": "bookmarks.refresh",
                     "when": "false"
                 },
