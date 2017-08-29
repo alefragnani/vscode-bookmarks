@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.16.0
+
+* **New:** Bookmarks TreeView (issue [#64](https://github.com/alefragnani/vscode-bookmarks/issues/64))
+
 ## Version 0.15.2
 
 * **Fix:** Toggling bookmark on Center/Right editors were opening the same file on Left editor (issue [#74](https://github.com/alefragnani/vscode-bookmarks/issues/74))

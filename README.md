@@ -48,8 +48,6 @@ List all bookmarks from all files and easily navigate to any one. It shows you t
 * Bookmarks from other files in the project also shows the relative path and filename
 * Bookmarks from files outside the project are denoted with ![Folder](images/bookmarks-folder-icon.png)
 
-> _new in version 0.10.0_  
-
 ### Bookmarks (Selection)
 
 You can use **Bookmarks** to easily select lines or text blocks. Simply toggle bookmarks in any line of interest and use some of the _Selection_ commands available.
@@ -84,6 +82,24 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```
     "bookmarks.gutterIconPath": "c:\\temp\\othericon.png"
 ```
+
+## Treeview
+
+> _Preview in version 0.16.0_
+
+A first step on a **Bookmarks Treeview** was added in this release, and now you have a list of all your bookmarks, right in the Explorer panel. A few commands were added:
+* Jump to a bookmark, simply clicking in the bookmark item
+* Remove a bookmark, right clicking in the bookmark item
+* Clear the bookmark's file, right-clickin in the file item
+
+![Treeview](images/vscode-bookmarks-treeview-preview.gif)
+
+### Known issues
+
+* Renaming/deleting a file does not update the file item
+* Changing the content of a bookmarked line does not update the bookmark item 
+
+> Use the `Refresh` button in the Treeview title
 
 ## Project and Session Based
 
