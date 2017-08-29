@@ -81,7 +81,11 @@
             },
             {
                 "command": "bookmarks.list",
-                "title": "Bookmarks: List",
+                "title": "Bookmarks: List"
+            },
+            {
+                "command": "bookmarks.refresh",
+                "title": "Bookmarks: Refresh",
                 "icon": {
 					"light": "images/refresh-light.svg",
 					"dark": "images/refresh-dark.svg"
@@ -110,6 +114,10 @@
         ],
         "menus": {
             "commandPalette": [
+                {
+                    "command": "bookmarks.refresh",
+                    "when": "false"
+                },
                 {
                     "command": "bookmarks.clearFromFile",
                     "when": "false"
@@ -141,13 +149,9 @@
             ],
             "view/title": [
 				{
-					"command": "bookmarks.list",
+					"command": "bookmarks.refresh",
 					"when": "view == bookmarksExplorer",
 					"group": "navigation"
-				},
-				{
-					"command": "bookmarks.toggle",
-					"when": "view == bookmarksExplorer"
 				}
 			],
 			"view/item/context": [

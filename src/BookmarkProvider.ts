@@ -78,10 +78,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
               return 0;
           });
-          // // update BookmarkNode.book array with updated line/preview
-          // for (let idx; 0; bkm.bookmarks.length - 1) {
 
-          // }
           this._onDidChangeTreeData.fire(bn);
           return;
         }
@@ -120,8 +117,6 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
           }
         }
       }
-
-      //this._onDidChangeTreeData.fire();
     });
 
     bookmarks.onDidUpdateBookmark( bkm => {
@@ -149,9 +144,9 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
     });
   }
 
-  // refresh(): void {
-  //   this._onDidChangeTreeData.fire();
-  // }
+  public refresh(): void {
+    this._onDidChangeTreeData.fire();
+  }
 
   getTreeItem(element: BookmarkNode): vscode.TreeItem {
     return element;

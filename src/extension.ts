@@ -152,6 +152,10 @@ export function activate(context: vscode.ExtensionContext) {
         });
     });
 
+    vscode.commands.registerCommand("bookmarks.refresh", node => {
+        bookmarkProvider.refresh();
+    });
+
     vscode.commands.registerCommand("bookmarks.clearFromFile", node => {
         // vscode.window.showInformationMessage("bookmarks.clearFromFile" + node.toString());
         bookmarks.clear(node.bookmark);
