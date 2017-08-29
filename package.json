@@ -85,7 +85,7 @@
             },
             {
                 "command": "bookmarks.refresh",
-                "title": "Bookmarks: Refresh",
+                "title": "Refresh",
                 "icon": {
 					"light": "images/refresh-light.svg",
 					"dark": "images/refresh-dark.svg"
@@ -97,11 +97,11 @@
             },
             {
                 "command": "bookmarks.clearFromFile",
-                "title": "Bookmarks: Clear"
+                "title": "Clear"
             },
             {
                 "command": "bookmarks.deleteBookmark",
-                "title": "Bookmarks: Delete Bookmark"
+                "title": "Delete"
             },
             {
                 "command": "bookmarks.listFromAllFiles",
