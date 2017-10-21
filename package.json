@@ -42,7 +42,8 @@
             "explorer": [
                 {
                     "id": "bookmarksExplorer",
-                    "name": "Bookmarks"
+                    "name": "Bookmarks",
+					"when": "bookmarks.canShowTreeView"
                 }
             ]
         },
@@ -187,7 +188,12 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Allow navigation look for bookmarks in all files in the project, instead of only the current"
-                }
+				},
+				"bookmarks.treeview.visible": {
+					"type": "boolean",
+					"default": true,
+					"description": "Should display the Treeview?"
+				}
             }
         },
         "keybindings": [
