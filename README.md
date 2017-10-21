@@ -85,14 +85,22 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ## Treeview
 
-> _Preview in version 0.16.0_
-
 A first step on a **Bookmarks Treeview** was added in this release, and now you have a list of all your bookmarks, right in the Explorer panel. A few commands were added:
 * Jump to a bookmark, simply clicking in the bookmark item
 * Remove a bookmark, right clicking in the bookmark item
 * Clear the bookmark's file, right-clickin in the file item
 
 ![Treeview](images/vscode-bookmarks-treeview-preview.gif)
+
+#### Treeview is Optional
+
+> _new in version 0.17.0_
+
+You can choose if you want to see the Treeview.
+
+```json 
+    "bookmarks.treeview.visible": true
+```
 
 ### Known issues
 
