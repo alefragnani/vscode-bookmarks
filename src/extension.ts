@@ -24,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.executeCommand("setContext", "bookmarks.canShowTreeView", canShowTreeView);
 
     // tree-view
-    const bookmarkProvider = new BookmarkProvider(vscode.workspace.rootPath, bookmarks, context);
+    const bookmarkProvider = new BookmarkProvider(bookmarks, context);
     vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
 	
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {

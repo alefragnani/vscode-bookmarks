@@ -22,7 +22,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
   private tree: BookmarkNode[] = [];
 
-  constructor(private workspaceRoot: string, private bookmarks: Bookmarks, ctx: vscode.ExtensionContext) {
+  constructor(private bookmarks: Bookmarks, ctx: vscode.ExtensionContext) {
     context = ctx;
 
     bookmarks.onDidClearBookmark( bkm => {
