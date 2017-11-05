@@ -6,5 +6,5 @@
 	"search.exclude": {
 		"out": true
 	},
-	"bookmarks.saveBookmarksInProject": true
+	"tslint.enable": true
 }
