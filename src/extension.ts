@@ -692,7 +692,11 @@ export function activate(context: vscode.ExtensionContext) {
                                 }
                                 
                             } else { // no octicon - document inside project
-                                filePath = vscode.workspace.rootPath + itemT.detail.toString();
+                                if (currentWorkspaceFolder) {
+                                    filePath = currentWorkspaceFolder.uri.fsPath + itemT.detail.toString();
+                                } else {
+                                    filePath = vscode.workspace.workspaceFolders[0].uri.fsPath + itemT.detail.toString();
+                                }
                             }
                           }
                       }
@@ -746,10 +750,13 @@ export function activate(context: vscode.ExtensionContext) {
                                 }
                             }                            
                         } else { // no octicon - document inside project
-                            newPath = vscode.workspace.rootPath + selection.detail.toString();
+                            if (currentWorkspaceFolder) {
+                                newPath = currentWorkspaceFolder.uri.fsPath + selection.detail.toString();
+                            } else {
+                                newPath = vscode.workspace.workspaceFolders[0].uri.fsPath + selection.detail.toString();
+                            }
                         }
                       }
-                      // let newPath = vscode.workspace.rootPath + selection.detail.toString();
                       let uriDocument: vscode.Uri = vscode.Uri.file(newPath);
                       vscode.workspace.openTextDocument(uriDocument).then(doc => {
                           vscode.window.showTextDocument(doc).then(editor => {
