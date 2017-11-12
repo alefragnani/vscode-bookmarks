@@ -73,9 +73,10 @@ export class Bookmarks {
               }
             }
 
+            // it replaced $ROOTPATH$ for the rootPath itself 
             if (relativePath) {
                 for (let element of this.bookmarks) {
-                    element.fsPath = element.fsPath.replace("$ROOTPATH$", vscode.workspace.rootPath);
+                    element.fsPath = element.fsPath.replace("$ROOTPATH$", vscode.workspace.workspaceFolders[0].uri.fsPath);
                 }
             }
         }
@@ -211,7 +212,8 @@ export class Bookmarks {
             }
 
             for (let element of newBookmarks.bookmarks) {
-                element.fsPath = element.fsPath.replace(vscode.workspace.rootPath, "$ROOTPATH$");
+                element.fsPath = element.fsPath.replace(vscode.workspace.getWorkspaceFolder(
+                    vscode.Uri.file(element.fsPath)).uri.fsPath, "$ROOTPATH$");
             }
             return newBookmarks;
         }

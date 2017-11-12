@@ -796,18 +796,23 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.activeTextEditor.revealRange(newSe, reviewType);
     }
 
-    function loadWorkspaceState(): boolean {
+    function canSaveBookmarksInProject(): boolean {
         let saveBookmarksInProject: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
-
+        
         // really use saveBookmarksInProject
-        // 1. is a valid workspace
-        // 2. has '.vscode\bookmarks.json' on the first workspaceFolder
-        // 3. has only one workspaceFolder
+        // 1. is a valid workspace/folder
+        // 2. has only one workspaceFolder
         // let hasBookmarksFile: boolean = false;
         if (saveBookmarksInProject && vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 1) {
             // hasBookmarksFile = fs.existsSync(path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json"));
             saveBookmarksInProject = false;
         }
+
+        return saveBookmarksInProject;
+    }
+
+    function loadWorkspaceState(): boolean {
+        let saveBookmarksInProject: boolean = canSaveBookmarksInProject();
 
         bookmarks = new Bookmarks("");
 
@@ -833,20 +838,17 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function saveWorkspaceState(): void {
-        return;
+        let saveBookmarksInProject: boolean = canSaveBookmarksInProject();
 
-        //
-        // let saveBookmarksInProject: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
-
-        // if (vscode.workspace.rootPath && saveBookmarksInProject) {
-        //     let bookmarksFileInProject: string = path.join(vscode.workspace.rootPath, ".vscode", "bookmarks.json");
-        //     if (!fs.existsSync(path.dirname(bookmarksFileInProject))) {
-        //         fs.mkdirSync(path.dirname(bookmarksFileInProject)); 
-        //     }
-        //     fs.writeFileSync(bookmarksFileInProject, JSON.stringify(bookmarks.zip(true), null, "\t"));   
-        // } else {
-        //     context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
-        // }
+        if (saveBookmarksInProject) {
+            let bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
+            if (!fs.existsSync(path.dirname(bookmarksFileInProject))) {
+                fs.mkdirSync(path.dirname(bookmarksFileInProject)); 
+            }
+            fs.writeFileSync(bookmarksFileInProject, JSON.stringify(bookmarks.zip(true), null, "\t"));   
+        } else {
+            context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
+        }
     }
 
     function HadOnlyOneValidContentChange(event): boolean {
