@@ -27,22 +27,6 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
     context = ctx;
 
     bookmarks.onDidClearBookmark( bkm => {
-
-      // // no bookmark in this file
-      // if (this.tree.length === 0) {
-      //   this._onDidChangeTreeData.fire();
-      //   return;
-      // } 
-
-      // // has bookmarks - find it
-      // for (let index = 0; index < this.tree.length; index++) {
-      //   let element = this.tree[index];
-      //   if (element.bookmark === bkm) {
-      //     this.tree.splice(index, 1);
-      //     return;
-      //   }
-      // }
-      // this.refresh(); // 
       this._onDidChangeTreeData.fire();
     });
 
@@ -163,7 +147,6 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
     }
 
     if (totalBookmarkCount === 0) {
-      // vscode.window.showInformationMessage("No Bookmarks in this project.");
       this.tree = [];
       return Promise.resolve([]);
     }
@@ -206,7 +189,6 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             for (let bb of this.bookmarks.bookmarks) {
 
               // this bookmark has bookmarks?
-              // if (this.bookmarks.bookmarks.length > 0) {
               if (bb.bookmarks.length > 0) {
 
                 let books: BookmarkPreview[] = [];
@@ -297,7 +279,4 @@ class BookmarkNode extends vscode.TreeItem {
       this.contextValue = "BookmarkNodeBookmark";
     }
   }
-
-  // contextValue = "BookmarkNode";
-
 }

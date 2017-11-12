@@ -58,7 +58,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Connect it to the Editors Events
     let activeEditor = vscode.window.activeTextEditor;
-    // let activeBookmark: Bookmark;
 
     if (activeEditor) {
         if (!didLoadBookmarks) {
@@ -71,7 +70,6 @@ export function activate(context: vscode.ExtensionContext) {
 	
     // new docs
     vscode.workspace.onDidOpenTextDocument(doc => {
-       // activeEditorCountLine = doc.lineCount;
         bookmarks.add(doc.uri.fsPath);
     });
 
@@ -108,7 +106,6 @@ export function activate(context: vscode.ExtensionContext) {
             clearTimeout(timeout);
         }
         timeout = setTimeout(updateDecorations, 100);
-//        updateDecorations();
     }
 	
     // Evaluate (prepare the list) and DRAW
@@ -129,14 +126,13 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         let books: vscode.Range[] = [];
+
 		// Remove all bookmarks if active file is empty
         if (activeEditor.document.lineCount === 1 && activeEditor.document.lineAt(0).text === "") {
             bookmarks.activeBookmark.bookmarks = [];
         } else {
             let invalids = [];
-            // for (let index = 0; index < bookmarks.activeBookmark.bookmarks.length; index++) {
             for (let element of bookmarks.activeBookmark.bookmarks) {
-                // let element = bookmarks.activeBookmark.bookmarks[index];
 
                 if (element <= activeEditor.document.lineCount) { 
                     let decoration = new vscode.Range(element, 0, element, 0);
@@ -148,9 +144,8 @@ export function activate(context: vscode.ExtensionContext) {
 
             if (invalids.length > 0) {
                 let idxInvalid: number;
-                // for (let indexI = 0; indexI < invalids.length; indexI++) {
                 for (const element of invalids) {
-                    idxInvalid = bookmarks.activeBookmark.bookmarks.indexOf(element); // invalids[indexI]);
+                    idxInvalid = bookmarks.activeBookmark.bookmarks.indexOf(element); 
                     bookmarks.activeBookmark.bookmarks.splice(idxInvalid, 1);
                 }
             }
@@ -173,14 +168,12 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     vscode.commands.registerCommand("bookmarks.clearFromFile", node => {
-        // vscode.window.showInformationMessage("bookmarks.clearFromFile" + node.toString());
         bookmarks.clear(node.bookmark);
         saveWorkspaceState();
         updateDecorations();
     });
 
     vscode.commands.registerCommand("bookmarks.deleteBookmark", node => {
-        // vscode.window.showInformationMessage("bookmarks.deleteBookmark" + node.toString());
         let book: Bookmark = bookmarks.fromUri(node.command.arguments[0]);
         let index = book.bookmarks.indexOf(node.command.arguments[1] - 1);
         bookmarks.removeBookmark(index, node.command.arguments[1] - 1, book);
@@ -195,22 +188,13 @@ export function activate(context: vscode.ExtensionContext) {
           return;
         }      
       
-//        bookmarks.activeBookmark.clear();
         bookmarks.clear();
-
         saveWorkspaceState();
         updateDecorations();
     });
 	
     vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => {
-        
-        // for (let index = 0; index < bookmarks.bookmarks.length; index++) {
-        // for (let element of bookmarks.bookmarks) {
-        //     // let element = bookmarks.bookmarks[index];
-        //     element.clear();
-        // }
         bookmarks.clearAll();
-      
         saveWorkspaceState();
         updateDecorations();
     });
@@ -366,7 +350,6 @@ export function activate(context: vscode.ExtensionContext) {
         bookmarks.activeBookmark.nextBookmark(baseLine, direction)
             .then((nextLine) => {
                 if ((nextLine === NO_MORE_BOOKMARKS) || (nextLine === NO_BOOKMARKS)) {
-                    // vscode.window.showInformationMessage('No more bookmarks...');
                     vscode.window.setStatusBarMessage("No more bookmarks", 2000);
                     return;
                 } else {
@@ -396,14 +379,10 @@ export function activate(context: vscode.ExtensionContext) {
 
         let index = bookmarks.activeBookmark.bookmarks.indexOf(line);
         if (index < 0) {
-            // bookmarks.activeBookmark.bookmarks.push(line);
-            bookmarks.addBookmark(line);
-            
+            bookmarks.addBookmark(line);            
             // toggle editing mode
-            // vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false} );
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, vscode.window.activeTextEditor.viewColumn);
         } else {
-            // bookmarks.activeBookmark.bookmarks.splice(index, 1);
             bookmarks.removeBookmark(index, line);
         }		
 		
@@ -496,12 +475,10 @@ export function activate(context: vscode.ExtensionContext) {
                       // same document?
                       let activeDocument = Bookmarks.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
                       if (nextDocument.toString() === activeDocument) {
-                        // revealLine(activeBookmark.bookmarks[0]);
                         revealLine(bookmarks.activeBookmark.bookmarks[bookmarks.activeBookmark.bookmarks.length - 1]);
                       } else { 
                         vscode.workspace.openTextDocument(nextDocument.toString()).then(doc => {
                             vscode.window.showTextDocument(doc).then(editor => {
-                                // revealLine(activeBookmark.bookmarks[0]);
                                 revealLine(bookmarks.activeBookmark.bookmarks[bookmarks.activeBookmark.bookmarks.length - 1]);
                             });
                         });
@@ -572,9 +549,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         // no bookmark
         let totalBookmarkCount: number = 0;
-        // for (let index = 0; index < bookmarks.bookmarks.length; index++) {
         for (let element of bookmarks.bookmarks) {
-            // totalBookmarkCount = totalBookmarkCount +  bookmarks.bookmarks[index].bookmarks.length;
             totalBookmarkCount = totalBookmarkCount + element.bookmarks.length; 
         }
         if (totalBookmarkCount === 0) {
@@ -595,8 +570,6 @@ export function activate(context: vscode.ExtensionContext) {
         
         // for (let index = 0; index < bookmarks.bookmarks.length; index++) {
         for (let bookmark of bookmarks.bookmarks) {
-            // let bookmark = bookmarks.bookmarks[index];
-            
             let pp = bookmark.listBookmarks();
             promisses.push(pp);
         }
@@ -604,16 +577,9 @@ export function activate(context: vscode.ExtensionContext) {
         Promise.all(promisses).then(
           (values) => {
               
-              // for (let index = 0; index < values.length; index++) {
               for (let element of values) {
-                  // let element = values[index];
-
                   if (element) {
-
-                    // for (let indexInside = 0; indexInside < element.length; indexInside++) {
                     for (let elementInside of element) {
-                        // let elementInside = element[indexInside];
-
                         if (elementInside.detail.toString().toLowerCase() === activeTextEditorPath.toLowerCase()) {
                             items.push(
                                 {
@@ -723,7 +689,6 @@ export function activate(context: vscode.ExtensionContext) {
                       } else {
                           let uriDocument: vscode.Uri = vscode.Uri.file(filePath);
                           vscode.workspace.openTextDocument(uriDocument).then(doc => {
-                              // vscode.window.showTextDocument(doc, undefined, true).then(editor => {
                               vscode.window.showTextDocument(doc, { preserveFocus: true, preview: true }).then(editor => {
                                   revealLine(parseInt(itemT.label, 10) - 1);
                               });
@@ -885,17 +850,11 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// function used to attach bookmarks at the line
     function stickyBookmarks(event): boolean {
-        // sticky is now the default/only behavior
-        // let useStickyBookmarks: boolean = vscode.workspace.getConfiguration("bookmarks").get("useStickyBookmarks", false);
-        // if (!useStickyBookmarks) {
-        //     return false;
-        // }
 
         let diffLine: number;
         let updatedBookmark: boolean = false;
         
         // fix autoTrimWhitespace
-        // if (event.contentChanges.length === 1) {
         if (HadOnlyOneValidContentChange(event)) {
             // add or delete line case
             if (event.document.lineCount !== activeEditorCountLine) {
@@ -913,7 +872,6 @@ export function activate(context: vscode.ExtensionContext) {
                             // the bookmarked one
                             let idxbk = bookmarks.activeBookmark.bookmarks.indexOf(event.contentChanges[ 0 ].range.start.line);
                             if (idxbk > -1) {
-                                // bookmarks.activeBookmark.bookmarks.splice(idxbk, 1);
                                 bookmarks.removeBookmark(idxbk, event.contentChanges[ 0 ].range.start.line);
                             }
                         }
@@ -924,7 +882,6 @@ export function activate(context: vscode.ExtensionContext) {
                             let index = bookmarks.activeBookmark.bookmarks.indexOf(i);
 
                             if (index > -1) {
-                                // bookmarks.activeBookmark.bookmarks.splice(index, 1);
                                 bookmarks.removeBookmark(index, i);
                                 updatedBookmark = true;
                             }
@@ -932,7 +889,6 @@ export function activate(context: vscode.ExtensionContext) {
                     }
                 }
 
-                // for (let index in bookmarks.activeBookmark.bookmarks) {
                 for (let index = 0; index < bookmarks.activeBookmark.bookmarks.length; index++) {
                     let eventLine = event.contentChanges[ 0 ].range.start.line;
                     let eventcharacter = event.contentChanges[ 0 ].range.start.character;
@@ -956,7 +912,6 @@ export function activate(context: vscode.ExtensionContext) {
                             newLine = 0;
                         }
 
-                        // bookmarks.activeBookmark.bookmarks[ index ] = newLine;
                         bookmarks.updateBookmark(index, bookmarks.activeBookmark.bookmarks[index], newLine);
                         updatedBookmark = true;
                     }
@@ -982,7 +937,6 @@ export function activate(context: vscode.ExtensionContext) {
                     for (let i = lineMin; i <= lineMax; i++) {
                         let index = bookmarks.activeBookmark.bookmarks.indexOf(i);
                         if (index > -1) {
-                            // bookmarks.activeBookmark.bookmarks.splice(index, 1);
                             bookmarks.removeBookmark(index, i);
                             updatedBookmark = true;
                         }
@@ -1026,7 +980,6 @@ export function activate(context: vscode.ExtensionContext) {
             let index = bookmarks.activeBookmark.bookmarks.indexOf(lineMin - 1);
             if (index > -1) {
                 diffChange = lineMax;
-                // bookmarks.activeBookmark.bookmarks.splice(index, 1);
                 bookmarks.removeBookmark(index, lineMin - 1);
                 updatedBookmark = true;
             }
@@ -1037,7 +990,6 @@ export function activate(context: vscode.ExtensionContext) {
             index = bookmarks.activeBookmark.bookmarks.indexOf(lineMax + 1);
             if (index > -1) {
                 diffChange = lineMin;
-                // bookmarks.activeBookmark.bookmarks.splice(index, 1);
                 bookmarks.removeBookmark(index, lineMax + 1);
                 updatedBookmark = true;
             }
@@ -1055,7 +1007,6 @@ export function activate(context: vscode.ExtensionContext) {
         for (let i in lineRange) {
             let index = bookmarks.activeBookmark.bookmarks.indexOf(lineRange[i]);
             if (index > -1) {
-                // bookmarks.activeBookmark.bookmarks[index] -= diffLine;
                 bookmarks.updateBookmark(index, lineRange[i], 
                     bookmarks.activeBookmark.bookmarks[index] - diffLine);
                 updatedBookmark = true;
@@ -1063,7 +1014,6 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         if (diffChange > -1) {
-            // bookmarks.activeBookmark.bookmarks.push(diffChange);
             bookmarks.addBookmark(diffChange);
             updatedBookmark = true;
         }

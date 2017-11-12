@@ -67,9 +67,8 @@ export class Bookmarks {
               
               // each bookmark (line)
               this.add(jsonBookmark.fsPath);
-              // for (let index = 0; index < jsonBookmark.bookmarks.length; index++) {
               for (let element of jsonBookmark.bookmarks) {
-                  this.bookmarks[idx].bookmarks.push(element); // jsonBookmark.bookmarks[index]);
+                  this.bookmarks[idx].bookmarks.push(element); 
               }
             }
 
@@ -83,10 +82,7 @@ export class Bookmarks {
 
         public fromUri(uri: string) {
             uri = Bookmarks.normalize(uri);
-            // for (let index = 0; index < this.bookmarks.length; index++) {
             for (let element of this.bookmarks) {
-                // let element = this.bookmarks[index];
-
                 if (element.fsPath === uri) {
                     return element;
                 }
@@ -94,7 +90,6 @@ export class Bookmarks {
         }
 
         public add(uri: string) {
-            // console.log(`Adding bookmark/file: ${uri}`);
             uri = Bookmarks.normalize(uri);
             
             let existing: Bookmark = this.fromUri(uri);
@@ -204,7 +199,6 @@ export class Bookmarks {
             }
             
             let newBookmarks: Bookmarks = new Bookmarks("");
-            //  newBookmarks.bookmarks = this.bookmarks.filter(isNotEmpty);
             newBookmarks.bookmarks = JSON.parse(JSON.stringify(this.bookmarks)).filter(isNotEmpty);
 
             if (!relativePath) {
