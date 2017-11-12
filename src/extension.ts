@@ -639,31 +639,48 @@ export function activate(context: vscode.ExtensionContext) {
 
               // sort
               // - active document
-              // - no octicon - document inside project
-              // - with octicon - document outside project
+              // - no octicon - document in same workspaceFolder
+              // - with octicon 'file-submodules' - document in another workspaceFolder
+              // - with octicon - 'file-directory' - document outside any workspaceFolder
               let itemsSorted: vscode.QuickPickItem[];
               itemsSorted = items.sort(function (a: vscode.QuickPickItem, b: vscode.QuickPickItem): number {
-                  if (!a.detail && !b.detail) {
-                      return 0;
-                  } else {
-                      if (!a.detail && b.detail) {
-                          return -1;
-                      } else {
-                          if (a.detail && !b.detail) {
-                              return 1;
-                          } else {
-                              if ((a.detail.toString().indexOf("$(file-directory) ") === 0) && (b.detail.toString().indexOf("$(file-directory) ") === -1)) {
-                                  return 1;
-                              } else {
-                                  if ((a.detail.toString().indexOf("$(file-directory) ") === -1) && (b.detail.toString().indexOf("$(file-directory) ") === 0)) {
-                                      return -1;
-                                  } else {
-                                      return 0;
-                                  }
-                              }
-                          }
-                      }
-                  }
+                if (!a.detail && !b.detail) {
+                    return 0;
+                }
+                
+                if (!a.detail && b.detail) {
+                    return -1;
+                }
+                
+                if (a.detail && !b.detail) {
+                    return 1;
+                }
+                
+                if ((a.detail.toString().indexOf("$(file-submodule) ") === 0) && (b.detail.toString().indexOf("$(file-directory) ") === 0)) {
+                    return -1;
+                };
+                
+                if ((a.detail.toString().indexOf("$(file-directory) ") === 0) && (b.detail.toString().indexOf("$(file-submodule) ") === 0)) {
+                    return 1;
+                };
+                
+                if ((a.detail.toString().indexOf("$(file-submodule) ") === 0) && (b.detail.toString().indexOf("$(file-submodule) ") === -1)) {
+                    return 1;
+                };
+                
+                if ((a.detail.toString().indexOf("$(file-submodule) ") === -1) && (b.detail.toString().indexOf("$(file-submodule) ") === 0)) {
+                    return -1;
+                };
+                
+                if ((a.detail.toString().indexOf("$(file-directory) ") === 0) && (b.detail.toString().indexOf("$(file-directory) ") === -1)) {
+                    return 1;
+                };
+                
+                if ((a.detail.toString().indexOf("$(file-directory) ") === -1) && (b.detail.toString().indexOf("$(file-directory) ") === 0)) {
+                    return -1;
+                };
+                
+                return 0;
               });
 
               let options = <vscode.QuickPickOptions> {
