@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import path = require("path");
 import { Bookmark } from "./Bookmark";
 import { Bookmarks } from "./Bookmarks";
 
@@ -261,7 +262,7 @@ function removeBasePathFrom(aPath: string): string {
     if (vscode.workspace.workspaceFolders.length === 1) {
       return aPath.split(inWorkspace.uri.fsPath).pop().substr(1);
     } else {
-      return inWorkspace.name + "\\" + aPath.split(inWorkspace.uri.fsPath).pop().substr(1);
+      return inWorkspace.name + path.sep + aPath.split(inWorkspace.uri.fsPath).pop().substr(1);
     }
   } else {
     return aPath;

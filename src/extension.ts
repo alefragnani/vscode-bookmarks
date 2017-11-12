@@ -702,8 +702,8 @@ export function activate(context: vscode.ExtensionContext) {
                             if (itemT.detail.toString().indexOf("$(file-submodule)") === 0) {
                                 filePath = itemT.detail.toString().split("$(file-submodule) ").pop();
                                 for (const wf of vscode.workspace.workspaceFolders) {
-                                    if (wf.name === filePath.split("\\").shift()) {
-                                        filePath = path.join(wf.uri.fsPath, filePath.split("\\").slice(1).join(path.sep));
+                                    if (wf.name === filePath.split(path.sep).shift()) {
+                                        filePath = path.join(wf.uri.fsPath, filePath.split(path.sep).slice(1).join(path.sep));
                                         break;
                                     }
                                 }
@@ -761,8 +761,8 @@ export function activate(context: vscode.ExtensionContext) {
                         if (selection.detail.toString().indexOf("$(file-submodule)") === 0) {
                             newPath = selection.detail.toString().split("$(file-submodule) ").pop();
                             for (const wf of vscode.workspace.workspaceFolders) {
-                                if (wf.name === newPath.split("\\").shift()) {
-                                    newPath = path.join(wf.uri.fsPath, newPath.split("\\").slice(1).join(path.sep));
+                                if (wf.name === newPath.split(path.sep).shift()) {
+                                    newPath = path.join(wf.uri.fsPath, newPath.split(path.sep).slice(1).join(path.sep));
                                     break;
                                 }
                             }                            
@@ -1090,7 +1090,7 @@ export function activate(context: vscode.ExtensionContext) {
                 if (!currentWorkspaceFolder && vscode.workspace.workspaceFolders.length === 1) {
                     return aPath.split(inWorkspace.uri.fsPath).pop();
                 } else {
-                    return "$(file-submodule) " + inWorkspace.name + "\\" + aPath.split(inWorkspace.uri.fsPath).pop();
+                    return "$(file-submodule) " + inWorkspace.name + /*path.sep + */aPath.split(inWorkspace.uri.fsPath).pop();
                 }
             }
             // const base: string = inWorkspace.name ? inWorkspace.name : inWorkspace.uri.fsPath;
