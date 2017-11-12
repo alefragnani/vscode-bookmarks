@@ -1061,7 +1061,11 @@ export function activate(context: vscode.ExtensionContext) {
             if (inWorkspace === currentWorkspaceFolder) {
                 return aPath.split(inWorkspace.uri.fsPath).pop();
             } else {
-                return "$(file-submodule) " + inWorkspace.name + "\\" + aPath.split(inWorkspace.uri.fsPath).pop();
+                if (!currentWorkspaceFolder && vscode.workspace.workspaceFolders.length === 1) {
+                    return aPath.split(inWorkspace.uri.fsPath).pop();
+                } else {
+                    return "$(file-submodule) " + inWorkspace.name + "\\" + aPath.split(inWorkspace.uri.fsPath).pop();
+                }
             }
             // const base: string = inWorkspace.name ? inWorkspace.name : inWorkspace.uri.fsPath;
             // return path.join(base, aPath.split(inWorkspace.uri.fsPath).pop());
