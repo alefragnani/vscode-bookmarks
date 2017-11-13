@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import path = require("path");
 import { Bookmark } from "./Bookmark";
 import { Bookmarks } from "./Bookmarks";
 
@@ -22,26 +23,10 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
   private tree: BookmarkNode[] = [];
 
-  constructor(private workspaceRoot: string, private bookmarks: Bookmarks, ctx: vscode.ExtensionContext) {
+  constructor(private bookmarks: Bookmarks, ctx: vscode.ExtensionContext) {
     context = ctx;
 
     bookmarks.onDidClearBookmark( bkm => {
-
-      // // no bookmark in this file
-      // if (this.tree.length === 0) {
-      //   this._onDidChangeTreeData.fire();
-      //   return;
-      // } 
-
-      // // has bookmarks - find it
-      // for (let index = 0; index < this.tree.length; index++) {
-      //   let element = this.tree[index];
-      //   if (element.bookmark === bkm) {
-      //     this.tree.splice(index, 1);
-      //     return;
-      //   }
-      // }
-      // this.refresh(); // 
       this._onDidChangeTreeData.fire();
     });
 
@@ -162,7 +147,6 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
     }
 
     if (totalBookmarkCount === 0) {
-      // vscode.window.showInformationMessage("No Bookmarks in this project.");
       this.tree = [];
       return Promise.resolve([]);
     }
@@ -205,7 +189,6 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             for (let bb of this.bookmarks.bookmarks) {
 
               // this bookmark has bookmarks?
-              // if (this.bookmarks.bookmarks.length > 0) {
               if (bb.bookmarks.length > 0) {
 
                 let books: BookmarkPreview[] = [];
@@ -228,7 +211,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                   }
                 }
 
-                let itemPath = removeRootPathFrom(bb.fsPath);
+                let itemPath = removeBasePathFrom(bb.fsPath);
                 let bn: BookmarkNode = new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, bb, books);
                 lll.push(bn);
                 this.tree.push(bn);
@@ -244,15 +227,27 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
 }
 
-function removeRootPathFrom(path: string): string {
-  if (!vscode.workspace.rootPath) {
-    return path;
+function removeBasePathFrom(aPath: string): string {
+  if (!vscode.workspace.workspaceFolders) {
+    return aPath;
+  }
+        
+  let inWorkspace: vscode.WorkspaceFolder;
+  for (const wf of vscode.workspace.workspaceFolders) {
+      if (aPath.indexOf(wf.uri.fsPath) === 0) {
+          inWorkspace = wf;
+          break;
+      }
   }
 
-  if (path.indexOf(vscode.workspace.rootPath) === 0) {
-    return path.split(vscode.workspace.rootPath).pop().substr(1);
+  if (inWorkspace) {
+    if (vscode.workspace.workspaceFolders.length === 1) {
+      return aPath.split(inWorkspace.uri.fsPath).pop().substr(1);
+    } else {
+      return inWorkspace.name + path.sep + aPath.split(inWorkspace.uri.fsPath).pop().substr(1);
+    }
   } else {
-    return path;
+    return aPath;
   }
 }
 
@@ -284,7 +279,4 @@ class BookmarkNode extends vscode.TreeItem {
       this.contextValue = "BookmarkNodeBookmark";
     }
   }
-
-  // contextValue = "BookmarkNode";
-
 }
