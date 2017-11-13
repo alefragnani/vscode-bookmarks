@@ -678,7 +678,11 @@ export function activate(context: vscode.ExtensionContext) {
                                 if (currentWorkspaceFolder) {
                                     filePath = currentWorkspaceFolder.uri.fsPath + itemT.detail.toString();
                                 } else {
-                                    filePath = vscode.workspace.workspaceFolders[0].uri.fsPath + itemT.detail.toString();
+                                    if (vscode.workspace.workspaceFolders) {
+                                        filePath = vscode.workspace.workspaceFolders[0].uri.fsPath + itemT.detail.toString();
+                                    } else {
+                                        filePath = itemT.detail.toString();
+                                    }
                                 }
                             }
                           }
@@ -735,7 +739,11 @@ export function activate(context: vscode.ExtensionContext) {
                             if (currentWorkspaceFolder) {
                                 newPath = currentWorkspaceFolder.uri.fsPath + selection.detail.toString();
                             } else {
-                                newPath = vscode.workspace.workspaceFolders[0].uri.fsPath + selection.detail.toString();
+                                if (vscode.workspace.workspaceFolders) {
+                                    newPath = vscode.workspace.workspaceFolders[0].uri.fsPath + selection.detail.toString();
+                                } else {
+                                    newPath = selection.detail.toString();
+                                }
                             }
                         }
                       }
