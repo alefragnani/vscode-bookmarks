@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.18.0
+
+* **New:** Multi-root support (issue [#82](https://github.com/alefragnani/vscode-bookmarks/issues/82))
+
 ## Version 0.17.0
 
 * **New Setting:** Treeview is Optional (issue [#83](https://github.com/alefragnani/vscode-bookmarks/issues/83))
