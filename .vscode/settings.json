@@ -6,5 +6,5 @@
 	"search.exclude": {
 		"out": true
 	},
-	"tslint.enable": true
+	"tslint.enable": false
 }

@@ -44,9 +44,7 @@ export class Bookmark  {
             let nextBookmark: number;
 
             if (direction === JUMP_FORWARD) {
-                // for (let index = 0; index < this.bookmarks.length; index++) {
                 for (let element of this.bookmarks) {
-                    // let element = this.bookmarks[ index ];
                     if (element > currentline) {
                         nextBookmark = element;
                         break;
@@ -144,8 +142,4 @@ export class Bookmark  {
     public clear() {
         this.bookmarks.length = 0;
     }
-
-    // public cleared(): void {
-    //     return;
-    // }
 }
