@@ -1,4 +1,6 @@
-# Changelog
+## Version 0.18.1
+
+* **Fix:** Re-enable `Toggle` command to put documents on _non preview mode_ (Thanks to @muellerkyle [PR #90](https://github.com/alefragnani/vscode-bookmarks/pull/90))
 
 ## Version 0.18.0
 
