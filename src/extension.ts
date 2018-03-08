@@ -773,10 +773,11 @@ export function activate(context: vscode.ExtensionContext) {
         let saveBookmarksInProject: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
         
         // really use saveBookmarksInProject
+        // 0. has at least a folder opened
         // 1. is a valid workspace/folder
         // 2. has only one workspaceFolder
         // let hasBookmarksFile: boolean = false;
-        if (saveBookmarksInProject && vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 1) {
+        if (saveBookmarksInProject && ((!vscode.workspace.workspaceFolders) || (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 1))) {
             // hasBookmarksFile = fs.existsSync(path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json"));
             saveBookmarksInProject = false;
         }
@@ -790,6 +791,10 @@ export function activate(context: vscode.ExtensionContext) {
         bookmarks = new Bookmarks("");
 
         if (saveBookmarksInProject) {
+            if (!vscode.workspace.workspaceFolders) {
+                return false;
+            }
+
             let bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
             if (!fs.existsSync(bookmarksFileInProject)) {
                 return false;
