@@ -1,3 +1,7 @@
+## [0.18.2] - 2018-03-08
+### Fixed
+- Error activating extension without workspace (folder) open (issue [#94](https://github.com/alefragnani/vscode-bookmarks/issues/94))
+
 ## [0.18.1] - 2018-01-02
 ### Fixed
 - Re-enable `Toggle` command to put documents on _non preview mode_ (Thanks to @muellerkyle [PR #90](https://github.com/alefragnani/vscode-bookmarks/pull/90))
