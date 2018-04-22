@@ -548,11 +548,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("bookmarks.listFromAllFiles", () => {
 
         // no bookmark
-        let totalBookmarkCount: number = 0;
-        for (let element of bookmarks.bookmarks) {
-            totalBookmarkCount = totalBookmarkCount + element.bookmarks.length; 
-        }
-        if (totalBookmarkCount === 0) {
+        if (!bookmarks.hasAnyBookmark()) {
             vscode.window.showInformationMessage("No Bookmarks found");
             return;
         }
@@ -820,6 +816,13 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (saveBookmarksInProject) {
             let bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
+
+            // avoid empty bookmarks.json file
+            if (!bookmarks.hasAnyBookmark() && fs.existsSync(bookmarksFileInProject)) {
+                fs.unlinkSync(bookmarksFileInProject);
+                return;
+            }
+
             if (!fs.existsSync(path.dirname(bookmarksFileInProject))) {
                 fs.mkdirSync(path.dirname(bookmarksFileInProject)); 
             }
