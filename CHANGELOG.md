@@ -1,3 +1,7 @@
+## [0.18.3] - 2018-04-22
+### Fixed 
+- Avoid empty `.vscode\bookmarks.json` file when ther is no bookmark (issue [#95](https://github.com/alefragnani/vscode-bookmarks/issues/95))
+
 ## [0.18.2] - 2018-03-08
 ### Fixed
 - Error activating extension without workspace (folder) open (issue [#94](https://github.com/alefragnani/vscode-bookmarks/issues/94))
