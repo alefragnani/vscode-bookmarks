@@ -19,24 +19,19 @@ export function activate(context: vscode.ExtensionContext) {
     // load pre-saved bookmarks
     let didLoadBookmarks: boolean = loadWorkspaceState();
 
-    // tree-view optional
-    let canShowTreeView: boolean = vscode.workspace.getConfiguration("bookmarks").get("treeview.visible", true);
-    vscode.commands.executeCommand("setContext", "bookmarks.canShowTreeView", canShowTreeView);
-
     // tree-view
     const bookmarkProvider = new BookmarkProvider(bookmarks, context);
     vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
+    bookmarkProvider.showTreeView();
 	
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
-        refreshTreeViewOnChangeConfiguration();
+        if (cfg.affectsConfiguration("bookmarks.treeview.visible")) {
+            refreshTreeViewOnChangeConfiguration();
+        }
      }));
 
     function refreshTreeViewOnChangeConfiguration() {
-        let config: boolean = vscode.workspace.getConfiguration("bookmarks").get("treeview.visible", true);
-        if (canShowTreeView != config) {
-            canShowTreeView = config;
-            vscode.commands.executeCommand("setContext", "bookmarks.canShowTreeView", canShowTreeView);
-        }
+        bookmarkProvider.showTreeView();
     }
 
     // Define the Bookmark Decoration

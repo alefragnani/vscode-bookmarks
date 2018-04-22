@@ -28,14 +28,17 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
     bookmarks.onDidClearBookmark( bkm => {
       this._onDidChangeTreeData.fire();
+      this.showTreeView();
     });
 
     bookmarks.onDidClearAllBookmarks( bkm => {
       this._onDidChangeTreeData.fire();
+      this.showTreeView();
     });
 
     bookmarks.onDidAddBookmark( bkm => {
 
+      this.showTreeView();
       // no bookmark in this file
       if (this.tree.length === 0) {
         this._onDidChangeTreeData.fire();
@@ -75,6 +78,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
     bookmarks.onDidRemoveBookmark( bkm => {
 
+      this.showTreeView();
       // no bookmark in this file
       if (this.tree.length === 0) {
         this._onDidChangeTreeData.fire();
@@ -223,6 +227,11 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
         );
       }
     });
+  }
+
+  showTreeView(): void {
+    let canShowTreeView: boolean = vscode.workspace.getConfiguration("bookmarks").get("treeview.visible", true);
+    vscode.commands.executeCommand("setContext", "bookmarks.canShowTreeView", canShowTreeView && this.bookmarks.hasAnyBookmark());
   }
 
 }
