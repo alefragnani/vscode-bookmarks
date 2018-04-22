@@ -253,4 +253,12 @@ export class Bookmarks {
                 preview: vscode.window.activeTextEditor.document.lineAt(newLine).text
             })
         }
+
+        public hasAnyBookmark(): boolean {
+            let totalBookmarkCount: number = 0;
+            for (let element of this.bookmarks) {
+                totalBookmarkCount = totalBookmarkCount + element.bookmarks.length; 
+            }
+            return totalBookmarkCount > 0;
+        }
     }
