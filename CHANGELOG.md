@@ -1,4 +1,7 @@
-## [0.18.3] - 2018-04-22
+## [0.19.0] - 2018-04-22
+### Changed
+- TreeView visibility now also depends if you have bookmarks in project (issue [#103](https://github.com/alefragnani/vscode-bookmarks/issues/103))
+
 ### Fixed 
 - Avoid empty `.vscode\bookmarks.json` file when ther is no bookmark (issue [#95](https://github.com/alefragnani/vscode-bookmarks/issues/95))
 
