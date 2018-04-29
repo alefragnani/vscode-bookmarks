@@ -813,8 +813,10 @@ export function activate(context: vscode.ExtensionContext) {
             let bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
 
             // avoid empty bookmarks.json file
-            if (!bookmarks.hasAnyBookmark() && fs.existsSync(bookmarksFileInProject)) {
-                fs.unlinkSync(bookmarksFileInProject);
+            if (!bookmarks.hasAnyBookmark()) {
+                if (fs.existsSync(bookmarksFileInProject)) {
+                    fs.unlinkSync(bookmarksFileInProject);
+                }
                 return;
             }
 

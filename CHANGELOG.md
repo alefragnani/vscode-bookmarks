@@ -1,3 +1,8 @@
+## [0.19.1] - 2018-04-29
+### Fixed 
+- (Again) Avoid empty `.vscode\bookmarks.json` file when ther is no bookmark (issue [#95](https://github.com/alefragnani/vscode-bookmarks/issues/95))
+- Error while saving bookmarks for _Untitled_ files (issue [#106](https://github.com/alefragnani/vscode-bookmarks/issues/106))
+
 ## [0.19.0] - 2018-04-22
 ### Changed
 - TreeView visibility now also depends if you have bookmarks in project (issue [#103](https://github.com/alefragnani/vscode-bookmarks/issues/103))

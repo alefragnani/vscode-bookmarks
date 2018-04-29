@@ -206,8 +206,10 @@ export class Bookmarks {
             }
 
             for (let element of newBookmarks.bookmarks) {
-                element.fsPath = element.fsPath.replace(vscode.workspace.getWorkspaceFolder(
-                    vscode.Uri.file(element.fsPath)).uri.fsPath, "$ROOTPATH$");
+                let wsPath: vscode.WorkspaceFolder = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(element.fsPath));
+                if (wsPath) {
+                    element.fsPath = element.fsPath.replace(wsPath.uri.fsPath, "$ROOTPATH$"); 
+                }
             }
             return newBookmarks;
         }
