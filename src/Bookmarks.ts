@@ -2,33 +2,33 @@
 
 import * as vscode from "vscode";
 import fs = require("fs");
-import {Bookmark, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS} from "./Bookmark";
+import {BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS} from "./Bookmark";
 
 interface BookmarkAdded {
-    bookmark: Bookmark;
+    bookmark: BookmarkedFile;
     line: number;
     preview: string;
 }
 
 interface BookmarkRemoved {
-    bookmark: Bookmark;
+    bookmark: BookmarkedFile;
     line: number;
 }
 
 interface BookmarkUpdated {
-    bookmark: Bookmark;
+    bookmark: BookmarkedFile;
     index: number;
     line: number;
     preview: string;
 }
 
-export class Bookmarks {
+export class BookmarksController {
 
-    private onDidClearBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
-    get onDidClearBookmark(): vscode.Event<Bookmark> { return this.onDidClearBookmarkEmitter.event; }
+    private onDidClearBookmarkEmitter = new vscode.EventEmitter<BookmarkedFile>();
+    get onDidClearBookmark(): vscode.Event<BookmarkedFile> { return this.onDidClearBookmarkEmitter.event; }
 
-    private onDidClearAllBookmarksEmitter = new vscode.EventEmitter<Bookmark>();
-    get onDidClearAllBookmarks(): vscode.Event<Bookmark> { return this.onDidClearAllBookmarksEmitter.event; }
+    private onDidClearAllBookmarksEmitter = new vscode.EventEmitter<BookmarkedFile>();
+    get onDidClearAllBookmarks(): vscode.Event<BookmarkedFile> { return this.onDidClearAllBookmarksEmitter.event; }
 
     private onDidAddBookmarkEmitter = new vscode.EventEmitter<BookmarkAdded>();
     get onDidAddBookmark(): vscode.Event<BookmarkAdded> { return this.onDidAddBookmarkEmitter.event; }
@@ -45,8 +45,8 @@ export class Bookmarks {
             return uri.replace("///", "/");
         }
         
-        public bookmarks: Bookmark[];
-        public activeBookmark: Bookmark = undefined;
+        public bookmarks: BookmarkedFile[];
+        public activeBookmark: BookmarkedFile = undefined;
 
         constructor(jsonObject) {
             this.bookmarks = [];
@@ -81,7 +81,7 @@ export class Bookmarks {
         }
 
         public fromUri(uri: string) {
-            uri = Bookmarks.normalize(uri);
+            uri = BookmarksController.normalize(uri);
             for (let element of this.bookmarks) {
                 if (element.fsPath === uri) {
                     return element;
@@ -90,18 +90,18 @@ export class Bookmarks {
         }
 
         public add(uri: string) {
-            uri = Bookmarks.normalize(uri);
+            uri = BookmarksController.normalize(uri);
             
-            let existing: Bookmark = this.fromUri(uri);
+            let existing: BookmarkedFile = this.fromUri(uri);
             if (typeof existing === "undefined") {
-                let bookmark = new Bookmark(uri);
+                let bookmark = new BookmarkedFile(uri);
                 this.bookmarks.push(bookmark);
             }
         }
 
-        public nextDocumentWithBookmarks(active: Bookmark, direction: JUMP_DIRECTION = JUMP_FORWARD) {
+        public nextDocumentWithBookmarks(active: BookmarkedFile, direction: JUMP_DIRECTION = JUMP_FORWARD) {
 
-            let currentBookmark: Bookmark = active;
+            let currentBookmark: BookmarkedFile = active;
             let currentBookmarkId: number;
             for (let index = 0; index < this.bookmarks.length; index++) {
                 let element = this.bookmarks[index];
@@ -162,9 +162,9 @@ export class Bookmarks {
 
         }
 
-        public nextBookmark(active: Bookmark, currentLine: number) {
+        public nextBookmark(active: BookmarkedFile, currentLine: number) {
 
-            let currentBookmark: Bookmark = active;
+            let currentBookmark: BookmarkedFile = active;
             let currentBookmarkId: number;
             for (let index = 0; index < this.bookmarks.length; index++) {
                 let element = this.bookmarks[index];
@@ -193,12 +193,12 @@ export class Bookmarks {
             });
         }
         
-        public zip(relativePath?: boolean): Bookmarks {
-            function isNotEmpty(book: Bookmark): boolean {
+        public zip(relativePath?: boolean): BookmarksController {
+            function isNotEmpty(book: BookmarkedFile): boolean {
                 return book.bookmarks.length > 0;
             }
             
-            let newBookmarks: Bookmarks = new Bookmarks("");
+            let newBookmarks: BookmarksController = new BookmarksController("");
             newBookmarks.bookmarks = JSON.parse(JSON.stringify(this.bookmarks)).filter(isNotEmpty);
 
             if (!relativePath) {
@@ -214,8 +214,8 @@ export class Bookmarks {
             return newBookmarks;
         }
 
-        public clear(book?: Bookmark): void {
-            let b: Bookmark = book ? book : this.activeBookmark;
+        public clear(book?: BookmarkedFile): void {
+            let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.clear();
             this.onDidClearBookmarkEmitter.fire(b);
         }
@@ -236,8 +236,8 @@ export class Bookmarks {
             });
         }
 
-        public removeBookmark(index, aline: number, book?: Bookmark): void {
-            let b: Bookmark = book ? book : this.activeBookmark;
+        public removeBookmark(index, aline: number, book?: BookmarkedFile): void {
+            let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.bookmarks.splice(index, 1);
             this.onDidRemoveBookmarkEmitter.fire({
                 bookmark: b, 
@@ -245,8 +245,8 @@ export class Bookmarks {
             });
         }
 
-        public updateBookmark(index, oldLine, newLine: number, book?: Bookmark): void {
-            let b: Bookmark = book ? book : this.activeBookmark;
+        public updateBookmark(index, oldLine, newLine: number, book?: BookmarkedFile): void {
+            let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.bookmarks[index] = newLine;
             this.onDidUpdateBookmarkEmitter.fire({
                 bookmark: b,

@@ -10,7 +10,7 @@ export const JUMP_FORWARD = 1;
 export const JUMP_BACKWARD = -1;
 export enum JUMP_DIRECTION { JUMP_FORWARD, JUMP_BACKWARD };
 
-export class Bookmark  {
+export class BookmarkedFile  {
     public fsPath: string;
     public bookmarks: number[];
 

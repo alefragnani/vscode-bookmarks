@@ -4,15 +4,15 @@ import * as vscode from "vscode";
 import fs = require("fs");
 import path = require("path");
 
-import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, Bookmark } from "./Bookmark";
-import {Bookmarks} from "./Bookmarks";
+import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, BookmarkedFile } from "./Bookmark";
+import {BookmarksController} from "./Bookmarks";
 
 import { BookmarkProvider } from "./BookmarkProvider";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
   
-    let bookmarks: Bookmarks;
+    let bookmarks: BookmarksController;
     let activeEditorCountLine: number;
     let timeout: NodeJS.Timer;
 
@@ -169,7 +169,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     vscode.commands.registerCommand("bookmarks.deleteBookmark", node => {
-        let book: Bookmark = bookmarks.fromUri(node.command.arguments[0]);
+        let book: BookmarkedFile = bookmarks.fromUri(node.command.arguments[0]);
         let index = book.bookmarks.indexOf(node.command.arguments[1] - 1);
         bookmarks.removeBookmark(index, node.command.arguments[1] - 1, book);
         saveWorkspaceState();
@@ -422,7 +422,7 @@ export function activate(context: vscode.ExtensionContext) {
                       }
                     
                       // same document?
-                      let activeDocument = Bookmarks.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
+                      let activeDocument = BookmarksController.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
                       if (nextDocument.toString() === activeDocument) {
                         revealLine(bookmarks.activeBookmark.bookmarks[0]);
                       } else { 
@@ -468,7 +468,7 @@ export function activate(context: vscode.ExtensionContext) {
                       }
                     
                       // same document?
-                      let activeDocument = Bookmarks.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
+                      let activeDocument = BookmarksController.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
                       if (nextDocument.toString() === activeDocument) {
                         revealLine(bookmarks.activeBookmark.bookmarks[bookmarks.activeBookmark.bookmarks.length - 1]);
                       } else { 
@@ -779,7 +779,7 @@ export function activate(context: vscode.ExtensionContext) {
     function loadWorkspaceState(): boolean {
         let saveBookmarksInProject: boolean = canSaveBookmarksInProject();
 
-        bookmarks = new Bookmarks("");
+        bookmarks = new BookmarksController("");
 
         if (saveBookmarksInProject) {
             if (!vscode.workspace.workspaceFolders) {

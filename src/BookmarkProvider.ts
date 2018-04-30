@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import path = require("path");
-import { Bookmark } from "./Bookmark";
-import { Bookmarks } from "./Bookmarks";
+import { BookmarkedFile } from "./Bookmark";
+import { BookmarksController } from "./Bookmarks";
 
 export const NODE_FILE = 0;
 export const NODE_BOOKMARK = 1;
@@ -23,7 +23,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
   private tree: BookmarkNode[] = [];
 
-  constructor(private bookmarks: Bookmarks, ctx: vscode.ExtensionContext) {
+  constructor(private bookmarks: BookmarksController, ctx: vscode.ExtensionContext) {
     context = ctx;
 
     bookmarks.onDidClearBookmark( bkm => {
@@ -266,7 +266,7 @@ class BookmarkNode extends vscode.TreeItem {
     public readonly label: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     public readonly kind: BookmarkNodeKind,
-    public readonly bookmark: Bookmark,
+    public readonly bookmark: BookmarkedFile,
     public readonly books?: BookmarkPreview[],
     public readonly command?: vscode.Command
   ) {
