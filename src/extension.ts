@@ -808,6 +808,9 @@ export function activate(context: vscode.ExtensionContext) {
             if (savedBookmarks !== "") {
                 bookmarks.loadFrom(JSON.parse(savedBookmarks));
             }
+
+            bookmarkStorage.load(JSON.parse(savedBookmarks), false, vscode.workspace.rootPath);
+
             return savedBookmarks !== "";
         }        
     }

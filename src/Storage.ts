@@ -7,7 +7,7 @@ export namespace Storage {
     export const WORKSPACE_SINGLE    = '.';
 
     /**
-     * Declares a single *Bookmark* (a tag in a line/column within a file)
+     * Declares a single *Bookmark* (line, column and label)
      */
     export interface Bookmark {
         line: number;
@@ -27,10 +27,10 @@ export namespace Storage {
      * Declares a *Workspace*, with its `path` (relative or not, it doest not matter) and list of 
      * `File` that contains `Bookmark`
      */
-    export interface Workspace {
-        path: string;
-        files: File[];
-    }
+    // export interface Workspace {
+    //     path: string;
+    //     files: File[];
+    // }
 
     /**
      * Declares a list of `File` (in `Array` form)
@@ -40,7 +40,7 @@ export namespace Storage {
     /**
      * Declares a list of `Workspace` (in `Array` form)
      */
-    interface WorkspaceList extends Array<Workspace> { };
+    // interface WorkspaceList extends Array<Workspace> { };
 
     class BookmarkItem implements Bookmark {
 
@@ -72,26 +72,31 @@ export namespace Storage {
     /**
      * Implements a `Workspace`, to be used in _persistance_ routine
      */
-    class WorkspaceItem implements Workspace {
+    // class WorkspaceItem implements Workspace {
 
-        public path: string;
-        public files: File[];
+    //     public path: string;
+    //     public files: File[];
 
-        constructor(wpath: string) {
-            this.path = wpath;
-            this.files = [];
-        }
-    }
+    //     constructor(wpath: string) {
+    //         this.path = wpath;
+    //         this.files = [];
+    //     }
+    // }
 
     /**
      * Implements *THE `Storage`*
      */
     export class BookmarksStorage {
 
-        public workspaceList: WorkspaceList;
+        // public workspaceList: WorkspaceList;
 
+        // constructor() {
+        //     this.workspaceList = <WorkspaceList>[];
+        // }
+
+        public fileList: FileList;
         constructor() {
-            this.workspaceList = <WorkspaceList>[];
+            this.fileList = <FileList>[]
         }
 
         /**
@@ -101,9 +106,12 @@ export namespace Storage {
          *
          * @return `void`
          */
-        public pushWorkspace(wpath: string): void {
-            this.workspaceList.push(new WorkspaceItem(wpath));
-            return;
+        // public pushWorkspace(wpath: string): void {
+        //     this.workspaceList.push(new WorkspaceItem(wpath));
+        //     return;
+        // }
+        public pushFile(filePath: string): void {
+            this.fileList.push(new FileItem(filePath));
         }
 
         /**
@@ -113,14 +121,14 @@ export namespace Storage {
          *
          * @return The [Project](#Project) that was removed
          */
-        public popWorkspace(wpath: string): Workspace {
-            for (let index = 0; index < this.workspaceList.length; index++) {
-                const element: Workspace = this.workspaceList[ index ];
-                if (element.path.toLowerCase() === wpath.toLowerCase()) {
-                    return this.workspaceList.splice(index, 1)[ 0 ];
-                }
-            }
-        }
+        // public popWorkspace(wpath: string): Workspace {
+        //     for (let index = 0; index < this.workspaceList.length; index++) {
+        //         const element: Workspace = this.workspaceList[ index ];
+        //         if (element.path.toLowerCase() === wpath.toLowerCase()) {
+        //             return this.workspaceList.splice(index, 1)[ 0 ];
+        //         }
+        //     }
+        // }
 
         /**
          * Adds another `path` to a project
@@ -174,15 +182,15 @@ export namespace Storage {
          *
          * @return `true` or `false`
          */
-        public workspaceExists(wpath: string): boolean {
-            let found: boolean = false;
-            for (const element of this.workspaceList) {
-                if (element.path.toLocaleLowerCase() === wpath.toLocaleLowerCase()) {
-                    found = true;
-                }
-            }
-            return found;
-        }
+        // public workspaceExists(wpath: string): boolean {
+        //     let found: boolean = false;
+        //     for (const element of this.workspaceList) {
+        //         if (element.path.toLocaleLowerCase() === wpath.toLocaleLowerCase()) {
+        //             found = true;
+        //         }
+        //     }
+        //     return found;
+        // }
 
         /**
          * Checks if exists a project with a given `rootPath`
@@ -208,9 +216,9 @@ export namespace Storage {
          *
          * @return The number of projects
          */
-        public length(): number {
-            return this.workspaceList.length;
-        }
+        // public length(): number {
+        //     return this.workspaceList.length;
+        // }
 
         /**
          * Loads the `bookmarks.json` file
@@ -218,25 +226,53 @@ export namespace Storage {
          * @return A `string` containing the _Error Message_ in case something goes wrong. 
          *         An **empty string** if everything is ok.
          */
+        // public load(jsonObject: any, relativePath: boolean, folder: string): string {
+        //     try {
+        //         // OLD format
+        //         if ((jsonObject.bookmarks)) {
+
+        //             const wi: WorkspaceItem = new WorkspaceItem(!relativePath ? WORKSPACE_SINGLE : folder);
+        //             // new WorkspaceItem(WORKSPACE_SINGLE);
+        //             for (const file of jsonObject.bookmarks) {
+        //                 const fi: FileItem = new FileItem(file.fsPath);
+        //                 for (const bkm of file.bookmarks) {
+        //                     fi.bookmarks.push(new BookmarkItem(bkm));
+        //                 }
+        //                 wi.files.push(fi);
+        //             }
+        //             this.workspaceList.push(wi);
+
+        //             this.save(folder);
+        //         } else { // NEW format
+        //             this.workspaceList = jsonObject as WorkspaceList;
+        //         }
+        //         return "";
+        //     } catch (error) {
+        //         console.log(error);
+        //         return error.toString();
+        //     }
+        // }
         public load(jsonObject: any, relativePath: boolean, folder: string): string {
             try {
                 // OLD format
                 if ((jsonObject.bookmarks)) {
 
-                    const wi: WorkspaceItem = new WorkspaceItem(!relativePath ? WORKSPACE_SINGLE : folder);
+                    // const wi: WorkspaceItem = new WorkspaceItem(!relativePath ? WORKSPACE_SINGLE : folder);
+
                     // new WorkspaceItem(WORKSPACE_SINGLE);
                     for (const file of jsonObject.bookmarks) {
                         const fi: FileItem = new FileItem(file.fsPath);
                         for (const bkm of file.bookmarks) {
                             fi.bookmarks.push(new BookmarkItem(bkm));
                         }
-                        wi.files.push(fi);
+                        // wi.files.push(fi);
+                        this.fileList.push(fi);
                     }
-                    this.workspaceList.push(wi);
+                    // this.workspaceList.push(wi);
 
                     this.save(folder);
                 } else { // NEW format
-                    this.workspaceList = jsonObject as WorkspaceList;
+                    this.fileList = jsonObject as FileList;
                 }
                 return "";
             } catch (error) {
@@ -253,7 +289,8 @@ export namespace Storage {
          * @return `void`
          */
         public save(folder: string) {
-            fs.writeFileSync(path.join(folder, "teste-bookmarks.json"), JSON.stringify(this.workspaceList, null, "\t"));
+            // fs.writeFileSync(path.join(folder, "teste-bookmarks.json"), JSON.stringify(this.workspaceList, null, "\t"));
+            fs.writeFileSync(path.join(folder, "teste-bookmarks-fileList.json"), JSON.stringify(this.fileList, null, "\t"));
         }
     }
 }
