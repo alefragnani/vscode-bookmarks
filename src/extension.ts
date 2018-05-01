@@ -8,6 +8,7 @@ import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOK
 import {BookmarksController} from "./Bookmarks";
 
 import { BookmarkProvider } from "./BookmarkProvider";
+import { Storage } from "./Storage";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -15,6 +16,8 @@ export function activate(context: vscode.ExtensionContext) {
     let bookmarks: BookmarksController;
     let activeEditorCountLine: number;
     let timeout: NodeJS.Timer;
+
+    const bookmarkStorage: Storage.BookmarksStorage = new Storage.BookmarksStorage();
 
     // load pre-saved bookmarks
     let didLoadBookmarks: boolean = loadWorkspaceState();
@@ -792,6 +795,9 @@ export function activate(context: vscode.ExtensionContext) {
             }
             try {
                 bookmarks.loadFrom(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()), true);
+
+                bookmarkStorage.load(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()), true, vscode.workspace.rootPath);
+
                 return true;
             } catch (error) {
                 vscode.window.showErrorMessage("Error loading Bookmarks: " + error.toString());
