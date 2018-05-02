@@ -146,7 +146,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
     // no bookmark
     let totalBookmarkCount: number = 0;
-    for (let elem of this.bookmarks.bookmarks) {
+    for (let elem of this.bookmarks.storage.fileList) {
       totalBookmarkCount = totalBookmarkCount + elem.bookmarks.length;
     }
 
@@ -180,7 +180,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
         // ROOT
         this.tree = [];
         let promisses = [];
-        for (let bookmark of this.bookmarks.bookmarks) {
+        for (let bookmark of this.bookmarks.storage.fileList) {
           let pp = bookmark.listBookmarks();
           promisses.push(pp);
         }
@@ -190,7 +190,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
             // raw list
             let lll: BookmarkNode[] = [];
-            for (let bb of this.bookmarks.bookmarks) {
+            for (let bb of this.bookmarks.storage.fileList) {
 
               // this bookmark has bookmarks?
               if (bb.bookmarks.length > 0) {
@@ -202,7 +202,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                   if (element) {
                     for (let elementInside of element) {
 
-                      if (bb.fsPath === elementInside.detail) {
+                      if (bb.path === elementInside.detail) {
                         books.push(
                           {
                             file: elementInside.detail,
@@ -215,7 +215,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                   }
                 }
 
-                let itemPath = removeBasePathFrom(bb.fsPath);
+                let itemPath = removeBasePathFrom(bb.path);
                 let bn: BookmarkNode = new BookmarkNode(itemPath, vscode.TreeItemCollapsibleState.Collapsed, BookmarkNodeKind.NODE_FILE, bb, books);
                 lll.push(bn);
                 this.tree.push(bn);

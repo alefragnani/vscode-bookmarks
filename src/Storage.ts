@@ -1,27 +1,13 @@
 import fs = require("fs");
 import path = require("path");
 
+import { Bookmark, File, FileList, BookmarkedFile, BookmarkItem } from "./Bookmark";
+
 export namespace Storage {
 
     export const WORKSPACE_UNDEFINED = '$UNTITLED$';
     export const WORKSPACE_SINGLE    = '.';
 
-    /**
-     * Declares a single *Bookmark* (line, column and label)
-     */
-    export interface Bookmark {
-        line: number;
-        column?: number;
-        label?: string;
-    }
-
-    /**
-     * Declares a *File with Bookmarks*, with its `path` and list of `Bookmark`
-     */
-    export interface File {
-        path: string;
-        bookmarks: Bookmark[];
-    };
 
     /**
      * Declares a *Workspace*, with its `path` (relative or not, it doest not matter) and list of 
@@ -32,42 +18,35 @@ export namespace Storage {
     //     files: File[];
     // }
 
-    /**
-     * Declares a list of `File` (in `Array` form)
-     */
-    interface FileList extends Array<File> { };
 
     /**
      * Declares a list of `Workspace` (in `Array` form)
      */
     // interface WorkspaceList extends Array<Workspace> { };
 
-    class BookmarkItem implements Bookmark {
 
-        public line: number;
-        public column?: number;
-        public label?: string;
-
-        constructor(pline: number, pcolumn: number = 0, plabel?: string) {
-            this.line = pline;
-            this.column = pcolumn;
-            this.label = plabel;
-        }
-    }
 
     /**
      * Implements a `File`, to be used in _persistance_ routine
      */
-    class FileItem implements File {
+    // class BookmarkedFile implements File {
 
-        public path: string;
-        public bookmarks: Bookmark[];
+    //     public path: string;
+    //     public bookmarks: Bookmark[];
 
-        constructor(pname: string) {
-            this.path = pname;
-            this.bookmarks = [];
-        }
-    }
+    //     constructor(pname: string) {
+    //         this.path = pname;
+    //         this.bookmarks = [];
+    //     }
+
+    //     public nextBookmark() {
+    //     };
+    //     public listBookmarks() {
+    //     };
+    //     public clear(): void {
+    //     };
+        
+    // }
 
     /**
      * Implements a `Workspace`, to be used in _persistance_ routine
@@ -111,7 +90,7 @@ export namespace Storage {
         //     return;
         // }
         public pushFile(filePath: string): void {
-            this.fileList.push(new FileItem(filePath));
+            this.fileList.push(new BookmarkedFile(filePath));
         }
 
         /**
@@ -234,7 +213,7 @@ export namespace Storage {
         //             const wi: WorkspaceItem = new WorkspaceItem(!relativePath ? WORKSPACE_SINGLE : folder);
         //             // new WorkspaceItem(WORKSPACE_SINGLE);
         //             for (const file of jsonObject.bookmarks) {
-        //                 const fi: FileItem = new FileItem(file.fsPath);
+        //                 const fi: BookmarkedFile = new BookmarkedFile(file.fsPath);
         //                 for (const bkm of file.bookmarks) {
         //                     fi.bookmarks.push(new BookmarkItem(bkm));
         //                 }
@@ -261,7 +240,7 @@ export namespace Storage {
 
                     // new WorkspaceItem(WORKSPACE_SINGLE);
                     for (const file of jsonObject.bookmarks) {
-                        const fi: FileItem = new FileItem(file.fsPath);
+                        const fi: BookmarkedFile = new BookmarkedFile(file.fsPath);
                         for (const bkm of file.bookmarks) {
                             fi.bookmarks.push(new BookmarkItem(bkm));
                         }

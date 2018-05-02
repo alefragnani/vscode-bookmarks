@@ -10,12 +10,52 @@ export const JUMP_FORWARD = 1;
 export const JUMP_BACKWARD = -1;
 export enum JUMP_DIRECTION { JUMP_FORWARD, JUMP_BACKWARD };
 
-export class BookmarkedFile  {
-    public fsPath: string;
-    public bookmarks: number[];
+/**
+ * Declares a single *Bookmark* (line, column and label)
+ */
+export interface Bookmark {
+    line: number;
+    column?: number;
+    label?: string;
+}
+
+/**
+ * Declares a *File with Bookmarks*, with its `path` and list of `Bookmark`
+ */
+export interface File {
+    path: string;
+    bookmarks: Bookmark[];
+
+    nextBookmark(currentline: number, direction: JUMP_DIRECTION);
+    listBookmarks();
+    clear(): void;
+    indexOfBookmark(line: number): number;
+};
+
+/**
+ * Declares a list of `File` (in `Array` form)
+ */
+export interface FileList extends Array<File> { };
+
+export class BookmarkItem implements Bookmark {
+
+    public line: number;
+    public column?: number;
+    public label?: string;
+
+    constructor(pline: number, pcolumn: number = 0, plabel?: string) {
+        this.line = pline;
+        this.column = pcolumn;
+        this.label = plabel;
+    }
+}
+
+export class BookmarkedFile implements File {
+    public path: string;
+    public bookmarks: Bookmark[];
 
     constructor(fsPath: string) {
-        this.fsPath = fsPath;
+        this.path = fsPath;
         this.bookmarks = [];
     }
 
@@ -45,8 +85,8 @@ export class BookmarkedFile  {
 
             if (direction === JUMP_FORWARD) {
                 for (let element of this.bookmarks) {
-                    if (element > currentline) {
-                        nextBookmark = element;
+                    if (element.line > currentline) {
+                        nextBookmark = element.line; //.line
                         break;
                     }
                 }
@@ -64,10 +104,10 @@ export class BookmarkedFile  {
                     return;
                 }
             } else { // JUMP_BACKWARD
-                for (let index = this.bookmarks.length; index >= 0; index--) {
+                for (let index = this.bookmarks.length - 1; index >= 0; index--) {
                     let element = this.bookmarks[ index ];
-                    if (element < currentline) {
-                        nextBookmark = element;
+                    if (element.line < currentline) {
+                        nextBookmark = element.line; //.line
                         break;
                     }
                 }
@@ -98,19 +138,19 @@ export class BookmarkedFile  {
             }
 
             // file does not exist, returns empty
-            if (!fs.existsSync(this.fsPath)) {
+            if (!fs.existsSync(this.path)) {
                 resolve(undefined);
                 return;
             }
 
-            let uriDocBookmark: vscode.Uri = vscode.Uri.file(this.fsPath);
+            let uriDocBookmark: vscode.Uri = vscode.Uri.file(this.path);
             vscode.workspace.openTextDocument(uriDocBookmark).then(doc => {
 
                 let items = [];
                 let invalids = [];
                 // tslint:disable-next-line:prefer-for-of
                 for (let index = 0; index < this.bookmarks.length; index++) {
-                    let element = this.bookmarks[ index ] + 1;
+                    let element = this.bookmarks[ index ].line + 1;
                     // check for 'invalidated' bookmarks, when its outside the document length
                     if (element <= doc.lineCount) {
                         let lineText = doc.lineAt(element - 1).text;
@@ -128,7 +168,7 @@ export class BookmarkedFile  {
                     let idxInvalid: number;
                     // tslint:disable-next-line:prefer-for-of
                     for (let indexI = 0; indexI < invalids.length; indexI++) {
-                        idxInvalid = this.bookmarks.indexOf(invalids[ indexI ] - 1);
+                        idxInvalid = this.bookmarks.indexOf({line: invalids[ indexI ] - 1});
                         this.bookmarks.splice(idxInvalid, 1);
                     }
                 }
@@ -141,5 +181,16 @@ export class BookmarkedFile  {
 
     public clear() {
         this.bookmarks.length = 0;
+    }
+
+    public indexOfBookmark(line: number): number {
+        for (let index = 0; index < this.bookmarks.length; index++) {
+            const element = this.bookmarks[index];
+            if (element.line === line) {
+                return index;
+            }
+        }
+
+        return -1;
     }
 }
