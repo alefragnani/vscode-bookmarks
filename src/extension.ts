@@ -799,9 +799,6 @@ export function activate(context: vscode.ExtensionContext) {
             }
             try {
                 bookmarks.loadFrom(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()), true);
-
-                // bookmarkStorage.load(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()), true, vscode.workspace.rootPath);
-
                 return true;
             } catch (error) {
                 vscode.window.showErrorMessage("Error loading Bookmarks: " + error.toString());
@@ -812,34 +809,31 @@ export function activate(context: vscode.ExtensionContext) {
             if (savedBookmarks !== "") {
                 bookmarks.loadFrom(JSON.parse(savedBookmarks));
             }
-
-            // bookmarkStorage.load(JSON.parse(savedBookmarks), false, vscode.workspace.rootPath);
-
             return savedBookmarks !== "";
         }        
     }
 
     function saveWorkspaceState(): void {
         let saveBookmarksInProject: boolean = canSaveBookmarksInProject();
-        return;
-        // if (saveBookmarksInProject) {
-        //     let bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
+        // return;
+        if (saveBookmarksInProject) {
+            let bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
 
-        //     // avoid empty bookmarks.json file
-        //     if (!bookmarks.hasAnyBookmark()) {
-        //         if (fs.existsSync(bookmarksFileInProject)) {
-        //             fs.unlinkSync(bookmarksFileInProject);
-        //         }
-        //         return;
-        //     }
+            // avoid empty bookmarks.json file
+            if (!bookmarks.hasAnyBookmark()) {
+                if (fs.existsSync(bookmarksFileInProject)) {
+                    fs.unlinkSync(bookmarksFileInProject);
+                }
+                return;
+            }
 
-        //     if (!fs.existsSync(path.dirname(bookmarksFileInProject))) {
-        //         fs.mkdirSync(path.dirname(bookmarksFileInProject)); 
-        //     }
-        //     fs.writeFileSync(bookmarksFileInProject, JSON.stringify(bookmarks.zip(true), null, "\t"));   
-        // } else {
-        //     context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
-        // }
+            if (!fs.existsSync(path.dirname(bookmarksFileInProject))) {
+                fs.mkdirSync(path.dirname(bookmarksFileInProject)); 
+            }
+            fs.writeFileSync(bookmarksFileInProject, JSON.stringify(bookmarks.zip(true), null, "\t"));   
+        } else {
+            context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
+        }
     }
 
     function HadOnlyOneValidContentChange(event): boolean {

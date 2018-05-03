@@ -1,18 +1,6 @@
 import fs = require("fs");
 import path = require("path");
 
-// save inProject -> Must use STORAGE, otherwise adds "storage/fileList" structure, which is not part of "storage"
-/*
-	"storage": {
-		"fileList": [
-			{
-				"path": "$ROOTPATH$\\index.js",
-				"bookmarks": [
-					{
-						"line": 22,
-
-*/
-
 import { Bookmark, File, FileList, BookmarkedFile, BookmarkItem } from "./Bookmark";
 
 export namespace Storage {
@@ -265,9 +253,21 @@ export namespace Storage {
                     }
                     // this.workspaceList.push(wi);
 
-                    this.save(folder);
+                    this.saveLoaded(folder);
                 } else { // NEW format
-                    this.fileList = jsonObject as FileList;
+                    //this.fileList = jsonObject as FileList;
+                    for (let file of jsonObject) {
+                        if (relativePath) {
+                            file.path = file.path.replace(WORKSPACE_ROOTPATH, folder);
+                        }
+                        const fi: BookmarkedFile = new BookmarkedFile(file.path);
+                        for (const bkm of file.bookmarks) {
+                            fi.bookmarks.push(new BookmarkItem(bkm.line, bkm.column));
+                        }
+                        // wi.files.push(fi);
+                        this.fileList.push(fi);
+                    }
+                    this.saveLoaded(folder);
                 }
                 return "";
             } catch (error) {
@@ -283,9 +283,27 @@ export namespace Storage {
          * 
          * @return `void`
          */
-        public save(folder: string) {
+        public saveLoaded(folder: string) {
             // fs.writeFileSync(path.join(folder, "teste-bookmarks.json"), JSON.stringify(this.workspaceList, null, "\t"));
             fs.writeFileSync(path.join(folder, "teste-bookmarks-fileList.json"), JSON.stringify(this.fileList, null, "\t"));
+        }
+
+        public save(relativePath: boolean, updateRelativePath: (path: string) => string): any {
+            
+            function isNotEmpty(file: File): boolean {
+                return file.bookmarks.length > 0;
+            }
+
+            let newStorage: Storage.BookmarksStorage = new Storage.BookmarksStorage();
+            newStorage.fileList = JSON.parse(JSON.stringify(this.fileList)).filter(isNotEmpty);
+            if (!relativePath) {
+                return newStorage;
+            }
+
+            for (let element of newStorage.fileList) {
+                element.path = updateRelativePath(element.path);
+            }
+            return newStorage.fileList;
         }
     }
 }

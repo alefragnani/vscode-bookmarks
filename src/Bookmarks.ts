@@ -59,32 +59,6 @@ export class BookmarksController {
             this.zip();
         }
         
-        public loadFrom(jsonObject, relativePath?: boolean) {
-            if (jsonObject === "") {
-                return;
-            }
-
-            this.storage.load(jsonObject, relativePath, vscode.workspace.workspaceFolders[0].uri.fsPath);//vscode.workspace.rootPath);
-            
-            // let jsonBookmarks = jsonObject.bookmarks;
-            // for (let idx = 0; idx < jsonBookmarks.length; idx++) {
-            //   let jsonBookmark = jsonBookmarks[idx];
-              
-            //   // each bookmark (line)
-            //   this.add(jsonBookmark.fsPath);
-            //   for (let element of jsonBookmark.bookmarks) {
-            //       this.bookmarks[idx].bookmarks.push(element); 
-            //   }
-            // }
-
-            // // it replaced $ROOTPATH$ for the rootPath itself 
-            // if (relativePath) {
-            //     for (let element of this.bookmarks) {
-            //         element.path = element.path.replace("$ROOTPATH$", vscode.workspace.workspaceFolders[0].uri.fsPath);
-            //     }
-            // }
-        }
-
         public fromUri(uri: string) {
             uri = BookmarksController.normalize(uri);
             for (let element of this.storage.fileList) {
@@ -198,27 +172,6 @@ export class BookmarksController {
             });
         }
         
-        public zip(relativePath?: boolean): BookmarksController {
-            function isNotEmpty(book: BookmarkedFile): boolean {
-                return book.bookmarks.length > 0;
-            }
-            
-            let newBookmarks: BookmarksController = new BookmarksController("");
-            newBookmarks.storage.fileList = JSON.parse(JSON.stringify(this.storage.fileList)).filter(isNotEmpty);
-
-            if (!relativePath) {
-                return newBookmarks;
-            }
-
-            for (let element of newBookmarks.storage.fileList) {
-                let wsPath: vscode.WorkspaceFolder = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(element.path));
-                if (wsPath) {
-                    element.path = element.path.replace(wsPath.uri.fsPath, "$ROOTPATH$"); 
-                }
-            }
-            return newBookmarks;
-        }
-
         public clear(book?: BookmarkedFile): void {
             let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.clear();
@@ -267,5 +220,28 @@ export class BookmarksController {
                 totalBookmarkCount = totalBookmarkCount + element.bookmarks.length; 
             }
             return totalBookmarkCount > 0;
+        }
+
+
+        ///
+        public loadFrom(jsonObject, relativePath?: boolean) {
+            if (jsonObject === "") {
+                return;
+            }
+
+            this.storage.load(jsonObject, relativePath, vscode.workspace.workspaceFolders[0].uri.fsPath);
+            
+        }
+
+        updateRelativePath = (path: string): string => {
+            let wsPath: vscode.WorkspaceFolder = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(path));
+            if (wsPath) {
+                path = path.replace(wsPath.uri.fsPath, "$ROOTPATH$"); 
+            }
+            return path;
+        }
+        
+        public zip(relativePath?: boolean): BookmarksController {
+            return this.storage.save(relativePath, this.updateRelativePath);
         }
     }
