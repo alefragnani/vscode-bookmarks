@@ -1,10 +1,23 @@
 import fs = require("fs");
 import path = require("path");
 
+// save inProject -> Must use STORAGE, otherwise adds "storage/fileList" structure, which is not part of "storage"
+/*
+	"storage": {
+		"fileList": [
+			{
+				"path": "$ROOTPATH$\\index.js",
+				"bookmarks": [
+					{
+						"line": 22,
+
+*/
+
 import { Bookmark, File, FileList, BookmarkedFile, BookmarkItem } from "./Bookmark";
 
 export namespace Storage {
 
+    export const WORKSPACE_ROOTPATH  = "$ROOTPATH$";
     export const WORKSPACE_UNDEFINED = '$UNTITLED$';
     export const WORKSPACE_SINGLE    = '.';
 
@@ -239,7 +252,10 @@ export namespace Storage {
                     // const wi: WorkspaceItem = new WorkspaceItem(!relativePath ? WORKSPACE_SINGLE : folder);
 
                     // new WorkspaceItem(WORKSPACE_SINGLE);
-                    for (const file of jsonObject.bookmarks) {
+                    for (let file of jsonObject.bookmarks) {
+                        if (relativePath) {
+                            file.fsPath = file.fsPath.replace(WORKSPACE_ROOTPATH, folder);
+                        }
                         const fi: BookmarkedFile = new BookmarkedFile(file.fsPath);
                         for (const bkm of file.bookmarks) {
                             fi.bookmarks.push(new BookmarkItem(bkm));

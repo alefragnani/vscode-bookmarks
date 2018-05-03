@@ -64,7 +64,7 @@ export class BookmarksController {
                 return;
             }
 
-            this.storage.load(jsonObject, false, vscode.workspace.rootPath);
+            this.storage.load(jsonObject, relativePath, vscode.workspace.workspaceFolders[0].uri.fsPath);//vscode.workspace.rootPath);
             
             // let jsonBookmarks = jsonObject.bookmarks;
             // for (let idx = 0; idx < jsonBookmarks.length; idx++) {
