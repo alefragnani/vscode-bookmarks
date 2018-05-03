@@ -297,7 +297,7 @@ export namespace Storage {
             let newStorage: Storage.BookmarksStorage = new Storage.BookmarksStorage();
             newStorage.fileList = JSON.parse(JSON.stringify(this.fileList)).filter(isNotEmpty);
             if (!relativePath) {
-                return newStorage;
+                return newStorage.fileList;
             }
 
             for (let element of newStorage.fileList) {
