@@ -4,11 +4,9 @@ import * as vscode from "vscode";
 import fs = require("fs");
 import path = require("path");
 
-import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, BookmarkedFile, BookmarkItem, Bookmark } from "./Bookmark";
-import {BookmarksController} from "./Bookmarks";
-
+import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, BookmarkedFile, Bookmark } from "./Bookmark";
+import { BookmarksController } from "./Bookmarks";
 import { BookmarkProvider } from "./BookmarkProvider";
-// import { Storage } from "./Storage";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -16,8 +14,6 @@ export function activate(context: vscode.ExtensionContext) {
     let bookmarks: BookmarksController;
     let activeEditorCountLine: number;
     let timeout: NodeJS.Timer;
-
-    // const bookmarkStorage: Storage.BookmarksStorage = new Storage.BookmarksStorage();
 
     // load pre-saved bookmarks
     let didLoadBookmarks: boolean = loadWorkspaceState();
@@ -391,11 +387,11 @@ export function activate(context: vscode.ExtensionContext) {
         // sorted
         /* let itemsSorted = [] =*/
         bookmarks.activeBookmark.bookmarks.sort((n1, n2) => {
-            if (n1 > n2) {
+            if (n1.line > n2.line) {
                 return 1;
             }
 
-            if (n1 < n2) {
+            if (n1.line < n2.line) {
                 return -1;
             }
 
