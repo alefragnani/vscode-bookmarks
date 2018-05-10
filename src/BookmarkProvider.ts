@@ -273,12 +273,9 @@ class BookmarkNode extends vscode.TreeItem {
     super(label, collapsibleState);
 
     if (kind === BookmarkNodeKind.NODE_FILE) {
-      if (hasIcons) {
-        this.iconPath = {
-          light: context.asAbsolutePath("images/bookmark-explorer-light.svg"),
-          dark: context.asAbsolutePath("images/bookmark-explorer-dark.svg")
-        }; 
-      }
+      this.resourceUri = vscode.Uri.file(bookmark.fsPath);
+      this.iconPath = vscode.ThemeIcon.File;
+      this.id = bookmark.fsPath;
       this.contextValue = "BookmarkNodeFile";
     } else {
       this.iconPath = {
