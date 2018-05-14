@@ -9,12 +9,11 @@ export enum BookmarkNodeKind { NODE_FILE, NODE_BOOKMARK };
 
 export interface BookmarkPreview {
   file: string;
-  line: number;    
-  preview: string; 
+  line: number;
+  preview: string;
 };
 
 let context: vscode.ExtensionContext;
-let hasIcons: boolean = vscode.workspace.getConfiguration("workbench").get("iconTheme", "") !== null;
 
 export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
@@ -43,12 +42,12 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
       if (this.tree.length === 0) {
         this._onDidChangeTreeData.fire();
         return;
-      } 
-      
+      }
+
       // has bookmarks - find it
       for (let bn of this.tree) {
         if (bn.bookmark === bkm.bookmark) {
-          
+
           bn.books.push({
             file: bn.books[0].file,
             line: bkm.line,
@@ -83,8 +82,8 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
       if (this.tree.length === 0) {
         this._onDidChangeTreeData.fire();
         return;
-      } 
-      
+      }
+
       // has bookmarks - find it
       for (let bn of this.tree) {
         if (bn.bookmark === bkm.bookmark) {
@@ -109,25 +108,25 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
     });
 
     bookmarks.onDidUpdateBookmark( bkm => {
-      
+
       // no bookmark in this file
       if (this.tree.length === 0) {
         this._onDidChangeTreeData.fire();
         return;
-      } 
-        
+      }
+
       // has bookmarks - find it
       for (let bn of this.tree) {
         if (bn.bookmark === bkm.bookmark) {
-          
+
           bn.books[bkm.index].line = bkm.line;
           bn.books[bkm.index].preview = bkm.line.toString() + ': ' + bkm.preview;
-          
+
           this._onDidChangeTreeData.fire(bn);
           return;
         }
       }
-  
+
       // not found - new file
       this._onDidChangeTreeData.fire();
     });
@@ -240,7 +239,7 @@ function removeBasePathFrom(aPath: string): string {
   if (!vscode.workspace.workspaceFolders) {
     return aPath;
   }
-        
+
   let inWorkspace: vscode.WorkspaceFolder;
   for (const wf of vscode.workspace.workspaceFolders) {
       if (aPath.indexOf(wf.uri.fsPath) === 0) {
@@ -263,6 +262,7 @@ function removeBasePathFrom(aPath: string): string {
 class BookmarkNode extends vscode.TreeItem {
 
   constructor(
+
     public readonly label: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
     public readonly kind: BookmarkNodeKind,
@@ -281,7 +281,7 @@ class BookmarkNode extends vscode.TreeItem {
       this.iconPath = {
         light: context.asAbsolutePath("images/bookmark.svg"),
         dark: context.asAbsolutePath("images/bookmark.svg")
-      }; 
+      };
       this.contextValue = "BookmarkNodeBookmark";
     }
   }
