@@ -10,7 +10,7 @@ export const JUMP_FORWARD = 1;
 export const JUMP_BACKWARD = -1;
 export enum JUMP_DIRECTION { JUMP_FORWARD, JUMP_BACKWARD };
 
-export class Bookmark {
+export class Bookmark  {
     public fsPath: string;
     public bookmarks: number[];
 
@@ -44,9 +44,7 @@ export class Bookmark {
             let nextBookmark: number;
 
             if (direction === JUMP_FORWARD) {
-                // for (let index = 0; index < this.bookmarks.length; index++) {
                 for (let element of this.bookmarks) {
-                    // let element = this.bookmarks[ index ];
                     if (element > currentline) {
                         nextBookmark = element;
                         break;
@@ -95,13 +93,13 @@ export class Bookmark {
 
             // no bookmark, returns empty
             if (this.bookmarks.length === 0) {
-                resolve({});
+                resolve(undefined);
                 return;
             }
 
             // file does not exist, returns empty
             if (!fs.existsSync(this.fsPath)) {
-                resolve({});
+                resolve(undefined);
                 return;
             }
 

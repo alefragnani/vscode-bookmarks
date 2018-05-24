@@ -48,8 +48,6 @@ List all bookmarks from all files and easily navigate to any one. It shows you t
 * Bookmarks from other files in the project also shows the relative path and filename
 * Bookmarks from files outside the project are denoted with ![Folder](images/bookmarks-folder-icon.png)
 
-> _new in version 0.10.0_  
-
 ### Bookmarks (Selection)
 
 You can use **Bookmarks** to easily select lines or text blocks. Simply toggle bookmarks in any line of interest and use some of the _Selection_ commands available.
@@ -68,27 +66,48 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ## Available settings
 
-* The bookmarks will be glued to the line of code _(context)_ instead of the line of the file
-```
-    "bookmarks.useStickyBookmarks": true
-```
-
-![Sticky](images/bookmarks-sticky.gif)
-
 * Allow navigation through all files that contains bookmarks
 ```
     "bookmarks.navigateThroughAllFiles": true
 ```
 
-* Allow bookmarks to be saved and restored, even if you close or change the Project
+* Bookmarks are always saved between sessions, and you can decide if it should be saved _in the Project_, so you can add it to your Git/SVN repo and have it in all your machines _(`false` by default)_
 ```
-    "bookmarks.saveBookmarksBetweenSessions": true
+    "bookmarks.saveBookmarksInProject": true
 ```
+
+> the `saveBookmarksBetweenSessions` setting was replaced by this this in version 0.13.0
 
 * Path to another image to be shown as Bookmark (16x16 px)
 ```
     "bookmarks.gutterIconPath": "c:\\temp\\othericon.png"
 ```
+
+## Treeview
+
+A first step on a **Bookmarks Treeview** was added in this release, and now you have a list of all your bookmarks, right in the Explorer panel. A few commands were added:
+* Jump to a bookmark, simply clicking in the bookmark item
+* Remove a bookmark, right clicking in the bookmark item
+* Clear the bookmark's file, right-clickin in the file item
+
+![Treeview](images/vscode-bookmarks-treeview-preview.gif)
+
+#### Treeview is Optional
+
+> _new in version 0.17.0_
+
+You can choose if you want to see the Treeview.
+
+```json 
+    "bookmarks.treeview.visible": true
+```
+
+### Known issues
+
+* Renaming/deleting a file does not update the file item
+* Changing the content of a bookmarked line does not update the bookmark item 
+
+> Use the `Refresh` button in the Treeview title
 
 ## Project and Session Based
 
@@ -106,4 +125,6 @@ If you have any idea, feel free to create issues and pull requests
 
 ---
 
-[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=US&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :coffee: if you enjoy using this extension :wink:
+[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=US&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :coffee: and you will help me to keep working on this extension :wink:
+
+[![Paypal Donations](https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=BR&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) um :coffee: e você vai me ajudar a continuar trabalhando nesta extensão :wink:
