@@ -86,6 +86,10 @@
                 "title": "Bookmarks: List"
             },
             {
+                "command": "bookmarks.toggleLabeled",
+                "title": "Bookmarks: Toggle Labeled"
+            },
+            {
                 "command": "bookmarks.refresh",
                 "title": "Refresh",
                 "icon": {
