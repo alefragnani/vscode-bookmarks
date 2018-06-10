@@ -10,6 +10,7 @@ export enum BookmarkNodeKind { NODE_FILE, NODE_BOOKMARK };
 export interface BookmarkPreview {
   file: string;
   line: number;    
+  column: number;
   preview: string; 
 };
 
@@ -47,12 +48,13 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
       
       // has bookmarks - find it
       for (let bn of this.tree) {
-        if (bn.bookmark === bkm.bookmark) {
-          
+        if (bn.bookmark === bkm.bookmarkedFile) {
+        
           bn.books.push({
             file: bn.books[0].file,
             line: bkm.line,
-            preview: bkm.line + ": " + bkm.preview
+            column: bkm.column,
+            preview: bkm.line + ": " + bkm.linePreview
           });
 
           bn.books.sort((n1, n2) => {
@@ -118,10 +120,10 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
         
       // has bookmarks - find it
       for (let bn of this.tree) {
-        if (bn.bookmark === bkm.bookmark) {
+        if (bn.bookmark === bkm.bookmarkedFile) {
           
           bn.books[bkm.index].line = bkm.line;
-          bn.books[bkm.index].preview = bkm.line.toString() + ': ' + bkm.preview;
+          bn.books[bkm.index].preview = bkm.line.toString() + ': ' + bkm.linePreview;
           
           this._onDidChangeTreeData.fire(bn);
           return;
@@ -167,7 +169,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, null, [], {
               command: "bookmarks.jumpTo",
               title: "",
-              arguments: [bbb.file, bbb.line],
+              arguments: [bbb.file, bbb.line, bbb.column],
             }));
           }
 
@@ -207,6 +209,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                           {
                             file: elementInside.detail,
                             line: parseInt(elementInside.label, 10),
+                            column: elementInside.column,
                             preview: elementInside.label + ": " + elementInside.description
                           }
                           );

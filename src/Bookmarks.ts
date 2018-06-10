@@ -2,13 +2,14 @@
 
 import * as vscode from "vscode";
 import fs = require("fs");
-import { BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS, BookmarkItem } from "./Bookmark";
+import { BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS, BookmarkItem, Bookmark } from "./Bookmark";
 import { Storage } from "./Storage";
 
 interface BookmarkAdded {
-    bookmark: BookmarkedFile;
+    bookmarkedFile: BookmarkedFile;
     line: number;
-    preview: string;
+    column: number;
+    linePreview: string;
 }
 
 interface BookmarkRemoved {
@@ -17,10 +18,10 @@ interface BookmarkRemoved {
 }
 
 interface BookmarkUpdated {
-    bookmark: BookmarkedFile;
+    bookmarkedFile: BookmarkedFile;
     index: number;
     line: number;
-    preview: string;
+    linePreview: string;
 }
 
 export class BookmarksController {
@@ -185,13 +186,25 @@ export class BookmarksController {
             this.onDidClearAllBookmarksEmitter.fire();       
         }
 
-        public addBookmark(aline: number): void {
-            this.activeBookmark.bookmarks.push(new BookmarkItem(aline));
-            this.onDidAddBookmarkEmitter.fire({
-                bookmark: this.activeBookmark, 
-                line: aline + 1,
-                preview: vscode.window.activeTextEditor.document.lineAt(aline).text
-            });
+        public addBookmark(position: vscode.Position, label?: string): void {
+
+            if (!label) {
+                this.activeBookmark.bookmarks.push(new BookmarkItem(position.line, position.character));
+                this.onDidAddBookmarkEmitter.fire({
+                    bookmarkedFile: this.activeBookmark, 
+                    line: position.line + 1,
+                    column: position.character + 1,
+                    linePreview: vscode.window.activeTextEditor.document.lineAt(position.line).text
+                });
+            } else {
+                this.activeBookmark.bookmarks.push(new BookmarkItem(position.line, position.character, label));
+                this.onDidAddBookmarkEmitter.fire({
+                    bookmarkedFile: this.activeBookmark, 
+                    line: position.line + 1,
+                    column: position.character + 1,
+                    linePreview: label
+                });
+            }
         }
 
         public removeBookmark(index: number, aline: number, book?: BookmarkedFile): void {
@@ -207,10 +220,10 @@ export class BookmarksController {
             let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.bookmarks[index].line = newLine;
             this.onDidUpdateBookmarkEmitter.fire({
-                bookmark: b,
+                bookmarkedFile: b,
                 index: index,
                 line: newLine + 1,
-                preview: vscode.window.activeTextEditor.document.lineAt(newLine).text
+                linePreview: vscode.window.activeTextEditor.document.lineAt(newLine).text
             })
         }
 

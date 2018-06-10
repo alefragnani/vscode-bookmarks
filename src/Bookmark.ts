@@ -16,7 +16,7 @@ export enum JUMP_DIRECTION { JUMP_FORWARD, JUMP_BACKWARD };
 export interface Bookmark {
     line: number;
     column: number;
-    label: string;
+    label?: string;
 }
 
 /**
@@ -150,25 +150,70 @@ export class BookmarkedFile implements File {
                 let invalids = [];
                 // tslint:disable-next-line:prefer-for-of
                 for (let index = 0; index < this.bookmarks.length; index++) {
-                    let element = this.bookmarks[ index ].line + 1;
+
+                    let bookmarkLine = this.bookmarks[ index ].line + 1;
+                    let bookmarkColumn = this.bookmarks[ index ].column + 1;
+
                     // check for 'invalidated' bookmarks, when its outside the document length
-                    if (element <= doc.lineCount) {
-                        let lineText = doc.lineAt(element - 1).text;
+                    if (bookmarkLine <= doc.lineCount) {
+                        let lineText = doc.lineAt(bookmarkLine - 1).text.trim();
                         let normalizedPath = doc.uri.fsPath;
-                        items.push({
-                            label: element.toString(),
-                            description: lineText,
-                            detail: normalizedPath
-                        });
+
+                        if (this.bookmarks[index].label === "") {
+                            if (this.bookmarks[index].column === 0) {
+                                items.push( { description: "(Ln " + bookmarkLine.toString() + ")", 
+                                    label: lineText,
+                                    detail: normalizedPath})
+                            } else {
+                                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                                    bookmarkColumn.toString() + ")", 
+                                    label: lineText,
+                                    detail: normalizedPath });
+                            }
+                        } else {
+                            if (this.bookmarks[index].column === 0) {
+                                items.push( { description: "(Ln " + bookmarkLine.toString() + ")", 
+                                    // label: lineText,
+                                    label: "$(tag) " + this.bookmarks[index].label,
+                                    detail: normalizedPath})
+                            } else {
+                                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                                    bookmarkColumn.toString() + ")", 
+                                    // label: lineText,
+                                    label: "$(tag) " + this.bookmarks[index].label,
+                                    detail: normalizedPath });
+                            }
+                        }
+                        // if (this.bookmarks[ index ].column === 0) {
+                        //     items.push({
+                        //         label: "(" + bookmarkLine.toString() + ")",
+                        //         description: lineText,
+                        //         detail: normalizedPath
+                        //     });
+                        // } else {
+                        //     if (this.bookmarks[index].label === "") {
+                        //         items.push({
+                        //             label: "(" + bookmarkLine.toString() + ", " + this.bookmarks[ index ].column + ")",
+                        //             description: lineText,
+                        //             detail: normalizedPath
+                        //         });
+                        //     } else {
+                        //         items.push({
+                        //             label: "(" + bookmarkLine.toString() + ", " + this.bookmarks[ index ].column + ")",
+                        //             description: this.bookmarks[index].label,
+                        //             detail: normalizedPath
+                        //         });
+                        //     }
+                        // }
                     } else {
-                        invalids.push(element);
+                        invalids.push(bookmarkLine);
                     }
                 }
                 if (invalids.length > 0) {
                     let idxInvalid: number;
                     // tslint:disable-next-line:prefer-for-of
                     for (let indexI = 0; indexI < invalids.length; indexI++) {
-                        idxInvalid = this.bookmarks.indexOf({line: invalids[ indexI ] - 1});
+                        idxInvalid = this.bookmarks.indexOf(<Bookmark>{line: invalids[ indexI ] - 1});
                         this.bookmarks.splice(idxInvalid, 1);
                     }
                 }
