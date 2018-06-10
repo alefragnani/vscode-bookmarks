@@ -262,9 +262,8 @@ export namespace Storage {
                         }
                         const fi: BookmarkedFile = new BookmarkedFile(file.path);
                         for (const bkm of file.bookmarks) {
-                            fi.bookmarks.push(new BookmarkItem(bkm.line, bkm.column));
+                            fi.bookmarks.push(new BookmarkItem(bkm.line, bkm.column, bkm.label));
                         }
-                        // wi.files.push(fi);
                         this.fileList.push(fi);
                     }
                     this.saveLoaded(folder);

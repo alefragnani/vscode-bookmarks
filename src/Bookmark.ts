@@ -15,8 +15,8 @@ export enum JUMP_DIRECTION { JUMP_FORWARD, JUMP_BACKWARD };
  */
 export interface Bookmark {
     line: number;
-    column?: number;
-    label?: string;
+    column: number;
+    label: string;
 }
 
 /**
@@ -40,13 +40,13 @@ export interface FileList extends Array<File> { };
 export class BookmarkItem implements Bookmark {
 
     public line: number;
-    public column?: number;
-    public label?: string;
+    public column: number;
+    public label: string;
 
-    constructor(pline: number, pcolumn: number = 0, plabel?: string) {
-        this.line = pline;
-        this.column = pcolumn;
-        this.label = plabel;
+    constructor(line: number, column: number = 1, label: string = "") {
+        this.line = line;
+        this.column = column;
+        this.label = label;
     }
 }
 
