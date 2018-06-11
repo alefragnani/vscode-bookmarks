@@ -180,191 +180,12 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     });
 
-    vscode.commands.registerCommand("bookmarks.clear", () => {
-        
-        if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to clear bookmarks");
-          return;
-        }      
-      
-        bookmarks.clear();
-        saveWorkspaceState();
-        updateDecorations();
-    });
-	
-    vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => {
-        bookmarks.clearAll();
-        saveWorkspaceState();
-        updateDecorations();
-    });
-    
-    // function selectLines(editor: vscode.TextEditor, lines: number[]): void {
-    //     const doc = editor.document;
-    //     editor.selections.shift();
-    //     let sels = new Array<vscode.Selection>();
-    //     let newSe;
-    //     lines.forEach(line => {
-    //         newSe = new vscode.Selection(line, 0, line, doc.lineAt(line).text.length);
-    //         sels.push(newSe); 
-    //     });
-    //     editor.selections = sels;
-    // }
-    
-    vscode.commands.registerCommand("bookmarks.selectLines", () => {
-        
-        if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to clear bookmarks");
-          return;
-        }
-        
-        if (bookmarks.activeBookmark.bookmarks.length === 0) {
-          vscode.window.showInformationMessage("No Bookmark found");
-          return;
-        }      
-
-        let lines: number[] = [];
-        for (const bookmark of bookmarks.activeBookmark.bookmarks) {
-            lines.push(bookmark.line);
-        }
-        Selection.selectLines(vscode.window.activeTextEditor, lines);
-    });
-    
-    // function expandLineRange(editor: vscode.TextEditor, toLine: number, direction: JUMP_DIRECTION) {
-    //     const doc = editor.document;
-    //     let newSe: vscode.Selection;   
-    //     let actualSelection: vscode.Selection = editor.selection;  
-                
-    //     // no matter 'the previous selection'. going FORWARD will become 'isReversed = FALSE'
-    //     if (direction === JUMP_FORWARD) {            
-            
-    //         if (actualSelection.isEmpty || !actualSelection.isReversed) {
-    //             newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, toLine, doc.lineAt(toLine).text.length);
-    //         } else {
-    //             newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, toLine, doc.lineAt(toLine).text.length);
-    //         }
-    //     } else { // going BACKWARD will become 'isReversed = TRUE'
-        
-    //         if (actualSelection.isEmpty || !actualSelection.isReversed) {
-    //             newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, toLine, 0);
-    //         } else {
-    //             newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, toLine, 0);
-    //         }
-    //     }
-    //     editor.selection = newSe;
-    // }
-    
-    // function shrinkLineRange(editor: vscode.TextEditor, toLine: number, direction: JUMP_DIRECTION) {
-    //     const doc = editor.document;
-    //     let newSe: vscode.Selection;   
-                
-    //     // no matter 'the previous selection'. going FORWARD will become 'isReversed = FALSE'
-    //     if (direction === JUMP_FORWARD) {    
-    //         newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, toLine, 0);
-    //     } else { // going BACKWARD , select to line length
-    //         newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, toLine, doc.lineAt(toLine).text.length);
-    //     }
-    //     editor.selection = newSe;
-    // }       
-    
+    vscode.commands.registerCommand("bookmarks.clear", () => clear());
+    vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => clearFromAllFiles());
+    vscode.commands.registerCommand("bookmarks.selectLines", () => selectLines());
     vscode.commands.registerCommand("bookmarks.expandSelectionToNext", () => expandSelectionToNextBookmark(JUMP_FORWARD));
     vscode.commands.registerCommand("bookmarks.expandSelectionToPrevious", () => expandSelectionToNextBookmark(JUMP_BACKWARD));
     vscode.commands.registerCommand("bookmarks.shrinkSelection", () => shrinkSelection());
-
-    function shrinkSelection() {
-        if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to shrink bookmark selection");
-          return;
-        }
-        
-        if (vscode.window.activeTextEditor.selections.length > 1) {
-          vscode.window.showInformationMessage("Command not supported with more than one selection");
-          return;
-        }
-        
-        if (vscode.window.activeTextEditor.selection.isEmpty) {
-          vscode.window.showInformationMessage("No selection found");
-          return;
-        }              
-        
-        if (bookmarks.activeBookmark.bookmarks.length === 0) {
-          vscode.window.showInformationMessage("No Bookmark found");
-          return;
-        }      
-      
-        // which direction?
-        let direction: JUMP_DIRECTION = vscode.window.activeTextEditor.selection.isReversed ? JUMP_FORWARD : JUMP_BACKWARD;
-        let activeSelectionStartLine: number = vscode.window.activeTextEditor.selection.isReversed ? vscode.window.activeTextEditor.selection.end.line : vscode.window.activeTextEditor.selection.start.line; 
-
-        let baseLine: number;
-        if (direction === JUMP_FORWARD) {
-            baseLine = vscode.window.activeTextEditor.selection.start.line;
-        } else {
-            baseLine = vscode.window.activeTextEditor.selection.end.line;
-        }
-    
-        bookmarks.activeBookmark.nextBookmark(baseLine, direction)
-            .then((nextLine) => {
-              if ( (nextLine === NO_MORE_BOOKMARKS) || (nextLine === NO_BOOKMARKS) ) {
-                    vscode.window.setStatusBarMessage("No more bookmarks", 2000);
-                    return;
-              } else {
-                   
-                  if ((direction === JUMP_BACKWARD && nextLine < activeSelectionStartLine) || 
-                    (direction === JUMP_FORWARD && nextLine > activeSelectionStartLine)) {
-                      // vscode.window.showInformationMessage('No more bookmarks to shrink...');
-                      vscode.window.setStatusBarMessage("No more bookmarks to shrink", 2000);
-                  } else {                  
-                    Selection.shrinkLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString(), 10), direction);
-                  }
-              }
-            })
-            .catch((error) => {
-              console.log("activeBookmark.nextBookmark REJECT" + error);
-            });        
-    }
-    
-    function expandSelectionToNextBookmark(direction: JUMP_DIRECTION) {
-        if (!vscode.window.activeTextEditor) {
-            vscode.window.showInformationMessage("Open a file first to clear bookmarks");
-            return;
-        }
-
-        if (bookmarks.activeBookmark.bookmarks.length === 0) {
-            vscode.window.showInformationMessage("No Bookmark found");
-            return;
-        }
-
-        if (bookmarks.activeBookmark.bookmarks.length === 1) {
-            vscode.window.showInformationMessage("There is only one bookmark in this file");
-            return;
-        }
-
-        let baseLine: number;
-        if (vscode.window.activeTextEditor.selection.isEmpty) {
-            baseLine = vscode.window.activeTextEditor.selection.active.line;
-        } else {
-            if (direction === JUMP_FORWARD) {
-                baseLine = vscode.window.activeTextEditor.selection.end.line;
-            } else {
-                baseLine = vscode.window.activeTextEditor.selection.start.line;
-            }
-        }
-
-        bookmarks.activeBookmark.nextBookmark(baseLine, direction)
-            .then((nextLine) => {
-                if ((nextLine === NO_MORE_BOOKMARKS) || (nextLine === NO_BOOKMARKS)) {
-                    vscode.window.setStatusBarMessage("No more bookmarks", 2000);
-                    return;
-                } else {
-                    Selection.expandLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString(), 10), direction);
-                }
-            })
-            .catch((error) => {
-                console.log("activeBookmark.nextBookmark REJECT" + error);
-            });
-    };
-	
-    // other commands
     vscode.commands.registerCommand("bookmarks.toggle", () => toggle());
     vscode.commands.registerCommand("bookmarks.toggleLabeled", () => toggleLabeled());    
     vscode.commands.registerCommand("bookmarks.jumpToNext", () => jumpToNext());
@@ -468,211 +289,6 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    // function HadOnlyOneValidContentChange(event): boolean {
-        
-    //     // not valid
-    //     if ((event.contentChanges.length > 2) || (event.contentChanges.length === 0)) {
-    //         return false;
-    //     }
-        
-    //     // normal behavior - only 1
-    //     if (event.contentChanges.length === 1) {
-    //         return true;
-    //     } else { // has 2, but is it a trimAutoWhitespace issue?
-    //         if (event.contentChanges.length === 2) {
-    //             let trimAutoWhitespace: boolean = vscode.workspace.getConfiguration("editor").get("trimAutoWhitespace", true);
-    //             if (!trimAutoWhitespace) {
-    //                 return false;
-    //             }
-                
-    //             // check if the first range is 'equal' and if the second is 'empty'
-    //             let fistRangeEquals: boolean = 
-    //                 (event.contentChanges[ 0 ].range.start.character === event.contentChanges[ 0 ].range.end.character) &&
-    //                 (event.contentChanges[ 0 ].range.start.line === event.contentChanges[ 0 ].range.end.line);    
-                    
-    //             let secondRangeEmpty: boolean = (event.contentChanges[ 1 ].text === "") && 
-    //                 (event.contentChanges[ 1 ].range.start.line === event.contentChanges[ 1 ].range.end.line) &&
-    //                 (event.contentChanges[ 1 ].range.start.character === 0) &&
-    //                 (event.contentChanges[ 1 ].range.end.character > 0);
-                
-    //             return fistRangeEquals && secondRangeEmpty;
-    //         } 
-    //     }
-    //  }
-
-	// // function used to attach bookmarks at the line
-    // function stickyBookmarks(event: vscode.TextDocumentChangeEvent): boolean {
-
-    //     let diffLine: number;
-    //     let updatedBookmark: boolean = false;
-        
-    //     // fix autoTrimWhitespace
-    //     if (HadOnlyOneValidContentChange(event)) {
-    //         // add or delete line case
-    //         if (event.document.lineCount !== activeEditorCountLine) {
-    //             if (event.document.lineCount > activeEditorCountLine) {
-    //                 diffLine = event.document.lineCount - activeEditorCountLine;
-    //             } else if (event.document.lineCount < activeEditorCountLine) {
-    //                 diffLine = activeEditorCountLine - event.document.lineCount;
-    //                 diffLine = 0 - diffLine;
-
-    //                 // one line up
-    //                 if (event.contentChanges[ 0 ].range.end.line - event.contentChanges[ 0 ].range.start.line === 1) {
-
-    //                     if ((event.contentChanges[ 0 ].range.end.character === 0) &&
-    //                         (event.contentChanges[ 0 ].range.start.character === 0)) {
-    //                         // the bookmarked one
-    //                         let idxbk = bookmarks.activeBookmark.indexOfBookmark(event.contentChanges[ 0 ].range.start.line);//bookmarks.indexOf({line: event.contentChanges[ 0 ].range.start.line});
-    //                         if (idxbk > -1) {
-    //                             bookmarks.removeBookmark(idxbk, event.contentChanges[ 0 ].range.start.line);
-    //                         }
-    //                     }
-    //                 }
-
-    //                 if (event.contentChanges[ 0 ].range.end.line - event.contentChanges[ 0 ].range.start.line > 1) {
-    //                     for (let i = event.contentChanges[ 0 ].range.start.line/* + 1*/; i <= event.contentChanges[ 0 ].range.end.line; i++) {
-    //                         let index = bookmarks.activeBookmark.indexOfBookmark(i);// bookmarks.indexOf({line: i});
-
-    //                         if (index > -1) {
-    //                             bookmarks.removeBookmark(index, i);
-    //                             updatedBookmark = true;
-    //                         }
-    //                     }
-    //                 }
-    //             }
-
-    //             for (let index = 0; index < bookmarks.activeBookmark.bookmarks.length; index++) {
-    //                 let eventLine: number = event.contentChanges[ 0 ].range.start.line;
-    //                 let eventcharacter: number = event.contentChanges[ 0 ].range.start.character;
-
-    //                 // indent ?
-    //                 if (eventcharacter > 0) {
-    //                     let textInEventLine = activeEditor.document.lineAt(eventLine).text;
-    //                     textInEventLine = textInEventLine.replace(/\t/g, "").replace(/\s/g, "");
-    //                     if (textInEventLine === "") {
-    //                         eventcharacter = 0;
-    //                     }
-    //                 }
-
-    //                 // also =
-    //                 if (
-    //                     ((bookmarks.activeBookmark.bookmarks[ index ].line >  eventLine) && (eventcharacter > 0)) ||
-    //                     ((bookmarks.activeBookmark.bookmarks[ index ].line >= eventLine) && (eventcharacter === 0))
-    //                 ) {
-    //                     let newLine = bookmarks.activeBookmark.bookmarks[ index ].line + diffLine;
-    //                     if (newLine < 0) {
-    //                         newLine = 0;
-    //                     }
-
-    //                     bookmarks.updateBookmark(index, bookmarks.activeBookmark.bookmarks[index].line, newLine);
-    //                     updatedBookmark = true;
-    //                 }
-    //             }
-    //         }
-
-    //         // paste case
-    //         if (!updatedBookmark && (event.contentChanges[ 0 ].text.length > 1)) {
-    //             let selection = vscode.window.activeTextEditor.selection;
-    //             let lineRange = [ selection.start.line, selection.end.line ];
-    //             let lineMin = Math.min.apply(this, lineRange);
-    //             let lineMax = Math.max.apply(this, lineRange);
-
-    //             if (selection.start.character > 0) {
-    //                 lineMin++;
-    //             }
-
-    //             if (selection.end.character < vscode.window.activeTextEditor.document.lineAt(selection.end).range.end.character) {
-    //                 lineMax--;
-    //             }
-
-    //             if (lineMin <= lineMax) {
-    //                 for (let i = lineMin; i <= lineMax; i++) {
-    //                     let index = bookmarks.activeBookmark.indexOfBookmark(i);// bookmarks.indexOf({line: i});
-    //                     if (index > -1) {
-    //                         bookmarks.removeBookmark(index, i);
-    //                         updatedBookmark = true;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     } else if (event.contentChanges.length === 2) {
-    //         // move line up and move line down case
-    //         if (activeEditor.selections.length === 1) {
-    //             if (event.contentChanges[ 0 ].text === "") {
-    //                 updatedBookmark = moveStickyBookmarks("down");
-    //             } else if (event.contentChanges[ 1 ].text === "") {
-    //                 updatedBookmark = moveStickyBookmarks("up");
-    //             }
-    //         }
-    //     }
-
-    //     return updatedBookmark;
-    // }
-
-    // function moveStickyBookmarks(direction): boolean {
-    //     let diffChange: number = -1;
-    //     let updatedBookmark: boolean = false;
-    //     let diffLine;
-    //     let selection = activeEditor.selection;
-    //     let lineRange = [selection.start.line, selection.end.line];
-    //     let lineMin = Math.min.apply(this, lineRange);
-    //     let lineMax = Math.max.apply(this, lineRange);
-
-    //     if (selection.end.character === 0 && !selection.isSingleLine) {
-    //         let lineAt = activeEditor.document.lineAt(selection.end.line);
-    //         let posMin = new vscode.Position(selection.start.line + 1, selection.start.character);
-    //         let posMax = new vscode.Position(selection.end.line, lineAt.range.end.character);
-    //         vscode.window.activeTextEditor.selection = new vscode.Selection(posMin, posMax);
-    //         lineMax--;
-    //     }
-
-    //     if (direction === "up") {
-    //         diffLine = 1;
-
-    //         let index = bookmarks.activeBookmark.indexOfBookmark(lineMin - 1);// bookmarks.indexOf({line: lineMin - 1});
-    //         if (index > -1) {
-    //             diffChange = lineMax;
-    //             bookmarks.removeBookmark(index, lineMin - 1);
-    //             updatedBookmark = true;
-    //         }
-    //     } else if (direction === "down") {
-    //         diffLine = -1;
-
-    //         let index: number;
-    //         index = bookmarks.activeBookmark.indexOfBookmark(lineMax + 1);//bookmarks.indexOf({line: lineMax + 1} as Bookmark);
-    //         if (index > -1) {
-    //             diffChange = lineMin;
-    //             bookmarks.removeBookmark(index, lineMax + 1);
-    //             updatedBookmark = true;
-    //         }
-    //     }
-
-    //     lineRange = [];
-    //     for (let i = lineMin; i <= lineMax; i++) {
-    //         lineRange.push(i);
-    //     }
-    //     lineRange = lineRange.sort();
-    //     if (diffLine < 0) {
-    //         lineRange = lineRange.reverse();
-    //     }
-
-    //     for (let i in lineRange) {
-    //         let index = bookmarks.activeBookmark.indexOfBookmark(lineRange[i]);//bookmarks.indexOf({line: lineRange[i]} as Bookmark);
-    //         if (index > -1) {
-    //             bookmarks.updateBookmark(index, lineRange[i], 
-    //                 bookmarks.activeBookmark.bookmarks[index].line - diffLine);
-    //             updatedBookmark = true;
-    //         }
-    //     }
-
-    //     if (diffChange > -1) {
-    //         bookmarks.addBookmark(new vscode.Position(diffChange, 1)); //?? recover correct column (removed bookmark)
-    //         updatedBookmark = true;
-    //     }
-
-    //     return updatedBookmark;
-    // }
-    
     function removeBasePathFrom(aPath: string, currentWorkspaceFolder: vscode.WorkspaceFolder): string {
         if (!vscode.workspace.workspaceFolders) {
             return aPath;
@@ -783,6 +399,136 @@ export function activate(context: vscode.ExtensionContext) {
                 revealPosition(parseInt(matches[1], 10) - 1, parseInt(matches[2], 10) - 1);
             }
         });
+    };
+
+    function clear() {
+        
+        if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage("Open a file first to clear bookmarks");
+          return;
+        }      
+      
+        bookmarks.clear();
+        saveWorkspaceState();
+        updateDecorations();
+    };
+
+    function clearFromAllFiles() {
+        bookmarks.clearAll();
+        saveWorkspaceState();
+        updateDecorations();
+    };
+
+    function selectLines() {
+        if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage("Open a file first to clear bookmarks");
+          return;
+        }
+        
+        if (bookmarks.activeBookmark.bookmarks.length === 0) {
+          vscode.window.showInformationMessage("No Bookmark found");
+          return;
+        }      
+
+        let lines: number[] = [];
+        for (const bookmark of bookmarks.activeBookmark.bookmarks) {
+            lines.push(bookmark.line);
+        }
+        Selection.selectLines(vscode.window.activeTextEditor, lines);
+    };   
+
+    function shrinkSelection() {
+        if (!vscode.window.activeTextEditor) {
+          vscode.window.showInformationMessage("Open a file first to shrink bookmark selection");
+          return;
+        }
+        
+        if (vscode.window.activeTextEditor.selections.length > 1) {
+          vscode.window.showInformationMessage("Command not supported with more than one selection");
+          return;
+        }
+        
+        if (vscode.window.activeTextEditor.selection.isEmpty) {
+          vscode.window.showInformationMessage("No selection found");
+          return;
+        }              
+        
+        if (bookmarks.activeBookmark.bookmarks.length === 0) {
+          vscode.window.showInformationMessage("No Bookmark found");
+          return;
+        }      
+      
+        // which direction?
+        let direction: JUMP_DIRECTION = vscode.window.activeTextEditor.selection.isReversed ? JUMP_FORWARD : JUMP_BACKWARD;
+        let activeSelectionStartLine: number = vscode.window.activeTextEditor.selection.isReversed ? vscode.window.activeTextEditor.selection.end.line : vscode.window.activeTextEditor.selection.start.line; 
+
+        let baseLine: number;
+        if (direction === JUMP_FORWARD) {
+            baseLine = vscode.window.activeTextEditor.selection.start.line;
+        } else {
+            baseLine = vscode.window.activeTextEditor.selection.end.line;
+        }
+    
+        bookmarks.activeBookmark.nextBookmark(baseLine, direction)
+            .then((nextLine) => {
+              if ( (nextLine === NO_MORE_BOOKMARKS) || (nextLine === NO_BOOKMARKS) ) {
+                    vscode.window.setStatusBarMessage("No more bookmarks", 2000);
+                    return;
+              } else {
+                   
+                  if ((direction === JUMP_BACKWARD && nextLine < activeSelectionStartLine) || 
+                    (direction === JUMP_FORWARD && nextLine > activeSelectionStartLine)) {
+                      // vscode.window.showInformationMessage('No more bookmarks to shrink...');
+                      vscode.window.setStatusBarMessage("No more bookmarks to shrink", 2000);
+                  } else {                  
+                    Selection.shrinkLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString(), 10), direction);
+                  }
+              }
+            })
+            .catch((error) => {
+              console.log("activeBookmark.nextBookmark REJECT" + error);
+            });        
+    }
+    
+    function expandSelectionToNextBookmark(direction: JUMP_DIRECTION) {
+        if (!vscode.window.activeTextEditor) {
+            vscode.window.showInformationMessage("Open a file first to clear bookmarks");
+            return;
+        }
+
+        if (bookmarks.activeBookmark.bookmarks.length === 0) {
+            vscode.window.showInformationMessage("No Bookmark found");
+            return;
+        }
+
+        if (bookmarks.activeBookmark.bookmarks.length === 1) {
+            vscode.window.showInformationMessage("There is only one bookmark in this file");
+            return;
+        }
+
+        let baseLine: number;
+        if (vscode.window.activeTextEditor.selection.isEmpty) {
+            baseLine = vscode.window.activeTextEditor.selection.active.line;
+        } else {
+            if (direction === JUMP_FORWARD) {
+                baseLine = vscode.window.activeTextEditor.selection.end.line;
+            } else {
+                baseLine = vscode.window.activeTextEditor.selection.start.line;
+            }
+        }
+
+        bookmarks.activeBookmark.nextBookmark(baseLine, direction)
+            .then((nextLine) => {
+                if ((nextLine === NO_MORE_BOOKMARKS) || (nextLine === NO_BOOKMARKS)) {
+                    vscode.window.setStatusBarMessage("No more bookmarks", 2000);
+                    return;
+                } else {
+                    Selection.expandLineRange(vscode.window.activeTextEditor, parseInt(nextLine.toString(), 10), direction);
+                }
+            })
+            .catch((error) => {
+                console.log("activeBookmark.nextBookmark REJECT" + error);
+            });
     };
 
     function listFromAllFiles() {
@@ -1104,7 +850,6 @@ export function activate(context: vscode.ExtensionContext) {
               console.log("activeBookmark.nextBookmark REJECT" + error);
             });
     };
-
 
     function toggle() {
         if (!vscode.window.activeTextEditor) {
