@@ -7,6 +7,7 @@ import path = require("path");
 import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, BookmarkedFile, Bookmark } from "./Bookmark";
 import { BookmarksController } from "./Bookmarks";
 import { BookmarkProvider } from "./BookmarkProvider";
+import { Sticky } from "./Sticky";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -82,7 +83,8 @@ export function activate(context: vscode.ExtensionContext) {
             let updatedBookmark: boolean = true;
 			// call sticky function when the activeEditor is changed
             if (bookmarks.activeBookmark && bookmarks.activeBookmark.bookmarks.length > 0) {
-                updatedBookmark = stickyBookmarks(event);
+                updatedBookmark = Sticky.stickyBookmarks(event, activeEditorCountLine, bookmarks.activeBookmark,
+                activeEditor, bookmarks);
             }
 			
             activeEditorCountLine = event.document.lineCount;
@@ -465,210 +467,210 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    function HadOnlyOneValidContentChange(event): boolean {
+    // function HadOnlyOneValidContentChange(event): boolean {
         
-        // not valid
-        if ((event.contentChanges.length > 2) || (event.contentChanges.length === 0)) {
-            return false;
-        }
+    //     // not valid
+    //     if ((event.contentChanges.length > 2) || (event.contentChanges.length === 0)) {
+    //         return false;
+    //     }
         
-        // normal behavior - only 1
-        if (event.contentChanges.length === 1) {
-            return true;
-        } else { // has 2, but is it a trimAutoWhitespace issue?
-            if (event.contentChanges.length === 2) {
-                let trimAutoWhitespace: boolean = vscode.workspace.getConfiguration("editor").get("trimAutoWhitespace", true);
-                if (!trimAutoWhitespace) {
-                    return false;
-                }
+    //     // normal behavior - only 1
+    //     if (event.contentChanges.length === 1) {
+    //         return true;
+    //     } else { // has 2, but is it a trimAutoWhitespace issue?
+    //         if (event.contentChanges.length === 2) {
+    //             let trimAutoWhitespace: boolean = vscode.workspace.getConfiguration("editor").get("trimAutoWhitespace", true);
+    //             if (!trimAutoWhitespace) {
+    //                 return false;
+    //             }
                 
-                // check if the first range is 'equal' and if the second is 'empty'
-                let fistRangeEquals: boolean = 
-                    (event.contentChanges[ 0 ].range.start.character === event.contentChanges[ 0 ].range.end.character) &&
-                    (event.contentChanges[ 0 ].range.start.line === event.contentChanges[ 0 ].range.end.line);    
+    //             // check if the first range is 'equal' and if the second is 'empty'
+    //             let fistRangeEquals: boolean = 
+    //                 (event.contentChanges[ 0 ].range.start.character === event.contentChanges[ 0 ].range.end.character) &&
+    //                 (event.contentChanges[ 0 ].range.start.line === event.contentChanges[ 0 ].range.end.line);    
                     
-                let secondRangeEmpty: boolean = (event.contentChanges[ 1 ].text === "") && 
-                    (event.contentChanges[ 1 ].range.start.line === event.contentChanges[ 1 ].range.end.line) &&
-                    (event.contentChanges[ 1 ].range.start.character === 0) &&
-                    (event.contentChanges[ 1 ].range.end.character > 0);
+    //             let secondRangeEmpty: boolean = (event.contentChanges[ 1 ].text === "") && 
+    //                 (event.contentChanges[ 1 ].range.start.line === event.contentChanges[ 1 ].range.end.line) &&
+    //                 (event.contentChanges[ 1 ].range.start.character === 0) &&
+    //                 (event.contentChanges[ 1 ].range.end.character > 0);
                 
-                return fistRangeEquals && secondRangeEmpty;
-            } 
-        }
-     }
+    //             return fistRangeEquals && secondRangeEmpty;
+    //         } 
+    //     }
+    //  }
 
-	// function used to attach bookmarks at the line
-    function stickyBookmarks(event: vscode.TextDocumentChangeEvent): boolean {
+	// // function used to attach bookmarks at the line
+    // function stickyBookmarks(event: vscode.TextDocumentChangeEvent): boolean {
 
-        let diffLine: number;
-        let updatedBookmark: boolean = false;
+    //     let diffLine: number;
+    //     let updatedBookmark: boolean = false;
         
-        // fix autoTrimWhitespace
-        if (HadOnlyOneValidContentChange(event)) {
-            // add or delete line case
-            if (event.document.lineCount !== activeEditorCountLine) {
-                if (event.document.lineCount > activeEditorCountLine) {
-                    diffLine = event.document.lineCount - activeEditorCountLine;
-                } else if (event.document.lineCount < activeEditorCountLine) {
-                    diffLine = activeEditorCountLine - event.document.lineCount;
-                    diffLine = 0 - diffLine;
+    //     // fix autoTrimWhitespace
+    //     if (HadOnlyOneValidContentChange(event)) {
+    //         // add or delete line case
+    //         if (event.document.lineCount !== activeEditorCountLine) {
+    //             if (event.document.lineCount > activeEditorCountLine) {
+    //                 diffLine = event.document.lineCount - activeEditorCountLine;
+    //             } else if (event.document.lineCount < activeEditorCountLine) {
+    //                 diffLine = activeEditorCountLine - event.document.lineCount;
+    //                 diffLine = 0 - diffLine;
 
-                    // one line up
-                    if (event.contentChanges[ 0 ].range.end.line - event.contentChanges[ 0 ].range.start.line === 1) {
+    //                 // one line up
+    //                 if (event.contentChanges[ 0 ].range.end.line - event.contentChanges[ 0 ].range.start.line === 1) {
 
-                        if ((event.contentChanges[ 0 ].range.end.character === 0) &&
-                            (event.contentChanges[ 0 ].range.start.character === 0)) {
-                            // the bookmarked one
-                            let idxbk = bookmarks.activeBookmark.indexOfBookmark(event.contentChanges[ 0 ].range.start.line);//bookmarks.indexOf({line: event.contentChanges[ 0 ].range.start.line});
-                            if (idxbk > -1) {
-                                bookmarks.removeBookmark(idxbk, event.contentChanges[ 0 ].range.start.line);
-                            }
-                        }
-                    }
+    //                     if ((event.contentChanges[ 0 ].range.end.character === 0) &&
+    //                         (event.contentChanges[ 0 ].range.start.character === 0)) {
+    //                         // the bookmarked one
+    //                         let idxbk = bookmarks.activeBookmark.indexOfBookmark(event.contentChanges[ 0 ].range.start.line);//bookmarks.indexOf({line: event.contentChanges[ 0 ].range.start.line});
+    //                         if (idxbk > -1) {
+    //                             bookmarks.removeBookmark(idxbk, event.contentChanges[ 0 ].range.start.line);
+    //                         }
+    //                     }
+    //                 }
 
-                    if (event.contentChanges[ 0 ].range.end.line - event.contentChanges[ 0 ].range.start.line > 1) {
-                        for (let i = event.contentChanges[ 0 ].range.start.line/* + 1*/; i <= event.contentChanges[ 0 ].range.end.line; i++) {
-                            let index = bookmarks.activeBookmark.indexOfBookmark(i);// bookmarks.indexOf({line: i});
+    //                 if (event.contentChanges[ 0 ].range.end.line - event.contentChanges[ 0 ].range.start.line > 1) {
+    //                     for (let i = event.contentChanges[ 0 ].range.start.line/* + 1*/; i <= event.contentChanges[ 0 ].range.end.line; i++) {
+    //                         let index = bookmarks.activeBookmark.indexOfBookmark(i);// bookmarks.indexOf({line: i});
 
-                            if (index > -1) {
-                                bookmarks.removeBookmark(index, i);
-                                updatedBookmark = true;
-                            }
-                        }
-                    }
-                }
+    //                         if (index > -1) {
+    //                             bookmarks.removeBookmark(index, i);
+    //                             updatedBookmark = true;
+    //                         }
+    //                     }
+    //                 }
+    //             }
 
-                for (let index = 0; index < bookmarks.activeBookmark.bookmarks.length; index++) {
-                    let eventLine: number = event.contentChanges[ 0 ].range.start.line;
-                    let eventcharacter: number = event.contentChanges[ 0 ].range.start.character;
+    //             for (let index = 0; index < bookmarks.activeBookmark.bookmarks.length; index++) {
+    //                 let eventLine: number = event.contentChanges[ 0 ].range.start.line;
+    //                 let eventcharacter: number = event.contentChanges[ 0 ].range.start.character;
 
-                    // indent ?
-                    if (eventcharacter > 0) {
-                        let textInEventLine = activeEditor.document.lineAt(eventLine).text;
-                        textInEventLine = textInEventLine.replace(/\t/g, "").replace(/\s/g, "");
-                        if (textInEventLine === "") {
-                            eventcharacter = 0;
-                        }
-                    }
+    //                 // indent ?
+    //                 if (eventcharacter > 0) {
+    //                     let textInEventLine = activeEditor.document.lineAt(eventLine).text;
+    //                     textInEventLine = textInEventLine.replace(/\t/g, "").replace(/\s/g, "");
+    //                     if (textInEventLine === "") {
+    //                         eventcharacter = 0;
+    //                     }
+    //                 }
 
-                    // also =
-                    if (
-                        ((bookmarks.activeBookmark.bookmarks[ index ].line >  eventLine) && (eventcharacter > 0)) ||
-                        ((bookmarks.activeBookmark.bookmarks[ index ].line >= eventLine) && (eventcharacter === 0))
-                    ) {
-                        let newLine = bookmarks.activeBookmark.bookmarks[ index ].line + diffLine;
-                        if (newLine < 0) {
-                            newLine = 0;
-                        }
+    //                 // also =
+    //                 if (
+    //                     ((bookmarks.activeBookmark.bookmarks[ index ].line >  eventLine) && (eventcharacter > 0)) ||
+    //                     ((bookmarks.activeBookmark.bookmarks[ index ].line >= eventLine) && (eventcharacter === 0))
+    //                 ) {
+    //                     let newLine = bookmarks.activeBookmark.bookmarks[ index ].line + diffLine;
+    //                     if (newLine < 0) {
+    //                         newLine = 0;
+    //                     }
 
-                        bookmarks.updateBookmark(index, bookmarks.activeBookmark.bookmarks[index].line, newLine);
-                        updatedBookmark = true;
-                    }
-                }
-            }
+    //                     bookmarks.updateBookmark(index, bookmarks.activeBookmark.bookmarks[index].line, newLine);
+    //                     updatedBookmark = true;
+    //                 }
+    //             }
+    //         }
 
-            // paste case
-            if (!updatedBookmark && (event.contentChanges[ 0 ].text.length > 1)) {
-                let selection = vscode.window.activeTextEditor.selection;
-                let lineRange = [ selection.start.line, selection.end.line ];
-                let lineMin = Math.min.apply(this, lineRange);
-                let lineMax = Math.max.apply(this, lineRange);
+    //         // paste case
+    //         if (!updatedBookmark && (event.contentChanges[ 0 ].text.length > 1)) {
+    //             let selection = vscode.window.activeTextEditor.selection;
+    //             let lineRange = [ selection.start.line, selection.end.line ];
+    //             let lineMin = Math.min.apply(this, lineRange);
+    //             let lineMax = Math.max.apply(this, lineRange);
 
-                if (selection.start.character > 0) {
-                    lineMin++;
-                }
+    //             if (selection.start.character > 0) {
+    //                 lineMin++;
+    //             }
 
-                if (selection.end.character < vscode.window.activeTextEditor.document.lineAt(selection.end).range.end.character) {
-                    lineMax--;
-                }
+    //             if (selection.end.character < vscode.window.activeTextEditor.document.lineAt(selection.end).range.end.character) {
+    //                 lineMax--;
+    //             }
 
-                if (lineMin <= lineMax) {
-                    for (let i = lineMin; i <= lineMax; i++) {
-                        let index = bookmarks.activeBookmark.indexOfBookmark(i);// bookmarks.indexOf({line: i});
-                        if (index > -1) {
-                            bookmarks.removeBookmark(index, i);
-                            updatedBookmark = true;
-                        }
-                    }
-                }
-            }
-        } else if (event.contentChanges.length === 2) {
-            // move line up and move line down case
-            if (activeEditor.selections.length === 1) {
-                if (event.contentChanges[ 0 ].text === "") {
-                    updatedBookmark = moveStickyBookmarks("down");
-                } else if (event.contentChanges[ 1 ].text === "") {
-                    updatedBookmark = moveStickyBookmarks("up");
-                }
-            }
-        }
+    //             if (lineMin <= lineMax) {
+    //                 for (let i = lineMin; i <= lineMax; i++) {
+    //                     let index = bookmarks.activeBookmark.indexOfBookmark(i);// bookmarks.indexOf({line: i});
+    //                     if (index > -1) {
+    //                         bookmarks.removeBookmark(index, i);
+    //                         updatedBookmark = true;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     } else if (event.contentChanges.length === 2) {
+    //         // move line up and move line down case
+    //         if (activeEditor.selections.length === 1) {
+    //             if (event.contentChanges[ 0 ].text === "") {
+    //                 updatedBookmark = moveStickyBookmarks("down");
+    //             } else if (event.contentChanges[ 1 ].text === "") {
+    //                 updatedBookmark = moveStickyBookmarks("up");
+    //             }
+    //         }
+    //     }
 
-        return updatedBookmark;
-    }
+    //     return updatedBookmark;
+    // }
 
-    function moveStickyBookmarks(direction): boolean {
-        let diffChange: number = -1;
-        let updatedBookmark: boolean = false;
-        let diffLine;
-        let selection = activeEditor.selection;
-        let lineRange = [selection.start.line, selection.end.line];
-        let lineMin = Math.min.apply(this, lineRange);
-        let lineMax = Math.max.apply(this, lineRange);
+    // function moveStickyBookmarks(direction): boolean {
+    //     let diffChange: number = -1;
+    //     let updatedBookmark: boolean = false;
+    //     let diffLine;
+    //     let selection = activeEditor.selection;
+    //     let lineRange = [selection.start.line, selection.end.line];
+    //     let lineMin = Math.min.apply(this, lineRange);
+    //     let lineMax = Math.max.apply(this, lineRange);
 
-        if (selection.end.character === 0 && !selection.isSingleLine) {
-            let lineAt = activeEditor.document.lineAt(selection.end.line);
-            let posMin = new vscode.Position(selection.start.line + 1, selection.start.character);
-            let posMax = new vscode.Position(selection.end.line, lineAt.range.end.character);
-            vscode.window.activeTextEditor.selection = new vscode.Selection(posMin, posMax);
-            lineMax--;
-        }
+    //     if (selection.end.character === 0 && !selection.isSingleLine) {
+    //         let lineAt = activeEditor.document.lineAt(selection.end.line);
+    //         let posMin = new vscode.Position(selection.start.line + 1, selection.start.character);
+    //         let posMax = new vscode.Position(selection.end.line, lineAt.range.end.character);
+    //         vscode.window.activeTextEditor.selection = new vscode.Selection(posMin, posMax);
+    //         lineMax--;
+    //     }
 
-        if (direction === "up") {
-            diffLine = 1;
+    //     if (direction === "up") {
+    //         diffLine = 1;
 
-            let index = bookmarks.activeBookmark.indexOfBookmark(lineMin - 1);// bookmarks.indexOf({line: lineMin - 1});
-            if (index > -1) {
-                diffChange = lineMax;
-                bookmarks.removeBookmark(index, lineMin - 1);
-                updatedBookmark = true;
-            }
-        } else if (direction === "down") {
-            diffLine = -1;
+    //         let index = bookmarks.activeBookmark.indexOfBookmark(lineMin - 1);// bookmarks.indexOf({line: lineMin - 1});
+    //         if (index > -1) {
+    //             diffChange = lineMax;
+    //             bookmarks.removeBookmark(index, lineMin - 1);
+    //             updatedBookmark = true;
+    //         }
+    //     } else if (direction === "down") {
+    //         diffLine = -1;
 
-            let index: number;
-            index = bookmarks.activeBookmark.indexOfBookmark(lineMax + 1);//bookmarks.indexOf({line: lineMax + 1} as Bookmark);
-            if (index > -1) {
-                diffChange = lineMin;
-                bookmarks.removeBookmark(index, lineMax + 1);
-                updatedBookmark = true;
-            }
-        }
+    //         let index: number;
+    //         index = bookmarks.activeBookmark.indexOfBookmark(lineMax + 1);//bookmarks.indexOf({line: lineMax + 1} as Bookmark);
+    //         if (index > -1) {
+    //             diffChange = lineMin;
+    //             bookmarks.removeBookmark(index, lineMax + 1);
+    //             updatedBookmark = true;
+    //         }
+    //     }
 
-        lineRange = [];
-        for (let i = lineMin; i <= lineMax; i++) {
-            lineRange.push(i);
-        }
-        lineRange = lineRange.sort();
-        if (diffLine < 0) {
-            lineRange = lineRange.reverse();
-        }
+    //     lineRange = [];
+    //     for (let i = lineMin; i <= lineMax; i++) {
+    //         lineRange.push(i);
+    //     }
+    //     lineRange = lineRange.sort();
+    //     if (diffLine < 0) {
+    //         lineRange = lineRange.reverse();
+    //     }
 
-        for (let i in lineRange) {
-            let index = bookmarks.activeBookmark.indexOfBookmark(lineRange[i]);//bookmarks.indexOf({line: lineRange[i]} as Bookmark);
-            if (index > -1) {
-                bookmarks.updateBookmark(index, lineRange[i], 
-                    bookmarks.activeBookmark.bookmarks[index].line - diffLine);
-                updatedBookmark = true;
-            }
-        }
+    //     for (let i in lineRange) {
+    //         let index = bookmarks.activeBookmark.indexOfBookmark(lineRange[i]);//bookmarks.indexOf({line: lineRange[i]} as Bookmark);
+    //         if (index > -1) {
+    //             bookmarks.updateBookmark(index, lineRange[i], 
+    //                 bookmarks.activeBookmark.bookmarks[index].line - diffLine);
+    //             updatedBookmark = true;
+    //         }
+    //     }
 
-        if (diffChange > -1) {
-            bookmarks.addBookmark(new vscode.Position(diffChange, 1)); //?? recover correct column (removed bookmark)
-            updatedBookmark = true;
-        }
+    //     if (diffChange > -1) {
+    //         bookmarks.addBookmark(new vscode.Position(diffChange, 1)); //?? recover correct column (removed bookmark)
+    //         updatedBookmark = true;
+    //     }
 
-        return updatedBookmark;
-    }
+    //     return updatedBookmark;
+    // }
     
     function removeBasePathFrom(aPath: string, currentWorkspaceFolder: vscode.WorkspaceFolder): string {
         if (!vscode.workspace.workspaceFolders) {
