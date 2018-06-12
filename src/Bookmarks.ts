@@ -142,36 +142,36 @@ export class BookmarksController {
 
         }
 
-        public nextBookmark(active: BookmarkedFile, currentLine: number) {
+        // public nextBookmark(active: BookmarkedFile, currentLine: number) {
 
-            let currentBookmark: BookmarkedFile = active;
-            let currentBookmarkId: number;
-            for (let index = 0; index < this.storage.fileList.length; index++) {
-                let element = this.storage.fileList[index];
-                if (element === active) {
-                    currentBookmarkId = index;
-                }
-            }
+        //     let currentBookmark: BookmarkedFile = active;
+        //     let currentBookmarkId: number;
+        //     for (let index = 0; index < this.storage.fileList.length; index++) {
+        //         let element = this.storage.fileList[index];
+        //         if (element === active) {
+        //             currentBookmarkId = index;
+        //         }
+        //     }
 
-            return new Promise((resolve, reject) => {
+        //     return new Promise((resolve, reject) => {
 
-                currentBookmark.nextBookmark(currentLine)
-                    .then((newLine) => {
-                        resolve(newLine);
-                        return;
-                    })
-                    .catch((error) => {
-                        // next document                  
-                        currentBookmarkId++;
-                        if (currentBookmarkId === this.storage.fileList.length) {
-                            currentBookmarkId = 0;
-                        }
-                        currentBookmark = this.storage.fileList[currentBookmarkId];
+        //         currentBookmark.nextBookmark(currentLine)
+        //             .then((newLine) => {
+        //                 resolve(newLine);
+        //                 return;
+        //             })
+        //             .catch((error) => {
+        //                 // next document                  
+        //                 currentBookmarkId++;
+        //                 if (currentBookmarkId === this.storage.fileList.length) {
+        //                     currentBookmarkId = 0;
+        //                 }
+        //                 currentBookmark = this.storage.fileList[currentBookmarkId];
 
-                    });
+        //             });
 
-            });
-        }
+        //     });
+        // }
         
         public clear(book?: BookmarkedFile): void {
             let b: BookmarkedFile = book ? book : this.activeBookmark;

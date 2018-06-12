@@ -26,7 +26,7 @@ export interface File {
     path: string;
     bookmarks: Bookmark[];
 
-    nextBookmark(currentline: number, direction: JUMP_DIRECTION);
+    nextBookmark(currentPosition: vscode.Position, direction: JUMP_DIRECTION): Promise<number | vscode.Position>;
     listBookmarks();
     clear(): void;
     indexOfBookmark(line: number): number;
@@ -59,7 +59,7 @@ export class BookmarkedFile implements File {
         this.bookmarks = [];
     }
 
-    public nextBookmark(currentline: number, direction: JUMP_DIRECTION = JUMP_FORWARD) {
+    public nextBookmark(currentPosition: vscode.Position, direction: JUMP_DIRECTION = JUMP_FORWARD): Promise<number | vscode.Position> {
 
         return new Promise((resolve, reject) => {
 
@@ -76,17 +76,17 @@ export class BookmarkedFile implements File {
                     resolve(NO_BOOKMARKS);
                     return;
                 } else {
-                    resolve(currentline);
+                    resolve(currentPosition);
                     return;
                 }
             }
 
-            let nextBookmark: number;
+            let nextBookmark: vscode.Position;
 
             if (direction === JUMP_FORWARD) {
                 for (let element of this.bookmarks) {
-                    if (element.line > currentline) {
-                        nextBookmark = element.line; //.line
+                    if (element.line > currentPosition.line) {
+                        nextBookmark = new vscode.Position(element.line, element.column); //.line
                         break;
                     }
                 }
@@ -96,7 +96,7 @@ export class BookmarkedFile implements File {
                         resolve(NO_MORE_BOOKMARKS);
                         return;
                     } else {
-                        resolve(this.bookmarks[ 0 ]);
+                        resolve(this.bookmarks[ 0 ].line);
                         return;
                     }
                 } else {
@@ -106,8 +106,8 @@ export class BookmarkedFile implements File {
             } else { // JUMP_BACKWARD
                 for (let index = this.bookmarks.length - 1; index >= 0; index--) {
                     let element = this.bookmarks[ index ];
-                    if (element.line < currentline) {
-                        nextBookmark = element.line; //.line
+                    if (element.line < currentPosition.line) {
+                        nextBookmark = new vscode.Position(element.line, element.column); //.line
                         break;
                     }
                 }
@@ -116,7 +116,7 @@ export class BookmarkedFile implements File {
                         resolve(NO_MORE_BOOKMARKS);
                         return;
                     } else {
-                        resolve(this.bookmarks[this.bookmarks.length - 1 ]);
+                        resolve(this.bookmarks[this.bookmarks.length - 1 ].line);
                         return;
                     }
                 } else {
