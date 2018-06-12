@@ -480,7 +480,7 @@ export function activate(context: vscode.ExtensionContext) {
                     (direction === JUMP_FORWARD && next.line > activeSelectionStartLine)) {
                       vscode.window.setStatusBarMessage("No more bookmarks to shrink", 2000);
                   } else {                  
-                    Selection.shrinkLineRange(vscode.window.activeTextEditor, next.line, direction);
+                    Selection.shrinkRange(vscode.window.activeTextEditor, next, direction);
                   }
               }
             })
@@ -522,7 +522,7 @@ export function activate(context: vscode.ExtensionContext) {
                     vscode.window.setStatusBarMessage("No more bookmarks", 2000);
                     return;
                 } else {
-                    Selection.expandLineRange(vscode.window.activeTextEditor,next.line, direction);
+                    Selection.expandRange(vscode.window.activeTextEditor, next, direction);
                 }
             })
             .catch((error) => {

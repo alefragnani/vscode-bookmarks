@@ -54,5 +54,46 @@ export class Selection {
         editor.selection = newSe;
     }       
 
+    public static expandRange(editor: vscode.TextEditor, toPosition: vscode.Position, direction: JUMP_DIRECTION) {
+        const doc = editor.document;
+        let newSe: vscode.Selection;   
+        let actualSelection: vscode.Selection = editor.selection;  
+                
+        // no matter 'the previous selection'. going FORWARD will become 'isReversed = FALSE'
+        if (direction === JUMP_FORWARD) {                        
+            if (actualSelection.isEmpty || !actualSelection.isReversed) {
+                newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, 
+                    toPosition.line, toPosition.character);
+            } else {
+                newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, 
+                    toPosition.line, toPosition.character);
+            }
+        } else { // going BACKWARD will become 'isReversed = TRUE'
+            if (actualSelection.isEmpty || !actualSelection.isReversed) {
+                newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, 
+                    toPosition.line, toPosition.character);
+            } else {
+                newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, 
+                    toPosition.line, toPosition.character);
+            }
+        }
+        editor.selection = newSe;
+    }
+
+    public static shrinkRange(editor: vscode.TextEditor, toPosition: vscode.Position, direction: JUMP_DIRECTION) {
+        const doc = editor.document;
+        let newSe: vscode.Selection;   
+                
+        // no matter 'the previous selection'. going FORWARD will become 'isReversed = FALSE'
+        if (direction === JUMP_FORWARD) {    
+            newSe = new vscode.Selection(editor.selection.end.line, editor.selection.end.character, 
+                toPosition.line, toPosition.character);
+        } else { // going BACKWARD , select to line length
+            newSe = new vscode.Selection(editor.selection.start.line, editor.selection.start.character, 
+                toPosition.line, toPosition.character);
+        }
+        editor.selection = newSe;
+    }       
+
 
 }
