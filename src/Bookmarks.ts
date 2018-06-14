@@ -9,7 +9,8 @@ interface BookmarkAdded {
     bookmarkedFile: BookmarkedFile;
     line: number;
     column: number;
-    linePreview: string;
+    linePreview?: string;
+    label?: string;
 }
 
 interface BookmarkRemoved {
@@ -21,7 +22,8 @@ interface BookmarkUpdated {
     bookmarkedFile: BookmarkedFile;
     index: number;
     line: number;
-    linePreview: string;
+    linePreview?: string;
+    label?: string
 }
 
 export class BookmarksController {
@@ -142,37 +144,6 @@ export class BookmarksController {
 
         }
 
-        // public nextBookmark(active: BookmarkedFile, currentLine: number) {
-
-        //     let currentBookmark: BookmarkedFile = active;
-        //     let currentBookmarkId: number;
-        //     for (let index = 0; index < this.storage.fileList.length; index++) {
-        //         let element = this.storage.fileList[index];
-        //         if (element === active) {
-        //             currentBookmarkId = index;
-        //         }
-        //     }
-
-        //     return new Promise((resolve, reject) => {
-
-        //         currentBookmark.nextBookmark(currentLine)
-        //             .then((newLine) => {
-        //                 resolve(newLine);
-        //                 return;
-        //             })
-        //             .catch((error) => {
-        //                 // next document                  
-        //                 currentBookmarkId++;
-        //                 if (currentBookmarkId === this.storage.fileList.length) {
-        //                     currentBookmarkId = 0;
-        //                 }
-        //                 currentBookmark = this.storage.fileList[currentBookmarkId];
-
-        //             });
-
-        //     });
-        // }
-        
         public clear(book?: BookmarkedFile): void {
             let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.clear();
@@ -202,7 +173,7 @@ export class BookmarksController {
                     bookmarkedFile: this.activeBookmark, 
                     line: position.line + 1,
                     column: position.character + 1,
-                    linePreview: label
+                    label: label
                 });
             }
         }
@@ -219,12 +190,21 @@ export class BookmarksController {
         public updateBookmark(index: number, oldLine: number, newLine: number, book?: BookmarkedFile): void {
             let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.bookmarks[index].line = newLine;
-            this.onDidUpdateBookmarkEmitter.fire({
-                bookmarkedFile: b,
-                index: index,
-                line: newLine + 1,
-                linePreview: vscode.window.activeTextEditor.document.lineAt(newLine).text
-            })
+            if (!b.bookmarks[index].label) {
+                this.onDidUpdateBookmarkEmitter.fire({
+                    bookmarkedFile: b,
+                    index: index,
+                    line: newLine + 1,
+                    linePreview: vscode.window.activeTextEditor.document.lineAt(newLine).text
+                });    
+            } else {
+                this.onDidUpdateBookmarkEmitter.fire({
+                    bookmarkedFile: b,
+                    index: index,
+                    line: newLine + 1,
+                    label: b.bookmarks[index].label
+                });    
+            }
         }
 
         public hasAnyBookmark(): boolean {
