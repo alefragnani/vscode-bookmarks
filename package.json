@@ -9,7 +9,7 @@
         "theme": "dark"
     },
     "engines": {
-        "vscode": "^1.18.0"
+        "vscode": "^1.21.0"
     },
     "categories": [
         "Other"
@@ -39,14 +39,22 @@
     ],
     "main": "./out/src/extension",
     "contributes": {
-        "views": {
-            "explorer": [
-                {
-                    "id": "bookmarksExplorer",
-                    "name": "Bookmarks",
-					"when": "bookmarks.canShowTreeView"
-                }
-            ]
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "bookmarks",
+					"title": "Bookmarks",
+					"icon": "images/bookmark-activity-bar.svg"
+				}
+			]
+		},
+		"views": {
+			"bookmarks": [
+				{
+					"id": "bookmarksExplorer",
+                    "name": "Explorer"
+				}
+			]
         },
         "commands": [
             {
@@ -248,6 +256,6 @@
     "devDependencies": {
         "@types/node": "^6.0.40",
         "typescript": "^2.3.2",
-        "vscode": "^1.1.6"
+        "vscode": "^1.1.17"
    }
 }
