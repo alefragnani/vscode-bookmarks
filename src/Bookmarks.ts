@@ -222,7 +222,7 @@ export class BookmarksController {
                 return;
             }
 
-            this.storage.load(jsonObject, relativePath, vscode.workspace.workspaceFolders[0].uri.fsPath);
+            this.storage.load(jsonObject, relativePath, vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.fsPath : undefined);
             
         }
 
