@@ -1,3 +1,15 @@
+## [9.0.0] - TBD
+### Added
+- Bookmarks Activity Bar (issue [#109](https://github.com/alefragnani/vscode-bookmarks/issues/109))
+- Support Labeled Bookmarks (issue [#76]
+(https://github.com/alefragnani/vscode-bookmarks/issues/76))
+- Support Column position in Bookmarks (issue [#36](https://github.com/alefragnani/vscode-bookmarks/issues/36))
+- Use file icon from themes in TreeView (Thanks to @vbfox [PR #112](https://github.com/alefragnani/vscode-bookmarks/pull/112))
+- Trim leading whitespaces in bookmarks list (issue [#121](https://github.com/alefragnani/vscode-bookmarks/issues/121))
+- New Version Numbering based on `semver`
+- New Welcome Page 
+- New Support Model based on DDD (Donation Driven Development :-) )
+
 ## [0.19.1 - 8.1.1] - 2018-04-29
 ### Fixed 
 - (Again) Avoid empty `.vscode\bookmarks.json` file when ther is no bookmark (issue [#95](https://github.com/alefragnani/vscode-bookmarks/issues/95))
