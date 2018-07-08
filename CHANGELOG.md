@@ -7,7 +7,6 @@
 - Use file icon from themes in TreeView (Thanks to @vbfox [PR #112](https://github.com/alefragnani/vscode-bookmarks/pull/112))
 - Trim leading whitespaces in bookmarks list (issue [#121](https://github.com/alefragnani/vscode-bookmarks/issues/121))
 - New Version Numbering based on `semver`
-- New Welcome Page 
 - New Support Model based on DDD (Donation Driven Development :-) )
 
 ## [0.19.1 - 8.1.1] - 2018-04-29
