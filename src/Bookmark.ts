@@ -15,7 +15,7 @@ export enum JUMP_DIRECTION { JUMP_FORWARD, JUMP_BACKWARD };
  */
 export interface Bookmark {
     line: number;
-    column?: number;
+    column: number;
     label?: string;
 }
 
@@ -26,7 +26,7 @@ export interface File {
     path: string;
     bookmarks: Bookmark[];
 
-    nextBookmark(currentline: number, direction: JUMP_DIRECTION);
+    nextBookmark(currentPosition: vscode.Position, direction: JUMP_DIRECTION): Promise<number | vscode.Position>;
     listBookmarks();
     clear(): void;
     indexOfBookmark(line: number): number;
@@ -40,13 +40,13 @@ export interface FileList extends Array<File> { };
 export class BookmarkItem implements Bookmark {
 
     public line: number;
-    public column?: number;
-    public label?: string;
+    public column: number;
+    public label: string;
 
-    constructor(pline: number, pcolumn: number = 0, plabel?: string) {
-        this.line = pline;
-        this.column = pcolumn;
-        this.label = plabel;
+    constructor(line: number, column: number = 1, label: string = "") {
+        this.line = line;
+        this.column = column;
+        this.label = label;
     }
 }
 
@@ -59,7 +59,7 @@ export class BookmarkedFile implements File {
         this.bookmarks = [];
     }
 
-    public nextBookmark(currentline: number, direction: JUMP_DIRECTION = JUMP_FORWARD) {
+    public nextBookmark(currentPosition: vscode.Position, direction: JUMP_DIRECTION = JUMP_FORWARD): Promise<number | vscode.Position> {
 
         return new Promise((resolve, reject) => {
 
@@ -76,17 +76,17 @@ export class BookmarkedFile implements File {
                     resolve(NO_BOOKMARKS);
                     return;
                 } else {
-                    resolve(currentline);
+                    resolve(currentPosition);
                     return;
                 }
             }
 
-            let nextBookmark: number;
+            let nextBookmark: vscode.Position;
 
             if (direction === JUMP_FORWARD) {
                 for (let element of this.bookmarks) {
-                    if (element.line > currentline) {
-                        nextBookmark = element.line; //.line
+                    if (element.line > currentPosition.line) {
+                        nextBookmark = new vscode.Position(element.line, element.column); //.line
                         break;
                     }
                 }
@@ -96,7 +96,7 @@ export class BookmarkedFile implements File {
                         resolve(NO_MORE_BOOKMARKS);
                         return;
                     } else {
-                        resolve(this.bookmarks[ 0 ]);
+                        resolve(this.bookmarks[ 0 ].line);
                         return;
                     }
                 } else {
@@ -106,8 +106,8 @@ export class BookmarkedFile implements File {
             } else { // JUMP_BACKWARD
                 for (let index = this.bookmarks.length - 1; index >= 0; index--) {
                     let element = this.bookmarks[ index ];
-                    if (element.line < currentline) {
-                        nextBookmark = element.line; //.line
+                    if (element.line < currentPosition.line) {
+                        nextBookmark = new vscode.Position(element.line, element.column); //.line
                         break;
                     }
                 }
@@ -116,7 +116,7 @@ export class BookmarkedFile implements File {
                         resolve(NO_MORE_BOOKMARKS);
                         return;
                     } else {
-                        resolve(this.bookmarks[this.bookmarks.length - 1 ]);
+                        resolve(this.bookmarks[this.bookmarks.length - 1 ].line);
                         return;
                     }
                 } else {
@@ -150,25 +150,70 @@ export class BookmarkedFile implements File {
                 let invalids = [];
                 // tslint:disable-next-line:prefer-for-of
                 for (let index = 0; index < this.bookmarks.length; index++) {
-                    let element = this.bookmarks[ index ].line + 1;
+
+                    let bookmarkLine = this.bookmarks[ index ].line + 1;
+                    let bookmarkColumn = this.bookmarks[ index ].column + 1;
+
                     // check for 'invalidated' bookmarks, when its outside the document length
-                    if (element <= doc.lineCount) {
-                        let lineText = doc.lineAt(element - 1).text;
+                    if (bookmarkLine <= doc.lineCount) {
+                        let lineText = doc.lineAt(bookmarkLine - 1).text.trim();
                         let normalizedPath = doc.uri.fsPath;
-                        items.push({
-                            label: element.toString(),
-                            description: lineText,
-                            detail: normalizedPath
-                        });
+
+                        if (this.bookmarks[index].label === "") {
+                            if (this.bookmarks[index].column === 0) {
+                                items.push( { description: "(Ln " + bookmarkLine.toString() + ")", 
+                                    label: lineText,
+                                    detail: normalizedPath})
+                            } else {
+                                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                                    bookmarkColumn.toString() + ")", 
+                                    label: lineText,
+                                    detail: normalizedPath });
+                            }
+                        } else {
+                            if (this.bookmarks[index].column === 0) {
+                                items.push( { description: "(Ln " + bookmarkLine.toString() + ")", 
+                                    // label: lineText,
+                                    label: "$(tag) " + this.bookmarks[index].label,
+                                    detail: normalizedPath})
+                            } else {
+                                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                                    bookmarkColumn.toString() + ")", 
+                                    // label: lineText,
+                                    label: "$(tag) " + this.bookmarks[index].label,
+                                    detail: normalizedPath });
+                            }
+                        }
+                        // if (this.bookmarks[ index ].column === 0) {
+                        //     items.push({
+                        //         label: "(" + bookmarkLine.toString() + ")",
+                        //         description: lineText,
+                        //         detail: normalizedPath
+                        //     });
+                        // } else {
+                        //     if (this.bookmarks[index].label === "") {
+                        //         items.push({
+                        //             label: "(" + bookmarkLine.toString() + ", " + this.bookmarks[ index ].column + ")",
+                        //             description: lineText,
+                        //             detail: normalizedPath
+                        //         });
+                        //     } else {
+                        //         items.push({
+                        //             label: "(" + bookmarkLine.toString() + ", " + this.bookmarks[ index ].column + ")",
+                        //             description: this.bookmarks[index].label,
+                        //             detail: normalizedPath
+                        //         });
+                        //     }
+                        // }
                     } else {
-                        invalids.push(element);
+                        invalids.push(bookmarkLine);
                     }
                 }
                 if (invalids.length > 0) {
                     let idxInvalid: number;
                     // tslint:disable-next-line:prefer-for-of
                     for (let indexI = 0; indexI < invalids.length; indexI++) {
-                        idxInvalid = this.bookmarks.indexOf({line: invalids[ indexI ] - 1});
+                        idxInvalid = this.bookmarks.indexOf(<Bookmark>{line: invalids[ indexI ] - 1});
                         this.bookmarks.splice(idxInvalid, 1);
                     }
                 }

@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import path = require("path");
 import { BookmarkedFile } from "./Bookmark";
 import { BookmarksController } from "./Bookmarks";
+import { Parser, Point } from "./Parser";
 
 export const NODE_FILE = 0;
 export const NODE_BOOKMARK = 1;
@@ -10,6 +11,7 @@ export enum BookmarkNodeKind { NODE_FILE, NODE_BOOKMARK };
 export interface BookmarkPreview {
   file: string;
   line: number;    
+  column: number;
   preview: string; 
 };
 
@@ -47,13 +49,23 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
       
       // has bookmarks - find it
       for (let bn of this.tree) {
-        if (bn.bookmark === bkm.bookmark) {
-          
-          bn.books.push({
-            file: bn.books[0].file,
-            line: bkm.line,
-            preview: bkm.line + ": " + bkm.preview
-          });
+        if (bn.bookmark === bkm.bookmarkedFile) {
+        
+          if (bkm.linePreview) {
+            bn.books.push({
+              file: bn.books[0].file,
+              line: bkm.line,
+              column: bkm.column,
+              preview: bkm.linePreview + Parser.encodePosition(bkm.line, bkm.column)
+            })
+          } else {
+            bn.books.push({
+              file: bn.books[0].file,
+              line: bkm.line,
+              column: bkm.column,
+              preview: "\u270E " +  bkm.label + Parser.encodePosition(bkm.line, bkm.column)
+            });
+          }
 
           bn.books.sort((n1, n2) => {
               if (n1.line > n2.line) {
@@ -118,10 +130,14 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
         
       // has bookmarks - find it
       for (let bn of this.tree) {
-        if (bn.bookmark === bkm.bookmark) {
+        if (bn.bookmark === bkm.bookmarkedFile) {
           
           bn.books[bkm.index].line = bkm.line;
-          bn.books[bkm.index].preview = bkm.line.toString() + ': ' + bkm.preview;
+          if (bkm.linePreview) {
+            bn.books[bkm.index].preview =  bkm.linePreview + Parser.encodePosition(bn.books[bkm.index].line, bn.books[bkm.index].column)
+          } else {
+            bn.books[bkm.index].preview = "\u270E " +  bkm.label + Parser.encodePosition(bn.books[bkm.index].line, bn.books[bkm.index].column)
+          }
           
           this._onDidChangeTreeData.fire(bn);
           return;
@@ -167,7 +183,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, null, [], {
               command: "bookmarks.jumpTo",
               title: "",
-              arguments: [bbb.file, bbb.line],
+              arguments: [bbb.file, bbb.line, bbb.column],
             }));
           }
 
@@ -197,17 +213,20 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
 
                 let books: BookmarkPreview[] = [];
 
-                // search from `values`
+                // search from `values`no
                 for (let element of values) {
                   if (element) {
                     for (let elementInside of element) {
 
                       if (bb.path === elementInside.detail) {
+
+                        const point: Point = Parser.parsePosition(elementInside.description);
                         books.push(
                           {
                             file: elementInside.detail,
-                            line: parseInt(elementInside.label, 10),
-                            preview: elementInside.label + ": " + elementInside.description
+                            line: point.line,
+                            column: point.column,
+                            preview: elementInside.label.replace("$(tag)", "\u270E") + ": " + elementInside.description
                           }
                           );
                       }

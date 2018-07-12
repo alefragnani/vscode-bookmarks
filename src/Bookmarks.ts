@@ -2,13 +2,15 @@
 
 import * as vscode from "vscode";
 import fs = require("fs");
-import { BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS, BookmarkItem } from "./Bookmark";
+import { BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS, BookmarkItem, Bookmark } from "./Bookmark";
 import { Storage } from "./Storage";
 
 interface BookmarkAdded {
-    bookmark: BookmarkedFile;
+    bookmarkedFile: BookmarkedFile;
     line: number;
-    preview: string;
+    column: number;
+    linePreview?: string;
+    label?: string;
 }
 
 interface BookmarkRemoved {
@@ -17,10 +19,11 @@ interface BookmarkRemoved {
 }
 
 interface BookmarkUpdated {
-    bookmark: BookmarkedFile;
+    bookmarkedFile: BookmarkedFile;
     index: number;
     line: number;
-    preview: string;
+    linePreview?: string;
+    label?: string
 }
 
 export class BookmarksController {
@@ -141,37 +144,6 @@ export class BookmarksController {
 
         }
 
-        public nextBookmark(active: BookmarkedFile, currentLine: number) {
-
-            let currentBookmark: BookmarkedFile = active;
-            let currentBookmarkId: number;
-            for (let index = 0; index < this.storage.fileList.length; index++) {
-                let element = this.storage.fileList[index];
-                if (element === active) {
-                    currentBookmarkId = index;
-                }
-            }
-
-            return new Promise((resolve, reject) => {
-
-                currentBookmark.nextBookmark(currentLine)
-                    .then((newLine) => {
-                        resolve(newLine);
-                        return;
-                    })
-                    .catch((error) => {
-                        // next document                  
-                        currentBookmarkId++;
-                        if (currentBookmarkId === this.storage.fileList.length) {
-                            currentBookmarkId = 0;
-                        }
-                        currentBookmark = this.storage.fileList[currentBookmarkId];
-
-                    });
-
-            });
-        }
-        
         public clear(book?: BookmarkedFile): void {
             let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.clear();
@@ -185,13 +157,25 @@ export class BookmarksController {
             this.onDidClearAllBookmarksEmitter.fire();       
         }
 
-        public addBookmark(aline: number): void {
-            this.activeBookmark.bookmarks.push(new BookmarkItem(aline));
-            this.onDidAddBookmarkEmitter.fire({
-                bookmark: this.activeBookmark, 
-                line: aline + 1,
-                preview: vscode.window.activeTextEditor.document.lineAt(aline).text
-            });
+        public addBookmark(position: vscode.Position, label?: string): void {
+
+            if (!label) {
+                this.activeBookmark.bookmarks.push(new BookmarkItem(position.line, position.character));
+                this.onDidAddBookmarkEmitter.fire({
+                    bookmarkedFile: this.activeBookmark, 
+                    line: position.line + 1,
+                    column: position.character + 1,
+                    linePreview: vscode.window.activeTextEditor.document.lineAt(position.line).text
+                });
+            } else {
+                this.activeBookmark.bookmarks.push(new BookmarkItem(position.line, position.character, label));
+                this.onDidAddBookmarkEmitter.fire({
+                    bookmarkedFile: this.activeBookmark, 
+                    line: position.line + 1,
+                    column: position.character + 1,
+                    label: label
+                });
+            }
         }
 
         public removeBookmark(index: number, aline: number, book?: BookmarkedFile): void {
@@ -206,12 +190,21 @@ export class BookmarksController {
         public updateBookmark(index: number, oldLine: number, newLine: number, book?: BookmarkedFile): void {
             let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.bookmarks[index].line = newLine;
-            this.onDidUpdateBookmarkEmitter.fire({
-                bookmark: b,
-                index: index,
-                line: newLine + 1,
-                preview: vscode.window.activeTextEditor.document.lineAt(newLine).text
-            })
+            if (!b.bookmarks[index].label) {
+                this.onDidUpdateBookmarkEmitter.fire({
+                    bookmarkedFile: b,
+                    index: index,
+                    line: newLine + 1,
+                    linePreview: vscode.window.activeTextEditor.document.lineAt(newLine).text
+                });    
+            } else {
+                this.onDidUpdateBookmarkEmitter.fire({
+                    bookmarkedFile: b,
+                    index: index,
+                    line: newLine + 1,
+                    label: b.bookmarks[index].label
+                });    
+            }
         }
 
         public hasAnyBookmark(): boolean {
@@ -229,7 +222,7 @@ export class BookmarksController {
                 return;
             }
 
-            this.storage.load(jsonObject, relativePath, vscode.workspace.workspaceFolders[0].uri.fsPath);
+            this.storage.load(jsonObject, relativePath, vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.fsPath : undefined);
             
         }
 
