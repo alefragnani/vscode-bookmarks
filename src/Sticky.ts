@@ -192,7 +192,7 @@ export class Sticky {
             return true;
         } else { // has 2, but is it a trimAutoWhitespace issue?
             if (event.contentChanges.length === 2) {
-                let trimAutoWhitespace: boolean = vscode.workspace.getConfiguration("editor").get("trimAutoWhitespace", true);
+                let trimAutoWhitespace: boolean = vscode.workspace.getConfiguration("editor", null).get("trimAutoWhitespace", true);
                 if (!trimAutoWhitespace) {
                     return false;
                 }
