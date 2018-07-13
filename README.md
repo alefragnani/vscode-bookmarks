@@ -13,7 +13,7 @@
 
 # Bookmarks
 
-**Bookmarks** is an open source extension created for **Visual Studio Code**. While being free and open source, if you find it useful, please consider [supporting it](#support).
+**Bookmarks** is an open source extension created for **Visual Studio Code**. While being free and open source, if you find it useful, please consider [supporting it](#support-bookmarks).
 
 It helps you to navigate in your code, moving between important positions easily and quickly. _No more need to search for code._ It also supports a set of **selection** commands, which allows you to select bookmarked lines and regions between bookmarked lines. It's really usefull for log file analyses.
 
@@ -36,7 +36,7 @@ Here are some of the features that **Bookmarks** provides:
 ## Available commands
 
 * `Bookmarks: Toggle` Mark/unmark positions with bookmarks
-* `Bookmarks: Toggle Named` Mark named bookmarks
+* `Bookmarks: Toggle Labeled` Mark labeled bookmarks
 * `Bookmarks: Jump to Next` Move the cursor forward, to the bookmark below
 * `Bookmarks: Jump to Previous` Move the cursor backward, to the bookmark above
 * `Bookmarks: List` List all bookmarks in the current file
@@ -48,8 +48,6 @@ Here are some of the features that **Bookmarks** provides:
 * `Bookmarks (Selection): Expand Selection to Previous` Expand the selected text to the previous bookmark
 * `Bookmarks (Selection): Shrink Selection` Shrink the select text to the Previous/Next bookmark
 
-![Commands](images/bookmarks-commands.png)
-
 ## Manage your bookmarks
 
 ### Toggle
@@ -58,11 +56,11 @@ You can easily Mark/Unmark bookmarks on any position.
 
 ![Toggle](images/bookmarks-toggle.png)
 
-### Toggle Named
+### Toggle Labeled
 
-You can easily Mark named bookmarks on any position.
+You can even mark _labeled_ bookmarks on any position.
 
-![Toggle](images/bookmarks-toggle-named.png)
+![Toggle](images/bookmarks-toggle-labeled.gif)
 
 ## Navigation
 
@@ -122,7 +120,7 @@ The **Bookmarks** are now presented in its own Activity Bar, giving you more fre
 * Rename a labeled bookmark, right clicking in the bookmark item
 * Clear the bookmark's file, right-clickin in the file item
 
-![Treeview](images/vscode-bookmarks-activity-br.gif)
+![Treeview](images/bookmarks-activity-bar.gif)
 
 ## Support Bookmarks
 
