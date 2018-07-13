@@ -1,46 +1,78 @@
-# Functionality
+<p align="center">
+  <br />
+  <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="images/bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
+</p>
 
-Mark lines in the editor and easily jump to them. 
+# What's new in Bookmarks 9
 
-Now you also can quickly select these lines or the text betweem them.
+* Moves the Treeview to its own **Activity Bar**
+* Adds **column position** for bookmarks
+* Adds **Labeled Bookmarks** with a new command `Toggle Labeled`
+* Supports for **theme file icon** in Treeview
+* Trim leading whitespaces in bookmarks list
 
-# Installation
+# Bookmarks
 
-Press `F1` in VSCode, type `ext install` and then look for `Bookmarks`.
+**Bookmarks** is an open source extension created for **Visual Studio Code**. While being free and open source, if you find it useful, please consider [supporting it](#support).
 
-# Usage
+It helps you to navigate in your code, moving between important positions easily and quickly. _No more need to search for code._ It also supports a set of **selection** commands, which allows you to select bookmarked lines and regions between bookmarked lines. It's really usefull for log file analyses.
+
+Since version 9 you can also define **Labels** for you bookmarks!
+
+Here are some of the features that **Bookmarks** provides:
+
+* **Mark/unmark positions** in your code
+* Mark positions in your code and **give it name**
+* **Jump** forward and backward between bookmarks
+* Icons in **gutter** and **overview ruler**
+* See a list of all Bookmarks in one **file**
+* See a list of all Bookmarks in your **project**
+* A dedicated **Activity Bar**
+* **Select lines** with bookmarks
+* **Select regions** between bookmarks
+
+# Features
 
 ## Available commands
 
-* **Bookmarks: Toggle** Mark/unmark lines with bookmarks
-* **Bookmarks: Jump to Next** Move the cursor forward, to the bookmark below
-* **Bookmarks: Jump to Previous** Move the cursor backward, to the bookmark above
-* **Bookmarks: List** List all bookmarks in the current file
-* **Bookmarks: List from All Files** List all bookmarks from all files
-* **Bookmarks: Clear** remove all bookmarks in the current file
-* **Bookmarks: Clear from All Files** remove all bookmarks from all files
-* **Bookmarks (Selection): Select Lines** Select all lines that contains bookmarks
-* **Bookmarks (Selection): Expand Selection to Next** Expand the selected text to the next bookmark
-* **Bookmarks (Selection): Expand Selection to Previous** Expand the selected text to the previous bookmark
-* **Bookmarks (Selection): Shrink Selection** Shrink the select text to the Previous/Next bookmark
+* `Bookmarks: Toggle` Mark/unmark positions with bookmarks
+* `Bookmarks: Toggle Named` Mark named bookmarks
+* `Bookmarks: Jump to Next` Move the cursor forward, to the bookmark below
+* `Bookmarks: Jump to Previous` Move the cursor backward, to the bookmark above
+* `Bookmarks: List` List all bookmarks in the current file
+* `Bookmarks: List from All Files` List all bookmarks from all files
+* `Bookmarks: Clear` remove all bookmarks in the current file
+* `Bookmarks: Clear from All Files` remove all bookmarks from all files
+* `Bookmarks (Selection): Select Lines` Select all lines that contains bookmarks
+* `Bookmarks (Selection): Expand Selection to Next` Expand the selected text to the next bookmark
+* `Bookmarks (Selection): Expand Selection to Previous` Expand the selected text to the previous bookmark
+* `Bookmarks (Selection): Shrink Selection` Shrink the select text to the Previous/Next bookmark
 
 ![Commands](images/bookmarks-commands.png)
 
-### Bookmark: Toggle
+## Manage your bookmarks
 
-You can easily Mark/Unmark bookmarks on any line. Works even for wrapped lines.
+### Toggle
+
+You can easily Mark/Unmark bookmarks on any position.
 
 ![Toggle](images/bookmarks-toggle.png)
 
-### Bookmarks: List
+### Toggle Named
 
-List all bookmarks from the current file and easily navigate to any one. It shows you the line contents and temporarily scroll to that line.
+You can easily Mark named bookmarks on any position.
 
-![List](images/bookmarks-list.gif)
+![Toggle](images/bookmarks-toggle-named.png)
 
-### Bookmarks: List from All Files
+## Navigation
 
-List all bookmarks from all files and easily navigate to any one. It shows you the line contents and temporarily scroll to that line.
+### Jump to Next / Previous
+
+Quicky move between bookmarks backward and forward, even if located outside the active file.
+
+### List / List from All Files
+
+List all bookmarks from the current file/project and easily navigate to any of them. It shows a line preview and temporarily scroll to its position.
 
 ![List](images/bookmarks-list-from-all-files.gif)
 
@@ -48,25 +80,25 @@ List all bookmarks from all files and easily navigate to any one. It shows you t
 * Bookmarks from other files in the project also shows the relative path and filename
 * Bookmarks from files outside the project are denoted with ![Folder](images/bookmarks-folder-icon.png)
 
-### Bookmarks (Selection)
+## Selection
 
-You can use **Bookmarks** to easily select lines or text blocks. Simply toggle bookmarks in any line of interest and use some of the _Selection_ commands available.
+You can use **Bookmarks** to easily select lines or text blocks. Simply toggle bookmarks in any position of interest and use some of the _Selection_ commands available.
 
-#### Bookmarks (Selection): Select Lines
+#### Select Lines
 
 Select all bookmarked lines. Specially useful while working with log files.
 
 ![Select Lines](images/bookmarks-selection-select-line.gif)
 
-#### Bookmarks (Selection): Expand Selection to the Next/Previous Bookmark or Shrink the Selection
+#### Expand Selection to the Next/Previous Bookmark or Shrink the Selection
 
 Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ![Expand/Shrink](images/bookmarks-selection-expand-shrink.gif)
 
-## Available settings
+## Available Settings
 
-* Allow navigation through all files that contains bookmarks
+* Allow navigation through all files that contains bookmarks (`false` by default)
 ```
     "bookmarks.navigateThroughAllFiles": true
 ```
@@ -76,55 +108,39 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.saveBookmarksInProject": true
 ```
 
-> the `saveBookmarksBetweenSessions` setting was replaced by this this in version 0.13.0
-
 * Path to another image to be shown as Bookmark (16x16 px)
 ```
     "bookmarks.gutterIconPath": "c:\\temp\\othericon.png"
 ```
 
-## Treeview
+## Activity Bar
 
-A first step on a **Bookmarks Treeview** was added in this release, and now you have a list of all your bookmarks, right in the Explorer panel. A few commands were added:
+The **Bookmarks** are now presented in its own Activity Bar, giving you more free space in your Explorer bar. You will have a few extra commands available:
+
 * Jump to a bookmark, simply clicking in the bookmark item
 * Remove a bookmark, right clicking in the bookmark item
+* Rename a labeled bookmark, right clicking in the bookmark item
 * Clear the bookmark's file, right-clickin in the file item
 
-![Treeview](images/vscode-bookmarks-treeview-preview.gif)
+![Treeview](images/vscode-bookmarks-activity-br.gif)
 
-#### Treeview is Optional
+## Support Bookmarks
 
-> _new in version 0.17.0_
+While **Bookmarks** is free and open source, if you find it useful, please consider supporting it.
 
-You can choose if you want to see the Treeview.
+I've been building **Bookmarks** since VS Code internal beta days, and while I enjoy developing it, I would like to be able to give more attention to its growth.
 
-```json 
-    "bookmarks.treeview.visible": true
-```
-
-### Known issues
-
-* Renaming/deleting a file does not update the file item
-* Changing the content of a bookmarked line does not update the bookmark item 
-
-> Use the `Refresh` button in the Treeview title
-
-## Project and Session Based
-
-The bookmarks are saved _per session_ for the project that you are using. You don't have to worry about closing files in _Working Files_. When you reopen the file, the bookmarks are restored.
-
-It also works even if you only _preview_ a file (simple click in TreeView). You can put bookmarks in any file and when you preview it again, the bookmarks will be there.
-
-# Participate
-
-If you have any idea, feel free to create issues and pull requests
+<table align="center" width="30%" border="0">
+  <tr>
+    <td>
+      <a title="Paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=US&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/></a>
+    </td>
+    <td>
+      <a title="Paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=BR&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif"/></a>
+    </td>
+  </tr>
+</table>
 
 # License
 
 [MIT](LICENSE.md) &copy; Alessandro Fragnani
-
----
-
-[![Paypal Donations](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=US&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) a :coffee: and you will help me to keep working on this extension :wink:
-
-[![Paypal Donations](https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=BR&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted) um :coffee: e você vai me ajudar a continuar trabalhando nesta extensão :wink:
