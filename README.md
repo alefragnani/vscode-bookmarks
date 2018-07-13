@@ -1,6 +1,6 @@
 <p align="center">
   <br />
-  <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="images/bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
+  <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
 # What's new in Bookmarks 9
