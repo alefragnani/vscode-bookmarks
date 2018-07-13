@@ -2,33 +2,37 @@
 
 import * as vscode from "vscode";
 import fs = require("fs");
-import {Bookmark, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS} from "./Bookmark";
+import { BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS, BookmarkItem, Bookmark } from "./Bookmark";
+import { Storage } from "./Storage";
 
 interface BookmarkAdded {
-    bookmark: Bookmark;
+    bookmarkedFile: BookmarkedFile;
     line: number;
-    preview: string;
+    column: number;
+    linePreview?: string;
+    label?: string;
 }
 
 interface BookmarkRemoved {
-    bookmark: Bookmark;
+    bookmark: BookmarkedFile;
     line: number;
 }
 
 interface BookmarkUpdated {
-    bookmark: Bookmark;
+    bookmarkedFile: BookmarkedFile;
     index: number;
     line: number;
-    preview: string;
+    linePreview?: string;
+    label?: string
 }
 
-export class Bookmarks {
+export class BookmarksController {
 
-    private onDidClearBookmarkEmitter = new vscode.EventEmitter<Bookmark>();
-    get onDidClearBookmark(): vscode.Event<Bookmark> { return this.onDidClearBookmarkEmitter.event; }
+    private onDidClearBookmarkEmitter = new vscode.EventEmitter<BookmarkedFile>();
+    get onDidClearBookmark(): vscode.Event<BookmarkedFile> { return this.onDidClearBookmarkEmitter.event; }
 
-    private onDidClearAllBookmarksEmitter = new vscode.EventEmitter<Bookmark>();
-    get onDidClearAllBookmarks(): vscode.Event<Bookmark> { return this.onDidClearAllBookmarksEmitter.event; }
+    private onDidClearAllBookmarksEmitter = new vscode.EventEmitter<BookmarkedFile>();
+    get onDidClearAllBookmarks(): vscode.Event<BookmarkedFile> { return this.onDidClearAllBookmarksEmitter.event; }
 
     private onDidAddBookmarkEmitter = new vscode.EventEmitter<BookmarkAdded>();
     get onDidAddBookmark(): vscode.Event<BookmarkAdded> { return this.onDidAddBookmarkEmitter.event; }
@@ -45,66 +49,44 @@ export class Bookmarks {
             return uri.replace("///", "/");
         }
         
-        public bookmarks: Bookmark[];
-        public activeBookmark: Bookmark = undefined;
+        public storage: Storage.BookmarksStorage;
+        // public bookmarks: BookmarkedFile[];
+        public activeBookmark: BookmarkedFile = undefined;
 
         constructor(jsonObject) {
-            this.bookmarks = [];
+            this.storage = new Storage.BookmarksStorage();
+            // this.bookmarks = [];
         }
 
         public dispose() {
             this.zip();
         }
         
-        public loadFrom(jsonObject, relativePath?: boolean) {
-            if (jsonObject === "") {
-                return;
-            }
-            
-            let jsonBookmarks = jsonObject.bookmarks;
-            for (let idx = 0; idx < jsonBookmarks.length; idx++) {
-              let jsonBookmark = jsonBookmarks[idx];
-              
-              // each bookmark (line)
-              this.add(jsonBookmark.fsPath);
-              for (let element of jsonBookmark.bookmarks) {
-                  this.bookmarks[idx].bookmarks.push(element); 
-              }
-            }
-
-            // it replaced $ROOTPATH$ for the rootPath itself 
-            if (relativePath) {
-                for (let element of this.bookmarks) {
-                    element.fsPath = element.fsPath.replace("$ROOTPATH$", vscode.workspace.workspaceFolders[0].uri.fsPath);
-                }
-            }
-        }
-
         public fromUri(uri: string) {
-            uri = Bookmarks.normalize(uri);
-            for (let element of this.bookmarks) {
-                if (element.fsPath === uri) {
+            uri = BookmarksController.normalize(uri);
+            for (let element of this.storage.fileList) {
+                if (element.path === uri) {
                     return element;
                 }
             }
         }
 
         public add(uri: string) {
-            uri = Bookmarks.normalize(uri);
+            uri = BookmarksController.normalize(uri);
             
-            let existing: Bookmark = this.fromUri(uri);
+            let existing: BookmarkedFile = this.fromUri(uri);
             if (typeof existing === "undefined") {
-                let bookmark = new Bookmark(uri);
-                this.bookmarks.push(bookmark);
+                let bookmark = new BookmarkedFile(uri);
+                this.storage.fileList.push(bookmark);
             }
         }
 
-        public nextDocumentWithBookmarks(active: Bookmark, direction: JUMP_DIRECTION = JUMP_FORWARD) {
+        public nextDocumentWithBookmarks(active: BookmarkedFile, direction: JUMP_DIRECTION = JUMP_FORWARD) {
 
-            let currentBookmark: Bookmark = active;
+            let currentBookmark: BookmarkedFile = active;
             let currentBookmarkId: number;
-            for (let index = 0; index < this.bookmarks.length; index++) {
-                let element = this.bookmarks[index];
+            for (let index = 0; index < this.storage.fileList.length; index++) {
+                let element = this.storage.fileList[index];
                 if (element === active) {
                     currentBookmarkId = index;
                 }
@@ -114,17 +96,17 @@ export class Bookmarks {
 
                 if (direction === JUMP_FORWARD) {
                   currentBookmarkId++;
-                  if (currentBookmarkId === this.bookmarks.length) {
+                  if (currentBookmarkId === this.storage.fileList.length) {
                       currentBookmarkId = 0;
                   }
                 } else {
                   currentBookmarkId--;
                   if (currentBookmarkId === -1) {
-                      currentBookmarkId = this.bookmarks.length - 1;
+                      currentBookmarkId = this.storage.fileList.length - 1;
                   }
                 }
                 
-                currentBookmark = this.bookmarks[currentBookmarkId];
+                currentBookmark = this.storage.fileList[currentBookmarkId];
                 
                 if (currentBookmark.bookmarks.length === 0) {                    
                     if (currentBookmark === this.activeBookmark) {
@@ -142,8 +124,8 @@ export class Bookmarks {
                             });
                     }                   
                 } else {
-                    if (fs.existsSync(currentBookmark.fsPath)) {
-                        resolve(currentBookmark.fsPath);
+                    if (fs.existsSync(currentBookmark.path)) {
+                        resolve(currentBookmark.path);
                         return;
                     } else {
                         this.nextDocumentWithBookmarks(currentBookmark, direction)
@@ -162,82 +144,42 @@ export class Bookmarks {
 
         }
 
-        public nextBookmark(active: Bookmark, currentLine: number) {
-
-            let currentBookmark: Bookmark = active;
-            let currentBookmarkId: number;
-            for (let index = 0; index < this.bookmarks.length; index++) {
-                let element = this.bookmarks[index];
-                if (element === active) {
-                    currentBookmarkId = index;
-                }
-            }
-
-            return new Promise((resolve, reject) => {
-
-                currentBookmark.nextBookmark(currentLine)
-                    .then((newLine) => {
-                        resolve(newLine);
-                        return;
-                    })
-                    .catch((error) => {
-                        // next document                  
-                        currentBookmarkId++;
-                        if (currentBookmarkId === this.bookmarks.length) {
-                            currentBookmarkId = 0;
-                        }
-                        currentBookmark = this.bookmarks[currentBookmarkId];
-
-                    });
-
-            });
-        }
-        
-        public zip(relativePath?: boolean): Bookmarks {
-            function isNotEmpty(book: Bookmark): boolean {
-                return book.bookmarks.length > 0;
-            }
-            
-            let newBookmarks: Bookmarks = new Bookmarks("");
-            newBookmarks.bookmarks = JSON.parse(JSON.stringify(this.bookmarks)).filter(isNotEmpty);
-
-            if (!relativePath) {
-                return newBookmarks;
-            }
-
-            for (let element of newBookmarks.bookmarks) {
-                let wsPath: vscode.WorkspaceFolder = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(element.fsPath));
-                if (wsPath) {
-                    element.fsPath = element.fsPath.replace(wsPath.uri.fsPath, "$ROOTPATH$"); 
-                }
-            }
-            return newBookmarks;
-        }
-
-        public clear(book?: Bookmark): void {
-            let b: Bookmark = book ? book : this.activeBookmark;
+        public clear(book?: BookmarkedFile): void {
+            let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.clear();
             this.onDidClearBookmarkEmitter.fire(b);
         }
 
         public clearAll(): void {
-            for (let element of this.bookmarks) {
+            for (let element of this.storage.fileList) {
                 element.clear();
             }     
             this.onDidClearAllBookmarksEmitter.fire();       
         }
 
-        public addBookmark(aline: number): void {
-            this.activeBookmark.bookmarks.push(aline);
-            this.onDidAddBookmarkEmitter.fire({
-                bookmark: this.activeBookmark, 
-                line: aline + 1,
-                preview: vscode.window.activeTextEditor.document.lineAt(aline).text
-            });
+        public addBookmark(position: vscode.Position, label?: string): void {
+
+            if (!label) {
+                this.activeBookmark.bookmarks.push(new BookmarkItem(position.line, position.character));
+                this.onDidAddBookmarkEmitter.fire({
+                    bookmarkedFile: this.activeBookmark, 
+                    line: position.line + 1,
+                    column: position.character + 1,
+                    linePreview: vscode.window.activeTextEditor.document.lineAt(position.line).text
+                });
+            } else {
+                this.activeBookmark.bookmarks.push(new BookmarkItem(position.line, position.character, label));
+                this.onDidAddBookmarkEmitter.fire({
+                    bookmarkedFile: this.activeBookmark, 
+                    line: position.line + 1,
+                    column: position.character + 1,
+                    label: label
+                });
+            }
         }
 
-        public removeBookmark(index, aline: number, book?: Bookmark): void {
-            let b: Bookmark = book ? book : this.activeBookmark;
+        public removeBookmark(index: number, aline: number, book?: BookmarkedFile): void {
+            let b: BookmarkedFile = book ? book : this.activeBookmark;
             b.bookmarks.splice(index, 1);
             this.onDidRemoveBookmarkEmitter.fire({
                 bookmark: b, 
@@ -245,22 +187,54 @@ export class Bookmarks {
             });
         }
 
-        public updateBookmark(index, oldLine, newLine: number, book?: Bookmark): void {
-            let b: Bookmark = book ? book : this.activeBookmark;
-            b.bookmarks[index] = newLine;
-            this.onDidUpdateBookmarkEmitter.fire({
-                bookmark: b,
-                index: index,
-                line: newLine + 1,
-                preview: vscode.window.activeTextEditor.document.lineAt(newLine).text
-            })
+        public updateBookmark(index: number, oldLine: number, newLine: number, book?: BookmarkedFile): void {
+            let b: BookmarkedFile = book ? book : this.activeBookmark;
+            b.bookmarks[index].line = newLine;
+            if (!b.bookmarks[index].label) {
+                this.onDidUpdateBookmarkEmitter.fire({
+                    bookmarkedFile: b,
+                    index: index,
+                    line: newLine + 1,
+                    linePreview: vscode.window.activeTextEditor.document.lineAt(newLine).text
+                });    
+            } else {
+                this.onDidUpdateBookmarkEmitter.fire({
+                    bookmarkedFile: b,
+                    index: index,
+                    line: newLine + 1,
+                    label: b.bookmarks[index].label
+                });    
+            }
         }
 
         public hasAnyBookmark(): boolean {
             let totalBookmarkCount: number = 0;
-            for (let element of this.bookmarks) {
+            for (let element of this.storage.fileList) {
                 totalBookmarkCount = totalBookmarkCount + element.bookmarks.length; 
             }
             return totalBookmarkCount > 0;
+        }
+
+
+        ///
+        public loadFrom(jsonObject, relativePath?: boolean) {
+            if (jsonObject === "") {
+                return;
+            }
+
+            this.storage.load(jsonObject, relativePath, vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.fsPath : undefined);
+            
+        }
+
+        updateRelativePath = (path: string): string => {
+            let wsPath: vscode.WorkspaceFolder = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(path));
+            if (wsPath) {
+                path = path.replace(wsPath.uri.fsPath, "$ROOTPATH$"); 
+            }
+            return path;
+        }
+        
+        public zip(relativePath?: boolean): BookmarksController {
+            return this.storage.save(relativePath, this.updateRelativePath);
         }
     }

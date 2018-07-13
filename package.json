@@ -9,7 +9,7 @@
         "theme": "dark"
     },
     "engines": {
-        "vscode": "^1.18.0"
+        "vscode": "^1.21.0"
     },
     "categories": [
         "Other"
@@ -39,12 +39,20 @@
     ],
     "main": "./out/src/extension",
     "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "bookmarks",
+                    "title": "Bookmarks",
+                    "icon": "images/bookmark-activity-bar.svg"
+                }
+            ]
+        },
         "views": {
-            "explorer": [
+            "bookmarks": [
                 {
                     "id": "bookmarksExplorer",
-                    "name": "Bookmarks",
-					"when": "bookmarks.canShowTreeView"
+                    "name": "Explorer"
                 }
             ]
         },
@@ -86,12 +94,16 @@
                 "title": "Bookmarks: List"
             },
             {
+                "command": "bookmarks.toggleLabeled",
+                "title": "Bookmarks: Toggle Labeled"
+            },
+            {
                 "command": "bookmarks.refresh",
                 "title": "Refresh",
                 "icon": {
-					"light": "images/refresh-light.svg",
-					"dark": "images/refresh-dark.svg"
-				}
+                    "light": "images/refresh-light.svg",
+                    "dark": "images/refresh-dark.svg"
+                }
             },
             {
                 "command": "bookmarks.clear",
@@ -154,26 +166,26 @@
                 }
             ],
             "view/title": [
-				{
-					"command": "bookmarks.refresh",
-					"when": "view == bookmarksExplorer",
-					"group": "navigation"
-				}
-			],
-			"view/item/context": [
-				{
-					"command": "bookmarks.clearFromFile",
-					"when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile"
-				},
-				{
-					"command": "bookmarks.deleteBookmark",
-					"when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
-				}
-			]
+                {
+                    "command": "bookmarks.refresh",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "bookmarks.clearFromFile",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile"
+                },
+                {
+                    "command": "bookmarks.deleteBookmark",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
+                }
+            ]
         },
         "configuration": {
             "type": "object",
-            "title": "Bookmarks Configuration",
+            "title": "Bookmarks",
             "properties": {
                 "bookmarks.saveBookmarksInProject": {
                     "type": "boolean",
@@ -189,12 +201,12 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Allow navigation look for bookmarks in all files in the project, instead of only the current"
-				},
-				"bookmarks.treeview.visible": {
-					"type": "boolean",
-					"default": true,
-					"description": "Should display the Treeview?"
-				}
+                },
+                "bookmarks.treeview.visible": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Should display the Treeview?"
+                }
             }
         },
         "keybindings": [
@@ -244,6 +256,6 @@
     "devDependencies": {
         "@types/node": "^6.0.40",
         "typescript": "^2.3.2",
-        "vscode": "^1.1.6"
-   }
+        "vscode": "^1.1.17"
+    }
 }
