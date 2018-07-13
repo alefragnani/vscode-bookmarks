@@ -80,10 +80,11 @@ export namespace Storage {
          * @return `void`
          */
         public saveLoaded(folder: string) {
-            if (!folder) {
-                return;
-            }
-            fs.writeFileSync(path.join(folder, "teste-bookmarks-fileList.json"), JSON.stringify(this.fileList, null, "\t"));
+            return;
+            // if (!folder) {
+            //     return;
+            // }
+            // fs.writeFileSync(path.join(folder, "teste-bookmarks-fileList.json"), JSON.stringify(this.fileList, null, "\t"));
         }
 
         public save(relativePath: boolean, updateRelativePath: (path: string) => string): any {
