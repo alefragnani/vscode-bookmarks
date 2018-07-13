@@ -1,4 +1,4 @@
-## [9.0.0] - TBD
+## [9.0.0] - 2018-07-13
 ### Added
 - Bookmarks Activity Bar (issue [#109](https://github.com/alefragnani/vscode-bookmarks/issues/109))
 - Support Labeled Bookmarks (issue [#76]
