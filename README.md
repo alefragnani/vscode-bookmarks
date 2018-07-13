@@ -117,7 +117,6 @@ The **Bookmarks** are now presented in its own Activity Bar, giving you more fre
 
 * Jump to a bookmark, simply clicking in the bookmark item
 * Remove a bookmark, right clicking in the bookmark item
-* Rename a labeled bookmark, right clicking in the bookmark item
 * Clear the bookmark's file, right-clickin in the file item
 
 ![Treeview](images/bookmarks-activity-bar.gif)
