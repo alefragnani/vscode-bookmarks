@@ -96,7 +96,8 @@ export class BookmarkedFile implements File {
                         resolve(NO_MORE_BOOKMARKS);
                         return;
                     } else {
-                        resolve(this.bookmarks[ 0 ].line);
+                        nextBookmark = this.bookmarks[0];
+                        resolve(new vscode.Position(nextBookmark.line, nextBookmark.column));
                         return;
                     }
                 } else {
@@ -116,7 +117,8 @@ export class BookmarkedFile implements File {
                         resolve(NO_MORE_BOOKMARKS);
                         return;
                     } else {
-                        resolve(this.bookmarks[this.bookmarks.length - 1 ].line);
+                        nextBookmark = this.bookmarks[this.bookmarks.length - 1];
+                        resolve(new vscode.Position(nextBookmark.line, nextBookmark.column));
                         return;
                     }
                 } else {
