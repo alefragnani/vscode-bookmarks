@@ -1,3 +1,7 @@
+## [9.0.1] - 2018-07-23
+### Fixed
+- `bookmarks.navigateThroughAllFiles` setting was no longer working (Thanks to @lega11 [PR #129](https://github.com/alefragnani/vscode-bookmarks/pull/129) and @edgardmessias [PR #130](https://github.com/alefragnani/vscode-bookmarks/pull/130))
+
 ## [9.0.0] - 2018-07-13
 ### Added
 - Bookmarks Activity Bar (issue [#109](https://github.com/alefragnani/vscode-bookmarks/issues/109))
