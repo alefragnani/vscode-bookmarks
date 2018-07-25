@@ -1,3 +1,7 @@
+## [9.0.2] - 2018-07-24
+### Fixed
+- Activity Bar was not loading - infinite spinning (issue [#127](https://github.com/alefragnani/vscode-bookmarks/issues/127))
+
 ## [9.0.1] - 2018-07-23
 ### Fixed
 - `bookmarks.navigateThroughAllFiles` setting was no longer working (Thanks to @lega11 [PR #129](https://github.com/alefragnani/vscode-bookmarks/pull/129) and @edgardmessias [PR #130](https://github.com/alefragnani/vscode-bookmarks/pull/130))
