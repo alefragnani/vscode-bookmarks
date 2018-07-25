@@ -171,27 +171,6 @@ export class BookmarkedFile implements File {
                                 label: "$(tag) " + this.bookmarks[index].label,
                                 detail: normalizedPath });
                         }
-                        // if (this.bookmarks[ index ].column === 0) {
-                        //     items.push({
-                        //         label: "(" + bookmarkLine.toString() + ")",
-                        //         description: lineText,
-                        //         detail: normalizedPath
-                        //     });
-                        // } else {
-                        //     if (this.bookmarks[index].label === "") {
-                        //         items.push({
-                        //             label: "(" + bookmarkLine.toString() + ", " + this.bookmarks[ index ].column + ")",
-                        //             description: lineText,
-                        //             detail: normalizedPath
-                        //         });
-                        //     } else {
-                        //         items.push({
-                        //             label: "(" + bookmarkLine.toString() + ", " + this.bookmarks[ index ].column + ")",
-                        //             description: this.bookmarks[index].label,
-                        //             detail: normalizedPath
-                        //         });
-                        //     }
-                        // }
                     } else {
                         invalids.push(bookmarkLine);
                     }
