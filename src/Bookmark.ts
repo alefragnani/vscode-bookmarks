@@ -160,51 +160,17 @@ export class BookmarkedFile implements File {
                         let normalizedPath = doc.uri.fsPath;
 
                         if (this.bookmarks[index].label === "") {
-                            if (this.bookmarks[index].column === 0) {
-                                items.push( { description: "(Ln " + bookmarkLine.toString() + ")", 
-                                    label: lineText,
-                                    detail: normalizedPath})
-                            } else {
-                                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
-                                    bookmarkColumn.toString() + ")", 
-                                    label: lineText,
-                                    detail: normalizedPath });
-                            }
+                            items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                                bookmarkColumn.toString() + ")", 
+                                label: lineText,
+                                detail: normalizedPath });
                         } else {
-                            if (this.bookmarks[index].column === 0) {
-                                items.push( { description: "(Ln " + bookmarkLine.toString() + ")", 
-                                    // label: lineText,
-                                    label: "$(tag) " + this.bookmarks[index].label,
-                                    detail: normalizedPath})
-                            } else {
-                                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
-                                    bookmarkColumn.toString() + ")", 
-                                    // label: lineText,
-                                    label: "$(tag) " + this.bookmarks[index].label,
-                                    detail: normalizedPath });
-                            }
+                            items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                                bookmarkColumn.toString() + ")", 
+                                // label: lineText,
+                                label: "$(tag) " + this.bookmarks[index].label,
+                                detail: normalizedPath });
                         }
-                        // if (this.bookmarks[ index ].column === 0) {
-                        //     items.push({
-                        //         label: "(" + bookmarkLine.toString() + ")",
-                        //         description: lineText,
-                        //         detail: normalizedPath
-                        //     });
-                        // } else {
-                        //     if (this.bookmarks[index].label === "") {
-                        //         items.push({
-                        //             label: "(" + bookmarkLine.toString() + ", " + this.bookmarks[ index ].column + ")",
-                        //             description: lineText,
-                        //             detail: normalizedPath
-                        //         });
-                        //     } else {
-                        //         items.push({
-                        //             label: "(" + bookmarkLine.toString() + ", " + this.bookmarks[ index ].column + ")",
-                        //             description: this.bookmarks[index].label,
-                        //             detail: normalizedPath
-                        //         });
-                        //     }
-                        // }
                     } else {
                         invalids.push(bookmarkLine);
                     }
