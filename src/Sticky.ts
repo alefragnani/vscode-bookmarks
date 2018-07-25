@@ -102,13 +102,18 @@ export class Sticky {
                     }
                 }
             }
-        } else if (event.contentChanges.length === 2) {
-            // move line up and move line down case
-            if (activeEditor.selections.length === 1) {
-                if (event.contentChanges[ 0 ].text === "") {
-                    updatedBookmark = this.moveStickyBookmarks("down", activeBookmark, activeEditor, controller);
-                } else if (event.contentChanges[ 1 ].text === "") {
-                    updatedBookmark = this.moveStickyBookmarks("up", activeBookmark, activeEditor, controller);
+        } else {
+            // Remove ident changes. Empty text decrease and only spaces increase
+            const moveChanges = event.contentChanges.filter(c => !(c.range.start.line === c.range.end.line && /^[\t ]*$/.test(c.text)));
+
+            if (moveChanges.length === 2) {
+                // move line up and move line down case
+                if (activeEditor.selections.length === 1) {
+                    if (moveChanges[ 0 ].text === "") {
+                        updatedBookmark = this.moveStickyBookmarks("down", activeBookmark, activeEditor, controller);
+                    } else if (moveChanges[ 1 ].text === "") {
+                        updatedBookmark = this.moveStickyBookmarks("up", activeBookmark, activeEditor, controller);
+                    }
                 }
             }
         }
