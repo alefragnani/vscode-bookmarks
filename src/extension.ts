@@ -350,23 +350,12 @@ export function activate(context: vscode.ExtensionContext) {
             let lineText = vscode.window.activeTextEditor.document.lineAt(bookmarkLine - 1).text.trim();
 
             if (bookmarks.activeBookmark.bookmarks[index].label === "") {
-                if (bookmarks.activeBookmark.bookmarks[index].column === 0) {
-                    items.push( { description: "(Ln " + bookmarkLine.toString() + ")", label: lineText})
-                } else {
-                    items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
-                        bookmarkColumn.toString() + ")", label: lineText });
-                }
+                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                    bookmarkColumn.toString() + ")", label: lineText });
             } else {
-                if (bookmarks.activeBookmark.bookmarks[index].column === 0) {
-                    items.push( { description: "(Ln " + bookmarkLine.toString() + ")", 
-                    // label: lineText,
-                    label: "$(tag) " + bookmarks.activeBookmark.bookmarks[index].label})
-                } else {
-                    items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
-                    bookmarkColumn.toString() + ")", 
-                    // label: lineText,
-                    label: "$(tag) " + bookmarks.activeBookmark.bookmarks[index].label });
-                }
+                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                bookmarkColumn.toString() + ")", 
+                label: "$(tag) " + bookmarks.activeBookmark.bookmarks[index].label });
             }
         }
 		
