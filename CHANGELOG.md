@@ -1,3 +1,7 @@
+## [9.0.3] - TBD
+### Fixed
+- Bookmark jumping to `column 0` was not working (issue [#135](https://github.com/alefragnani/vscode-bookmarks/issues/135))
+
 ## [9.0.2] - 2018-07-24
 ### Fixed
 - Activity Bar was not loading - infinite spinning (issue [#127](https://github.com/alefragnani/vscode-bookmarks/issues/127))

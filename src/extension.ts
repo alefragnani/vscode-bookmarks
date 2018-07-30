@@ -9,6 +9,7 @@ import { BookmarksController } from "./Bookmarks";
 import { BookmarkProvider } from "./BookmarkProvider";
 import { Sticky } from "./Sticky";
 import { Selection } from "./Selection";
+import { Parser, Point } from "./Parser";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -350,23 +351,12 @@ export function activate(context: vscode.ExtensionContext) {
             let lineText = vscode.window.activeTextEditor.document.lineAt(bookmarkLine - 1).text.trim();
 
             if (bookmarks.activeBookmark.bookmarks[index].label === "") {
-                if (bookmarks.activeBookmark.bookmarks[index].column === 0) {
-                    items.push( { description: "(Ln " + bookmarkLine.toString() + ")", label: lineText})
-                } else {
-                    items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
-                        bookmarkColumn.toString() + ")", label: lineText });
-                }
+                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                    bookmarkColumn.toString() + ")", label: lineText });
             } else {
-                if (bookmarks.activeBookmark.bookmarks[index].column === 0) {
-                    items.push( { description: "(Ln " + bookmarkLine.toString() + ")", 
-                    // label: lineText,
-                    label: "$(tag) " + bookmarks.activeBookmark.bookmarks[index].label})
-                } else {
-                    items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
-                    bookmarkColumn.toString() + ")", 
-                    // label: lineText,
-                    label: "$(tag) " + bookmarks.activeBookmark.bookmarks[index].label });
-                }
+                items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
+                bookmarkColumn.toString() + ")", 
+                label: "$(tag) " + bookmarks.activeBookmark.bookmarks[index].label });
             }
         }
 		
@@ -378,10 +368,9 @@ export function activate(context: vscode.ExtensionContext) {
             // matchOnDetail: true,
             onDidSelectItem: item => {
                 const itemT = <vscode.QuickPickItem> item;
-                let re: RegExp = new RegExp(/\(Ln\s(\d+)\,\sCol\s(\d+)\)/);
-                let matches = re.exec(itemT.description);
-                if (matches) {
-                    revealPosition(parseInt(matches[1], 10) - 1, parseInt(matches[2], 10) - 1);
+                const point: Point = Parser.parsePosition(itemT.description);
+                if (point) {
+                    revealPosition(point.line - 1, point.column - 1);
                 }
             }
         };
@@ -392,13 +381,11 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
             const itemT = <vscode.QuickPickItem> selection;
-
-            let re: RegExp = new RegExp(/\(Ln\s(\d+)\,\sCol\s(\d+)\)/);
-            let matches = re.exec(itemT.description);
-            if (matches) {
-                revealPosition(parseInt(matches[1], 10) - 1, parseInt(matches[2], 10) - 1);
+            const point: Point = Parser.parsePosition(itemT.description);
+            if (point) {
+                revealPosition(point.line - 1, point.column - 1);
             }
-        });
+    });
     };
 
     function clear() {
@@ -669,21 +656,17 @@ export function activate(context: vscode.ExtensionContext) {
                           }
                       }
 
-                      let re: RegExp = new RegExp(/\(Ln\s(\d+)\,\sCol\s(\d+)\)/);
+                      const point: Point = Parser.parsePosition(itemT.description);
                       if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri.fsPath.toLowerCase() === filePath.toLowerCase()) {
-                        //   revealLine(parseInt(itemT.label, 10) - 1);
-                        let matches = re.exec(itemT.description);
-                        if (matches) {
-                            revealPosition(parseInt(matches[1], 10) - 1, parseInt(matches[2], 10) - 1);
+                        if (point) {
+                            revealPosition(point.line - 1, point.column - 1);
                         }
                       } else {
                           let uriDocument: vscode.Uri = vscode.Uri.file(filePath);
                           vscode.workspace.openTextDocument(uriDocument).then(doc => {
                               vscode.window.showTextDocument(doc, { preserveFocus: true, preview: true }).then(editor => {
-                                //   revealLine(parseInt(itemT.label, 10) - 1);
-                                let matches = re.exec(itemT.description);
-                                if (matches) {
-                                    revealPosition(parseInt(matches[1], 10) - 1, parseInt(matches[2], 10) - 1);
+                                if (point) {
+                                    revealPosition(point.line - 1, point.column - 1);
                                 }
                               });
                           });
@@ -709,13 +692,11 @@ export function activate(context: vscode.ExtensionContext) {
                       return;
                   }
 
-                  let re: RegExp = new RegExp(/\(Ln\s(\d+)\,\sCol\s(\d+)\)/);
+                  const point: Point = Parser.parsePosition(selection.description);
                   if (!selection.detail) {
-                      //revealLine(parseInt(selection.label, 10) - 1);
-                      let matches = re.exec(selection.description);
-                      if (matches) {
-                        revealPosition(parseInt(matches[1], 10) - 1, parseInt(matches[2], 10) - 1);
-                        }
+                    if (point) {
+                        revealPosition(point.line - 1, point.column - 1);
+                    }
                   } else {
                       let newPath: string;
                       // with octicon - document outside project
@@ -745,11 +726,9 @@ export function activate(context: vscode.ExtensionContext) {
                       let uriDocument: vscode.Uri = vscode.Uri.file(newPath);
                       vscode.workspace.openTextDocument(uriDocument).then(doc => {
                           vscode.window.showTextDocument(doc).then(editor => {
-                              //revealLine(parseInt(selection.label, 10) - 1);
-                              let matches = re.exec(selection.description);
-                                if (matches) {
-                                    revealPosition(parseInt(matches[1], 10) - 1, parseInt(matches[2], 10) - 1);
-                                }
+                            if (point) {
+                                revealPosition(point.line - 1, point.column - 1);
+                            }        
                           });
                       });
                   }
