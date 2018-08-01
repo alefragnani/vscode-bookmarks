@@ -55,14 +55,14 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
               file: bn.books[0].file,
               line: bkm.line,
               column: bkm.column,
-              preview: bkm.linePreview + Parser.encodePosition(bkm.line, bkm.column)
+              preview: bkm.linePreview + ":" + Parser.encodePosition(bkm.line, bkm.column)
             })
           } else {
             bn.books.push({
               file: bn.books[0].file,
               line: bkm.line,
               column: bkm.column,
-              preview: "\u270E " +  bkm.label + Parser.encodePosition(bkm.line, bkm.column)
+              preview: "\u270E " + bkm.label + ":" + Parser.encodePosition(bkm.line, bkm.column)
             });
           }
 
