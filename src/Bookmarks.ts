@@ -165,7 +165,7 @@ export class BookmarksController {
                     bookmarkedFile: this.activeBookmark, 
                     line: position.line + 1,
                     column: position.character + 1,
-                    linePreview: vscode.window.activeTextEditor.document.lineAt(position.line).text
+                    linePreview: vscode.window.activeTextEditor.document.lineAt(position.line).text.trim()
                 });
             } else {
                 this.activeBookmark.bookmarks.push(new BookmarkItem(position.line, position.character, label));
