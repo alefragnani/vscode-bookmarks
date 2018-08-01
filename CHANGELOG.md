@@ -1,4 +1,4 @@
-## [9.0.3] - TBD
+## [9.0.3] - 2018-07-31
 ### Fixed
 - Bookmark jumping to `column 0` was not working (issue [#135](https://github.com/alefragnani/vscode-bookmarks/issues/135))
 - Toggle Labeled Bookmark on already bookmarked line glitch (issue [#138](https://github.com/alefragnani/vscode-bookmarks/issues/138))
