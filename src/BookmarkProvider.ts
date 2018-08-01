@@ -50,19 +50,19 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
       for (let bn of this.tree) {
         if (bn.bookmark === bkm.bookmarkedFile) {
         
-          if (bkm.linePreview) {
+          if (!bkm.label) {
             bn.books.push({
               file: bn.books[0].file,
               line: bkm.line,
               column: bkm.column,
-              preview: bkm.linePreview + Parser.encodePosition(bkm.line, bkm.column)
+              preview: bkm.linePreview + ":" + Parser.encodePosition(bkm.line, bkm.column)
             })
           } else {
             bn.books.push({
               file: bn.books[0].file,
               line: bkm.line,
               column: bkm.column,
-              preview: "\u270E " +  bkm.label + Parser.encodePosition(bkm.line, bkm.column)
+              preview: "\u270E " + bkm.label + ":" + Parser.encodePosition(bkm.line, bkm.column)
             });
           }
 
