@@ -833,13 +833,51 @@ export function activate(context: vscode.ExtensionContext) {
             });
     };
 
+    function askForBookmarkLabel(index: number, position: vscode.Position, oldLabel?: string) {
+        const ibo = <vscode.InputBoxOptions>{
+            prompt: "Bookmark Label",
+            placeHolder: "Type a label for your bookmark",
+            value: oldLabel
+        };
+        vscode.window.showInputBox(ibo).then(bookmarkLabel => {
+            if (typeof bookmarkLabel === "undefined") {
+                return;
+            }
+            // 'empty'
+            if (bookmarkLabel === "") {
+                vscode.window.showWarningMessage("You must define a label for the bookmark.");
+                return;
+            }
+            if (index >= 0) {
+                bookmarks.removeBookmark(index, position.line);
+            }
+            bookmarks.addBookmark(position, bookmarkLabel);
+            
+            // toggle editing mode
+            vscode.window.showTextDocument(vscode.window.activeTextEditor.document, { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
+            // sorted
+            /* let itemsSorted = [] =*/
+            bookmarks.activeBookmark.bookmarks.sort((n1, n2) => {
+                if (n1.line > n2.line) {
+                    return 1;
+                }
+                if (n1.line < n2.line) {
+                    return -1;
+                }
+                return 0;
+            });
+            saveWorkspaceState();
+            updateDecorations();
+        });
+    }
+
+
     function toggle() {
         if (!vscode.window.activeTextEditor) {
           vscode.window.showInformationMessage("Open a file first to toggle bookmarks");
           return;
         }         
       
-        // let line = vscode.window.activeTextEditor.selection.active.line;
         const position = vscode.window.activeTextEditor.selection.active;
 
         // fix issue emptyAtLaunch
@@ -851,7 +889,6 @@ export function activate(context: vscode.ExtensionContext) {
         let index = bookmarks.activeBookmark.indexOfBookmark(position.line);
         if (index < 0) {
             bookmarks.addBookmark(position);            
-            // toggle editing mode
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
         } else {
             bookmarks.removeBookmark(index, position.line);
@@ -882,7 +919,6 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        //let line = vscode.window.activeTextEditor.selection.active.line;
         const position: vscode.Position = vscode.window.activeTextEditor.selection.active;
 
         // fix issue emptyAtLaunch
@@ -892,50 +928,11 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         let index = bookmarks.activeBookmark.indexOfBookmark(position.line);
+        let oldLabel: string = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
         if (index < 0) {
-
-            // ask the BOOKMARK LABEL (no suggestion)
-            const ibo = <vscode.InputBoxOptions>{
-                prompt: "Bookmark Label",
-                placeHolder: "Type a label for your bookmark"
-            };
-
-            vscode.window.showInputBox(ibo).then(bookmarkLabel => {
-                if (typeof bookmarkLabel === "undefined") {
-                    return;
-                }
-
-                // 'empty'
-                if (bookmarkLabel === "") {
-                    vscode.window.showWarningMessage("You must define a name for the project.");
-                    return;
-                }
-
-                bookmarks.addBookmark(position, bookmarkLabel);
-                // toggle editing mode
-                vscode.window.showTextDocument(vscode.window.activeTextEditor.document, 
-                    { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
-
-                // sorted
-                /* let itemsSorted = [] =*/
-                bookmarks.activeBookmark.bookmarks.sort((n1, n2) => {
-                    if (n1.line > n2.line) {
-                        return 1;
-                    }
-
-                    if (n1.line < n2.line) {
-                        return -1;
-                    }
-
-                    return 0;
-                });
-
-                saveWorkspaceState();
-                updateDecorations();
-            });
-
+            askForBookmarkLabel(index, position);
         } else {
-            bookmarks.removeBookmark(index, position.line);
+            askForBookmarkLabel(index, position, oldLabel);
         }
     };
 }
