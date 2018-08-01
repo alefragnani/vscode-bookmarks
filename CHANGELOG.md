@@ -2,6 +2,7 @@
 ### Fixed
 - Bookmark jumping to `column 0` was not working (issue [#135](https://github.com/alefragnani/vscode-bookmarks/issues/135))
 - Toggle Labeled Bookmark on already bookmarked line glitch (issue [#138](https://github.com/alefragnani/vscode-bookmarks/issues/138))
+- Adding bookmark on empty line was using `undefined` in line preview (issue [#134](https://github.com/alefragnani/vscode-bookmarks/issues/134))
 
 ## [9.0.2] - 2018-07-24
 ### Fixed
