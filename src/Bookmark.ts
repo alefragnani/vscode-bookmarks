@@ -5,6 +5,8 @@ import fs = require("fs");
 
 export const NO_BOOKMARKS = -1;
 export const NO_MORE_BOOKMARKS = -2;
+export const NO_BOOKMARKS_BEFORE = -3;
+export const NO_BOOKMARKS_AFTER = -4;
 
 export const JUMP_FORWARD = 1;
 export const JUMP_BACKWARD = -1;
@@ -81,6 +83,8 @@ export class BookmarkedFile implements File {
                 }
             }
 
+            const wrapNavigation: boolean = vscode.workspace.getConfiguration("bookmarks").get("wrapNavigation");
+
             let nextBookmark: vscode.Position;
 
             if (direction === JUMP_FORWARD) {
@@ -94,6 +98,9 @@ export class BookmarkedFile implements File {
                 if (typeof nextBookmark === "undefined") {
                     if (navigateThroughAllFiles) {
                         resolve(NO_MORE_BOOKMARKS);
+                        return;
+                    } else if (!wrapNavigation) {
+                        resolve(NO_BOOKMARKS_AFTER);
                         return;
                     } else {
                         resolve(new vscode.Position(this.bookmarks[ 0 ].line, this.bookmarks[ 0 ].column));
@@ -114,6 +121,9 @@ export class BookmarkedFile implements File {
                 if (typeof nextBookmark === "undefined") {
                     if (navigateThroughAllFiles) {
                         resolve(NO_MORE_BOOKMARKS);
+                        return;
+                    } else if (!wrapNavigation) {
+                        resolve(NO_BOOKMARKS_BEFORE);
                         return;
                     } else {
                         resolve(new vscode.Position(this.bookmarks[ this.bookmarks.length - 1 ].line, this.bookmarks[ this.bookmarks.length - 1 ].column));

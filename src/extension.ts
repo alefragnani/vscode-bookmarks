@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 import fs = require("fs");
 import path = require("path");
 
-import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, BookmarkedFile, Bookmark } from "./Bookmark";
+import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, BookmarkedFile, Bookmark, NO_BOOKMARKS_BEFORE, NO_BOOKMARKS_AFTER } from "./Bookmark";
 import { BookmarksController } from "./Bookmarks";
 import { BookmarkProvider } from "./BookmarkProvider";
 import { Sticky } from "./Sticky";
@@ -752,13 +752,18 @@ export function activate(context: vscode.ExtensionContext) {
         bookmarks.activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active)
             .then((next) => {
               if (typeof next === "number") {
+
+                if (!checkBookmarks(next)) {
+                    return;
+                }
+
                 bookmarks.nextDocumentWithBookmarks(bookmarks.activeBookmark)
                   .then((nextDocument) => {
                       
                       if (nextDocument === NO_MORE_BOOKMARKS) {
-                          return;
+                        return;
                       }
-                    
+
                       // same document?
                       let activeDocument = BookmarksController.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
                       if (nextDocument.toString() === activeDocument) {
@@ -773,9 +778,7 @@ export function activate(context: vscode.ExtensionContext) {
                         });
                       }
                   })
-                  .catch((error) => {
-                      vscode.window.showInformationMessage("No more bookmarks...");
-                  });
+                  .catch(checkBookmarks);
               } else {
                   revealPosition(next.line, next.character);
               }
@@ -799,6 +802,11 @@ export function activate(context: vscode.ExtensionContext) {
         // 
         bookmarks.activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active, JUMP_BACKWARD)
             .then((next) => {
+
+                if (!checkBookmarks(next)) {
+                    return;
+                }
+
                 if (typeof next === "number") {
                 bookmarks.nextDocumentWithBookmarks(bookmarks.activeBookmark, JUMP_BACKWARD)
                   .then((nextDocument) => {
@@ -821,9 +829,7 @@ export function activate(context: vscode.ExtensionContext) {
                         });
                       }
                   })
-                  .catch((error) => {
-                      vscode.window.showInformationMessage("No more bookmarks...");
-                  });
+                  .catch(checkBookmarks);
               } else {
                   revealPosition(next.line, next.character);
               }
@@ -832,6 +838,14 @@ export function activate(context: vscode.ExtensionContext) {
               console.log("activeBookmark.nextBookmark REJECT" + error);
             });
     };
+
+    function checkBookmarks(result: number | vscode.Position): boolean {
+        if (result === NO_BOOKMARKS_BEFORE || result === NO_BOOKMARKS_AFTER) {
+            vscode.window.showInformationMessage("No more bookmarks");
+            return false;
+        }
+        return true;
+    }
 
     function askForBookmarkLabel(index: number, position: vscode.Position, oldLabel?: string) {
         const ibo = <vscode.InputBoxOptions>{
