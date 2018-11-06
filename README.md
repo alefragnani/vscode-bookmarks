@@ -8,12 +8,33 @@
 * Moves the Treeview to its own **Activity Bar**
 * Adds **column position** for bookmarks
 * Adds **Labeled Bookmarks** with a new command `Toggle Labeled`
-* Supports for **theme file icon** in Treeview
-* Trim leading whitespaces in bookmarks list
 
-# Bookmarks
+## Support
 
 **Bookmarks** is an open source extension created for **Visual Studio Code**. While being free and open source, if you find it useful, please consider [supporting it](#support-bookmarks).
+
+<table align="center" width="60%" border="0">
+  <tr>
+    <td>
+      <a title="Paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=US&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/></a>
+    </td>
+    <td>
+      <a title="Paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=BR&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif"/></a>
+    </td>
+    <td>
+      <a title="Patreon" href="https://www.patreon.com/alefragnani"><img src="https://raw.githubusercontent.com/alefragnani/oss-resources/master/images/button-become-a-patron-rounded-small.png"/></a>
+    </td>
+  </tr>
+</table>
+
+## Sponsors
+
+<a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/oss-resources/master/images/sponsors/codestream-hi-res.png" width="35%"/></a></br>
+Use Slack inside VS Code and save your technical discussions where they belong - with your codebase.<br> <a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks">Try CodeStream</a>
+
+<br>
+
+# Bookmarks
 
 It helps you to navigate in your code, moving between important positions easily and quickly. _No more need to search for code._ It also supports a set of **selection** commands, which allows you to select bookmarked lines and regions between bookmarked lines. It's really usefull for log file analyses.
 
@@ -120,28 +141,6 @@ The **Bookmarks** are now presented in its own Activity Bar, giving you more fre
 * Clear the bookmark's file, right-clickin in the file item
 
 ![Treeview](images/bookmarks-activity-bar.gif)
-
-## Support Bookmarks
-
-While **Bookmarks** is free and open source, if you find it useful, please consider supporting it.
-
-I've been building **Bookmarks** since VS Code internal beta days, and while I enjoy developing it, I would like to be able to give more attention to its growth.
-
-<table align="center" width="60%" border="0">
-  <tr>
-    <td>
-      <a title="Paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=US&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/></a>
-    </td>
-    <td>
-      <a title="Paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=BR&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif"/></a>
-    </td>
-    <td>
-      <a title="Patreon" href="https://www.patreon.com/alefragnani"><img src="https://raw.githubusercontent.com/alefragnani/oss-resources/master/images/button-become-a-patron-rounded-small.png"/></a>
-    </td>
-  </tr>
-</table>
-
----
 
 # License
 

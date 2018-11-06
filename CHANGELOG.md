@@ -1,3 +1,7 @@
+## [9.2.0] - 2018-11-06
+### Added
+- CodeStream becomes a Sponsor
+
 ## [9.1.0] - 2018-09-15
 ### Added
 - Patreon button
