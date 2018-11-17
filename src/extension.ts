@@ -26,7 +26,7 @@ function createTextEditorDecoration(context: vscode.ExtensionContext) {
         pathIcon = context.asAbsolutePath("images/bookmark.svg");
     }
     
-    let backgroundColor: string = vscode.workspace.getConfiguration("bookmarks").get("backgroundLine", "");
+    let backgroundColor: string = vscode.workspace.getConfiguration("bookmarks").get("backgroundLineColor", "");
 
     const decorationOptions: vscode.DecorationRenderOptions = {
         gutterIconPath: pathIcon,
@@ -62,8 +62,8 @@ export function activate(context: vscode.ExtensionContext) {
             refreshTreeViewOnChangeConfiguration();
         }
 
-        // Allow change the gutterIcon or backgroundLine without reload
-        if (cfg.affectsConfiguration("bookmarks.gutterIconPath") || cfg.affectsConfiguration("bookmarks.backgroundLine")) {
+        // Allow change the gutterIcon or backgroundLineColor without reload
+        if (cfg.affectsConfiguration("bookmarks.gutterIconPath") || cfg.affectsConfiguration("bookmarks.backgroundLineColor")) {
             if (bookmarkDecorationType) {
                 bookmarkDecorationType.dispose();
             }
