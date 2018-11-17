@@ -147,6 +147,14 @@
             ],
             "editor/context": [
                 {
+                    "command": "bookmarks.jumpToNext",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "bookmarks.jumpToPrevious",
+                    "group": "bookmarks"
+                },
+                {
                     "command": "bookmarks.toggle",
                     "group": "bookmarks"
                 }
