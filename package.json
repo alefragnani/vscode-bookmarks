@@ -215,6 +215,11 @@
                     "default": false,
                     "description": "Allow navigation look for bookmarks in all files in the project, instead of only the current"
                 },
+                "bookmarks.wrapNavigation": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files)"
+                },
                 "bookmarks.treeview.visible": {
                     "type": "boolean",
                     "default": true,
