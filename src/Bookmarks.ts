@@ -2,7 +2,7 @@
 
 import * as vscode from "vscode";
 import fs = require("fs");
-import { BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS, BookmarkItem, Bookmark } from "./Bookmark";
+import { BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS, NO_BOOKMARKS_BEFORE, NO_BOOKMARKS_AFTER, BookmarkItem } from "./Bookmark";
 import { Storage } from "./Storage";
 
 interface BookmarkAdded {
@@ -94,16 +94,27 @@ export class BookmarksController {
 
             return new Promise((resolve, reject) => {
 
+                const wrapNavigation: boolean = vscode.workspace.getConfiguration("bookmarks").get("wrapNavigation");
+
+                let wrapStatus: number;
+
                 if (direction === JUMP_FORWARD) {
                   currentBookmarkId++;
                   if (currentBookmarkId === this.storage.fileList.length) {
-                      currentBookmarkId = 0;
+                      currentBookmarkId = wrapNavigation ? 0 : currentBookmarkId - 1;
+                      wrapStatus = wrapNavigation ? null : NO_BOOKMARKS_AFTER;
                   }
                 } else {
                   currentBookmarkId--;
                   if (currentBookmarkId === -1) {
-                      currentBookmarkId = this.storage.fileList.length - 1;
+                      currentBookmarkId = wrapNavigation ? this.storage.fileList.length - 1 : currentBookmarkId + 1;
+                      wrapStatus = wrapNavigation ? null : NO_BOOKMARKS_BEFORE;
                   }
+                }
+
+                if (wrapStatus && !wrapNavigation) {
+                    reject(wrapStatus);
+                    return;
                 }
                 
                 currentBookmark = this.storage.fileList[currentBookmarkId];
