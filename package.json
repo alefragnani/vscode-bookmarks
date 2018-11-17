@@ -197,6 +197,11 @@
                     "default": "",
                     "description": "Path to another image to be presented as Bookmark"
                 },
+                "bookmarks.backgroundLine": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Background color of the decoration. Use rgba() and define transparent background colors to play well with other decorations. Ex.: rgba(21, 126, 251, 0.1)"
+                },
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
                     "default": false,

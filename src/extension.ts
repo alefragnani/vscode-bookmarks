@@ -11,6 +11,37 @@ import { Sticky } from "./Sticky";
 import { Selection } from "./Selection";
 import { Parser, Point } from "./Parser";
 
+/**
+ * Define the Bookmark Decoration
+ */
+function createTextEditorDecoration(context: vscode.ExtensionContext) {
+
+    let pathIcon: string = vscode.workspace.getConfiguration("bookmarks").get("gutterIconPath", "");
+    if (pathIcon !== "") {
+        if (!fs.existsSync(pathIcon)) {
+            vscode.window.showErrorMessage('The file "' + pathIcon + '" used for "bookmarks.gutterIconPath" does not exists.');
+            pathIcon = context.asAbsolutePath("images/bookmark.svg");
+        }
+    } else {
+        pathIcon = context.asAbsolutePath("images/bookmark.svg");
+    }
+    
+    let backgroundColor: string = vscode.workspace.getConfiguration("bookmarks").get("backgroundLine", "");
+
+    const decorationOptions: vscode.DecorationRenderOptions = {
+        gutterIconPath: pathIcon,
+        overviewRulerLane: vscode.OverviewRulerLane.Full,
+        overviewRulerColor: "rgba(21, 126, 251, 0.7)"
+    }
+
+    if (backgroundColor) {
+        decorationOptions.backgroundColor = backgroundColor;
+        decorationOptions.isWholeLine = true;
+    }
+
+    return vscode.window.createTextEditorDecorationType(decorationOptions);
+}
+
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
   
@@ -30,28 +61,26 @@ export function activate(context: vscode.ExtensionContext) {
         if (cfg.affectsConfiguration("bookmarks.treeview.visible")) {
             refreshTreeViewOnChangeConfiguration();
         }
+
+        // Allow change the gutterIcon or backgroundLine without reload
+        if (cfg.affectsConfiguration("bookmarks.gutterIconPath") || cfg.affectsConfiguration("bookmarks.backgroundLine")) {
+            if (bookmarkDecorationType) {
+                bookmarkDecorationType.dispose();
+            }
+
+            bookmarkDecorationType = createTextEditorDecoration(context);
+            context.subscriptions.push(bookmarkDecorationType);
+
+            updateDecorations();
+        }
      }));
 
     function refreshTreeViewOnChangeConfiguration() {
         bookmarkProvider.showTreeView();
     }
 
-    // Define the Bookmark Decoration
-    let pathIcon: string = vscode.workspace.getConfiguration("bookmarks").get("gutterIconPath", "");
-    if (pathIcon !== "") {
-        if (!fs.existsSync(pathIcon)) {
-            vscode.window.showErrorMessage('The file "' + pathIcon + '" used for "bookmarks.gutterIconPath" does not exists.');
-            pathIcon = context.asAbsolutePath("images/bookmark.svg");
-        }
-    } else {
-        pathIcon = context.asAbsolutePath("images/bookmark.svg");
-    }
-    
-    let bookmarkDecorationType = vscode.window.createTextEditorDecorationType({
-        gutterIconPath: pathIcon,
-        overviewRulerLane: vscode.OverviewRulerLane.Full,
-        overviewRulerColor: "rgba(21, 126, 251, 0.7)"
-    });
+    let bookmarkDecorationType = createTextEditorDecoration(context);
+    context.subscriptions.push(bookmarkDecorationType);
 
     // Connect it to the Editors Events
     let activeEditor = vscode.window.activeTextEditor;
