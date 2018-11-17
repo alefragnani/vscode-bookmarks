@@ -147,16 +147,16 @@
             ],
             "editor/context": [
                 {
-                    "command": "bookmarks.jumpToNext",
+                    "command": "bookmarks.toggle",
                     "group": "bookmarks"
+                },
+                {
+                    "command": "bookmarks.jumpToNext",
+                    "group": "bookmarks@1"
                 },
                 {
                     "command": "bookmarks.jumpToPrevious",
-                    "group": "bookmarks"
-                },
-                {
-                    "command": "bookmarks.toggle",
-                    "group": "bookmarks"
+                    "group": "bookmarks@1"
                 }
             ],
             "editor/title": [
