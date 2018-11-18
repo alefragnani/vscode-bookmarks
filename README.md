@@ -5,9 +5,9 @@
 
 # What's new in Bookmarks 9
 
-* Moves the Treeview to its own **Activity Bar**
-* Adds **Column Position** and **Labels** (with a new command `Toggle Labeled`)
-* Supports **Background Color** for bookmarked lines
+* Adds an all-new Bookmarks **Side Bar**
+* Adds **Column Position** support
+* Adds `Toggle Labeled` command to define a label for Bookmarks
 
 ## Support
 
