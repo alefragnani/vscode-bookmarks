@@ -83,7 +83,7 @@ export class BookmarkedFile implements File {
                 }
             }
 
-            const wrapNavigation: boolean = vscode.workspace.getConfiguration("bookmarks").get("wrapNavigation");
+            const wrapNavigation: boolean = vscode.workspace.getConfiguration("bookmarks").get("wrapNavigation", true);
 
             let nextBookmark: vscode.Position;
 

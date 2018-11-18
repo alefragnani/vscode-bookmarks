@@ -94,7 +94,7 @@ export class BookmarksController {
 
             return new Promise((resolve, reject) => {
 
-                const wrapNavigation: boolean = vscode.workspace.getConfiguration("bookmarks").get("wrapNavigation");
+                const wrapNavigation: boolean = vscode.workspace.getConfiguration("bookmarks").get("wrapNavigation", true);
 
                 let wrapStatus: number;
 
