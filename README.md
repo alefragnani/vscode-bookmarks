@@ -6,8 +6,8 @@
 # What's new in Bookmarks 9
 
 * Moves the Treeview to its own **Activity Bar**
-* Adds **column position** for bookmarks
-* Adds **Labeled Bookmarks** with a new command `Toggle Labeled`
+* Adds **Column Position** and **Labels** (with a new command `Toggle Labeled`)
+* Supports **Background Color** for bookmarked lines
 
 ## Support
 
@@ -118,18 +118,29 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ## Available Settings
 
 * Allow navigation through all files that contains bookmarks (`false` by default)
-```
+```json
     "bookmarks.navigateThroughAllFiles": true
 ```
 
-* Bookmarks are always saved between sessions, and you can decide if it should be saved _in the Project_, so you can add it to your Git/SVN repo and have it in all your machines _(`false` by default)_
+* Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files) (`true` by default)
+```json
+    "bookmarks.wrapNavigation": true
 ```
+
+* Bookmarks are always saved between sessions, and you can decide if it should be saved _in the Project_, so you can add it to your Git/SVN repo and have it in all your machines _(`false` by default)_
+```json
     "bookmarks.saveBookmarksInProject": true
 ```
 
 * Path to another image to be shown as Bookmark (16x16 px)
-```
+```json
     "bookmarks.gutterIconPath": "c:\\temp\\othericon.png"
+```
+
+* Choose the background color to use on a bookmarked line
+
+```json
+    "bookmarks.backgroundLineColor"
 ```
 
 ## Activity Bar

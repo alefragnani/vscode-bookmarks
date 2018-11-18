@@ -1,3 +1,9 @@
+## [9.3.0] - 2018-11-17
+### Added
+- New Setting to choose background color of bookmarked lines (Thanks to @edgardmessias [PR #133](https://github.com/alefragnani/vscode-bookmarks/pull/133))
+- New Setting to choose how to wrap navigation around at the first and last bookmarks (Thanks to @miqh [PR #155](https://github.com/alefragnani/vscode-bookmarks/pull/155))
+- Commands added to Context Menus (Editor) (Thanks to @miqh [PR #154](https://github.com/alefragnani/vscode-bookmarks/pull/154))
+
 ## [9.2.0] - 2018-11-06
 ### Added
 - CodeStream becomes a Sponsor
