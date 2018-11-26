@@ -124,6 +124,10 @@
             {
                 "command": "bookmarks.clearFromAllFiles",
                 "title": "Bookmarks: Clear from All Files"
+            },
+            {
+                "command": "bookmarks.whatsNew",
+                "title": "Bookmarks: What's New"
             }
         ],
         "menus": {
