@@ -36,12 +36,12 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         const sponsors: Sponsor[] = [];
         const sponsorCodeStream: Sponsor = <Sponsor>{
             title: "Try Codestream",
-            link: "https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=pascal",
+            link: "https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks",
             image: "https://raw.githubusercontent.com/alefragnani/oss-resources/master/images/sponsors/codestream-hi-res.png",
             width: 35,
             message: "<p>Use Slack inside VS Code and save your technical discussions where they belong - with your codebase.</p>",
             extra: 
-                `<a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=projectmanager">
+                `<a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks">
                  Try CodeStream</a>` 
         };
         sponsors.push(sponsorCodeStream);
