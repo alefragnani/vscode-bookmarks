@@ -3,7 +3,7 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 9
+# What's new in Bookmarks 10
 
 * Adds an all-new Bookmarks **Side Bar**
 * Adds **Column Position** support
