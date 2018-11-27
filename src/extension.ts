@@ -11,6 +11,9 @@ import { Sticky } from "./Sticky";
 import { Selection } from "./Selection";
 import { Parser, Point } from "./Parser";
 
+import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
+import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
+
 /**
  * Define the Bookmark Decoration
  */
@@ -48,6 +51,11 @@ export function activate(context: vscode.ExtensionContext) {
     let bookmarks: BookmarksController;
     let activeEditorCountLine: number;
     let timeout: NodeJS.Timer;
+
+    const provider = new WhatsNewBookmarksContentProvider();
+    const viewer = new WhatsNewManager(context).registerContentProvider("Bookmarks", provider);
+    viewer.showPageInActivation();
+    context.subscriptions.push(vscode.commands.registerCommand("bookmarks.whatsNew", () => viewer.showPage()));
 
     // load pre-saved bookmarks
     let didLoadBookmarks: boolean = loadWorkspaceState();

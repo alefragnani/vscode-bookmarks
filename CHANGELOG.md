@@ -1,3 +1,7 @@
+## [10.0.0] - 2018-11-27
+### Added
+- What's New
+
 ## [9.3.0] - 2018-11-17
 ### Added
 - New Setting to choose background color of bookmarked lines (Thanks to @edgardmessias [PR #133](https://github.com/alefragnani/vscode-bookmarks/pull/133))

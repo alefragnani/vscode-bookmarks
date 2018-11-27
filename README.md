@@ -1,9 +1,9 @@
 <p align="center">
   <br />
-  <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
+  <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 9
+# What's new in Bookmarks 10
 
 * Adds an all-new Bookmarks **Side Bar**
 * Adds **Column Position** support
@@ -36,7 +36,7 @@ Use Slack inside VS Code and save your technical discussions where they belong -
 
 # Bookmarks
 
-It helps you to navigate in your code, moving between important positions easily and quickly. _No more need to search for code._ It also supports a set of **selection** commands, which allows you to select bookmarked lines and regions between bookmarked lines. It's really usefull for log file analyses.
+It helps you to navigate in your code, moving between important positions easily and quickly. _No more need to search for code._ It also supports a set of **selection** commands, which allows you to select bookmarked lines and regions between bookmarked lines. It's really useful for log file analysis.
 
 Since version 9 you can also define **Labels** for you bookmarks!
 
