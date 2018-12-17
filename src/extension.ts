@@ -906,7 +906,7 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
             // 'empty'
-            if (bookmarkLabel === "") {
+            if (bookmarkLabel === "" && (oldLabel === "" || jumpToPosition)) {
                 vscode.window.showWarningMessage("You must define a label for the bookmark.");
                 return;
             }
@@ -917,7 +917,7 @@ export function activate(context: vscode.ExtensionContext) {
             
             // toggle editing mode
             if (jumpToPosition) {
-            vscode.window.showTextDocument(vscode.window.activeTextEditor.document, { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
+                vscode.window.showTextDocument(vscode.window.activeTextEditor.document, { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
             }
             // sorted
             /* let itemsSorted = [] =*/
