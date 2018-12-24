@@ -1,6 +1,9 @@
 /*---------------------------------------------------------------------------------------------
-*  Copyright (c) Alessandro Fragnani. All rights reserved.
+*  Copyright (c) Castellant Guillaume & Alessandro Fragnani. All rights reserved.
 *  Licensed under the MIT License. See License.md in the project root for license information.
+*
+*  Original Author: Castellant Guillaume (@Terminux), 
+*                   (https://github.com/alefragnani/vscode-bookmarks/pull/20)
 *--------------------------------------------------------------------------------------------*/
 
 "use strict";
