@@ -43,7 +43,7 @@
             "activitybar": [
                 {
                     "id": "bookmarks",
-                    "title": "Bookmarks",
+                    "title": "%bookmarks.activitybar.title%",
                     "icon": "images/bookmark-activity-bar.svg"
                 }
             ]
@@ -52,54 +52,54 @@
             "bookmarks": [
                 {
                     "id": "bookmarksExplorer",
-                    "name": "Explorer"
+                    "name": "%bookmarks.views.Explorer.name%"
                 }
             ]
         },
         "commands": [
             {
                 "command": "bookmarks.toggle",
-                "title": "Bookmarks: Toggle"
+                "title": "%bookmarks.commands.toggle.title%"
             },
             {
                 "command": "bookmarks.jumpToNext",
-                "title": "Bookmarks: Jump to Next"
+                "title": "%bookmarks.commands.jumpToNext.title%"
             },
             {
                 "command": "bookmarks.jumpToPrevious",
-                "title": "Bookmarks: Jump to Previous"
+                "title": "%bookmarks.commands.jumpToPrevious.title%"
             },
             {
                 "command": "bookmarks.jumpTo",
-                "title": "Bookmarks: Jump to Document/Line"
+                "title": "%bookmarks.commands.jumpTo.title%"
             },
             {
                 "command": "bookmarks.selectLines",
-                "title": "Bookmarks (Selection): Select Lines"
+                "title": "%bookmarks.commands.selectLines.title%"
             },
             {
                 "command": "bookmarks.expandSelectionToNext",
-                "title": "Bookmarks (Selection): Expand Selection to Next"
+                "title": "%bookmarks.commands.expandSelectionToNext.title%"
             },
             {
                 "command": "bookmarks.expandSelectionToPrevious",
-                "title": "Bookmarks (Selection): Expand Selection to Previous"
+                "title": "%bookmarks.commands.expandSelectionToPrevious.title%"
             },
             {
                 "command": "bookmarks.shrinkSelection",
-                "title": "Bookmarks (Selection): Shrink Selection"
+                "title": "%bookmarks.commands.shrinkSelection.title%"
             },
             {
                 "command": "bookmarks.list",
-                "title": "Bookmarks: List"
+                "title": "%bookmarks.commands.list.title%"
             },
             {
                 "command": "bookmarks.toggleLabeled",
-                "title": "Bookmarks: Toggle Labeled"
+                "title": "%bookmarks.commands.toggleLabeled.title%"
             },
             {
                 "command": "bookmarks.refresh",
-                "title": "Refresh",
+                "title": "%bookmarks.commands.refresh.title%",
                 "icon": {
                     "light": "images/refresh-light.svg",
                     "dark": "images/refresh-dark.svg"
@@ -107,23 +107,23 @@
             },
             {
                 "command": "bookmarks.clear",
-                "title": "Bookmarks: Clear"
+                "title": "%bookmarks.commands.clear.title%"
             },
             {
                 "command": "bookmarks.clearFromFile",
-                "title": "Clear"
+                "title": "%bookmarks.commands.clearFromFile.title%"
             },
             {
                 "command": "bookmarks.deleteBookmark",
-                "title": "Delete"
+                "title": "%bookmarks.commands.deleteBookmark.title%"
             },
             {
                 "command": "bookmarks.listFromAllFiles",
-                "title": "Bookmarks: List from All Files"
+                "title": "%bookmarks.commands.listFromAllFiles.title%"
             },
             {
                 "command": "bookmarks.clearFromAllFiles",
-                "title": "Bookmarks: Clear from All Files"
+                "title": "%bookmarks.commands.clearFromAllFiles.title%"
             },
             {
                 "command": "bookmarks.whatsNew",
@@ -197,17 +197,17 @@
         },
         "configuration": {
             "type": "object",
-            "title": "Bookmarks",
+            "title": "%bookmarks.configuration.title%",
             "properties": {
                 "bookmarks.saveBookmarksInProject": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code"
+                    "description": "%bookmarks.configuration.saveBookmarksInProject.description%"
                 },
                 "bookmarks.gutterIconPath": {
                     "type": "string",
                     "default": "",
-                    "description": "Path to another image to be presented as Bookmark"
+                    "description": "%bookmarks.configuration.gutterIconPath.description%"
                 },
                 "bookmarks.backgroundLineColor": {
                     "type": "string",
@@ -217,7 +217,7 @@
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Allow navigation look for bookmarks in all files in the project, instead of only the current"
+                    "description": "%bookmarks.configuration.navigateThroughAllFiles.description%"
                 },
                 "bookmarks.wrapNavigation": {
                     "type": "boolean",
@@ -232,7 +232,7 @@
                 "bookmarks.treeview.visible": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Should display the Treeview?"
+                    "description": "%bookmarks.configuration.treeview.visible.description%"
                 }
             }
         },
