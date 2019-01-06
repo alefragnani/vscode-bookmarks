@@ -143,6 +143,13 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.backgroundLineColor"
 ```
 
+* Use a **workaround** for formatters, like Prettier, which does not notify on document changes and messes Bookmark's _Sticky_ behavior _(`false` by default)_
+
+```json
+    "bookmarks.useWorkaroundForFormatters": true
+```
+> This workaround should be temporary, until a proper research and suggested APIs are available  
+
 ## Activity Bar
 
 The **Bookmarks** are now presented in its own Activity Bar, giving you more free space in your Explorer bar. You will have a few extra commands available:
