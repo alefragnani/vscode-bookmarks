@@ -1,3 +1,7 @@
+## [10.1.0] - 2019-01-06
+### Fixed
+- Workaround for formatters, using a new setting `bookmarks.useWorkaroundForFormatters` (issue [#118](https://github.com/alefragnani/vscode-bookmarks/issues/118#issuecomment-442686987))
+
 ## [10.0.0] - 2018-11-27
 ### Added
 - What's New
