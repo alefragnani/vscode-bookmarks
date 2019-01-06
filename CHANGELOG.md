@@ -1,5 +1,6 @@
 ## [10.1.0] - 2019-01-06
 ### Fixed
+- Wrong bookmark position on comment lines (issue [#108](https://github.com/alefragnani/vscode-bookmarks/issues/108) - Thanks to @edgardmessias [PR #136](https://github.com/alefragnani/vscode-bookmarks/pull/136))
 - Workaround for formatters, using a new setting `bookmarks.useWorkaroundForFormatters` (issue [#118](https://github.com/alefragnani/vscode-bookmarks/issues/118#issuecomment-442686987))
 
 ## [10.0.0] - 2018-11-27

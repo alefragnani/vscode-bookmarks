@@ -34,6 +34,11 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             @miqh - <a title=\"Open PR #154\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/154\">
             PR #154</a>)</b>`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Wrong bookmark position on comment lines (<a title=\"Open Issue #108\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/108\">
+            Issue #108</a> - Thanks to @edgardmessias - <a title=\"Open PR #136\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/136\">
+            PR #136</a>)`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Workaround for formatters, using a new setting (<a title=\"Open Issue #118\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/118\">
             Issue #118</a>)</b>`});
