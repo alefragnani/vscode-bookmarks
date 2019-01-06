@@ -123,6 +123,13 @@ export function activate(context: vscode.ExtensionContext) {
         if (activeEditor && event.document === activeEditor.document) {
 //            triggerUpdateDecorations();
             let updatedBookmark: boolean = true;
+
+            // workaround for formatters like Prettier (#118)
+            if (vscode.workspace.getConfiguration("bookmarks").get("useWorkaroundForFormatters", false)) {
+                updateDecorations();
+                return;
+            }
+
 			// call sticky function when the activeEditor is changed
             if (bookmarks.activeBookmark && bookmarks.activeBookmark.bookmarks.length > 0) {
                 updatedBookmark = Sticky.stickyBookmarks(event, activeEditorCountLine, bookmarks.activeBookmark,

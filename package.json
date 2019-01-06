@@ -224,6 +224,11 @@
                     "default": true,
                     "description": "Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files)"
                 },
+                "bookmarks.useWorkaroundForFormatters": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use a workaround for formatters like Prettier, which does not notify on document changes and messes Bookmark's Sticky behavior"
+                },
                 "bookmarks.treeview.visible": {
                     "type": "boolean",
                     "default": true,
