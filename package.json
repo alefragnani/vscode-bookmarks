@@ -127,7 +127,7 @@
             },
             {
                 "command": "bookmarks.whatsNew",
-                "title": "Bookmarks: What's New"
+                "title": "%bookmarks.commands.whatsNew.title%"
             }
         ],
         "menus": {
@@ -212,7 +212,7 @@
                 "bookmarks.backgroundLineColor": {
                     "type": "string",
                     "default": "",
-                    "description": "Background color of the decoration. Use rgba() and define transparent background colors to play well with other decorations. Ex.: rgba(21, 126, 251, 0.1)"
+                    "description": "%bookmarks.configuration.backgroundLineColor.description%"
                 },
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
@@ -222,12 +222,12 @@
                 "bookmarks.wrapNavigation": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files)"
+                    "description": "%bookmarks.configuration.wrapNavigation.description%"
                 },
                 "bookmarks.useWorkaroundForFormatters": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use a workaround for formatters like Prettier, which does not notify on document changes and messes Bookmark's Sticky behavior"
+                    "description": "%bookmarks.configuration.useWorkaroundForFormatters.description%"
                 },
                 "bookmarks.treeview.visible": {
                     "type": "boolean",

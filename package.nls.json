@@ -17,9 +17,13 @@
     "bookmarks.commands.deleteBookmark.title": "Delete",
     "bookmarks.commands.listFromAllFiles.title": "Bookmarks: List from All Files",
     "bookmarks.commands.clearFromAllFiles.title": "Bookmarks: Clear from All Files",
+    "bookmarks.commands.whatsNew.title": "Bookmarks: What's New",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Path to another image to be presented as Bookmark",
+    "bookmarks.configuration.backgroundLineColor.description": "Background color of the decoration. Use rgba() and define transparent background colors to play well with other decorations. Ex.: rgba(21, 126, 251, 0.1)",
     "bookmarks.configuration.navigateThroughAllFiles.description": "Allow navigation look for bookmarks in all files in the project, instead of only the current",
+    "bookmarks.configuration.wrapNavigation.description": "Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files)",
+    "bookmarks.configuration.useWorkaroundForFormatters.description": "Use a workaround for formatters like Prettier, which does not notify on document changes and messes Bookmark's Sticky behavior",
     "bookmarks.configuration.treeview.visible.description": "Should display the Treeview?"
 }

@@ -17,9 +17,13 @@
     "bookmarks.commands.deleteBookmark.title": "Удалить",
     "bookmarks.commands.listFromAllFiles.title": "Закладки: Список из всех файлов",
     "bookmarks.commands.clearFromAllFiles.title": "Закладки: Очистить из всех файлов",
+    "bookmarks.commands.whatsNew.title": "Закладки: Что нового",
     "bookmarks.configuration.title": "Закладки",
     "bookmarks.configuration.saveBookmarksInProject.description": "Разрешить локальное сохранение (и восстановление) закладок в открытом Проекте/Папке вместо VSCoda",
     "bookmarks.configuration.gutterIconPath.description": "Путь к другому изображению, которое будет представлено в виде маркера закладки",
+    "bookmarks.configuration.backgroundLineColor.description": "Цвет фона декора. Используйте rgba () и определите прозрачные цвета фона, чтобы хорошо сочетаться с другими украшениями. Пример: RGBA (21, 126, 251, 0,1)",
     "bookmarks.configuration.navigateThroughAllFiles.description": "Разрешить навигатору искать закладки во всех файлах проекта, а не только в текущем",
+    "bookmarks.configuration.wrapNavigation.description": "Разрешить навигацию переходить на первую и последнюю закладки в области (текущий файл или все файлы)",
+    "bookmarks.configuration.useWorkaroundForFormatters.description": "Используйте обходной путь для форматировщиков, таких как Prettier, который не уведомляет об изменениях документа и портит поведение Sticky Закладки",
     "bookmarks.configuration.treeview.visible.description": "Отображать закладки в древовидном списке?"
 }
