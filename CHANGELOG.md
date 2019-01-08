@@ -1,4 +1,4 @@
-## [10.1.0] - 2019-01-06
+## [10.1.0] - 2019-01-08
 ### Added
 - Localization support - Russian (Thanks to @Inter-Net-Pro [PR #151](https://github.com/alefragnani/vscode-bookmarks/pull/151))
 
