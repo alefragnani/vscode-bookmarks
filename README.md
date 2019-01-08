@@ -8,6 +8,9 @@
 * Adds an all-new Bookmarks **Side Bar**
 * Adds **Column Position** support
 * Adds `Toggle Labeled` command to define a label for Bookmarks
+* Adds `Jump to Next` and `Jump to Previous` commands to Context Menu
+* Adds **background color** for bookmarked lines
+* Adds **Localization** support
 
 ## Support
 

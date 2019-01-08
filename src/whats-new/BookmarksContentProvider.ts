@@ -22,6 +22,18 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds an all-new Bookmarks <b>Side Bar</b>"});
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> support"});
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Toggle Labeled</b> command to define a label for Bookmarks"});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b> (Thanks to 
+            @Inter-Net-Pro - <a title=\"Open PR #151\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/151\">
+            PR #151</a>)`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Wrong bookmark position on comment lines (<a title=\"Open Issue #108\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/108\">
+            Issue #108</a> - Thanks to @edgardmessias - <a title=\"Open PR #136\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/136\">
+            PR #136</a>)`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Workaround for formatters, using a new setting (<a title=\"Open Issue #118\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/118\">
+            Issue #118</a>)</b>`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Setting to choose <b>background color</b> of 
             bookmarked files (Thanks to @edgardmessias - <a title=\"Open PR #133\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/133\">
@@ -34,14 +46,6 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             @miqh - <a title=\"Open PR #154\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/154\">
             PR #154</a>)</b>`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Wrong bookmark position on comment lines (<a title=\"Open Issue #108\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/108\">
-            Issue #108</a> - Thanks to @edgardmessias - <a title=\"Open PR #136\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/136\">
-            PR #136</a>)`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Workaround for formatters, using a new setting (<a title=\"Open Issue #118\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/118\">
-            Issue #118</a>)</b>`});
         return changeLog;
     }
 

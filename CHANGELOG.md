@@ -1,4 +1,7 @@
 ## [10.1.0] - 2019-01-06
+### Added
+- Localization support - Russian (Thanks to @Inter-Net-Pro [PR #151](https://github.com/alefragnani/vscode-bookmarks/pull/151))
+
 ### Fixed
 - Wrong bookmark position on comment lines (issue [#108](https://github.com/alefragnani/vscode-bookmarks/issues/108) - Thanks to @edgardmessias [PR #136](https://github.com/alefragnani/vscode-bookmarks/pull/136))
 - Workaround for formatters, using a new setting `bookmarks.useWorkaroundForFormatters` (issue [#118](https://github.com/alefragnani/vscode-bookmarks/issues/118#issuecomment-442686987))
