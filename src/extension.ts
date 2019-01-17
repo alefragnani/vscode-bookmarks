@@ -994,7 +994,7 @@ export function activate(context: vscode.ExtensionContext) {
         let index = bookmarks.activeBookmark.indexOfBookmark(position.line);
         let oldLabel: string = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
         if (index < 0) {
-            askForBookmarkLabel(index, position);
+            askForBookmarkLabel(index, position, undefined, true);
         } else {
             askForBookmarkLabel(index, position, oldLabel);
         }
