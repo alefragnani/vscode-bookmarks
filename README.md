@@ -163,6 +163,12 @@ The **Bookmarks** are now presented in its own Activity Bar, giving you more fre
 
 ![Treeview](images/bookmarks-activity-bar.gif)
 
+## Project and Session Based
+
+The bookmarks are saved _per session_ for the project that you are using. You don't have to worry about closing files in _Working Files_. When you reopen the file, the bookmarks are restored.
+
+It also works even if you only _preview_ a file (simple click in TreeView). You can put bookmarks in any file and when you preview it again, the bookmarks will be there.
+
 # License
 
 [MIT](LICENSE.md) &copy; Alessandro Fragnani
