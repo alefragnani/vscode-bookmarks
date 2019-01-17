@@ -15,6 +15,7 @@
     "bookmarks.commands.clear.title": "Bookmarks: Clear",
     "bookmarks.commands.clearFromFile.title": "Clear",
     "bookmarks.commands.deleteBookmark.title": "Delete",
+    "bookmarks.commands.editLabel.title": "Edit Label",
     "bookmarks.commands.listFromAllFiles.title": "Bookmarks: List from All Files",
     "bookmarks.commands.clearFromAllFiles.title": "Bookmarks: Clear from All Files",
     "bookmarks.commands.whatsNew.title": "Bookmarks: What's New",

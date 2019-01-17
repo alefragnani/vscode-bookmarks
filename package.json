@@ -119,7 +119,7 @@
             },
             {
                 "command": "bookmarks.editLabel",
-                "title": "Edit Label"
+                "title": "%bookmarks.commands.editLabel.title%"
             },
             {
                 "command": "bookmarks.listFromAllFiles",

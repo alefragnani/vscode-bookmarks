@@ -15,6 +15,7 @@
     "bookmarks.commands.clear.title": "Закладки: Очистить",
     "bookmarks.commands.clearFromFile.title": "Очистить",
     "bookmarks.commands.deleteBookmark.title": "Удалить",
+    "bookmarks.commands.editLabel.title": "Изменить маркер",
     "bookmarks.commands.listFromAllFiles.title": "Закладки: Список из всех файлов",
     "bookmarks.commands.clearFromAllFiles.title": "Закладки: Очистить из всех файлов",
     "bookmarks.commands.whatsNew.title": "Закладки: Что нового",
