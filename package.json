@@ -118,6 +118,10 @@
                 "title": "%bookmarks.commands.deleteBookmark.title%"
             },
             {
+                "command": "bookmarks.editLabel",
+                "title": "Edit Label"
+            },
+            {
                 "command": "bookmarks.listFromAllFiles",
                 "title": "%bookmarks.commands.listFromAllFiles.title%"
             },
@@ -146,6 +150,10 @@
                 },
                 {
                     "command": "bookmarks.deleteBookmark",
+                    "when": "false"
+                },
+                {
+                    "command": "bookmarks.editLabel",
                     "when": "false"
                 }
             ],
@@ -191,6 +199,10 @@
                 },
                 {
                     "command": "bookmarks.deleteBookmark",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
+                },
+                {
+                    "command": "bookmarks.editLabel",
                     "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
                 }
             ]

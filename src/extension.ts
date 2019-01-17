@@ -228,6 +228,17 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     });
 
+    vscode.commands.registerCommand("bookmarks.editLabel", node => {
+        let uriDocBookmark: vscode.Uri = vscode.Uri.file(node.command.arguments[0]);
+        let book: BookmarkedFile = bookmarks.fromUri(uriDocBookmark.fsPath);
+        let index = book.indexOfBookmark(node.command.arguments[1] - 1);
+
+        const position: vscode.Position = new vscode.Position(node.command.arguments[1] - 1, 
+            node.command.arguments[2] - 1);
+        // book.bookmarks[index].label = "novo label";
+        askForBookmarkLabel(index, position, book.bookmarks[index].label, false, book);
+    });
+
     vscode.commands.registerCommand("bookmarks.clear", () => clear());
     vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => clearFromAllFiles());
     vscode.commands.registerCommand("bookmarks.selectLines", () => selectLines());
@@ -894,7 +905,8 @@ export function activate(context: vscode.ExtensionContext) {
         return true;
     }
 
-    function askForBookmarkLabel(index: number, position: vscode.Position, oldLabel?: string) {
+    function askForBookmarkLabel(index: number, position: vscode.Position, oldLabel?: string, jumpToPosition?: boolean,
+        book?: BookmarkedFile) {
         const ibo = <vscode.InputBoxOptions>{
             prompt: "Bookmark Label",
             placeHolder: "Type a label for your bookmark",
@@ -905,20 +917,23 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
             // 'empty'
-            if (bookmarkLabel === "") {
+            if (bookmarkLabel === "" && (oldLabel === "" || jumpToPosition)) {
                 vscode.window.showWarningMessage("You must define a label for the bookmark.");
                 return;
             }
             if (index >= 0) {
-                bookmarks.removeBookmark(index, position.line);
+                bookmarks.removeBookmark(index, position.line, book);
             }
-            bookmarks.addBookmark(position, bookmarkLabel);
+            bookmarks.addBookmark(position, bookmarkLabel, book);
             
             // toggle editing mode
-            vscode.window.showTextDocument(vscode.window.activeTextEditor.document, { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
+            if (jumpToPosition) {
+                vscode.window.showTextDocument(vscode.window.activeTextEditor.document, { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
+            }
             // sorted
             /* let itemsSorted = [] =*/
-            bookmarks.activeBookmark.bookmarks.sort((n1, n2) => {
+            let b: BookmarkedFile = book ? book : bookmarks.activeBookmark;
+            b.bookmarks.sort((n1, n2) => {
                 if (n1.line > n2.line) {
                     return 1;
                 }
@@ -991,7 +1006,7 @@ export function activate(context: vscode.ExtensionContext) {
         let index = bookmarks.activeBookmark.indexOfBookmark(position.line);
         let oldLabel: string = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
         if (index < 0) {
-            askForBookmarkLabel(index, position);
+            askForBookmarkLabel(index, position, undefined, true);
         } else {
             askForBookmarkLabel(index, position, oldLabel);
         }
