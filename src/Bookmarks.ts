@@ -168,15 +168,22 @@ export class BookmarksController {
             this.onDidClearAllBookmarksEmitter.fire();       
         }
 
-        public addBookmark(position: vscode.Position, label?: string, book?: BookmarkedFile): void {
+        public async addBookmark(position: vscode.Position, label?: string, book?: BookmarkedFile): Promise<void> {
             let b: BookmarkedFile = book ? book : this.activeBookmark;
             if (!label) {
                 b.bookmarks.push(new BookmarkItem(position.line, position.character));
+                let linePreview: string;
+                if (book) {
+                    linePreview = await book.getLinePreview(position.line);
+                } else {
+                    linePreview = vscode.window.activeTextEditor.document.lineAt(position.line).text.trim();
+                }
+
                 this.onDidAddBookmarkEmitter.fire({
                     bookmarkedFile: b, 
                     line: position.line + 1,
                     column: position.character + 1,
-                    linePreview: vscode.window.activeTextEditor.document.lineAt(position.line).text.trim()
+                    linePreview: linePreview
                 });
             } else {
                 b.bookmarks.push(new BookmarkItem(position.line, position.character, label));

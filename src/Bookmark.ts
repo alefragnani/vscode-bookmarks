@@ -32,6 +32,7 @@ export interface File {
     listBookmarks();
     clear(): void;
     indexOfBookmark(line: number): number;
+    getLinePreview(line: number): Promise<string>;
 };
 
 /**
@@ -213,5 +214,11 @@ export class BookmarkedFile implements File {
         }
 
         return -1;
+    }
+
+    public async getLinePreview(line: number): Promise<string> {
+        let uriDocBookmark: vscode.Uri = vscode.Uri.file(this.path);
+        let doc = await vscode.workspace.openTextDocument(uriDocBookmark);
+        return doc.lineAt(line).text.trim();
     }
 }
