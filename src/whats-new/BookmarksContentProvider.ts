@@ -20,8 +20,8 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds an all-new Bookmarks <b>Side Bar</b>"});
-        changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> support"});
-        changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Toggle Labeled</b> command to define a label for Bookmarks"});
+        changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> and <b>Label</b> support"});
+        changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Edit Label</b> command in the <b>Side Bar</b>"});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b> (Thanks to 
             @Inter-Net-Pro - <a title=\"Open PR #151\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/151\">
