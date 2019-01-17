@@ -1,3 +1,7 @@
+## [10.2.0] - 2019-01-17
+### Added
+- `Edit Label` command in the **Side Bar** (issue [#146](https://github.com/alefragnani/vscode-bookmarks/issues/146))
+
 ## [10.1.0] - 2019-01-08
 ### Added
 - Localization support - Russian (Thanks to @Inter-Net-Pro [PR #151](https://github.com/alefragnani/vscode-bookmarks/pull/151))
@@ -32,7 +36,7 @@
 
 ## [9.0.2] - 2018-07-24
 ### Fixed
-- Activity Bar was not loading - infinite spinning (issue [#127](https://github.com/alefragnani/vscode-bookmarks/issues/127))
+- **Side Bar** was not loading - infinite spinning (issue [#127](https://github.com/alefragnani/vscode-bookmarks/issues/127))
 
 ## [9.0.1] - 2018-07-23
 ### Fixed
@@ -40,7 +44,7 @@
 
 ## [9.0.0] - 2018-07-13
 ### Added
-- Bookmarks Activity Bar (issue [#109](https://github.com/alefragnani/vscode-bookmarks/issues/109))
+- Bookmarks **Side Bar** (issue [#109](https://github.com/alefragnani/vscode-bookmarks/issues/109))
 - Support Labeled Bookmarks (issue [#76]
 (https://github.com/alefragnani/vscode-bookmarks/issues/76))
 - Support Column position in Bookmarks (issue [#36](https://github.com/alefragnani/vscode-bookmarks/issues/36))

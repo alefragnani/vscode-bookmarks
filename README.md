@@ -6,11 +6,11 @@
 # What's new in Bookmarks 10
 
 * Adds an all-new Bookmarks **Side Bar**
-* Adds **Column Position** support
-* Adds `Toggle Labeled` command to define a label for Bookmarks
+* Adds **Column Position** and **Label** support
+* Adds `Edit Label` command in the **Side Bar**
+* Adds **Localization** support
 * Adds `Jump to Next` and `Jump to Previous` commands to Context Menu
 * Adds **background color** for bookmarked lines
-* Adds **Localization** support
 
 ## Support
 
