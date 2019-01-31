@@ -1,3 +1,7 @@
+## [10.2.1] - 2019-01-31
+### Fixed
+- Update CodeStream logo
+
 ## [10.2.0] - 2019-01-17
 ### Added
 - `Edit Label` command in the **Side Bar** (issue [#146](https://github.com/alefragnani/vscode-bookmarks/issues/146))
