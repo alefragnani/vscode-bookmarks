@@ -1,3 +1,7 @@
+## [10.2.2] - 2019-02-01
+### Fixed
+- Error in _clean install_ (issue [#178](https://github.com/alefragnani/vscode-bookmarks/issues/178))
+
 ## [10.2.1] - 2019-01-31
 ### Fixed
 - Update CodeStream logo
