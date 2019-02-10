@@ -7,13 +7,13 @@ import * as vscode from "vscode";
 import fs = require("fs");
 import path = require("path");
 
-import { JUMP_BACKWARD, JUMP_DIRECTION, JUMP_FORWARD, NO_BOOKMARKS, NO_MORE_BOOKMARKS, BookmarkedFile, Bookmark, NO_BOOKMARKS_BEFORE, NO_BOOKMARKS_AFTER } from "./Bookmark";
-import { BookmarksController } from "./Bookmarks";
-import { BookmarkProvider } from "./BookmarkProvider";
-import { Sticky } from "./Sticky";
-import { Selection } from "./Selection";
-import { Parser, Point } from "./Parser";
-
+import { NO_MORE_BOOKMARKS, BookmarkedFile, NO_BOOKMARKS_BEFORE, NO_BOOKMARKS_AFTER } from "../vscode-bookmarks-core/src/api/bookmark";
+import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
+import { BookmarkProvider } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
+import { Directions } from "../vscode-bookmarks-core/src/api/constants";
+import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
+import { Selection } from "../vscode-bookmarks-core/src/selection/selection";
+import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
 
@@ -242,8 +242,8 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("bookmarks.clear", () => clear());
     vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => clearFromAllFiles());
     vscode.commands.registerCommand("bookmarks.selectLines", () => selectLines());
-    vscode.commands.registerCommand("bookmarks.expandSelectionToNext", () => expandSelectionToNextBookmark(JUMP_FORWARD));
-    vscode.commands.registerCommand("bookmarks.expandSelectionToPrevious", () => expandSelectionToNextBookmark(JUMP_BACKWARD));
+    vscode.commands.registerCommand("bookmarks.expandSelectionToNext", () => expandSelectionToNextBookmark(Directions.Forward));
+    vscode.commands.registerCommand("bookmarks.expandSelectionToPrevious", () => expandSelectionToNextBookmark(Directions.Backward));
     vscode.commands.registerCommand("bookmarks.shrinkSelection", () => shrinkSelection());
     vscode.commands.registerCommand("bookmarks.toggle", () => toggle());
     vscode.commands.registerCommand("bookmarks.toggleLabeled", () => toggleLabeled());    
@@ -504,11 +504,11 @@ export function activate(context: vscode.ExtensionContext) {
         }      
       
         // which direction?
-        let direction: JUMP_DIRECTION = vscode.window.activeTextEditor.selection.isReversed ? JUMP_FORWARD : JUMP_BACKWARD;
+        let direction: Directions = vscode.window.activeTextEditor.selection.isReversed ? Directions.Forward : Directions.Backward;
         let activeSelectionStartLine: number = vscode.window.activeTextEditor.selection.isReversed ? vscode.window.activeTextEditor.selection.end.line : vscode.window.activeTextEditor.selection.start.line; 
 
         let currPosition: vscode.Position;
-        if (direction === JUMP_FORWARD) {
+        if (direction === Directions.Forward) {
             currPosition = vscode.window.activeTextEditor.selection.start;
         } else {
             currPosition = vscode.window.activeTextEditor.selection.end;
@@ -521,8 +521,8 @@ export function activate(context: vscode.ExtensionContext) {
                     return;
               } else {
                    
-                  if ((direction === JUMP_BACKWARD && next.line < activeSelectionStartLine) || 
-                    (direction === JUMP_FORWARD && next.line > activeSelectionStartLine)) {
+                  if ((direction === Directions.Backward && next.line < activeSelectionStartLine) || 
+                    (direction === Directions.Forward && next.line > activeSelectionStartLine)) {
                       vscode.window.setStatusBarMessage("No more bookmarks to shrink", 2000);
                   } else {                  
                     Selection.shrinkRange(vscode.window.activeTextEditor, next, direction);
@@ -534,7 +534,7 @@ export function activate(context: vscode.ExtensionContext) {
             });        
     }
     
-    function expandSelectionToNextBookmark(direction: JUMP_DIRECTION) {
+    function expandSelectionToNextBookmark(direction: Directions) {
         if (!vscode.window.activeTextEditor) {
             vscode.window.showInformationMessage("Open a file first to clear bookmarks");
             return;
@@ -554,7 +554,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (vscode.window.activeTextEditor.selection.isEmpty) {
             currPosition = vscode.window.activeTextEditor.selection.active;
         } else {
-            if (direction === JUMP_FORWARD) {
+            if (direction === Directions.Forward) {
                 currPosition = vscode.window.activeTextEditor.selection.end;
             } else {
                 currPosition = vscode.window.activeTextEditor.selection.start;
@@ -858,7 +858,7 @@ export function activate(context: vscode.ExtensionContext) {
         }      
         
         // 
-        bookmarks.activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active, JUMP_BACKWARD)
+        bookmarks.activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active, Directions.Backward)
             .then((next) => {
 
                 if (!checkBookmarks(next)) {
@@ -866,7 +866,7 @@ export function activate(context: vscode.ExtensionContext) {
                 }
 
                 if (typeof next === "number") {
-                bookmarks.nextDocumentWithBookmarks(bookmarks.activeBookmark, JUMP_BACKWARD)
+                bookmarks.nextDocumentWithBookmarks(bookmarks.activeBookmark, Directions.Backward)
                   .then((nextDocument) => {
                       
                       if (nextDocument === NO_MORE_BOOKMARKS) {
