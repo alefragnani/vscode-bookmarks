@@ -51,7 +51,7 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
 
     public provideSponsors(): Sponsor[] {
         const sponsors: Sponsor[] = [];
-        const sponsorCodeStream: Sponsor = <Sponsor>{
+        const sponsorCodeStream: Sponsor = <Sponsor> {
             title: "Try Codestream",
             link: "https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks",
             image: "https://alt-images.codestream.com/codestream_logo_bookmarks.png",
