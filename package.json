@@ -160,15 +160,18 @@
             "editor/context": [
                 {
                     "command": "bookmarks.toggle",
-                    "group": "bookmarks"
+                    "group": "bookmarks",
+                    "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.toggle"
                 },
                 {
                     "command": "bookmarks.jumpToNext",
-                    "group": "bookmarks@1"
+                    "group": "bookmarks@1",
+                    "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.jumpToNext"
                 },
                 {
                     "command": "bookmarks.jumpToPrevious",
-                    "group": "bookmarks@1"
+                    "group": "bookmarks@1",
+                    "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.jumpToPrevious"
                 }
             ],
             "editor/title": [
@@ -245,6 +248,27 @@
                     "type": "boolean",
                     "default": true,
                     "description": "%bookmarks.configuration.treeview.visible.description%"
+                },
+                "bookmarks.commandsOnContextMenu": {
+                    "type": "object",
+                    "description": "Specifies which Bookmarks commands are displayed on the context menu",
+                    "properties": {
+                        "toggle": {
+                            "type": "boolean"
+                        },
+                        "jumpToNext": {
+                            "type": "boolean"
+                        },
+                        "jumpToPrevious": {
+                            "type": "boolean"
+                        }
+                    },
+                    "default": {
+                        "toggle": true,
+                        "jumpToNext": true,
+                        "jumpToPrevious": true
+                    },
+                    "additionalProperties": false
                 }
             }
         },
@@ -253,19 +277,19 @@
                 "command": "bookmarks.toggle",
                 "key": "ctrl+alt+k",
                 "mac": "cmd+alt+k",
-                "when": "editorTextFocus"
+                "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.toggle"
             },
             {
                 "command": "bookmarks.jumpToNext",
                 "key": "ctrl+alt+l",
                 "mac": "cmd+alt+l",
-                "when": "editorTextFocus"
+                "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.jumpToNext"
             },
             {
                 "command": "bookmarks.jumpToPrevious",
                 "key": "ctrl+alt+j",
                 "mac": "cmd+alt+j",
-                "when": "editorTextFocus"
+                "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.jumpToPrevious"
             },
             {
                 "command": "bookmarks.shrinkSelection",
