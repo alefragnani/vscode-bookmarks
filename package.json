@@ -277,19 +277,19 @@
                 "command": "bookmarks.toggle",
                 "key": "ctrl+alt+k",
                 "mac": "cmd+alt+k",
-                "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.toggle"
+                "when": "editorTextFocus"
             },
             {
                 "command": "bookmarks.jumpToNext",
                 "key": "ctrl+alt+l",
                 "mac": "cmd+alt+l",
-                "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.jumpToNext"
+                "when": "editorTextFocus"
             },
             {
                 "command": "bookmarks.jumpToPrevious",
                 "key": "ctrl+alt+j",
                 "mac": "cmd+alt+j",
-                "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.jumpToPrevious"
+                "when": "editorTextFocus"
             },
             {
                 "command": "bookmarks.shrinkSelection",
