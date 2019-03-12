@@ -146,6 +146,11 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.backgroundLineColor"
 ```
 
+* Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu (`true` by default)
+```json
+    "bookmarks.showCommandsInContextMenu": true
+```
+
 * Use a **workaround** for formatters, like Prettier, which does not notify on document changes and messes Bookmark's _Sticky_ behavior _(`false` by default)_
 
 ```json

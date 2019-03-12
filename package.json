@@ -252,7 +252,7 @@
                 "bookmarks.showCommandsInContextMenu": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Specifies whether Bookmarks commands are displayed on the context menu"
+                    "description": "%bookmarks.configuration.showCommandsInContextMenu.description%"
                 }
             }
         },
