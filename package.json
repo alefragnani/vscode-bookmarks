@@ -161,17 +161,17 @@
                 {
                     "command": "bookmarks.toggle",
                     "group": "bookmarks",
-                    "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.toggle"
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 },
                 {
                     "command": "bookmarks.jumpToNext",
                     "group": "bookmarks@1",
-                    "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.jumpToNext"
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 },
                 {
                     "command": "bookmarks.jumpToPrevious",
                     "group": "bookmarks@1",
-                    "when": "editorTextFocus && config.bookmarks.commandsOnContextMenu.jumpToPrevious"
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 }
             ],
             "editor/title": [
@@ -249,26 +249,10 @@
                     "default": true,
                     "description": "%bookmarks.configuration.treeview.visible.description%"
                 },
-                "bookmarks.commandsOnContextMenu": {
-                    "type": "object",
-                    "description": "Specifies which Bookmarks commands are displayed on the context menu",
-                    "properties": {
-                        "toggle": {
-                            "type": "boolean"
-                        },
-                        "jumpToNext": {
-                            "type": "boolean"
-                        },
-                        "jumpToPrevious": {
-                            "type": "boolean"
-                        }
-                    },
-                    "default": {
-                        "toggle": true,
-                        "jumpToNext": true,
-                        "jumpToPrevious": true
-                    },
-                    "additionalProperties": false
+                "bookmarks.showCommandsInContextMenu": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specifies whether Bookmarks commands are displayed on the context menu"
                 }
             }
         },
