@@ -3,8 +3,13 @@ typings/**
 issues/**
 **/*.ts
 **/*.map
+out/**
+node_modules/**
 .gitignore
 tsconfig.json
 vsc-extension-quickstart.md
 debug.log
 npm-debug.log
+package-lock.json
+webpack.config.js
+tslint.json
