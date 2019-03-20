@@ -160,15 +160,18 @@
             "editor/context": [
                 {
                     "command": "bookmarks.toggle",
-                    "group": "bookmarks"
+                    "group": "bookmarks",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 },
                 {
                     "command": "bookmarks.jumpToNext",
-                    "group": "bookmarks@1"
+                    "group": "bookmarks@1",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 },
                 {
                     "command": "bookmarks.jumpToPrevious",
-                    "group": "bookmarks@1"
+                    "group": "bookmarks@1",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 }
             ],
             "editor/title": [
@@ -245,6 +248,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "%bookmarks.configuration.treeview.visible.description%"
+                },
+                "bookmarks.showCommandsInContextMenu": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%bookmarks.configuration.showCommandsInContextMenu.description%"
                 }
             }
         },
