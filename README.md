@@ -14,7 +14,7 @@
 
 ## Support
 
-**Bookmarks** is an open source extension created for **Visual Studio Code**. While being free and open source, if you find it useful, please consider [supporting it](#support-bookmarks).
+**Bookmarks** is an extension created for **Visual Studio Code**. If you find it useful, please consider supporting it.
 
 <table align="center" width="60%" border="0">
   <tr>
