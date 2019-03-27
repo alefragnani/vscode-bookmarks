@@ -22,6 +22,10 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds an all-new Bookmarks <b>Side Bar</b>"});
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> and <b>Label</b> support"});
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Edit Label</b> command in the <b>Side Bar</b>"});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds Setting to hide context menu commands (Thanks to 
+            @bfranklyn - <a title=\"Open PR #189\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/189\">
+            PR #189</a>)`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>zh-cn</b> (Thanks to 
             @axetroy - <a title=\"Open PR #181\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/181\">
@@ -30,14 +34,6 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             @Inter-Net-Pro - <a title=\"Open PR #151\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/151\">
             PR #151</a>)`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Wrong bookmark position on comment lines (<a title=\"Open Issue #108\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/108\">
-            Issue #108</a> - Thanks to @edgardmessias - <a title=\"Open PR #136\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/136\">
-            PR #136</a>)`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Workaround for formatters, using a new setting (<a title=\"Open Issue #118\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/118\">
-            Issue #118</a>)</b>`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Setting to choose <b>background color</b> of 
             bookmarked files (Thanks to @edgardmessias - <a title=\"Open PR #133\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/133\">
@@ -50,6 +46,17 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             @miqh - <a title=\"Open PR #154\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/154\">
             PR #154</a>)</b>`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Selection issue when using Move Line Up command (<a title=\"Open Issue #186\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/186\">
+            Issue #186</a>)</b>`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Wrong bookmark position on comment lines (<a title=\"Open Issue #108\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/108\">
+            Issue #108</a> - Thanks to @edgardmessias - <a title=\"Open PR #136\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/136\">
+            PR #136</a>)`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Workaround for formatters, using a new setting (<a title=\"Open Issue #118\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/118\">
+            Issue #118</a>)</b>`});
         return changeLog;
     }
 

@@ -1,3 +1,10 @@
+## [10.4.0] - 2019-03-26
+### Added
+- New Setting to hide Context Menu commands (Thanks to @bfranklyn [PR #189](https://github.com/alefragnani/vscode-bookmarks/pull/189))
+
+### Fixed
+- Selection issue when using `Move Line Up` command (issue [#186](https://github.com/alefragnani/vscode-bookmarks/issues/186))
+
 ## [10.3.0] - 2019-03-14
 ### Added
 - Localization support - zh-cn (Thanks to @axetroy [PR #181](https://github.com/alefragnani/vscode-bookmarks/pull/181))
