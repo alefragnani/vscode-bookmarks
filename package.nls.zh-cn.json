@@ -26,5 +26,4 @@
     "bookmarks.configuration.navigateThroughAllFiles.description": "允许导航查找项目中所有文件中的书签，而不仅仅是当前的书签",
     "bookmarks.configuration.wrapNavigation.description": "允许导航环绕范围中的第一个和最后一个书签（当前文件或所有文件）",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "启用对于使用像 Prettier 这样的格式化工具的一个解决方案，格式化会使得扩展不会收到文件变更通知并且会扰乱书签的定位",
-    "bookmarks.configuration.treeview.visible.description": "是否显示侧边栏树列表?"
 }

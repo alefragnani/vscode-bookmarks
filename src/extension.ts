@@ -66,13 +66,9 @@ export function activate(context: vscode.ExtensionContext) {
     // tree-view
     const bookmarkProvider = new BookmarkProvider(bookmarks, context);
     vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
-    bookmarkProvider.showTreeView();
+    // bookmarkProvider.showTreeView();
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
-        if (cfg.affectsConfiguration("bookmarks.treeview.visible")) {
-            refreshTreeViewOnChangeConfiguration();
-        }
-
         // Allow change the gutterIcon or backgroundLineColor without reload
         if (cfg.affectsConfiguration("bookmarks.gutterIconPath") || cfg.affectsConfiguration("bookmarks.backgroundLineColor")) {
             if (bookmarkDecorationType) {
@@ -85,10 +81,6 @@ export function activate(context: vscode.ExtensionContext) {
             updateDecorations();
         }
     }));
-
-    function refreshTreeViewOnChangeConfiguration() {
-        bookmarkProvider.showTreeView();
-    }
 
     let bookmarkDecorationType = createTextEditorDecoration(context);
     context.subscriptions.push(bookmarkDecorationType);

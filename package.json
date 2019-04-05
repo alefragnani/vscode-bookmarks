@@ -244,11 +244,6 @@
                     "default": false,
                     "description": "%bookmarks.configuration.useWorkaroundForFormatters.description%"
                 },
-                "bookmarks.treeview.visible": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "%bookmarks.configuration.treeview.visible.description%"
-                },
                 "bookmarks.showCommandsInContextMenu": {
                     "type": "boolean",
                     "default": true,

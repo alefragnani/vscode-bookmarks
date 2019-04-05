@@ -26,6 +26,5 @@
     "bookmarks.configuration.navigateThroughAllFiles.description": "Allow navigation look for bookmarks in all files in the project, instead of only the current",
     "bookmarks.configuration.wrapNavigation.description": "Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Use a workaround for formatters like Prettier, which does not notify on document changes and messes Bookmark's Sticky behavior",
-    "bookmarks.configuration.treeview.visible.description": "Should display the Treeview?",
     "bookmarks.configuration.showCommandsInContextMenu.description": "Specifies whether Bookmarks commands are displayed on the context menu"
 }
