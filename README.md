@@ -51,7 +51,7 @@ Here are some of the features that **Bookmarks** provides:
 * Icons in **gutter** and **overview ruler**
 * See a list of all Bookmarks in one **file**
 * See a list of all Bookmarks in your **project**
-* A dedicated **Activity Bar**
+* A dedicated **Side Bar**
 * **Select lines** with bookmarks
 * **Select regions** between bookmarks
 
@@ -158,15 +158,17 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```
 > This workaround should be temporary, until a proper research and suggested APIs are available  
 
-## Activity Bar
+## Side Bar
 
-The **Bookmarks** are now presented in its own Activity Bar, giving you more free space in your Explorer bar. You will have a few extra commands available:
+The **Bookmarks** are now presented in its own **Side Bar**, giving you more free space in your Explorer view. You will have a few extra commands available:
 
 * Jump to a bookmark, simply clicking in the bookmark item
 * Remove a bookmark, right clicking in the bookmark item
 * Clear the bookmark's file, right-clickin in the file item
 
 ![Treeview](images/bookmarks-activity-bar.gif)
+
+> The `bookmarks.treeview.visible` setting was deprecated. If you don't want to see the **Bookmarks** icon in the Activity Bar, right-click and uncheck it from the context menu. 
 
 ## Project and Session Based
 

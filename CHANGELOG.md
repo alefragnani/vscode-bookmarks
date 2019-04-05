@@ -1,3 +1,7 @@
+## [10.4.1] - 2019-04-05
+### Fixed
+- Deprecate `bookmarks.treeview.visible` setting. (issue [#201](https://github.com/alefragnani/vscode-bookmarks/issues/201))
+
 ## [10.4.0] - 2019-03-26
 ### Added
 - New Setting to hide Context Menu commands (Thanks to @bfranklyn [PR #189](https://github.com/alefragnani/vscode-bookmarks/pull/189))
