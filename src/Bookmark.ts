@@ -2,6 +2,8 @@
 
 import * as vscode from "vscode";
 import fs = require("fs");
+import { Uri } from "vscode";
+import { BookmarksController } from "./Bookmarks";
 
 export const NO_BOOKMARKS = -1;
 export const NO_MORE_BOOKMARKS = -2;
@@ -26,7 +28,11 @@ export interface Bookmark {
  */
 export interface File {
     path: string;
+    scheme?: string;
+    vsuri: string;
+    authority?: string;
     bookmarks: Bookmark[];
+    uri:Uri;
 
     nextBookmark(currentPosition: vscode.Position, direction: JUMP_DIRECTION): Promise<number | vscode.Position>;
     listBookmarks();
@@ -55,9 +61,20 @@ export class BookmarkItem implements Bookmark {
 export class BookmarkedFile implements File {
     public path: string;
     public bookmarks: Bookmark[];
+    public scheme?: string;
+    public authority?: string;
+    public vsuri: string;
 
-    constructor(fsPath: string) {
-        this.path = fsPath;
+    public get uri(){
+        if(!this.scheme) return Uri.file(this.path)
+        return Uri.parse(this.vsuri)
+    }
+
+    constructor(uri: Uri) {
+        this.scheme = uri.scheme;
+        this.authority = uri.authority;
+        this.vsuri = uri.toString()
+        this.path = BookmarksController.normalize(uri.fsPath);
         this.bookmarks = [];
     }
 
@@ -148,13 +165,14 @@ export class BookmarkedFile implements File {
             }
 
             // file does not exist, returns empty
-            if (!fs.existsSync(this.path)) {
+            // only check for local files
+            if ( (this.scheme === "file" || !this.scheme) && !fs.existsSync(this.path)) {
                 resolve(undefined);
                 return;
             }
 
-            let uriDocBookmark: vscode.Uri = vscode.Uri.file(this.path);
-            vscode.workspace.openTextDocument(uriDocBookmark).then(doc => {
+
+            vscode.workspace.openTextDocument(this.uri).then(doc => {
 
                 let items = [];
                 let invalids = [];
@@ -173,13 +191,15 @@ export class BookmarkedFile implements File {
                             items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
                                 bookmarkColumn.toString() + ")", 
                                 label: lineText,
-                                detail: normalizedPath });
+                                detail: normalizedPath,
+                                fileUri:doc.uri });
                         } else {
                             items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
                                 bookmarkColumn.toString() + ")", 
                                 // label: lineText,
                                 label: "$(tag) " + this.bookmarks[index].label,
-                                detail: normalizedPath });
+                                detail: normalizedPath,
+                                fileUri:doc.uri });
                         }
                     } else {
                         invalids.push(bookmarkLine);

@@ -2,6 +2,7 @@ import fs = require("fs");
 import path = require("path");
 
 import { Bookmark, File, FileList, BookmarkedFile, BookmarkItem } from "./Bookmark";
+import { Uri } from "vscode";
 
 export namespace Storage {
 
@@ -26,8 +27,8 @@ export namespace Storage {
          *
          * @return `void`
          */
-        public pushFile(filePath: string): void {
-            this.fileList.push(new BookmarkedFile(filePath));
+        public pushFile(fileUri: Uri): void {
+            this.fileList.push(new BookmarkedFile(fileUri));
         }
 
         /**
@@ -45,7 +46,8 @@ export namespace Storage {
                         if (relativePath) {
                             file.fsPath = file.fsPath.replace(WORKSPACE_ROOTPATH, folder);
                         }
-                        const fi: BookmarkedFile = new BookmarkedFile(file.fsPath);
+                        const uri = file.vsuri?Uri.parse(file.vsuri):Uri.file(file.path)
+                        const fi: BookmarkedFile = new BookmarkedFile(uri);
                         for (const bkm of file.bookmarks) {
                             fi.bookmarks.push(new BookmarkItem(bkm));
                         }
@@ -57,7 +59,8 @@ export namespace Storage {
                         if (relativePath) {
                             file.path = file.path.replace(WORKSPACE_ROOTPATH, folder);
                         }
-                        const fi: BookmarkedFile = new BookmarkedFile(file.path);
+                        const uri = file.vsuri?Uri.parse(file.vsuri):Uri.file(file.path)
+                        const fi: BookmarkedFile = new BookmarkedFile(uri);
                         for (const bkm of file.bookmarks) {
                             fi.bookmarks.push(new BookmarkItem(bkm.line, bkm.column, bkm.label));
                         }

@@ -3,11 +3,13 @@
 		"tslint:recommended"
 	],
 	"rules": {
+		"no-namespace":false,
 		"no-unused-expression": true,
 		"no-duplicate-variable": true,
 		"no-duplicate-key": true,
 		"no-unused-variable": true,
 		"no-trailing-whitespace": false,
+		"no-angle-bracket-type-assertion":false,
 		"interface-name": [
 			false
 		],

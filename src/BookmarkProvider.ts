@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import path = require("path");
-import { BookmarkedFile } from "./Bookmark";
+import { BookmarkedFile, File } from "./Bookmark";
 import { BookmarksController } from "./Bookmarks";
 import { Parser, Point } from "./Parser";
 
@@ -9,6 +9,7 @@ export const NODE_BOOKMARK = 1;
 export enum BookmarkNodeKind { NODE_FILE, NODE_BOOKMARK };
 
 export interface BookmarkPreview {
+  bookmark:File,
   file: string;
   line: number;    
   column: number;
@@ -52,6 +53,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
         
           if (!bkm.label) {
             bn.books.push({
+              bookmark:bn.bookmark,
               file: bn.books[0].file,
               line: bkm.line,
               column: bkm.column,
@@ -59,6 +61,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             })
           } else {
             bn.books.push({
+              bookmark:bn.bookmark,
               file: bn.books[0].file,
               line: bkm.line,
               column: bkm.column,
@@ -182,7 +185,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
             ll.push(new BookmarkNode(bbb.preview, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, null, [], {
               command: "bookmarks.jumpTo",
               title: "",
-              arguments: [bbb.file, bbb.line, bbb.column],
+              arguments: [bbb.bookmark, bbb.line, bbb.column],
             }));
           }
 
@@ -222,6 +225,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode> {
                         const point: Point = Parser.parsePosition(elementInside.description);
                         books.push(
                           {
+                            bookmark:bb,
                             file: elementInside.detail,
                             line: point.line,
                             column: point.column,
@@ -292,7 +296,7 @@ class BookmarkNode extends vscode.TreeItem {
     super(label, collapsibleState);
 
     if (kind === BookmarkNodeKind.NODE_FILE) {
-      this.resourceUri = vscode.Uri.file(bookmark.path);
+      this.resourceUri = bookmark.uri;
       this.iconPath = vscode.ThemeIcon.File;
       this.id = bookmark.path;
       this.contextValue = "BookmarkNodeFile";

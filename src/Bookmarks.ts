@@ -4,6 +4,7 @@ import * as vscode from "vscode";
 import fs = require("fs");
 import { BookmarkedFile, JUMP_DIRECTION, JUMP_FORWARD, NO_MORE_BOOKMARKS, NO_BOOKMARKS_BEFORE, NO_BOOKMARKS_AFTER, BookmarkItem } from "./Bookmark";
 import { Storage } from "./Storage";
+import { Uri } from "vscode";
 
 interface BookmarkAdded {
     bookmarkedFile: BookmarkedFile;
@@ -62,17 +63,19 @@ export class BookmarksController {
             this.zip();
         }
         
-        public fromUri(uri: string) {
-            uri = BookmarksController.normalize(uri);
+        public fromUri(uri: Uri) {
+            const path = BookmarksController.normalize(uri.fsPath);
             for (let element of this.storage.fileList) {
-                if (element.path === uri) {
+                if (element.path === path && 
+                    (( element.scheme === uri.scheme && element.authority === uri.authority)
+                    ||(!element.scheme && ! element.authority ))) {
                     return element;
                 }
             }
         }
 
-        public add(uri: string) {
-            uri = BookmarksController.normalize(uri);
+        public add(uri: vscode.Uri) {
+            
             
             let existing: BookmarkedFile = this.fromUri(uri);
             if (typeof existing === "undefined") {
@@ -135,8 +138,8 @@ export class BookmarksController {
                             });
                     }                   
                 } else {
-                    if (fs.existsSync(currentBookmark.path)) {
-                        resolve(currentBookmark.path);
+                    if (currentBookmark.scheme !== "file" || fs.existsSync(currentBookmark.path)) {
+                        resolve(currentBookmark);
                         return;
                     } else {
                         this.nextDocumentWithBookmarks(currentBookmark, direction)
