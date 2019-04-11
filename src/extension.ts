@@ -114,7 +114,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.workspace.onDidChangeTextDocument(event => {
         if (activeEditor && event.document === activeEditor.document) {
 //            triggerUpdateDecorations();
-            let updatedBookmark: boolean = true;
+            let updatedBookmark: boolean = false;
 
             // workaround for formatters like Prettier (#118)
             if (vscode.workspace.getConfiguration("bookmarks").get("useWorkaroundForFormatters", false)) {
