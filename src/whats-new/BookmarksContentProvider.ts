@@ -46,6 +46,9 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             @miqh - <a title=\"Open PR #154\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/154\">
             PR #154</a>)</b>`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Typing delay when SaveBookmarksInProject is enabled (<a title=\"Open Issue #202\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/202\">
+            Issue #202</a>)`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Selection issue when using Move Line Up command (<a title=\"Open Issue #186\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/186\">
             Issue #186</a>)</b>`});
