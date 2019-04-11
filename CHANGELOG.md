@@ -1,3 +1,7 @@
+## [10.4.3] - 2019-04-10
+### Fixed
+- Typing delay when `SaveBookmarksInProject` is enabled (issue [#202](https://github.com/alefragnani/vscode-bookmarks/issues/202))
+
 ## [10.4.2] - 2019-04-05
 ### Fixed
 - Deprecate `bookmarks.treeview.visible` setting. (issue [#201](https://github.com/alefragnani/vscode-bookmarks/issues/201))
