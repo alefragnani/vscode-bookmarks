@@ -1,3 +1,7 @@
+## [10.4.4] - 2019-05-29
+### Fixed
+- Security Alert: tar
+
 ## [10.4.3] - 2019-04-10
 ### Fixed
 - Typing delay when `SaveBookmarksInProject` is enabled (issue [#202](https://github.com/alefragnani/vscode-bookmarks/issues/202))
