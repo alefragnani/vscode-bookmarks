@@ -1,3 +1,7 @@
+## [10.5.0] - 2019-??-??
+### Added
+- Localization support - Portuguese (Brazil)
+
 ## [10.4.4] - 2019-05-29
 ### Fixed
 - Security Alert: tar
