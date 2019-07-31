@@ -1,6 +1,7 @@
 ## [10.5.0] - 2019-??-??
 ### Added
 - Localization support - Portuguese (Brazil)
+- Remote Development support for configurations - (issue [#219](https://github.com/alefragnani/vscode-bookmarks/issues/219))
 
 ### Fixed
 - Activation error for "No-Folders Workspace" scenario (issue [#212](https://github.com/alefragnani/vscode-bookmarks/issues/212))
