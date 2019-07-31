@@ -222,7 +222,8 @@
                 "bookmarks.gutterIconPath": {
                     "type": "string",
                     "default": "",
-                    "description": "%bookmarks.configuration.gutterIconPath.description%"
+                    "description": "%bookmarks.configuration.gutterIconPath.description%",
+                    "scope": "machine"
                 },
                 "bookmarks.backgroundLineColor": {
                     "type": "string",
