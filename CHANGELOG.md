@@ -2,6 +2,9 @@
 ### Added
 - Localization support - Portuguese (Brazil)
 
+### Fixed
+- Activation error for "No-Folders Workspace" scenario (issue [#212](https://github.com/alefragnani/vscode-bookmarks/issues/212))
+
 ## [10.4.4] - 2019-05-29
 ### Fixed
 - Security Alert: tar
