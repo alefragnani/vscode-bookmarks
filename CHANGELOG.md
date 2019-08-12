@@ -1,7 +1,9 @@
-## [10.5.0] - 2019-??-??
+## [10.5.0] - 2019-08-12
 ### Added
 - Localization support - Portuguese (Brazil)
 - Remote Development support for configurations - (issue [#219](https://github.com/alefragnani/vscode-bookmarks/issues/219))
+- New Side Bar icon matching new VS Code icon style (Thanks to @snnsnn [PR #227](https://github.com/alefragnani/vscode-bookmarks/pull/227))
+- Show only filename in Side Bar (issue [#149](https://github.com/alefragnani/vscode-bookmarks/issues/149))
 
 ### Fixed
 - Activation error for "No-Folders Workspace" scenario (issue [#212](https://github.com/alefragnani/vscode-bookmarks/issues/212))

@@ -26,14 +26,8 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             @bfranklyn - <a title=\"Open PR #189\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/189\">
             PR #189</a>)`});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>zh-cn</b> (Thanks to 
-            @axetroy - <a title=\"Open PR #181\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/181\">
-            PR #181</a>)`});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b> (Thanks to 
-            @Inter-Net-Pro - <a title=\"Open PR #151\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/151\">
-            PR #151</a>)`});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b>, 
+            <b>Chinese (Simplified)</b> and <b>Portuguese (Brazil)</b>`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Setting to choose <b>background color</b> of 
             bookmarked files (Thanks to @edgardmessias - <a title=\"Open PR #133\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/133\">
@@ -46,6 +40,12 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             @miqh - <a title=\"Open PR #154\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/pull/154\">
             PR #154</a>)</b>`});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Show only filename in Side Bar - (<a title=\"Open Issue #149\" 
+        href=\"https://github.com/alefragnani/vscode-bookmarks/issues/149\">
+            Issue #154</a>)</b>`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Activation error for "No-Folders Workspace" scenario (<a title=\"Open Issue #212\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/212\">
+            Issue #212</a>)`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Typing delay when SaveBookmarksInProject is enabled (<a title=\"Open Issue #202\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/202\">
             Issue #202</a>)`});
