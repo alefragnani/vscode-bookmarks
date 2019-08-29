@@ -106,6 +106,14 @@
                 }
             },
             {
+                "command": "bookmarks.expandAll",
+                "title": "%bookmarks.commands.expandAll.title%",
+                "icon": {
+                    "light": "images/expand-all-light.svg",
+                    "dark": "images/expand-all-dark.svg"
+                }
+            },
+            {
                 "command": "bookmarks.clear",
                 "title": "%bookmarks.commands.clear.title%"
             },
@@ -192,7 +200,12 @@
                 {
                     "command": "bookmarks.refresh",
                     "when": "view == bookmarksExplorer",
-                    "group": "navigation"
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "bookmarks.expandAll",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@11"
                 }
             ],
             "view/item/context": [

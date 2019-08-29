@@ -210,6 +210,10 @@ export function activate(context: vscode.ExtensionContext) {
         bookmarkProvider.refresh();
     });
 
+    vscode.commands.registerCommand("bookmarks.expandAll", node => {
+        bookmarkExplorer.expandAll();
+    });
+
     vscode.commands.registerCommand("bookmarks.clearFromFile", node => {
         bookmarks.clear(node.bookmark);
         saveWorkspaceState();
