@@ -192,7 +192,7 @@
                 {
                     "command": "bookmarks.refresh",
                     "when": "view == bookmarksExplorer",
-                    "group": "navigation"
+                    "group": "navigation@10"
                 }
             ],
             "view/item/context": [

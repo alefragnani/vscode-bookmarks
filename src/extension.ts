@@ -11,7 +11,7 @@ import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMA
 import { Directions } from "../vscode-bookmarks-core/src/api/constants";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
 import { Selection } from "../vscode-bookmarks-core/src/selection/selection";
-import { BookmarkProvider } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
+import { BookmarkProvider, BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
@@ -64,8 +64,12 @@ export function activate(context: vscode.ExtensionContext) {
     const didLoadBookmarks: boolean = loadWorkspaceState();
 
     // tree-view
-    const bookmarkProvider = new BookmarkProvider(bookmarks, context);
-    vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
+    // const bookmarkProvider = new BookmarkProvider(bookmarks, context);
+    // vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
+    
+    const bookmarkExplorer = new BookmarksExplorer(bookmarks, context);
+    const bookmarkProvider = bookmarkExplorer.getProvider();
+    
     // bookmarkProvider.showTreeView();
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
@@ -204,6 +208,10 @@ export function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("bookmarks.refresh", node => {
         bookmarkProvider.refresh();
+    });
+
+    vscode.commands.registerCommand("bookmarks.expandAll", node => {
+        bookmarkExplorer.expandAll();
     });
 
     vscode.commands.registerCommand("bookmarks.clearFromFile", node => {
