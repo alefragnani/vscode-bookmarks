@@ -542,11 +542,6 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        if (bookmarks.activeBookmark.bookmarks.length === 1) {
-            vscode.window.showInformationMessage("There is only one bookmark in this file");
-            return;
-        }
-
         let currPosition: vscode.Position;
         if (vscode.window.activeTextEditor.selection.isEmpty) {
             currPosition = vscode.window.activeTextEditor.selection.active;
