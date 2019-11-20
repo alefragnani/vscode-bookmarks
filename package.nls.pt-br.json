@@ -26,5 +26,6 @@
     "bookmarks.configuration.navigateThroughAllFiles.description": "Permite que a navegação apresente Bookmarks em todos os arquivos do projeto, ao invés de apenas no arquivo corrente",
     "bookmarks.configuration.wrapNavigation.description": "Permite que a navegação fique em círculos ente o primeiro e último Bookmark no escopo (arquivo corrente ou todos os arquivos)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Use a solução alternativa para formatadores como Prettier, os quais não notificam de mudanças no documento e acabam bagunçando o comportamento Sticky (atrelado a linha de código) do Bookmark",
-    "bookmarks.configuration.showCommandsInContextMenu.description": "Define se os comandos Bookmarks são apresentados no menu de contexto"
+    "bookmarks.configuration.showCommandsInContextMenu.description": "Define se os comandos Bookmarks são apresentados no menu de contexto",
+    "bookmarks.configuration.sideBar.expanded.description": "Define se a Side Bar deve ser exibida expandida"
 }
