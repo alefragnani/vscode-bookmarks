@@ -158,6 +158,11 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```
 > This workaround should be temporary, until a proper research and suggested APIs are available  
 
+* Choose if the Side Bar should start expanded (`false` by default)
+```json
+    "bookmarks.sideBar.expanded": true
+```
+
 ## Side Bar
 
 The **Bookmarks** are now presented in its own **Side Bar**, giving you more free space in your Explorer view. You will have a few extra commands available:
