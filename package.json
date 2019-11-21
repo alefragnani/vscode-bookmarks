@@ -249,6 +249,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "%bookmarks.configuration.showCommandsInContextMenu.description%"
+                },
+                "bookmarks.sideBar.expanded": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.sidebar.expanded.description%"
                 }
             }
         },
