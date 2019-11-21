@@ -19,44 +19,28 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
 
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
-        changeLog.push({kind: ChangeLogKind.NEW, message: "Adds an all-new Bookmarks <b>Side Bar</b>"});
+        changeLog.push({kind: ChangeLogKind.NEW, message: "Adds an all-new <b>Side Bar</b>"});
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> and <b>Label</b> support"});
-        changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Edit Label</b> command in the <b>Side Bar</b>"});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds Setting to hide context menu commands (Thanks to 
-            @bfranklyn - <a title=\"Open PR #189\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/189\">
-            PR #189</a>)`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b>, 
             <b>Chinese (Simplified)</b> and <b>Portuguese (Brazil)</b>`});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Setting to choose <b>background color</b> of 
-            bookmarked files (Thanks to @edgardmessias - <a title=\"Open PR #133\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/133\">
-            PR #1334</a>)</b>`});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Setting to choose to <b>wrap navigation 
-            around</b> at the first and last bookmarks (Thanks to @miqh - <a title=\"Open PR #155\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/155\">
-            PR #155</a>)</b>`});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Commands added to Context Menu (Thanks to 
-            @miqh - <a title=\"Open PR #154\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/154\">
-            PR #154</a>)</b>`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Show only filename in Side Bar - (<a title=\"Open Issue #149\" 
-        href=\"https://github.com/alefragnani/vscode-bookmarks/issues/149\">
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/149\">
             Issue #154</a>)</b>`});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Collapse All</b> command in the Side Bar (<a title=\"Open Issue #92\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/92\">
+            PR #92</a>)`});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds Setting to start Side Bar expanded (<a title=\"Open Issue #176\" 
+                href=\"https://github.com/alefragnani/vscode-bookmarks/issues/176\">
+                PR #176</a>)`});
+        changeLog.push({kind: ChangeLogKind.CHANGED, message: `The <b>Expand Selection...</b> commands now works even if the file has only one Bookmark (<a title=\"Open Issue #120\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/120\">
+            PR #120</a>)`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Activation error for "No-Folders Workspace" scenario (<a title=\"Open Issue #212\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/212\">
             Issue #212</a>)`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Typing delay when SaveBookmarksInProject is enabled (<a title=\"Open Issue #202\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/202\">
             Issue #202</a>)`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Selection issue when using Move Line Up command (<a title=\"Open Issue #186\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/186\">
-            Issue #186</a>)</b>`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Wrong bookmark position on comment lines (<a title=\"Open Issue #108\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/108\">
-            Issue #108</a> - Thanks to @edgardmessias - <a title=\"Open PR #136\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/pull/136\">
-            PR #136</a>)`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Workaround for formatters, using a new setting (<a title=\"Open Issue #118\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/118\">
             Issue #118</a>)</b>`});

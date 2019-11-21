@@ -1,3 +1,11 @@
+## [10.6.0] - 2019-11-
+### Added
+- `Collapse All` command in the Side Bar (issue [#92](https://github.com/alefragnani/vscode-bookmarks/issues/92))
+- New Setting to start Side Bar expanded (issue [#176](https://github.com/alefragnani/vscode-bookmarks/issues/176))
+
+### Changed
+- The `Expand Selection ...` commands now works even if the file has only one Bookmark (issue [#120](https://github.com/alefragnani/vscode-bookmarks/issues/120))
+
 ## [10.5.0] - 2019-08-12
 ### Added
 - Localization support - Portuguese (Brazil)
