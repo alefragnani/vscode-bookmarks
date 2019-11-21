@@ -1,4 +1,4 @@
-## [10.6.0] - 2019-11-
+## [10.6.0] - 2019-11-21
 ### Added
 - `Collapse All` command in the Side Bar (issue [#92](https://github.com/alefragnani/vscode-bookmarks/issues/92))
 - New Setting to start Side Bar expanded (issue [#176](https://github.com/alefragnani/vscode-bookmarks/issues/176))
