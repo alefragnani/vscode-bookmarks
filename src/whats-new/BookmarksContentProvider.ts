@@ -51,13 +51,13 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         const sponsors: Sponsor[] = [];
         const sponsorCodeStream: Sponsor = <Sponsor> {
             title: "Try Codestream",
-            link: "https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks",
+            link: "https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner",
             image: "https://alt-images.codestream.com/codestream_logo_bookmarks.png",
             width: 35,
-            message: `<p>Discuss, review, and share code with your team in VS Code. Links discussions about 
-                code to your code. Integrates w/ Slack, Jira, Trello, and Live Share.</p>`,
+            message: `<p>Discussing code is now as easy as highlighting a block and typing a comment right 
+                      from your IDE. Take the pain out of code reviews and improve code quality.</p>`,
             extra: 
-                `<a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks">
+                `<a title="Try CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner">
                  Try it free</a>` 
         };
         sponsors.push(sponsorCodeStream);

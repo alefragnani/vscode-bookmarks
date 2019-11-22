@@ -5,6 +5,7 @@
 
 ### Changed
 - The `Expand Selection ...` commands now works even if the file has only one Bookmark (issue [#120](https://github.com/alefragnani/vscode-bookmarks/issues/120))
+- Update CodeStream Ad and URL
 
 ## [10.5.0] - 2019-08-12
 ### Added
