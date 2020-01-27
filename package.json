@@ -228,7 +228,8 @@
                 "bookmarks.backgroundLineColor": {
                     "type": "string",
                     "default": "",
-                    "description": "%bookmarks.configuration.backgroundLineColor.description%"
+                    "description": "%bookmarks.configuration.backgroundLineColor.description%",
+                    "deprecationMessage": "%bookmarks.configuration.backgroundLineColor.deprecation%"
                 },
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
