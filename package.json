@@ -111,15 +111,27 @@
             },
             {
                 "command": "bookmarks.clearFromFile",
-                "title": "%bookmarks.commands.clearFromFile.title%"
+                "title": "%bookmarks.commands.clearFromFile.title%",
+                "icon": {
+                    "light": "images/ico-clear-all-light.svg",
+                    "dark": "images/ico-clear-all-dark.svg"
+                }
             },
             {
                 "command": "bookmarks.deleteBookmark",
-                "title": "%bookmarks.commands.deleteBookmark.title%"
+                "title": "%bookmarks.commands.deleteBookmark.title%",
+                "icon": {
+                    "light": "images/ico-delete-light.svg",
+                    "dark": "images/ico-delete-dark.svg"
+                }
             },
             {
                 "command": "bookmarks.editLabel",
-                "title": "%bookmarks.commands.editLabel.title%"
+                "title": "%bookmarks.commands.editLabel.title%",
+                "icon": {
+                    "light": "images/ico-edit-label-light.svg",
+                    "dark": "images/ico-edit-label-dark.svg"
+                }
             },
             {
                 "command": "bookmarks.listFromAllFiles",
@@ -201,12 +213,29 @@
                     "when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile"
                 },
                 {
+                    "command": "bookmarks.clearFromFile",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile",
+                    "group": "inline"
+                },
+                {
                     "command": "bookmarks.deleteBookmark",
-                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "bookmark@2"
+                },
+                {
+                    "command": "bookmarks.deleteBookmark",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "inline@2"
                 },
                 {
                     "command": "bookmarks.editLabel",
-                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "bookmark@1"
+                },
+                {
+                    "command": "bookmarks.editLabel",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "inline@1"
                 }
             ]
         },
