@@ -143,6 +143,7 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```json
     "bookmarks.backgroundLineColor"
 ```
+> Deprecated in 10.7: Use `workbench.colorCustomizations` instead. More info in [Available Colors](#available-colors)
 
 * Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu (`true` by default)
 ```json
@@ -159,6 +160,29 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 * Choose if the Side Bar should start expanded (`false` by default)
 ```json
     "bookmarks.sideBar.expanded": true
+```
+
+## Available Colors
+
+* Choose the background color to use on a bookmarked line
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.lineBackground": "#157EFB22"  
+    }
+```
+
+* Choose the border color to use on a bookmarked line
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.lineBorder": "#FF0000"  
+    }
+```
+
+* Choose marker color to use in the overview ruler
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.overviewRuler": "#157EFB88"  
+    }
 ```
 
 ## Side Bar
