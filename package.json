@@ -299,7 +299,7 @@
         "colors": [
             {
               "id": "bookmarks.lineBackground",
-              "description": "Background color for the bookmarked line",
+              "description": "%bookmarks.colors.lineBackground.description%",
               "defaults": {
                 "dark": "#00000000",
                 "light": "#00000000",
@@ -308,7 +308,7 @@
             },
             {
               "id": "bookmarks.lineBorder",
-              "description": "Background color for the border around the bookmarked line",
+              "description": "%bookmarks.colors.lineBorder.description%",
               "defaults": {
                 "dark": "#00000000",
                 "light": "#00000000",
@@ -317,7 +317,7 @@
             },
             {
               "id": "bookmarks.overviewRuler",
-              "description": "Overview ruler marker color for bookmarks",
+              "description": "%bookmarks.colors.overviewRuler.description%",
               "defaults": {
                 "dark": "#157EFB88",
                 "light": "#157EFB88",

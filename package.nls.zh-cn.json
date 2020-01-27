@@ -23,7 +23,11 @@
     "bookmarks.configuration.saveBookmarksInProject.description": "允许书签保存(恢复)在本地",
     "bookmarks.configuration.gutterIconPath.description": "自定义书签图标的图片路径",
     "bookmarks.configuration.backgroundLineColor.description": "装饰器的背景色. 使用 rgba() 并定义透明背景颜色以与其他装饰一起使用. 例如: rgba(21, 126, 251, 0.1)",
+    "bookmarks.configuration.backgroundLineColor.deprecation": "在`workbench.colorCustomizations`中使用`bookmarks.lineBackground`代替",
     "bookmarks.configuration.navigateThroughAllFiles.description": "允许导航查找项目中所有文件中的书签，而不仅仅是当前的书签",
     "bookmarks.configuration.wrapNavigation.description": "允许导航环绕范围中的第一个和最后一个书签（当前文件或所有文件）",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "启用对于使用像 Prettier 这样的格式化工具的一个解决方案，格式化会使得扩展不会收到文件变更通知并且会扰乱书签的定位",
+    "bookmarks.colors.lineBackground.description": "书签线的背景色",
+    "bookmarks.colors.lineBorder.description": "书签线周围边框的背景色",
+    "bookmarks.colors.overviewRuler.description": "书签的概述标尺标记颜色"
 }
