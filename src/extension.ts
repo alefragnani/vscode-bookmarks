@@ -32,18 +32,21 @@ function createTextEditorDecoration(context: vscode.ExtensionContext) {
         pathIcon = context.asAbsolutePath("images/bookmark.svg");
     }
     
-    const backgroundColor: string = vscode.workspace.getConfiguration("bookmarks").get("backgroundLineColor", "");
+    const overviewRulerColor = new vscode.ThemeColor('bookmarks.overviewRuler');
+    const lineBackground = new vscode.ThemeColor('bookmarks.lineBackground');
+    const lineBorder = new vscode.ThemeColor('bookmarks.lineBorder');
 
     const decorationOptions: vscode.DecorationRenderOptions = {
         gutterIconPath: pathIcon,
         overviewRulerLane: vscode.OverviewRulerLane.Full,
-        overviewRulerColor: "rgba(21, 126, 251, 0.7)"
+        overviewRulerColor: overviewRulerColor
     }
 
-    if (backgroundColor) {
-        decorationOptions.backgroundColor = backgroundColor;
-        decorationOptions.isWholeLine = true;
-    }
+    decorationOptions.backgroundColor = lineBackground;
+    decorationOptions.borderWidth = '1px',
+    decorationOptions.borderStyle = 'solid',
+    decorationOptions.borderColor = lineBorder;
+    decorationOptions.isWholeLine = true;
 
     return vscode.window.createTextEditorDecorationType(decorationOptions);
 }
