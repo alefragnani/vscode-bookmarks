@@ -23,7 +23,11 @@
     "bookmarks.configuration.saveBookmarksInProject.description": "Разрешить локальное сохранение (и восстановление) закладок в открытом Проекте/Папке вместо VSCoda",
     "bookmarks.configuration.gutterIconPath.description": "Путь к другому изображению, которое будет представлено в виде маркера закладки",
     "bookmarks.configuration.backgroundLineColor.description": "Цвет фона (background) строки на которую установлена закладка. Используйте rgba(), чтобы задать прозрачные цвета фона для хорошего сочетания с другим оформлением. Пример: rgba(21, 126, 251, 0,1)",
+    "bookmarks.configuration.backgroundLineColor.deprecation": "Вместо этого используйте `bookmarks.lineBackground` в `workbench.colorCustomizations`",
     "bookmarks.configuration.navigateThroughAllFiles.description": "Разрешить навигатору искать закладки во всех файлах проекта, а не только в текущем",
     "bookmarks.configuration.wrapNavigation.description": "Разрешить навигацию по первой и последней закладкам в области (текущий файл или все файлы)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Использовать обходной путь для форматировщиков таких как Prettier, который не уведомляет об изменениях документа и путает поведение прикреплённой закладки",
+    "bookmarks.colors.lineBackground.description": "Цвет фона для отмеченной строки",
+    "bookmarks.colors.lineBorder.description": "Цвет фона для границы вокруг линии с закладкой",
+    "bookmarks.colors.overviewRuler.description": "Обзор цвета маркера линейки для закладок"
 }
