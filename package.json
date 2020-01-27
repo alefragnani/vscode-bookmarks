@@ -294,6 +294,35 @@
                 "mac": "shift+alt+j",
                 "when": "editorTextFocus"
             }
+        ],
+        "colors": [
+            {
+              "id": "bookmarks.lineBackground",
+              "description": "Background color for the bookmarked line",
+              "defaults": {
+                "dark": "#00000000",
+                "light": "#00000000",
+                "highContrast": "#00000000"
+              }
+            },
+            {
+              "id": "bookmarks.lineBorder",
+              "description": "Background color for the border around the bookmarked line",
+              "defaults": {
+                "dark": "#00000000",
+                "light": "#00000000",
+                "highContrast": "#00000000"
+              }
+            },
+            {
+              "id": "bookmarks.overviewRuler",
+              "description": "Overview ruler marker color for bookmarks",
+              "defaults": {
+                "dark": "#157EFB88",
+                "light": "#157EFB88",
+                "highContrast": "#157EFB88"
+              }
+            }
         ]
     },
     "scripts": {
