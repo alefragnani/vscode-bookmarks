@@ -76,8 +76,8 @@ export function activate(context: vscode.ExtensionContext) {
     // bookmarkProvider.showTreeView();
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
-        // Allow change the gutterIcon or backgroundLineColor without reload
-        if (cfg.affectsConfiguration("bookmarks.gutterIconPath") || cfg.affectsConfiguration("bookmarks.backgroundLineColor")) {
+        // Allow change the gutterIcon without reload
+        if (cfg.affectsConfiguration("bookmarks.gutterIconPath")) {
             if (bookmarkDecorationType) {
                 bookmarkDecorationType.dispose();
             }
