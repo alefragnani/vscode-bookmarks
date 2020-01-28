@@ -3,12 +3,13 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 10.6
+# What's new in Bookmarks 10.7
 
 * Adds an all-new **Side Bar**
 * Adds **Column Position** and **Label** support
 * Adds **Localization** support
 * Adds `Collapse All` command in the **Side Bar**
+* Adds **Hover Buttons** for files and Bookmarks in the **Side Bar**
 
 ## Support
 
@@ -38,8 +39,6 @@ Discussing code is now as easy as highlighting a block and typing a comment righ
 # Bookmarks
 
 It helps you to navigate in your code, moving between important positions easily and quickly. _No more need to search for code._ It also supports a set of **selection** commands, which allows you to select bookmarked lines and regions between bookmarked lines. It's really useful for log file analysis.
-
-Since version 9 you can also define **Labels** for you bookmarks!
 
 Here are some of the features that **Bookmarks** provides:
 
@@ -72,17 +71,11 @@ Here are some of the features that **Bookmarks** provides:
 
 ## Manage your bookmarks
 
-### Toggle
+### Toggle / Toggle Labeled
 
-You can easily Mark/Unmark bookmarks on any position.
+You can easily Mark/Unmark bookmarks on any position. You can even define **Labels** for each bookmark.
 
-![Toggle](images/bookmarks-toggle.png)
-
-### Toggle Labeled
-
-You can even mark _labeled_ bookmarks on any position.
-
-![Toggle](images/bookmarks-toggle-labeled.gif)
+![Toggle](images/printscreen-toggle.png)
 
 ## Navigation
 
@@ -94,7 +87,7 @@ Quicky move between bookmarks backward and forward, even if located outside the 
 
 List all bookmarks from the current file/project and easily navigate to any of them. It shows a line preview and temporarily scroll to its position.
 
-![List](images/bookmarks-list-from-all-files.gif)
+![List](images/printscreen-list-from-all-files.png)
 
 * Bookmarks from the active file only shows the line number and its contents
 * Bookmarks from other files in the project also shows the relative path and filename
@@ -108,13 +101,11 @@ You can use **Bookmarks** to easily select lines or text blocks. Simply toggle b
 
 Select all bookmarked lines. Specially useful while working with log files.
 
-![Select Lines](images/bookmarks-selection-select-line.gif)
+![Select Lines](images/printscreen-select-lines.gif)
 
 #### Expand Selection to the Next/Previous Bookmark or Shrink the Selection
 
 Manipulate the selection of lines _between_ bookmarks, up and down.
-
-![Expand/Shrink](images/bookmarks-selection-expand-shrink.gif)
 
 ## Available Settings
 
@@ -163,15 +154,14 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ## Side Bar
 
-The **Bookmarks** are now presented in its own **Side Bar**, giving you more free space in your Explorer view. You will have a few extra commands available:
+The **Bookmarks** extension has its own **Side Bar**, giving you more free space in your Explorer view. You will have a few extra commands available:
 
-* Jump to a bookmark, simply clicking in the bookmark item
-* Remove a bookmark, right clicking in the bookmark item
-* Clear the bookmark's file, right-clickin in the file item
+* Jump to Bookmark
+* Edit Label
+* Remove Bookmark
+* Clear Bookmark's file
 
-![Treeview](images/bookmarks-activity-bar.gif)
-
-> The `bookmarks.treeview.visible` setting was deprecated. If you don't want to see the **Bookmarks** icon in the Activity Bar, right-click and uncheck it from the context menu. 
+![Treeview](images/printscreen-activity-bar.png)
 
 ## Project and Session Based
 
