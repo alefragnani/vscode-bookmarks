@@ -1,3 +1,12 @@
+## [10.7.0] - 2020-01-27
+### Added
+- Hover buttons for File and Bookmarks in Side Bar (issue [#258](https://github.com/alefragnani/vscode-bookmarks/issues/258))
+- Relative path next to the filename in Side Bar (issue [#236](https://github.com/alefragnani/vscode-bookmarks/issues/236))
+
+### Internal
+- Renew iconography to match new VS Code identity (issue [#231](https://github.com/alefragnani/vscode-bookmarks/issues/231))
+- Shrink installation size (issue [#190](https://github.com/alefragnani/vscode-bookmarks/issues/190))
+
 ## [10.6.0] - 2019-11-21
 ### Added
 - `Collapse All` command in the Side Bar (issue [#92](https://github.com/alefragnani/vscode-bookmarks/issues/92))

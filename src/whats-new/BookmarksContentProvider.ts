@@ -23,9 +23,15 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> and <b>Label</b> support"});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b>, 
             <b>Chinese (Simplified)</b> and <b>Portuguese (Brazil)</b>`});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds hover buttons for File and Bookmarks in Side Bar - (<a title=\"Open Issue #258\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/258\">
+            Issue #258</a>)</b>`});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds relative path next to the filename in Side Bar - (<a title=\"Open Issue #236\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/236\">
+            Issue #236</a>)</b>`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Show only filename in Side Bar - (<a title=\"Open Issue #149\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/149\">
-            Issue #154</a>)</b>`});
+            Issue #149</a>)</b>`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Collapse All</b> command in the Side Bar (<a title=\"Open Issue #92\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/92\">
             PR #92</a>)`});
