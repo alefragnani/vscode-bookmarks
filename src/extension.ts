@@ -11,6 +11,7 @@ import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMA
 import { Directions } from "../vscode-bookmarks-core/src/api/constants";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
 import { selectLines, expandSelectionToPosition, shrinkSelectionToPosition } from "vscode-ext-selection";
+import { createLineDecoration } from "vscode-ext-decoration";
 import { BookmarkProvider, BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
@@ -32,20 +33,11 @@ function createTextEditorDecoration(context: vscode.ExtensionContext) {
         pathIcon = context.asAbsolutePath("images/bookmark.svg");
     }
     
-    const backgroundColor: string = vscode.workspace.getConfiguration("bookmarks").get("backgroundLineColor", "");
+    const overviewRulerColor = new vscode.ThemeColor('bookmarks.overviewRuler');
+    const lineBackground = new vscode.ThemeColor('bookmarks.lineBackground');
+    const lineBorder = new vscode.ThemeColor('bookmarks.lineBorder');
 
-    const decorationOptions: vscode.DecorationRenderOptions = {
-        gutterIconPath: pathIcon,
-        overviewRulerLane: vscode.OverviewRulerLane.Full,
-        overviewRulerColor: "rgba(21, 126, 251, 0.7)"
-    }
-
-    if (backgroundColor) {
-        decorationOptions.backgroundColor = backgroundColor;
-        decorationOptions.isWholeLine = true;
-    }
-
-    return vscode.window.createTextEditorDecorationType(decorationOptions);
+    return createLineDecoration(lineBackground, lineBorder, vscode.OverviewRulerLane.Full, overviewRulerColor, pathIcon);
 }
 
 // this method is called when vs code is activated
@@ -73,8 +65,8 @@ export function activate(context: vscode.ExtensionContext) {
     // bookmarkProvider.showTreeView();
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
-        // Allow change the gutterIcon or backgroundLineColor without reload
-        if (cfg.affectsConfiguration("bookmarks.gutterIconPath") || cfg.affectsConfiguration("bookmarks.backgroundLineColor")) {
+        // Allow change the gutterIcon without reload
+        if (cfg.affectsConfiguration("bookmarks.gutterIconPath")) {
             if (bookmarkDecorationType) {
                 bookmarkDecorationType.dispose();
             }
