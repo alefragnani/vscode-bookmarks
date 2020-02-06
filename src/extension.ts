@@ -10,7 +10,7 @@ import * as vscode from "vscode";
 import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/api/bookmark";
 import { Directions } from "../vscode-bookmarks-core/src/api/constants";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
-import { Selection } from "../vscode-bookmarks-core/src/selection/selection";
+import { selectLines, expandSelectionToPosition, shrinkSelectionToPosition } from "vscode-ext-selection";
 import { BookmarkProvider, BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
@@ -241,7 +241,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("bookmarks.clear", () => clear());
     vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => clearFromAllFiles());
-    vscode.commands.registerCommand("bookmarks.selectLines", () => selectLines());
+    vscode.commands.registerCommand("bookmarks.selectLines", () => selectBookmarkedLines());
     vscode.commands.registerCommand("bookmarks.expandSelectionToNext", () => expandSelectionToNextBookmark(Directions.Forward));
     vscode.commands.registerCommand("bookmarks.expandSelectionToPrevious", () => expandSelectionToNextBookmark(Directions.Backward));
     vscode.commands.registerCommand("bookmarks.shrinkSelection", () => shrinkSelection());
@@ -461,7 +461,7 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     };
 
-    function selectLines() {
+    function selectBookmarkedLines() {
         if (!vscode.window.activeTextEditor) {
           vscode.window.showInformationMessage("Open a file first to clear bookmarks");
           return;
@@ -476,7 +476,7 @@ export function activate(context: vscode.ExtensionContext) {
         for (const bookmark of bookmarks.activeBookmark.bookmarks) {
             lines.push(bookmark.line);
         }
-        Selection.selectLines(vscode.window.activeTextEditor, lines);
+        selectLines(vscode.window.activeTextEditor, lines);
     };   
 
     function shrinkSelection() {
@@ -522,7 +522,7 @@ export function activate(context: vscode.ExtensionContext) {
                     (direction === Directions.Forward && next.line > activeSelectionStartLine)) {
                       vscode.window.setStatusBarMessage("No more bookmarks to shrink", 2000);
                   } else {                  
-                    Selection.shrinkRange(vscode.window.activeTextEditor, next, direction);
+                    shrinkSelectionToPosition(vscode.window.activeTextEditor, next, direction);
                   }
               }
             })
@@ -559,7 +559,7 @@ export function activate(context: vscode.ExtensionContext) {
                     vscode.window.setStatusBarMessage("No more bookmarks", 2000);
                     return;
                 } else {
-                    Selection.expandRange(vscode.window.activeTextEditor, next, direction);
+                    expandSelectionToPosition(vscode.window.activeTextEditor, next, direction);
                 }
             })
             .catch((error) => {
