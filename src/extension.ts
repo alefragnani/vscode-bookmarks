@@ -39,7 +39,7 @@ function createTextEditorDecoration(context: vscode.ExtensionContext) {
     const decorationOptions: vscode.DecorationRenderOptions = {
         gutterIconPath: pathIcon,
         overviewRulerLane: vscode.OverviewRulerLane.Full,
-        overviewRulerColor: overviewRulerColor
+        overviewRulerColor
     }
 
     decorationOptions.backgroundColor = lineBackground;
