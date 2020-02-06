@@ -327,31 +327,31 @@
         ],
         "colors": [
             {
-              "id": "bookmarks.lineBackground",
-              "description": "%bookmarks.colors.lineBackground.description%",
-              "defaults": {
-                "dark": "#00000000",
-                "light": "#00000000",
-                "highContrast": "#00000000"
-              }
+                "id": "bookmarks.lineBackground",
+                "description": "%bookmarks.colors.lineBackground.description%",
+                "defaults": {
+                    "dark": "#00000000",
+                    "light": "#00000000",
+                    "highContrast": "#00000000"
+                }
             },
             {
-              "id": "bookmarks.lineBorder",
-              "description": "%bookmarks.colors.lineBorder.description%",
-              "defaults": {
-                "dark": "#00000000",
-                "light": "#00000000",
-                "highContrast": "#00000000"
-              }
+                "id": "bookmarks.lineBorder",
+                "description": "%bookmarks.colors.lineBorder.description%",
+                "defaults": {
+                    "dark": "#00000000",
+                    "light": "#00000000",
+                    "highContrast": "#00000000"
+                }
             },
             {
-              "id": "bookmarks.overviewRuler",
-              "description": "%bookmarks.colors.overviewRuler.description%",
-              "defaults": {
-                "dark": "#157EFB88",
-                "light": "#157EFB88",
-                "highContrast": "#157EFB88"
-              }
+                "id": "bookmarks.overviewRuler",
+                "description": "%bookmarks.colors.overviewRuler.description%",
+                "defaults": {
+                    "dark": "#157EFB88",
+                    "light": "#157EFB88",
+                    "highContrast": "#157EFB88"
+                }
             }
         ]
     },
@@ -365,7 +365,8 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "dependencies": {
-        "vscode-ext-selection": "1.0.0"
+        "vscode-ext-selection": "1.0.0",
+        "vscode-ext-decoration": "1.0.0"
     },
     "devDependencies": {
         "@types/node": "^6.0.40",

@@ -11,6 +11,7 @@ import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMA
 import { Directions } from "../vscode-bookmarks-core/src/api/constants";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
 import { selectLines, expandSelectionToPosition, shrinkSelectionToPosition } from "vscode-ext-selection";
+import { createLineDecoration } from "vscode-ext-decoration";
 import { BookmarkProvider, BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
@@ -36,19 +37,7 @@ function createTextEditorDecoration(context: vscode.ExtensionContext) {
     const lineBackground = new vscode.ThemeColor('bookmarks.lineBackground');
     const lineBorder = new vscode.ThemeColor('bookmarks.lineBorder');
 
-    const decorationOptions: vscode.DecorationRenderOptions = {
-        gutterIconPath: pathIcon,
-        overviewRulerLane: vscode.OverviewRulerLane.Full,
-        overviewRulerColor
-    }
-
-    decorationOptions.backgroundColor = lineBackground;
-    decorationOptions.borderWidth = '1px',
-    decorationOptions.borderStyle = 'solid',
-    decorationOptions.borderColor = lineBorder;
-    decorationOptions.isWholeLine = true;
-
-    return vscode.window.createTextEditorDecorationType(decorationOptions);
+    return createLineDecoration(lineBackground, lineBorder, vscode.OverviewRulerLane.Full, overviewRulerColor, pathIcon);
 }
 
 // this method is called when vs code is activated
