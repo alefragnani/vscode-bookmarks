@@ -3,13 +3,14 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 10.7
+# What's new in Bookmarks 11
 
 * Adds an all-new **Side Bar**
 * Adds **Column Position** and **Label** support
 * Adds **Localization** support
 * Adds `Collapse All` command in the **Side Bar**
 * Adds **Hover Buttons** for files and Bookmarks in the **Side Bar**
+* Adds **workbench.colorCustomizations** support
 
 ## Support
 

@@ -1,3 +1,10 @@
+## [11.0.0] - 2020-02-17
+### Added
+- Support `workbench.colorCustomizations` (issue [#246](https://github.com/alefragnani/vscode-bookmarks/issues/246))
+
+### Internal
+- Use `vscode-ext-selection` and `vscode-ext-decoration` packages
+
 ## [10.7.0] - 2020-01-27
 ### Added
 - Hover buttons for File and Bookmarks in Side Bar (issue [#258](https://github.com/alefragnani/vscode-bookmarks/issues/258))

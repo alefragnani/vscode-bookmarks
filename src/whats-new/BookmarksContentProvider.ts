@@ -23,6 +23,9 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> and <b>Label</b> support"});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b>, 
             <b>Chinese (Simplified)</b> and <b>Portuguese (Brazil)</b>`});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>workbench.colorCustomizations</b> support (<a title=\"Open Issue #246\" 
+                href=\"https://github.com/alefragnani/vscode-bookmarks/issues/246\">
+                PR #246</a>)`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds hover buttons for File and Bookmarks in Side Bar - (<a title=\"Open Issue #258\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/258\">
             Issue #258</a>)</b>`});
