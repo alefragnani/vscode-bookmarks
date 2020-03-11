@@ -931,13 +931,13 @@ export function activate(context: vscode.ExtensionContext) {
         });
     }
 
-    function toggle() {
+    async function toggle() {
         if (!vscode.window.activeTextEditor) {
           vscode.window.showInformationMessage("Open a file first to toggle bookmarks");
           return;
         }         
       
-        const position = vscode.window.activeTextEditor.selection.active;
+        const selections = vscode.window.activeTextEditor.selections;
 
         // fix issue emptyAtLaunch
         if (!bookmarks.activeBookmark) {
@@ -945,13 +945,9 @@ export function activate(context: vscode.ExtensionContext) {
             bookmarks.activeBookmark = bookmarks.fromUri(vscode.window.activeTextEditor.document.uri.fsPath);
         }
 
-        const index = bookmarks.activeBookmark.indexOfBookmark(position.line);
-        if (index < 0) {
-            bookmarks.addBookmark(position);            
+        if (await bookmarks.toggle(selections)) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
-        } else {
-            bookmarks.removeBookmark(index, position.line);
-        }		
+        };
 
         // sorted
         /* let itemsSorted = [] =*/
@@ -971,14 +967,14 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     };
 
-    function toggleLabeled() {
+    async function toggleLabeled() {
 
         if (!vscode.window.activeTextEditor) {
             vscode.window.showInformationMessage("Open a file first to toggle bookmarks");
             return;
         }
 
-        const position: vscode.Position = vscode.window.activeTextEditor.selection.active;
+        const selections = vscode.window.activeTextEditor.selections;
 
         // fix issue emptyAtLaunch
         if (!bookmarks.activeBookmark) {
@@ -986,12 +982,42 @@ export function activate(context: vscode.ExtensionContext) {
             bookmarks.activeBookmark = bookmarks.fromUri(vscode.window.activeTextEditor.document.uri.fsPath);
         }
 
-        const index = bookmarks.activeBookmark.indexOfBookmark(position.line);
-        const oldLabel: string = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
-        if (index < 0) {
-            askForBookmarkLabel(index, position, undefined, true);
-        } else {
-            askForBookmarkLabel(index, position, oldLabel);
+        // ask label
+        let oldLabel: string = "";
+        if (selections.length === 1) {
+            const index = bookmarks.activeBookmark.indexOfBookmark(selections[0].active.line);
+            oldLabel = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
         }
+        const ibo = <vscode.InputBoxOptions> {
+            prompt: "Bookmark Label",
+            placeHolder: "Type a label for your bookmark",
+            value: oldLabel
+        };
+        const newLabel = await vscode.window.showInputBox(ibo);
+        if (typeof newLabel === "undefined") { return };
+        if (newLabel === "") {
+            vscode.window.showWarningMessage("You must define a label for the bookmark.");
+            return;
+        }
+
+        if (await bookmarks.toggle(selections, newLabel)) {
+            vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
+        };
+
+        // sorted
+        /* let itemsSorted = [] =*/
+        const b: BookmarkedFile = bookmarks.activeBookmark;
+        b.bookmarks.sort((n1, n2) => {
+            if (n1.line > n2.line) {
+                return 1;
+            }
+            if (n1.line < n2.line) {
+                return -1;
+            }
+            return 0;
+        });
+        
+        saveWorkspaceState();
+        updateDecorations();
     };
 }
