@@ -29,6 +29,7 @@
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Use a solução alternativa para formatadores como Prettier, os quais não notificam de mudanças no documento e acabam bagunçando o comportamento Sticky (atrelado a linha de código) do Bookmark",
     "bookmarks.configuration.showCommandsInContextMenu.description": "Define se os comandos Bookmarks são apresentados no menu de contexto",
     "bookmarks.configuration.sideBar.expanded.description": "Define se a Side Bar deve ser exibida expandida",
+    "bookmarks.configuration.multicursor.toggleMode.description": "Define como funciona são tratadas as linhas que já possuem bookmark quando utiliza-se multicursor",
     "bookmarks.colors.lineBackground.description": "Cor de fundo para linha com Bookmark",
     "bookmarks.colors.lineBorder.description": "Cor de fundo da borda ao redor da linha com Bookmark",
     "bookmarks.colors.overviewRuler.description": "Cor do marcador de régua com Bookmarks"
