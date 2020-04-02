@@ -3,9 +3,10 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 11
+# What's new in Bookmarks 11.1
 
 * Adds an all-new **Side Bar**
+* Adds **Multi cursor** support
 * Adds **Column Position** and **Label** support
 * Adds **Localization** support
 * Adds `Collapse All` command in the **Side Bar**

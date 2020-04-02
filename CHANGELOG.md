@@ -1,3 +1,7 @@
+## [11.1.0] - 2020-??-??
+### Added
+- Multi Cursor support (issue [#77](https://github.com/alefragnani/vscode-bookmarks/issues/77))
+
 ## [11.0.0] - 2020-02-17
 ### Added
 - Support `workbench.colorCustomizations` (issue [#246](https://github.com/alefragnani/vscode-bookmarks/issues/246))
