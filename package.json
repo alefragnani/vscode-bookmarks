@@ -284,6 +284,23 @@
                     "type": "boolean",
                     "default": false,
                     "description": "%bookmarks.configuration.sidebar.expanded.description%"
+                },
+                "bookmarks.label.suggestion": {
+                    "type": "string",
+                    "default": "dontUse",
+                    "description": "%bookmarks.configuration.label.suggestion%",
+                    "enum": [
+                        "dontUse",
+                        "useWhenSelected",
+                        "suggestWhenSelected",
+                        "suggestWhenSelectedOrLineWhenNoSelected"
+                    ],
+                    "enumDescriptions": [
+                        "Don't use the selection (original behavior)",
+                        "Use the selected text (if available) directly, no confirmation required",
+                        "Suggests the selected text (if available). You still need to confirm.",
+                        "Suggests the selected text (if available) or the entire line (when has no selection). You still need to confirm."
+                    ]
                 }
             }
         },

@@ -17,6 +17,7 @@ import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
+import { Selection } from "vscode";
 
 /**
  * Define the Bookmark Decoration
@@ -971,6 +972,36 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     };
 
+    function useSelectionWhenAvailable(): boolean {
+        return vscode.workspace.getConfiguration("bookmarks").get<string>("label.suggestion", "dontUse") === "useWhenSelected";
+    }
+
+    function suggestLabel(selection: Selection): string {
+        const configSuggestion = vscode.workspace.getConfiguration("bookmarks").get<string>("label.suggestion", "dont use");
+        switch (configSuggestion) {
+            case "dontUse":
+                return ""
+        
+            case "suggestWhenSelected":
+            case "useWhenSelected":
+                if (!selection.isEmpty) {
+                    return vscode.window.activeTextEditor.document.getText(selection);
+                } else {
+                    return ""
+                }
+        
+            case "suggestWhenSelectedOrLineWhenNoSelected":
+                if (!selection.isEmpty) {
+                    return vscode.window.activeTextEditor.document.getText(selection);
+                } else {
+                    return vscode.window.activeTextEditor.document.lineAt(selection.start.line).text.trim()
+                }
+        
+            default:
+                break;
+        }
+    }
+
     function toggleLabeled() {
 
         if (!vscode.window.activeTextEditor) {
@@ -986,10 +1017,29 @@ export function activate(context: vscode.ExtensionContext) {
             bookmarks.activeBookmark = bookmarks.fromUri(vscode.window.activeTextEditor.document.uri.fsPath);
         }
 
+        const suggestion = suggestLabel(vscode.window.activeTextEditor.selection);
+        if (suggestion !== "" && useSelectionWhenAvailable()) {
+            bookmarks.addBookmark(position, suggestion, bookmarks.activeBookmark);
+            
+            const b: BookmarkedFile = bookmarks.activeBookmark;
+            b.bookmarks.sort((n1, n2) => {
+                if (n1.line > n2.line) {
+                    return 1;
+                }
+                if (n1.line < n2.line) {
+                    return -1;
+                }
+                return 0;
+            });
+            saveWorkspaceState();
+            updateDecorations();
+            return;
+        }
+
         const index = bookmarks.activeBookmark.indexOfBookmark(position.line);
         const oldLabel: string = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
         if (index < 0) {
-            askForBookmarkLabel(index, position, undefined, true);
+            askForBookmarkLabel(index, position, suggestion, true);
         } else {
             askForBookmarkLabel(index, position, oldLabel);
         }
