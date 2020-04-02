@@ -918,15 +918,7 @@ export function activate(context: vscode.ExtensionContext) {
             // sorted
             /* let itemsSorted = [] =*/
             const b: BookmarkedFile = book ? book : bookmarks.activeBookmark;
-            b.bookmarks.sort((n1, n2) => {
-                if (n1.line > n2.line) {
-                    return 1;
-                }
-                if (n1.line < n2.line) {
-                    return -1;
-                }
-                return 0;
-            });
+            b.sortBookmarks();
             saveWorkspaceState();
             updateDecorations();
         });
@@ -954,20 +946,7 @@ export function activate(context: vscode.ExtensionContext) {
             bookmarks.removeBookmark(index, position.line);
         }		
 
-        // sorted
-        /* let itemsSorted = [] =*/
-        bookmarks.activeBookmark.bookmarks.sort((n1, n2) => {
-            if (n1.line > n2.line) {
-                return 1;
-            }
-
-            if (n1.line < n2.line) {
-                return -1;
-            }
-
-            return 0;
-        });
-
+        bookmarks.activeBookmark.sortBookmarks();
         saveWorkspaceState();
         updateDecorations();
     };
@@ -1021,16 +1000,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (suggestion !== "" && useSelectionWhenAvailable()) {
             bookmarks.addBookmark(position, suggestion, bookmarks.activeBookmark);
             
-            const b: BookmarkedFile = bookmarks.activeBookmark;
-            b.bookmarks.sort((n1, n2) => {
-                if (n1.line > n2.line) {
-                    return 1;
-                }
-                if (n1.line < n2.line) {
-                    return -1;
-                }
-                return 0;
-            });
+            bookmarks.activeBookmark.sortBookmarks(); 
             saveWorkspaceState();
             updateDecorations();
             return;
