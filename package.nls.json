@@ -28,7 +28,8 @@
     "bookmarks.configuration.wrapNavigation.description": "Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Use a workaround for formatters like Prettier, which does not notify on document changes and messes Bookmark's Sticky behavior",
     "bookmarks.configuration.showCommandsInContextMenu.description": "Specifies whether Bookmarks commands are displayed on the context menu",
-    "bookmarks.configuration.sidebar.expanded.description": "Specifies wheher the Side Bar show be displayed expanded",
+    "bookmarks.configuration.sidebar.expanded.description": "Specifies whether the Side Bar show be displayed expanded",
+    "bookmarks.configuration.label.suggestion.description": "Specifies how labels are suggested when creating bookmarks",
     "bookmarks.colors.lineBackground.description": "Background color for the bookmarked line",
     "bookmarks.colors.lineBorder.description": "Background color for the border around the bookmarked line",
     "bookmarks.colors.overviewRuler.description": "Overview ruler marker color for bookmarks"

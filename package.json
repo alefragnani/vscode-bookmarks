@@ -288,7 +288,7 @@
                 "bookmarks.label.suggestion": {
                     "type": "string",
                     "default": "dontUse",
-                    "description": "%bookmarks.configuration.label.suggestion%",
+                    "description": "%bookmarks.configuration.label.suggestion.description%",
                     "enum": [
                         "dontUse",
                         "useWhenSelected",
