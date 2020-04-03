@@ -17,7 +17,7 @@ import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
-import { Selection } from "vscode";
+import { suggestLabel, useSelectionWhenAvailable } from "./suggestion";
 
 /**
  * Define the Bookmark Decoration
@@ -950,36 +950,6 @@ export function activate(context: vscode.ExtensionContext) {
         saveWorkspaceState();
         updateDecorations();
     };
-
-    function useSelectionWhenAvailable(): boolean {
-        return vscode.workspace.getConfiguration("bookmarks").get<string>("label.suggestion", "dontUse") === "useWhenSelected";
-    }
-
-    function suggestLabel(selection: Selection): string {
-        const configSuggestion = vscode.workspace.getConfiguration("bookmarks").get<string>("label.suggestion", "dont use");
-        switch (configSuggestion) {
-            case "dontUse":
-                return ""
-        
-            case "suggestWhenSelected":
-            case "useWhenSelected":
-                if (!selection.isEmpty) {
-                    return vscode.window.activeTextEditor.document.getText(selection);
-                } else {
-                    return ""
-                }
-        
-            case "suggestWhenSelectedOrLineWhenNoSelected":
-                if (!selection.isEmpty) {
-                    return vscode.window.activeTextEditor.document.getText(selection);
-                } else {
-                    return vscode.window.activeTextEditor.document.lineAt(selection.start.line).text.trim()
-                }
-        
-            default:
-                break;
-        }
-    }
 
     function toggleLabeled() {
 
