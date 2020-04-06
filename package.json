@@ -9,7 +9,7 @@
         "theme": "dark"
     },
     "engines": {
-        "vscode": "^1.37.0"
+        "vscode": "^1.42.0"
     },
     "categories": [
         "Other"
@@ -361,16 +361,16 @@
         "vscode:prepublish": "webpack --mode production",
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
-        "compile": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
+        "compile": "tsc -watch -p ./"
     },
     "dependencies": {
         "vscode-ext-selection": "1.0.0",
         "vscode-ext-decoration": "1.0.0"
     },
     "devDependencies": {
-        "@types/node": "^6.0.40",
-        "typescript": "^3.1.6",
+        "@types/node": "^10.14.17",
+        "@types/vscode": "^1.42.0",
+        "typescript": "^3.5.1",
         "vscode": "^1.1.36",
         "webpack": "^4.19.1",
         "webpack-cli": "^3.1.0",
