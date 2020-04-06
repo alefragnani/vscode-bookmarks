@@ -1,6 +1,7 @@
 ## [11.1.0] - 2020-??-??
 ### Internal
-- Support VS Code package split
+- Support VS Code package split  (issue [#263](https://github.com/alefragnani/vscode-bookmarks/issues/263))
+- Support **ThemeIcon** (issue [#269](https://github.com/alefragnani/vscode-bookmarks/issues/269))
 
 ## [11.0.0] - 2020-02-17
 ### Added
