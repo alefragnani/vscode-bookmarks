@@ -100,10 +100,7 @@
             {
                 "command": "bookmarks.refresh",
                 "title": "%bookmarks.commands.refresh.title%",
-                "icon": {
-                    "light": "images/refresh-light.svg",
-                    "dark": "images/refresh-dark.svg"
-                }
+                "icon": "$(refresh)"
             },
             {
                 "command": "bookmarks.clear",
@@ -112,26 +109,17 @@
             {
                 "command": "bookmarks.clearFromFile",
                 "title": "%bookmarks.commands.clearFromFile.title%",
-                "icon": {
-                    "light": "images/ico-clear-all-light.svg",
-                    "dark": "images/ico-clear-all-dark.svg"
-                }
+                "icon": "$(clear-all)"
             },
             {
                 "command": "bookmarks.deleteBookmark",
                 "title": "%bookmarks.commands.deleteBookmark.title%",
-                "icon": {
-                    "light": "images/ico-delete-light.svg",
-                    "dark": "images/ico-delete-dark.svg"
-                }
+                "icon": "$(close)"
             },
             {
                 "command": "bookmarks.editLabel",
                 "title": "%bookmarks.commands.editLabel.title%",
-                "icon": {
-                    "light": "images/ico-edit-label-light.svg",
-                    "dark": "images/ico-edit-label-dark.svg"
-                }
+                "icon": "$(edit)"
             },
             {
                 "command": "bookmarks.listFromAllFiles",
