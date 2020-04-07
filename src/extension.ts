@@ -917,15 +917,7 @@ export function activate(context: vscode.ExtensionContext) {
             // sorted
             /* let itemsSorted = [] =*/
             const b: BookmarkedFile = book ? book : bookmarks.activeBookmark;
-            b.bookmarks.sort((n1, n2) => {
-                if (n1.line > n2.line) {
-                    return 1;
-                }
-                if (n1.line < n2.line) {
-                    return -1;
-                }
-                return 0;
-            });
+            b.sortBookmarks();
             saveWorkspaceState();
             updateDecorations();
         });
@@ -949,20 +941,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
         };
 
-        // sorted
-        /* let itemsSorted = [] =*/
-        bookmarks.activeBookmark.bookmarks.sort((n1, n2) => {
-            if (n1.line > n2.line) {
-                return 1;
-            }
-
-            if (n1.line < n2.line) {
-                return -1;
-            }
-
-            return 0;
-        });
-
+        bookmarks.activeBookmark.sortBookmarks();
         saveWorkspaceState();
         updateDecorations();
     };
@@ -1004,19 +983,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
         };
 
-        // sorted
-        /* let itemsSorted = [] =*/
-        const b: BookmarkedFile = bookmarks.activeBookmark;
-        b.bookmarks.sort((n1, n2) => {
-            if (n1.line > n2.line) {
-                return 1;
-            }
-            if (n1.line < n2.line) {
-                return -1;
-            }
-            return 0;
-        });
-        
+        bookmarks.activeBookmark.sortBookmarks();
         saveWorkspaceState();
         updateDecorations();
     };
