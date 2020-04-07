@@ -1,4 +1,7 @@
 ## [11.1.0] - 2020-??-??
+### Added
+- Multi Cursor support (issue [#77](https://github.com/alefragnani/vscode-bookmarks/issues/77))
+
 ### Internal
 - Support VS Code package split  (issue [#263](https://github.com/alefragnani/vscode-bookmarks/issues/263))
 - Support **ThemeIcon** (issue [#269](https://github.com/alefragnani/vscode-bookmarks/issues/269))
