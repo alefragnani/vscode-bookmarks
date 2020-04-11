@@ -19,6 +19,7 @@
     "bookmarks.commands.listFromAllFiles.title": "书签: 列出所有书签",
     "bookmarks.commands.clearFromAllFiles.title": "书签: 清空所有书签",
     "bookmarks.commands.whatsNew.title": "书签: 有什么新特性",
+    "bookmarks.commands.whatsNewContextMenu.title": "有什么新特性",
     "bookmarks.configuration.title": "书签",
     "bookmarks.configuration.saveBookmarksInProject.description": "允许书签保存(恢复)在本地",
     "bookmarks.configuration.gutterIconPath.description": "自定义书签图标的图片路径",

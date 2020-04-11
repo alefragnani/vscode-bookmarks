@@ -132,6 +132,10 @@
             {
                 "command": "bookmarks.whatsNew",
                 "title": "%bookmarks.commands.whatsNew.title%"
+            },
+            {
+                "command": "bookmarks.whatsNewContextMenu",
+                "title": "%bookmarks.commands.whatsNewContextMenu.title%"
             }
         ],
         "menus": {
@@ -154,6 +158,10 @@
                 },
                 {
                     "command": "bookmarks.editLabel",
+                    "when": "false"
+                },
+                {
+                    "command": "bookmarks.whatsNewContextMenu",
                     "when": "false"
                 }
             ],
@@ -224,6 +232,13 @@
                     "command": "bookmarks.editLabel",
                     "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
                     "group": "inline@1"
+                }
+            ],
+            "extension/context": [
+                {
+                    "command": "bookmarks.whatsNewContextMenu",
+                    "group": "bookmarks",
+                    "when": "extension == alefragnani.bookmarks && extensionStatus == installed"
                 }
             ]
         },
