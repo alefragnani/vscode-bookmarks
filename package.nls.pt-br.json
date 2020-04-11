@@ -19,6 +19,7 @@
     "bookmarks.commands.listFromAllFiles.title": "Bookmarks: Listar de Todos os Arquivos",
     "bookmarks.commands.clearFromAllFiles.title": "Bookmarks: Limpar de Todos os Arquivos",
     "bookmarks.commands.whatsNew.title": "Bookmarks: Novidades",
+    "bookmarks.commands.whatsNewContextMenu.title": "Novidades",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Permite que os Bookmarks sejam salvos (e restaurados) localmente no Projeto/Pasta aberto ao invés do VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Caminho para outra imagem a ser apresentada como Bookmark",
