@@ -1,3 +1,11 @@
+## [11.2.0] - 2020-05-??
+### Added
+
+### Fixed
+- Avoid Bookmarks from being toggled in the new Search Editor (issue [#279](https://github.com/alefragnani/vscode-bookmarks/issues/279))
+
+### Internal
+
 ## [11.1.0] - 2020-04-10
 ### Added
 - Multi Cursor support (issue [#77](https://github.com/alefragnani/vscode-bookmarks/issues/77))

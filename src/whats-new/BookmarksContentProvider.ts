@@ -47,15 +47,15 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         changeLog.push({kind: ChangeLogKind.CHANGED, message: `The <b>Expand Selection...</b> commands now works even if the file has only one Bookmark (<a title=\"Open Issue #120\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/120\">
             PR #120</a>)`});
+        changeLog.push({kind: ChangeLogKind.FIXED, message: `Avoid Bookmarks from being toggled in the new Search Editor (<a title=\"Open Issue #279\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/279\">
+            Issue #279</a>)</b>`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Activation error for "No-Folders Workspace" scenario (<a title=\"Open Issue #212\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/212\">
             Issue #212</a>)`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Typing delay when SaveBookmarksInProject is enabled (<a title=\"Open Issue #202\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/202\">
             Issue #202</a>)`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Workaround for formatters, using a new setting (<a title=\"Open Issue #118\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/118\">
-            Issue #118</a>)</b>`});
         return changeLog;
     }
 
