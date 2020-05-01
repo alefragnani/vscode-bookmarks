@@ -17,6 +17,7 @@ import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
+import { SEARCH_EDITOR_SCHEME } from "./constants";
 
 /**
  * Define the Bookmark Decoration
@@ -927,6 +928,11 @@ export function activate(context: vscode.ExtensionContext) {
     async function toggle() {
         if (!vscode.window.activeTextEditor) {
           vscode.window.showInformationMessage("Open a file first to toggle bookmarks");
+          return;
+        }         
+      
+        if (vscode.window.activeTextEditor.document.uri.scheme === SEARCH_EDITOR_SCHEME) {
+          vscode.window.showInformationMessage("You can't toggle bookmarks in Search Editor");
           return;
         }         
       
