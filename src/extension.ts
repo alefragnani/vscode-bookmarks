@@ -968,6 +968,10 @@ export function activate(context: vscode.ExtensionContext) {
 
         const suggestion = suggestLabel(vscode.window.activeTextEditor.selection);
         if (suggestion !== "" && useSelectionWhenAvailable()) {
+            const idx = bookmarks.activeBookmark.indexOfBookmark(position.line);
+            if (idx >= 0) {
+                bookmarks.removeBookmark(idx, position.line, bookmarks.activeBookmark);
+            }
             bookmarks.addBookmark(position, suggestion, bookmarks.activeBookmark);
             
             bookmarks.activeBookmark.sortBookmarks(); 
