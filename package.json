@@ -300,6 +300,23 @@
                         "Literally toggles a bookmark in each line, instead of making all lines equals"
                     ],
                     "description": "%bookmarks.configuration.multicursor.toggleMode.description%"
+                },
+                "bookmarks.label.suggestion": {
+                    "type": "string",
+                    "default": "dontUse",
+                    "description": "%bookmarks.configuration.label.suggestion.description%",
+                    "enum": [
+                        "dontUse",
+                        "useWhenSelected",
+                        "suggestWhenSelected",
+                        "suggestWhenSelectedOrLineWhenNoSelected"
+                    ],
+                    "enumDescriptions": [
+                        "Don't use the selection (original behavior)",
+                        "Use the selected text (if available) directly, no confirmation required",
+                        "Suggests the selected text (if available). You still need to confirm.",
+                        "Suggests the selected text (if available) or the entire line (when has no selection). You still need to confirm."
+                    ]
                 }
             }
         },

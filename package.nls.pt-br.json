@@ -31,6 +31,7 @@
     "bookmarks.configuration.showCommandsInContextMenu.description": "Define se os comandos Bookmarks são apresentados no menu de contexto",
     "bookmarks.configuration.sideBar.expanded.description": "Define se a Side Bar deve ser exibida expandida",
     "bookmarks.configuration.multicursor.toggleMode.description": "Define como funciona são tratadas as linhas que já possuem bookmark quando utiliza-se multicursor",
+    "bookmarks.configuration.label.suggestion.description": "Define como rótulos são sugeridos quando se cria Bookmarks",
     "bookmarks.colors.lineBackground.description": "Cor de fundo para linha com Bookmark",
     "bookmarks.colors.lineBorder.description": "Cor de fundo da borda ao redor da linha com Bookmark",
     "bookmarks.colors.overviewRuler.description": "Cor do marcador de régua com Bookmarks"

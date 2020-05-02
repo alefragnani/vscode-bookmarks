@@ -31,6 +31,7 @@
     "bookmarks.configuration.showCommandsInContextMenu.description": "Specifies whether Bookmarks commands are displayed on the context menu",
     "bookmarks.configuration.sidebar.expanded.description": "Specifies wheher the Side Bar show be displayed expanded",
     "bookmarks.configuration.multicursor.toggleMode.description": "Specifies how multi cursor handles already bookmarked lines",
+    "bookmarks.configuration.label.suggestion.description": "Specifies how labels are suggested when creating bookmarks",
     "bookmarks.colors.lineBackground.description": "Background color for the bookmarked line",
     "bookmarks.colors.lineBorder.description": "Background color for the border around the bookmarked line",
     "bookmarks.colors.overviewRuler.description": "Overview ruler marker color for bookmarks"

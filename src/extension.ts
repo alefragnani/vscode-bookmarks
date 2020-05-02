@@ -18,6 +18,7 @@ import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
 import { SEARCH_EDITOR_SCHEME } from "./constants";
+import { suggestLabel, useSelectionWhenAvailable } from "./suggestion";
 
 /**
  * Define the Bookmark Decoration
@@ -968,16 +969,31 @@ export function activate(context: vscode.ExtensionContext) {
             bookmarks.activeBookmark = bookmarks.fromUri(vscode.window.activeTextEditor.document.uri.fsPath);
         }
 
-        // ask label
-        let oldLabel: string = "";
-        if (selections.length === 1) {
-            const index = bookmarks.activeBookmark.indexOfBookmark(selections[0].active.line);
-            oldLabel = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
+        let suggestion = suggestLabel(vscode.window.activeTextEditor.selection);
+        if (suggestion !== "" && useSelectionWhenAvailable()) {
+            if (await bookmarks.toggle(selections, suggestion)) {
+                vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
+            }
+            bookmarks.activeBookmark.sortBookmarks(); 
+            saveWorkspaceState();
+            updateDecorations();
+            return;
         }
+
+        // ask label
+        if (suggestion === "" && selections.length === 1) {
+            const index = bookmarks.activeBookmark.indexOfBookmark(selections[0].active.line);
+            suggestion = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
+        }
+        // let oldLabel: string = "";
+        // if (selections.length === 1) {
+        //     const index = bookmarks.activeBookmark.indexOfBookmark(selections[0].active.line);
+        //     oldLabel = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
+        // }
         const ibo = <vscode.InputBoxOptions> {
             prompt: "Bookmark Label",
             placeHolder: "Type a label for your bookmark",
-            value: oldLabel
+            value: suggestion
         };
         const newLabel = await vscode.window.showInputBox(ibo);
         if (typeof newLabel === "undefined") { return };
@@ -990,7 +1006,19 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
         };
 
-        bookmarks.activeBookmark.sortBookmarks();
+        // sorted
+        /* let itemsSorted = [] =*/
+        const b: BookmarkedFile = bookmarks.activeBookmark;
+        b.bookmarks.sort((n1, n2) => {
+            if (n1.line > n2.line) {
+                return 1;
+            }
+            if (n1.line < n2.line) {
+                return -1;
+            }
+            return 0;
+        });
+        
         saveWorkspaceState();
         updateDecorations();
     };
