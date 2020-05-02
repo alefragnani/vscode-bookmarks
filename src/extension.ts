@@ -18,7 +18,7 @@ import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
 import { SEARCH_EDITOR_SCHEME } from "./constants";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
-import { createTextEditorDecoration } from "../vscode-bookmarks-core/src/decoration";
+import { createTextEditorDecoration, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -124,47 +124,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Evaluate (prepare the list) and DRAW
     function updateDecorations() {
-        if (!activeEditor) {
-            return;
-        }
-
-        if (!bookmarks.activeBookmark) {
-            return;
-        }
-
-        if (bookmarks.activeBookmark.bookmarks.length === 0) {
-            const bks: vscode.Range[] = [];
-          
-            activeEditor.setDecorations(bookmarkDecorationType, bks);
-            return;
-        }
-
-        const books: vscode.Range[] = [];
-
-        // Remove all bookmarks if active file is empty
-        if (activeEditor.document.lineCount === 1 && activeEditor.document.lineAt(0).text === "") {
-            bookmarks.activeBookmark.bookmarks = [];
-        } else {
-            const invalids = [];
-            for (const element of bookmarks.activeBookmark.bookmarks) {
-
-                if (element.line <= activeEditor.document.lineCount) { 
-                    const decoration = new vscode.Range(element.line, 0, element.line, 0);
-                    books.push(decoration);
-                } else {
-                    invalids.push(element);
-                }
-            }
-
-            if (invalids.length > 0) {
-                let idxInvalid: number;
-                for (const element of invalids) {
-                    idxInvalid = bookmarks.activeBookmark.indexOfBookmark(element); // bookmarks.indexOf(element); 
-                    bookmarks.activeBookmark.bookmarks.splice(idxInvalid, 1);
-                }
-            }
-        }
-        activeEditor.setDecorations(bookmarkDecorationType, books);
+        updateDecorationsInActiveEditor(activeEditor, bookmarks, bookmarkDecorationType);
     }
 
     vscode.commands.registerCommand("bookmarks.jumpTo", (documentPath, line, column: string) => {
