@@ -1,1 +1,0 @@
-export const SEARCH_EDITOR_SCHEME = "search-editor-body";
