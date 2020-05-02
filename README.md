@@ -3,9 +3,10 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 11.1
+# What's new in Bookmarks 11.2
 
 * Adds an all-new **Side Bar**
+* Adds **Label suggestion** based on selection
 * Adds **Multi cursor** support
 * Adds **Column Position** and **Label** support
 * Adds **Localization** support
@@ -162,6 +163,17 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ```json
     "bookmarks.multicursor.toggleMode": "eachLineIndependently"
+```
+
+* Choose how labels are suggested when creating bookmarks (`dontUse` by default)
+
+  * `dontUse`: Don't use the selection (original behavior)
+  * `useWhenSelected`: Use the selected text _(if available)_ directly, no confirmation required
+  * `suggestWhenSelected`: Suggests the selected text _(if available)_. You still need to confirm.
+  * `suggestWhenSelectedOrLineWhenNoSelected`: Suggests the selected text _(if available)_ or the entire line (when has no selection). You still need to confirm
+
+```json
+    "bookmarks.label.suggestion": "useWhenSelected"
 ```
 
 ## Available Colors

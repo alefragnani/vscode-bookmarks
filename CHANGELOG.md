@@ -1,5 +1,6 @@
 ## [11.2.0] - 2020-05-??
 ### Added
+- Use selected text as Label (issue [#239](https://github.com/alefragnani/vscode-bookmarks/issues/239))
 
 ### Fixed
 - Avoid Bookmarks from being toggled in the new Search Editor (issue [#279](https://github.com/alefragnani/vscode-bookmarks/issues/279))

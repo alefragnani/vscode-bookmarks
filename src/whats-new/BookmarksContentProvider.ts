@@ -20,9 +20,12 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds an all-new <b>Side Bar</b>"});
+        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Label suggestion</b> based on selection (<a title=\"Open Issue #239\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/239\">
+            Issue #239</a>)`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Multi cursor</b> support (<a title=\"Open Issue #77\" 
-        href=\"https://github.com/alefragnani/vscode-bookmarks/issues/77\">
-        Issue #77</a>)`});
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/77\">
+            Issue #77</a>)`});
         changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> and <b>Label</b> support"});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b>, 
             <b>Chinese (Simplified)</b> and <b>Portuguese (Brazil)</b>`});
