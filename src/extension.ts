@@ -11,7 +11,6 @@ import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMA
 import { Directions } from "../vscode-bookmarks-core/src/api/constants";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
 import { selectLines, expandSelectionToPosition, shrinkSelectionToPosition } from "vscode-ext-selection";
-import { createLineDecoration } from "vscode-ext-decoration";
 import { BookmarkProvider, BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
@@ -19,28 +18,7 @@ import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
 import { SEARCH_EDITOR_SCHEME } from "./constants";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
-
-/**
- * Define the Bookmark Decoration
- */
-function createTextEditorDecoration(context: vscode.ExtensionContext) {
-
-    let pathIcon: string = vscode.workspace.getConfiguration("bookmarks").get("gutterIconPath", "");
-    if (pathIcon !== "") {
-        if (!fs.existsSync(pathIcon)) {
-            vscode.window.showErrorMessage('The file "' + pathIcon + '" used for "bookmarks.gutterIconPath" does not exists.');
-            pathIcon = context.asAbsolutePath("images/bookmark.svg");
-        }
-    } else {
-        pathIcon = context.asAbsolutePath("images/bookmark.svg");
-    }
-    
-    const overviewRulerColor = new vscode.ThemeColor('bookmarks.overviewRuler');
-    const lineBackground = new vscode.ThemeColor('bookmarks.lineBackground');
-    const lineBorder = new vscode.ThemeColor('bookmarks.lineBorder');
-
-    return createLineDecoration(lineBackground, lineBorder, vscode.OverviewRulerLane.Full, overviewRulerColor, pathIcon);
-}
+import { createTextEditorDecoration } from "../vscode-bookmarks-core/src/decoration";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
