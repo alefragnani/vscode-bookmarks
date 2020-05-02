@@ -18,7 +18,7 @@ import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
 import { SEARCH_EDITOR_SCHEME } from "./constants";
-import { suggestLabel, useSelectionWhenAvailable } from "./suggestion";
+import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
 
 /**
  * Define the Bookmark Decoration
