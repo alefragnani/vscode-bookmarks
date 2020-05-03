@@ -13,25 +13,23 @@ import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmark
 import { BookmarkProvider, BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
-import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
-import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
 import { createTextEditorDecoration, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
 import { loadBookmarks, saveBookmarks } from "../vscode-bookmarks-core/src/model/workspaceState";
 import { expandSelectionToNextBookmark, shrinkSelection, selectBookmarkedLines } from "../vscode-bookmarks-core/src/selections";
+import { Container } from "../vscode-bookmarks-core/src/container";
+import { registerWhatsNew } from "./whats-new/commands";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
+
+    Container.context = context;
   
     const bookmarks: BookmarksController = new BookmarksController();
     let activeEditorCountLine: number;
     let timeout: NodeJS.Timer;
 
-    const provider = new WhatsNewBookmarksContentProvider();
-    const viewer = new WhatsNewManager(context).registerContentProvider("Bookmarks", provider);
-    viewer.showPageInActivation();
-    context.subscriptions.push(vscode.commands.registerCommand("bookmarks.whatsNew", () => viewer.showPage()));
-    context.subscriptions.push(vscode.commands.registerCommand("bookmarks.whatsNewContextMenu", () => viewer.showPage()));
+    registerWhatsNew();
 
     // load pre-saved bookmarks
     const didLoadBookmarks: boolean = loadWorkspaceState();
