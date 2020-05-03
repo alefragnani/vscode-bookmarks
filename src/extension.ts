@@ -18,11 +18,12 @@ import { WhatsNewManager } from "../vscode-whats-new/src/Manager";
 import { WhatsNewBookmarksContentProvider } from "./whats-new/BookmarksContentProvider";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
 import { createTextEditorDecoration, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
+import { loadBookmarks, saveBookmarks } from "../vscode-bookmarks-core/src/model/workspaceState";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
   
-    let bookmarks: BookmarksController;
+    const bookmarks: BookmarksController = new BookmarksController();
     let activeEditorCountLine: number;
     let timeout: NodeJS.Timer;
 
@@ -209,73 +210,12 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    function canSaveBookmarksInProject(): boolean {
-        let saveBookmarksInProject: boolean = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
-        
-        // really use saveBookmarksInProject
-        // 0. has at least a folder opened
-        // 1. is a valid workspace/folder
-        // 2. has only one workspaceFolder
-        // let hasBookmarksFile: boolean = false;
-        if (saveBookmarksInProject && ((!vscode.workspace.workspaceFolders) || (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 1))) {
-            // hasBookmarksFile = fs.existsSync(path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json"));
-            saveBookmarksInProject = false;
-        }
-
-        return saveBookmarksInProject;
-    }
-
     function loadWorkspaceState(): boolean {
-        const saveBookmarksInProject: boolean = canSaveBookmarksInProject();
-
-        bookmarks = new BookmarksController("");
-
-        if (saveBookmarksInProject) {
-            if (!vscode.workspace.workspaceFolders) {
-                return false;
-            }
-
-            const bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
-            if (!fs.existsSync(bookmarksFileInProject)) {
-                return false;
-            }
-            try {
-                bookmarks.loadFrom(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()), true);
-                return true;
-            } catch (error) {
-                vscode.window.showErrorMessage("Error loading Bookmarks: " + error.toString());
-                return false;
-            }
-        } else {
-            const savedBookmarks = context.workspaceState.get("bookmarks", "");
-            if (savedBookmarks !== "") {
-                bookmarks.loadFrom(JSON.parse(savedBookmarks));
-            }
-            return savedBookmarks !== "";
-        }        
+        return loadBookmarks(bookmarks, context)
     }
 
     function saveWorkspaceState(): void {
-        const saveBookmarksInProject: boolean = canSaveBookmarksInProject();
-        // return;
-        if (saveBookmarksInProject) {
-            const bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
-
-            // avoid empty bookmarks.json file
-            if (!bookmarks.hasAnyBookmark()) {
-                if (fs.existsSync(bookmarksFileInProject)) {
-                    fs.unlinkSync(bookmarksFileInProject);
-                }
-                return;
-            }
-
-            if (!fs.existsSync(path.dirname(bookmarksFileInProject))) {
-                fs.mkdirSync(path.dirname(bookmarksFileInProject)); 
-            }
-            fs.writeFileSync(bookmarksFileInProject, JSON.stringify(bookmarks.zip(true), null, "\t"));   
-        } else {
-            context.workspaceState.update("bookmarks", JSON.stringify(bookmarks.zip()));
-        }
+        saveBookmarks(bookmarks, context);
     }
 
     function removeBasePathFrom(aPath: string, currentWorkspaceFolder: vscode.WorkspaceFolder): string {
