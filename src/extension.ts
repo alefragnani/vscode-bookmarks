@@ -178,8 +178,8 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("bookmarks.shrinkSelection", () => shrinkSelection(bookmarks));
     vscode.commands.registerCommand("bookmarks.toggle", () => toggle());
     vscode.commands.registerCommand("bookmarks.toggleLabeled", () => toggleLabeled());    
-    vscode.commands.registerCommand("bookmarks.jumpToNext", () => jumpToNext());
-    vscode.commands.registerCommand("bookmarks.jumpToPrevious", () => jumpToPrevious());
+    vscode.commands.registerCommand("bookmarks.jumpToNext", () => jumpToNext(Directions.Forward));
+    vscode.commands.registerCommand("bookmarks.jumpToPrevious", () => jumpToNext(Directions.Backward));
     vscode.commands.registerCommand("bookmarks.list", () => list());
     vscode.commands.registerCommand("bookmarks.listFromAllFiles", () => listFromAllFiles());
     
@@ -551,7 +551,7 @@ export function activate(context: vscode.ExtensionContext) {
         );
     };
 
-    function jumpToNext() {
+    function jumpToNext(direction: Directions) {
         
         if (!vscode.window.activeTextEditor) {
           vscode.window.showInformationMessage("Open a file first to jump to bookmarks");
@@ -563,7 +563,7 @@ export function activate(context: vscode.ExtensionContext) {
         }      
         
         // 
-        bookmarks.activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active)
+        bookmarks.activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active, direction)
             .then((next) => {
               if (typeof next === "number") {
 
@@ -571,7 +571,7 @@ export function activate(context: vscode.ExtensionContext) {
                     return;
                 }
 
-                bookmarks.nextDocumentWithBookmarks(bookmarks.activeBookmark)
+                bookmarks.nextDocumentWithBookmarks(bookmarks.activeBookmark, direction)
                   .then((nextDocument) => {
                       
                       if (nextDocument === NO_MORE_BOOKMARKS) {
@@ -581,64 +581,15 @@ export function activate(context: vscode.ExtensionContext) {
                       // same document?
                       const activeDocument = BookmarksController.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
                       if (nextDocument.toString() === activeDocument) {
-                        revealPosition(bookmarks.activeBookmark.bookmarks[0].line, 
-                            bookmarks.activeBookmark.bookmarks[0].column);
-                      } else { 
-                        vscode.workspace.openTextDocument(nextDocument.toString()).then(doc => {
-                            vscode.window.showTextDocument(doc).then(editor => {
-                                revealPosition(bookmarks.activeBookmark.bookmarks[0].line, 
-                                    bookmarks.activeBookmark.bookmarks[0].column);
-                            });
-                        });
-                      }
-                  })
-                  .catch(checkBookmarks);
-              } else {
-                  revealPosition(next.line, next.character);
-              }
-            })
-            .catch((error) => {
-              console.log("activeBookmark.nextBookmark REJECT" + error);
-            });
-    };
-
-    function jumpToPrevious() {
-      
-        if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to jump to bookmarks");
-          return;
-        }
-      
-        if (!bookmarks.activeBookmark) {
-            return;
-        }      
-        
-        // 
-        bookmarks.activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active, Directions.Backward)
-            .then((next) => {
-
-                if (!checkBookmarks(next)) {
-                    return;
-                }
-
-                if (typeof next === "number") {
-                bookmarks.nextDocumentWithBookmarks(bookmarks.activeBookmark, Directions.Backward)
-                  .then((nextDocument) => {
-                      
-                      if (nextDocument === NO_MORE_BOOKMARKS) {
-                          return;
-                      }
-                    
-                      // same document?
-                      const activeDocument = BookmarksController.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
-                      if (nextDocument.toString() === activeDocument) {
-                        revealPosition(bookmarks.activeBookmark.bookmarks[bookmarks.activeBookmark.bookmarks.length - 1].line, 
-                            bookmarks.activeBookmark.bookmarks[bookmarks.activeBookmark.bookmarks.length - 1].column);
-                      } else { 
-                        vscode.workspace.openTextDocument(nextDocument.toString()).then(doc => {
-                            vscode.window.showTextDocument(doc).then(editor => {
-                                revealPosition(bookmarks.activeBookmark.bookmarks[bookmarks.activeBookmark.bookmarks.length - 1].line, 
-                                    bookmarks.activeBookmark.bookmarks[bookmarks.activeBookmark.bookmarks.length - 1].column);
+                        const bookmarkIndex = direction === Directions.Forward ? 0 : bookmarks.activeBookmark.bookmarks.length - 1;
+                        revealPosition(bookmarks.activeBookmark.bookmarks[bookmarkIndex].line, 
+                            bookmarks.activeBookmark.bookmarks[bookmarkIndex].column);
+                        } else { 
+                            vscode.workspace.openTextDocument(nextDocument.toString()).then(doc => {
+                                vscode.window.showTextDocument(doc).then(editor => {
+                                    const bookmarkIndex = direction === Directions.Forward ? 0 : bookmarks.activeBookmark.bookmarks.length - 1;
+                                    revealPosition(bookmarks.activeBookmark.bookmarks[bookmarkIndex].line, 
+                                        bookmarks.activeBookmark.bookmarks[bookmarkIndex].column);
                             });
                         });
                       }
