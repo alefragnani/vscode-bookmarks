@@ -59,17 +59,17 @@
         "viewsWelcome": [
 			{
 				"view": "bookmarksExplorer",
-                "contents": "No bookmarks yet.\nIn order to use Bookmarks, you have to open a folder or workspace first.\n[Open a Folder](command:workbench.action.files.openFileFolder)\n[Open a Workspace](command:workbench.action.openWorkspace)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks)",
+                "contents": "In order to use Bookmarks, you have to open a folder or workspace first.\n[Open a Folder](command:workbench.action.files.openFileFolder)\n[Open a Workspace](command:workbench.action.openWorkspace)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
                 "when": "workbenchState == empty"
 			},
 			{
 				"view": "bookmarksExplorer",
-                "contents": "No bookmarks yet.\nIn order to use Bookmarks, you have to open a file in the editor.\n[Open a File](command:workbench.action.quickOpen)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks)",
+                "contents": "No bookmarks yet.\nIn order to use Bookmarks, you have to open a file in the editor.\n[Open a File](command:workbench.action.quickOpen)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
                 "when": "workbenchState != empty && !editorIsOpen"
 			},
 			{
 				"view": "bookmarksExplorer",
-                "contents": "No bookmarks yet.\nIn order to use Bookmarks, position the cursor in any location in the file an run the command\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks)",
+                "contents": "No bookmarks yet.\nIn order to use Bookmarks, place the cursor in any location in the file an run the command:\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
                 "when": "workbenchState != empty && editorIsOpen"
 			}
 		],
