@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 // tslint:disable-next-line:max-line-length
-import { ChangeLogItem, ChangeLogKind, ContentProvider, Header, Image, Sponsor } from "../../vscode-whats-new/src/ContentProvider";
+import { ChangeLogItem, ChangeLogKind, ContentProvider, Header, Image, Sponsor, IssueKind } from "../../vscode-whats-new/src/ContentProvider";
 
 export class WhatsNewBookmarksContentProvider implements ContentProvider {
 
@@ -22,61 +22,85 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         const changeLog: ChangeLogItem[] = [];
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.2.0", releaseDate: "May 2020" } });
         changeLog.push({
-            kind: ChangeLogKind.NEW, detail: {
-                message: `Adds <b>Label suggestion</b> based on selection 
-                        (<a title=\"Open Issue #239\" 
-                            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/239\">
-                            Issue #239</a>)`}
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Adds <b>Label suggestion</b> based on selection",
+                id: 239,
+                kind: IssueKind.Issue
+            }
         });
         changeLog.push({
-            kind: ChangeLogKind.NEW, detail: {
-                message: `<b>Side bar</b> welcome message 
-                        (<a title=\"Open Issue #284\" 
-                            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/284\">
-                            Issue #284</a>)`}
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "<b>Side bar</b> welcome message",
+                id: 284,
+                kind: IssueKind.Issue
+            }
         });
         changeLog.push({
-            kind: ChangeLogKind.CHANGED, detail: {
-                message: `The <b>Bookmark position</b> in the <b>Side Bar</b> became more subtle 
-                        (<a title=\"Open Issue #295\" 
-                            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/295\">
-                            Issue #295</a>)`}
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "The <b>Bookmark position</b> in the <b>Side Bar</b> became more subtle",
+                id: 295,
+                kind: IssueKind.Issue
+            }
         });
         changeLog.push({
-            kind: ChangeLogKind.FIXED, detail: {
-                message: `Avoid Bookmarks from being toggled in the new Search Editor 
-                        (<a title=\"Open Issue #279\" 
-                            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/279\">
-                            Issue #279</a>)</b>`}
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Avoid Bookmarks from being toggled in the new Search Editor",
+                id: 279,
+                kind: IssueKind.Issue
+            }
         });
 
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.1.0", releaseDate: "April 2020" } });
+        changeLog.push({
+            kind: ChangeLogKind.VERSION,
+            detail: { releaseNumber: "11.1.0", releaseDate: "April 2020" }
+        });
 
         changeLog.push({
-            kind: ChangeLogKind.NEW, detail: {
-                message: `Adds <b>Multi cursor</b> support 
-                        (<a title=\"Open Issue #77\" 
-                            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/77\">
-                            Issue #77</a>)`}});
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Adds <b>Multi cursor</b> support",
+                id: 77,
+                kind: IssueKind.Issue
+            }
+        });
 
-        changeLog.push({kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.0.0", releaseDate: "February 2020"} });
-        changeLog.push({kind: ChangeLogKind.NEW, detail: {
-            message: `Adds <b>workbench.colorCustomizations</b> support 
-                    (<a title=\"Open Issue #246\" 
-                        href=\"https://github.com/alefragnani/vscode-bookmarks/issues/246\">
-                        Issue #246</a>)`}});
+        changeLog.push({
+            kind: ChangeLogKind.VERSION,
+            detail: { releaseNumber: "11.0.0", releaseDate: "February 2020" }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Adds <b>workbench.colorCustomizations</b> support",
+                id: 246,
+                kind: IssueKind.Issue
+            }
+        });
 
-        changeLog.push({kind: ChangeLogKind.VERSION, detail: { releaseNumber: "10.7.0", releaseDate: "January 2020"} });
-        changeLog.push({kind: ChangeLogKind.NEW, detail: {
-            message: `Adds hover buttons for File and Bookmarks in Side Bar 
-                    (<a title=\"Open Issue #258\" 
-                        href=\"https://github.com/alefragnani/vscode-bookmarks/issues/258\">
-                        Issue #258</a>)</b>`}});
-        changeLog.push({kind: ChangeLogKind.NEW, detail: {
-            message: `Adds relative path next to the filename in Side Bar
-                    (<a title=\"Open Issue #236\" 
-                        href=\"https://github.com/alefragnani/vscode-bookmarks/issues/236\">
-                        Issue #236</a>)</b>`}});
+        changeLog.push({
+            kind: ChangeLogKind.VERSION,
+            detail: { releaseNumber: "10.7.0", releaseDate: "January 2020" }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Adds hover buttons for File and Bookmarks in Side Bar",
+                id: 258,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Adds relative path next to the filename in Side Bar",
+                id: 236,
+                kind: IssueKind.Issue
+            }
+        });
 
         return changeLog;
     }
