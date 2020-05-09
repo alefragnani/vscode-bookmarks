@@ -26,12 +26,9 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Multi cursor</b> support (<a title=\"Open Issue #77\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/77\">
             Issue #77</a>)`});
-        changeLog.push({kind: ChangeLogKind.NEW, message: "Adds <b>Column Position</b> and <b>Label</b> support"});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Localization</b> support - <b>Russian</b>, 
-            <b>Chinese (Simplified)</b> and <b>Portuguese (Brazil)</b>`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>workbench.colorCustomizations</b> support (<a title=\"Open Issue #246\" 
                 href=\"https://github.com/alefragnani/vscode-bookmarks/issues/246\">
-                PR #246</a>)`});
+                Issue #246</a>)`});
         changeLog.push({kind: ChangeLogKind.NEW, message: `Adds hover buttons for File and Bookmarks in Side Bar - (<a title=\"Open Issue #258\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/258\">
             Issue #258</a>)</b>`});
@@ -41,24 +38,15 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         changeLog.push({kind: ChangeLogKind.NEW, message: `Show only filename in Side Bar - (<a title=\"Open Issue #149\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/149\">
             Issue #149</a>)</b>`});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds <b>Collapse All</b> command in the Side Bar (<a title=\"Open Issue #92\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/92\">
-            PR #92</a>)`});
-        changeLog.push({kind: ChangeLogKind.NEW, message: `Adds Setting to start Side Bar expanded (<a title=\"Open Issue #176\" 
-                href=\"https://github.com/alefragnani/vscode-bookmarks/issues/176\">
-                PR #176</a>)`});
         changeLog.push({kind: ChangeLogKind.CHANGED, message: `The <b>Expand Selection...</b> commands now works even if the file has only one Bookmark (<a title=\"Open Issue #120\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/120\">
-            PR #120</a>)`});
+            Issue #120</a>)`});
+        changeLog.push({kind: ChangeLogKind.CHANGED, message: `The <b>Bookmark position</b> in the <b>Side Bar</b> became more subtle (<a title=\"Open Issue #295\" 
+            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/295\">
+            Issue #295</a>)`});
         changeLog.push({kind: ChangeLogKind.FIXED, message: `Avoid Bookmarks from being toggled in the new Search Editor (<a title=\"Open Issue #279\" 
             href=\"https://github.com/alefragnani/vscode-bookmarks/issues/279\">
             Issue #279</a>)</b>`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Activation error for "No-Folders Workspace" scenario (<a title=\"Open Issue #212\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/212\">
-            Issue #212</a>)`});
-        changeLog.push({kind: ChangeLogKind.FIXED, message: `Typing delay when SaveBookmarksInProject is enabled (<a title=\"Open Issue #202\" 
-            href=\"https://github.com/alefragnani/vscode-bookmarks/issues/202\">
-            Issue #202</a>)`});
         return changeLog;
     }
 

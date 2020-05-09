@@ -2,14 +2,14 @@
     "name": "Bookmarks",
     "displayName": "Bookmarks",
     "description": "Mark lines and jump to them",
-    "version": "11.1.0",
+    "version": "11.2.0",
     "publisher": "alefragnani",
     "galleryBanner": {
         "color": "#000000",
         "theme": "dark"
     },
     "engines": {
-        "vscode": "^1.42.0"
+        "vscode": "^1.45.0"
     },
     "categories": [
         "Other"
@@ -57,22 +57,22 @@
             ]
         },
         "viewsWelcome": [
-			{
-				"view": "bookmarksExplorer",
+            {
+                "view": "bookmarksExplorer",
                 "contents": "In order to use Bookmarks, you have to open a folder or workspace first.\n[Open a Folder](command:workbench.action.files.openFileFolder)\n[Open a Workspace](command:workbench.action.openWorkspace)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
                 "when": "workbenchState == empty"
-			},
-			{
-				"view": "bookmarksExplorer",
+            },
+            {
+                "view": "bookmarksExplorer",
                 "contents": "No bookmarks yet.\nIn order to use Bookmarks, you have to open a file in the editor.\n[Open a File](command:workbench.action.quickOpen)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
                 "when": "workbenchState != empty && !editorIsOpen"
-			},
-			{
-				"view": "bookmarksExplorer",
+            },
+            {
+                "view": "bookmarksExplorer",
                 "contents": "No bookmarks yet.\nIn order to use Bookmarks, place the cursor in any location in the file an run the command:\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
                 "when": "workbenchState != empty && editorIsOpen"
-			}
-		],
+            }
+        ],
         "commands": [
             {
                 "command": "bookmarks.toggle",
@@ -419,7 +419,7 @@
     },
     "devDependencies": {
         "@types/node": "^10.14.17",
-        "@types/vscode": "^1.42.0",
+        "@types/vscode": "^1.45.0",
         "typescript": "^3.5.1",
         "vscode": "^1.1.36",
         "webpack": "^4.19.1",

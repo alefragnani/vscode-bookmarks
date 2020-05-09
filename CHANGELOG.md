@@ -1,11 +1,13 @@
-## [11.2.0] - 2020-05-??
+## [11.2.0] - 2020-05-09
 ### Added
 - Use selected text as Label (issue [#239](https://github.com/alefragnani/vscode-bookmarks/issues/239))
+- **Side Bar** welcome message (issue [#284](https://github.com/alefragnani/vscode-bookmarks/issues/284))
+
+### Changed
+- Bookmark position in **Side Bar** became more subtle (issue [#295](https://github.com/alefragnani/vscode-bookmarks/issues/295))
 
 ### Fixed
 - Avoid Bookmarks from being toggled in the new Search Editor (issue [#279](https://github.com/alefragnani/vscode-bookmarks/issues/279))
-
-### Internal
 
 ## [11.1.0] - 2020-04-10
 ### Added
