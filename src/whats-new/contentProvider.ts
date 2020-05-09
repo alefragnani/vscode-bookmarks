@@ -67,6 +67,30 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
                 kind: IssueKind.Issue
             }
         });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Support VS Code package split",
+                id: 263,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Support <b>ThemeIcon</b>",
+                id: 269,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Support Extension View Context Menu",
+                id: 270,
+                kind: IssueKind.Issue
+            }
+        });
 
         changeLog.push({
             kind: ChangeLogKind.VERSION,
@@ -77,6 +101,14 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             detail: {
                 message: "Adds <b>workbench.colorCustomizations</b> support",
                 id: 246,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Use <b>vscode-ext-selection</b> and <b>vscode-ext-decoration</b> packages",
+                id: 266,
                 kind: IssueKind.Issue
             }
         });
@@ -98,6 +130,22 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             detail: {
                 message: "Adds relative path next to the filename in Side Bar",
                 id: 236,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Renew iconography to match new VS Code identity",
+                id: 231,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Shrink installation size",
+                id: 190,
                 kind: IssueKind.Issue
             }
         });
