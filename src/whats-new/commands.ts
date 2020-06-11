@@ -13,5 +13,5 @@ export function registerWhatsNew() {
     const viewer = new WhatsNewManager(Container.context).registerContentProvider("Bookmarks", provider);
     viewer.showPageInActivation();
     Container.context.subscriptions.push(commands.registerCommand("bookmarks.whatsNew", () => viewer.showPage()));
-    Container.context.subscriptions.push(commands.registerCommand("bookmarks.whatsNewContextMenu", () => viewer.showPage()));
+    Container.context.subscriptions.push(commands.registerCommand("_bookmarks.whatsNewContextMenu", () => viewer.showPage()));
 }

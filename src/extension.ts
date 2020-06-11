@@ -125,7 +125,7 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorationsInActiveEditor(activeEditor, bookmarks, bookmarkDecorationType);
     }
 
-    vscode.commands.registerCommand("bookmarks.jumpTo", (documentPath, line, column: string) => {
+    vscode.commands.registerCommand("_bookmarks.jumpTo", (documentPath, line, column: string) => {
         const uriDocBookmark: vscode.Uri = vscode.Uri.file(documentPath);
         vscode.workspace.openTextDocument(uriDocBookmark).then(doc => {
             vscode.window.showTextDocument(doc ).then(editor => {
@@ -145,13 +145,13 @@ export function activate(context: vscode.ExtensionContext) {
         bookmarkExplorer.expandAll();
     });
 
-    vscode.commands.registerCommand("bookmarks.clearFromFile", node => {
+    vscode.commands.registerCommand("_bookmarks.clearFromFile", node => {
         bookmarks.clear(node.bookmark);
         saveWorkspaceState();
         updateDecorations();
     });
 
-    vscode.commands.registerCommand("bookmarks.deleteBookmark", node => {
+    vscode.commands.registerCommand("_bookmarks.deleteBookmark", node => {
         const book: BookmarkedFile = bookmarks.fromUri(node.command.arguments[0]);
         const index = book.indexOfBookmark(node.command.arguments[1] - 1); // bookmarks.indexOf({line: node.command.arguments[1] - 1});
         bookmarks.removeBookmark(index, node.command.arguments[1] - 1, book);
@@ -159,7 +159,7 @@ export function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     });
 
-    vscode.commands.registerCommand("bookmarks.editLabel", node => {
+    vscode.commands.registerCommand("_bookmarks.editLabel", node => {
         const uriDocBookmark: vscode.Uri = vscode.Uri.file(node.command.arguments[0]);
         const book: BookmarkedFile = bookmarks.fromUri(uriDocBookmark.fsPath);
         const index = book.indexOfBookmark(node.command.arguments[1] - 1);
