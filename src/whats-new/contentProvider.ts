@@ -167,7 +167,7 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
                  Try it free</a>`
         };
         sponsors.push(sponsorCodeStream);
-        return sponsors
+        return sponsors;
     }
 
 }
