@@ -54,6 +54,10 @@ export function activate(context: vscode.ExtensionContext) {
 
             updateDecorations();
         }
+        
+        if (cfg.affectsConfiguration("bookmarks.saveBookmarksInProject")) {
+            saveWorkspaceState();
+        }
     }));
 
     let bookmarkDecorationType = createTextEditorDecoration(context);
