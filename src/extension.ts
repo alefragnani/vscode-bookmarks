@@ -3,14 +3,13 @@
 *  Licensed under the MIT License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import fs = require("fs");
 import path = require("path");
 import * as vscode from "vscode";
 
 import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/api/bookmark";
 import { Directions, SEARCH_EDITOR_SCHEME } from "../vscode-bookmarks-core/src/api/constants";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
-import { BookmarkProvider, BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
+import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
@@ -89,7 +88,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.workspace.onDidChangeTextDocument(event => {
         if (activeEditor && event.document === activeEditor.document) {
 //            triggerUpdateDecorations();
-            let updatedBookmark: boolean = false;
+            let updatedBookmark = false;
 
             // workaround for formatters like Prettier (#118)
             if (vscode.workspace.getConfiguration("bookmarks").get("useWorkaroundForFormatters", false)) {
@@ -128,7 +127,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("_bookmarks.jumpTo", (documentPath, line, column: string) => {
         const uriDocBookmark: vscode.Uri = vscode.Uri.file(documentPath);
         vscode.workspace.openTextDocument(uriDocBookmark).then(doc => {
-            vscode.window.showTextDocument(doc ).then(editor => {
+            vscode.window.showTextDocument(doc ).then(() => {
                 const lineInt: number = parseInt(line, 10);
                 const colunnInt: number = parseInt(column, 10);
                 // revealLine(lineInt - 1);
@@ -137,7 +136,7 @@ export function activate(context: vscode.ExtensionContext) {
         });
     });
 
-    vscode.commands.registerCommand("bookmarks.refresh", node => {
+    vscode.commands.registerCommand("bookmarks.refresh", () => {
         bookmarkProvider.refresh();
     });
 
@@ -205,7 +204,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function loadWorkspaceState(): boolean {
-        return loadBookmarks(bookmarks, context)
+        return loadBookmarks(bookmarks, context);
     }
 
     function saveWorkspaceState(): void {
@@ -307,7 +306,7 @@ export function activate(context: vscode.ExtensionContext) {
                 revealPosition(point.line - 1, point.column - 1);
             }
     });
-    };
+    }
 
     function clear() {
         
@@ -319,13 +318,13 @@ export function activate(context: vscode.ExtensionContext) {
         bookmarks.clear();
         saveWorkspaceState();
         updateDecorations();
-    };
+    }
 
     function clearFromAllFiles() {
         bookmarks.clearAll();
         saveWorkspaceState();
         updateDecorations();
-    };
+    }
 
     function listFromAllFiles() {
 
@@ -386,8 +385,7 @@ export function activate(context: vscode.ExtensionContext) {
               // - no octicon - document in same workspaceFolder
               // - with octicon 'file-submodules' - document in another workspaceFolder
               // - with octicon - 'file-directory' - document outside any workspaceFolder
-              let itemsSorted: vscode.QuickPickItem[];
-              itemsSorted = items.sort(function(a: vscode.QuickPickItem, b: vscode.QuickPickItem): number {
+              const itemsSorted: vscode.QuickPickItem[] = items.sort(function(a: vscode.QuickPickItem, b: vscode.QuickPickItem): number {
                 if (!a.detail && !b.detail) {
                     return 0;
                 }
@@ -402,27 +400,27 @@ export function activate(context: vscode.ExtensionContext) {
                 
                 if ((a.detail.toString().indexOf("$(file-submodule) ") === 0) && (b.detail.toString().indexOf("$(file-directory) ") === 0)) {
                     return -1;
-                };
+                }
                 
                 if ((a.detail.toString().indexOf("$(file-directory) ") === 0) && (b.detail.toString().indexOf("$(file-submodule) ") === 0)) {
                     return 1;
-                };
+                }
                 
                 if ((a.detail.toString().indexOf("$(file-submodule) ") === 0) && (b.detail.toString().indexOf("$(file-submodule) ") === -1)) {
                     return 1;
-                };
+                }
                 
                 if ((a.detail.toString().indexOf("$(file-submodule) ") === -1) && (b.detail.toString().indexOf("$(file-submodule) ") === 0)) {
                     return -1;
-                };
+                }
                 
                 if ((a.detail.toString().indexOf("$(file-directory) ") === 0) && (b.detail.toString().indexOf("$(file-directory) ") === -1)) {
                     return 1;
-                };
+                }
                 
                 if ((a.detail.toString().indexOf("$(file-directory) ") === -1) && (b.detail.toString().indexOf("$(file-directory) ") === 0)) {
                     return -1;
-                };
+                }
                 
                 return 0;
               });
@@ -474,7 +472,7 @@ export function activate(context: vscode.ExtensionContext) {
                       } else {
                           const uriDocument: vscode.Uri = vscode.Uri.file(filePath);
                           vscode.workspace.openTextDocument(uriDocument).then(doc => {
-                              vscode.window.showTextDocument(doc, { preserveFocus: true, preview: true }).then(editor => {
+                              vscode.window.showTextDocument(doc, { preserveFocus: true, preview: true }).then(() => {
                                 if (point) {
                                     revealPosition(point.line - 1, point.column - 1);
                                 }
@@ -490,7 +488,7 @@ export function activate(context: vscode.ExtensionContext) {
                       } else {
                         const uriDocument: vscode.Uri = vscode.Uri.file(activeTextEditorPath);
                         vscode.workspace.openTextDocument(uriDocument).then(doc => {
-                            vscode.window.showTextDocument(doc).then(editor => {
+                            vscode.window.showTextDocument(doc).then(() => {
                                 revealLine(currentLine - 1);
                                 return;
                             });
@@ -535,7 +533,7 @@ export function activate(context: vscode.ExtensionContext) {
                       }
                       const uriDocument: vscode.Uri = vscode.Uri.file(newPath);
                       vscode.workspace.openTextDocument(uriDocument).then(doc => {
-                          vscode.window.showTextDocument(doc).then(editor => {
+                          vscode.window.showTextDocument(doc).then(() => {
                             if (point) {
                                 revealPosition(point.line - 1, point.column - 1);
                             }        
@@ -545,7 +543,7 @@ export function activate(context: vscode.ExtensionContext) {
               });
             }  
         );
-    };
+    }
 
     function jumpToNext(direction: Directions) {
         
@@ -582,7 +580,7 @@ export function activate(context: vscode.ExtensionContext) {
                             bookmarks.activeBookmark.bookmarks[bookmarkIndex].column);
                         } else { 
                             vscode.workspace.openTextDocument(nextDocument.toString()).then(doc => {
-                                vscode.window.showTextDocument(doc).then(editor => {
+                                vscode.window.showTextDocument(doc).then(() => {
                                     const bookmarkIndex = direction === Directions.Forward ? 0 : bookmarks.activeBookmark.bookmarks.length - 1;
                                     revealPosition(bookmarks.activeBookmark.bookmarks[bookmarkIndex].line, 
                                         bookmarks.activeBookmark.bookmarks[bookmarkIndex].column);
@@ -598,7 +596,7 @@ export function activate(context: vscode.ExtensionContext) {
             .catch((error) => {
               console.log("activeBookmark.nextBookmark REJECT" + error);
             });
-    };
+    }
 
     function checkBookmarks(result: number | vscode.Position): boolean {
         if (result === NO_BOOKMARKS_BEFORE || result === NO_BOOKMARKS_AFTER) {
@@ -663,12 +661,12 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (await bookmarks.toggle(selections)) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
-        };
+        }
 
         bookmarks.activeBookmark.sortBookmarks();
         saveWorkspaceState();
         updateDecorations();
-    };
+    }
 
     async function toggleLabeled() {
 
@@ -712,7 +710,7 @@ export function activate(context: vscode.ExtensionContext) {
             value: suggestion
         };
         const newLabel = await vscode.window.showInputBox(ibo);
-        if (typeof newLabel === "undefined") { return };
+        if (typeof newLabel === "undefined") { return; }
         if (newLabel === "") {
             vscode.window.showWarningMessage("You must define a label for the bookmark.");
             return;
@@ -720,7 +718,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (await bookmarks.toggle(selections, newLabel)) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
-        };
+        }
 
         // sorted
         /* let itemsSorted = [] =*/
@@ -737,5 +735,5 @@ export function activate(context: vscode.ExtensionContext) {
         
         saveWorkspaceState();
         updateDecorations();
-    };
+    }
 }
