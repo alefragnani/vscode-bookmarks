@@ -1,3 +1,15 @@
+## [11.3.0] - 2020-06-15
+### Added
+- Auto-save bookmarks when changing `saveBookmarksInProject` setting (issue [#242](https://github.com/alefragnani/vscode-bookmarks/issues/242))
+
+### Changed
+- Internal commands can't be customisable (issue [#306](https://github.com/alefragnani/vscode-bookmarks/issues/306))
+
+### Internal
+- Migrate from TSLint to ESLint (issue [#290](https://github.com/alefragnani/vscode-bookmarks/issues/290))
+- Remove `vscode` dependency (issue [#296](https://github.com/alefragnani/vscode-bookmarks/issues/296))
+- Use `vscode-ext-codicons` package  (issue [#309](https://github.com/alefragnani/vscode-bookmarks/issues/309))
+
 ## [11.2.0] - 2020-05-09
 ### Added
 - Use selected text as Label (issue [#239](https://github.com/alefragnani/vscode-bookmarks/issues/239))

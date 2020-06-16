@@ -20,6 +20,48 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
 
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.3.0", releaseDate: "June 2020" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Auto-save bookmarks when changing <b>saveBookmarksInProject</b> setting",
+                id: 242,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Internal commands can't be customisable",
+                id: 306,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Migrate from TSLint to ESLint",
+                id: 290,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Remove <b>vscode</b> dependency",
+                id: 296,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Use <b>vscode-ext-codicons</b> package",
+                id: 309,
+                kind: IssueKind.Issue
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.2.0", releaseDate: "May 2020" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,

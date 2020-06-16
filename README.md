@@ -3,7 +3,7 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 11.2
+# What's new in Bookmarks 11.3
 
 * Adds an all-new **Side Bar**
 * Adds **Label suggestion** based on selection
