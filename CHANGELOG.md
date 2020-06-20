@@ -1,3 +1,8 @@
+## [11.3.1] - 2020-06-20
+### Fixed
+- `Open Folder` command in Welcome view not working on Windows (issue [#310](https://github.com/alefragnani/vscode-bookmarks/issues/310))
+- Stars visibility on Marketplace (issue [#314](https://github.com/alefragnani/vscode-bookmarks/issues/314))
+
 ## [11.3.0] - 2020-06-15
 ### Added
 - Auto-save bookmarks when changing `saveBookmarksInProject` setting (issue [#242](https://github.com/alefragnani/vscode-bookmarks/issues/242))

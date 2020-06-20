@@ -20,6 +20,24 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
 
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.3.1", releaseDate: "June 2020 (hotfix)" } });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "<b>Open Folder</b> command in Welcome view not working on Windows",
+                id: 310,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Stars visibility on Marketplace",
+                id: 314,
+                kind: IssueKind.Issue
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.3.0", releaseDate: "June 2020" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
