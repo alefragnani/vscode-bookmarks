@@ -4,10 +4,6 @@
     "description": "Mark lines and jump to them",
     "version": "11.3.0",
     "publisher": "alefragnani",
-    "galleryBanner": {
-        "color": "#000000",
-        "theme": "dark"
-    },
     "engines": {
         "vscode": "^1.45.0"
     },
