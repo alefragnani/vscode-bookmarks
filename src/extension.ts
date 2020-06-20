@@ -7,7 +7,7 @@ import path = require("path");
 import * as vscode from "vscode";
 
 import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/api/bookmark";
-import { Directions, SEARCH_EDITOR_SCHEME } from "../vscode-bookmarks-core/src/api/constants";
+import { Directions, SEARCH_EDITOR_SCHEME, isWindows } from "../vscode-bookmarks-core/src/api/constants";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
 import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
@@ -30,6 +30,11 @@ export function activate(context: vscode.ExtensionContext) {
     let timeout: NodeJS.Timer;
 
     registerWhatsNew();
+
+    context.subscriptions.push(vscode.commands.registerCommand("_bookmarks.openFolderWelcome", () => {
+        const openFolderCommand = isWindows ? "workbench.action.files.openFolder" : "workbench.action.files.openFileFolder"
+        vscode.commands.executeCommand(openFolderCommand)
+    }));    
 
     // load pre-saved bookmarks
     const didLoadBookmarks: boolean = loadWorkspaceState();

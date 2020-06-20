@@ -59,7 +59,7 @@
         "viewsWelcome": [
             {
                 "view": "bookmarksExplorer",
-                "contents": "In order to use Bookmarks, you have to open a folder or workspace first.\n[Open a Folder](command:workbench.action.files.openFileFolder)\n[Open a Workspace](command:workbench.action.openWorkspace)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
+                "contents": "In order to use Bookmarks, you have to open a folder or workspace first.\n[Open a Folder](command:_bookmarks.openFolderWelcome)\n[Open a Workspace](command:workbench.action.openWorkspace)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
                 "when": "workbenchState == empty"
             },
             {
@@ -153,6 +153,10 @@
             {
                 "command": "_bookmarks.whatsNewContextMenu",
                 "title": "%bookmarks.commands.whatsNewContextMenu.title%"
+            },
+            {
+                "command": "_bookmarks.openFolderWelcome",
+                "title": "%bookmarks.commands.openFolderWelcome.title%"
             }
         ],
         "menus": {
@@ -179,6 +183,10 @@
                 },
                 {
                     "command": "_bookmarks.whatsNewContextMenu",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.openFolderWelcome",
                     "when": "false"
                 }
             ],

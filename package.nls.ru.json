@@ -20,6 +20,7 @@
     "bookmarks.commands.clearFromAllFiles.title": "Закладки: Очистить из всех файлов",
     "bookmarks.commands.whatsNew.title": "Закладки: Что нового",
     "bookmarks.commands.whatsNewContextMenu.title": "Что нового",
+    "bookmarks.commands.openFolderWelcome.title": "Открыть папку",
     "bookmarks.configuration.title": "Закладки",
     "bookmarks.configuration.saveBookmarksInProject.description": "Разрешить локальное сохранение (и восстановление) закладок в открытом Проекте/Папке вместо VSCoda",
     "bookmarks.configuration.gutterIconPath.description": "Путь к другому изображению, которое будет представлено в виде маркера закладки",
