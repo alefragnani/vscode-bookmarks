@@ -65,7 +65,7 @@
             },
             {
                 "view": "bookmarksExplorer",
-                "contents": "No bookmarks yet.\nIn order to use Bookmarks, place the cursor in any location in the file an run the command:\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
+                "contents": "No bookmarks yet.\nIn order to use Bookmarks, place the cursor in any location in the file and run the command:\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
                 "when": "workbenchState != empty && editorIsOpen"
             }
         ],
