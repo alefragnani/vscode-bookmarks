@@ -21,7 +21,7 @@ import { registerWhatsNew } from "./whats-new/commands";
 import { codicons } from "vscode-ext-codicons";
 
 // this method is called when vs code is activated
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
 
     Container.context = context;
   
@@ -37,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
     }));    
 
     // load pre-saved bookmarks
-    const didLoadBookmarks: boolean = loadWorkspaceState();
+    const didLoadBookmarks: boolean = await loadWorkspaceState();
 
     // tree-view
     // const bookmarkProvider = new BookmarkProvider(bookmarks, context);
@@ -213,8 +213,8 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    function loadWorkspaceState(): boolean {
-        return loadBookmarks(bookmarks, context);
+    async function loadWorkspaceState(): Promise<boolean> {
+        return await loadBookmarks(bookmarks, context);
     }
 
     function saveWorkspaceState(): void {
