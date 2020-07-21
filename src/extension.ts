@@ -48,14 +48,14 @@ export async function activate(context: vscode.ExtensionContext) {
     
     // bookmarkProvider.showTreeView();
 
-    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
+    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(async cfg => {
         // Allow change the gutterIcon without reload
         if (cfg.affectsConfiguration("bookmarks.gutterIconPath")) {
             if (bookmarkDecorationType) {
                 bookmarkDecorationType.dispose();
             }
 
-            bookmarkDecorationType = createTextEditorDecoration(context);
+            bookmarkDecorationType = await createTextEditorDecoration(context);
             context.subscriptions.push(bookmarkDecorationType);
 
             updateDecorations();
@@ -66,7 +66,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }));
 
-    let bookmarkDecorationType = createTextEditorDecoration(context);
+    let bookmarkDecorationType = await createTextEditorDecoration(context);
     context.subscriptions.push(bookmarkDecorationType);
 
     // Connect it to the Editors Events
