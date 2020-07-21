@@ -19,6 +19,9 @@
         "navigation",
         "multi-root ready"
     ],
+    "extensionKind": [
+        "workspace"
+    ],
     "icon": "images/icon.png",
     "license": "SEE LICENSE IN LICENSE.md",
     "homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
