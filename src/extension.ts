@@ -10,7 +10,7 @@ import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMA
 import { Directions, SEARCH_EDITOR_SCHEME, isWindows } from "../vscode-bookmarks-core/src/api/constants";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
 import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
-import { Parser, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
+import { parsePosition, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
 import { createTextEditorDecoration, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
@@ -298,7 +298,7 @@ export function activate(context: vscode.ExtensionContext) {
             // matchOnDetail: true,
             onDidSelectItem: item => {
                 const itemT = <vscode.QuickPickItem> item;
-                const point: Point = Parser.parsePosition(itemT.description);
+                const point: Point = parsePosition(itemT.description);
                 if (point) {
                     revealPosition(point.line - 1, point.column - 1);
                 }
@@ -311,7 +311,7 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
             const itemT = <vscode.QuickPickItem> selection;
-            const point: Point = Parser.parsePosition(itemT.description);
+            const point: Point = parsePosition(itemT.description);
             if (point) {
                 revealPosition(point.line - 1, point.column - 1);
             }
@@ -474,7 +474,7 @@ export function activate(context: vscode.ExtensionContext) {
                           }
                       }
 
-                      const point: Point = Parser.parsePosition(itemT.description);
+                      const point: Point = parsePosition(itemT.description);
                       if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri.fsPath.toLowerCase() === filePath.toLowerCase()) {
                         if (point) {
                             revealPosition(point.line - 1, point.column - 1);
@@ -510,7 +510,7 @@ export function activate(context: vscode.ExtensionContext) {
                       return;
                   }
 
-                  const point: Point = Parser.parsePosition(selection.description);
+                  const point: Point = parsePosition(selection.description);
                   if (!selection.detail) {
                     if (point) {
                         revealPosition(point.line - 1, point.column - 1);
