@@ -1,4 +1,5 @@
 .vscode/**
+.vscode-test/**
 typings/**
 issues/**
 **/*.ts
@@ -7,9 +8,9 @@ out/**
 node_modules/**
 .gitignore
 tsconfig.json
-vsc-extension-quickstart.md
-debug.log
-npm-debug.log
+test/**
+*.vsix
 package-lock.json
 webpack.config.js
-tslint.json
+.github/
+.devcontainer/
