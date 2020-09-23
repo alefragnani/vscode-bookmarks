@@ -18,7 +18,7 @@ import { loadBookmarks, saveBookmarks } from "../vscode-bookmarks-core/src/model
 import { expandSelectionToNextBookmark, shrinkSelection, selectBookmarkedLines } from "../vscode-bookmarks-core/src/selections";
 import { Container } from "../vscode-bookmarks-core/src/container";
 import { registerWhatsNew } from "./whats-new/commands";
-import { codicons } from "vscode-ext-codicons";
+import { codicons, ThemeIcons } from "vscode-ext-codicons";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -628,7 +628,7 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
             // 'empty'
-            if (bookmarkLabel === "" && (oldLabel === "" || jumpToPosition)) {
+            if (bookmarkLabel === "" && oldLabel === "") {
                 vscode.window.showWarningMessage("You must define a label for the bookmark.");
                 return;
             }
@@ -705,9 +705,11 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         // ask label
+        let oldLabel = "";
         if (suggestion === "" && selections.length === 1) {
             const index = bookmarks.activeBookmark.indexOfBookmark(selections[0].active.line);
-            suggestion = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
+            oldLabel = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
+            suggestion = oldLabel;
         }
         // let oldLabel: string = "";
         // if (selections.length === 1) {
@@ -721,7 +723,7 @@ export function activate(context: vscode.ExtensionContext) {
         };
         const newLabel = await vscode.window.showInputBox(ibo);
         if (typeof newLabel === "undefined") { return; }
-        if (newLabel === "") {
+        if (newLabel === "" && oldLabel === "") {
             vscode.window.showWarningMessage("You must define a label for the bookmark.");
             return;
         }
