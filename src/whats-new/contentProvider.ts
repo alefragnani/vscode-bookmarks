@@ -20,7 +20,35 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
 
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.3.1", releaseDate: "June 2020 (hotfix)" } });
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.4.0", releaseDate: "September 2020" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Support clear the bookmark label in <b>Toggle Labeled</b> and <b>Edit Label</b> commands",
+                id: 320,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Localization support - zh-cn",
+                id: 327,
+                kind: IssueKind.PR,
+                kudos: "@loniceras"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Typo in Side Bar welcome page",
+                id: 316,
+                kind: IssueKind.PR,
+                kudos: "@osteele"
+            }
+        });
+
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.3.1", releaseDate: "June 2020" } });
         changeLog.push({
             kind: ChangeLogKind.FIXED,
             detail: {

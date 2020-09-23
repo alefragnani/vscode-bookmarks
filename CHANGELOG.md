@@ -1,3 +1,13 @@
+## [11.4.0] - 2020-09-??
+### Added
+- Support clear the bookmark label in `Toggle Labeled` and `Edit Label` commands (issue [#320](https://github.com/alefragnani/vscode-bookmarks/issues/320))
+
+### Changed
+- Localization support - zh-cn (Thanks to @loniceras [PR #327](https://github.com/alefragnani/vscode-bookmarks/pull/327))
+
+### Fixed
+- Typo in Side Bar welcome page (Thanks to @osteele [PR #316](https://github.com/alefragnani/vscode-bookmarks/pull/316))
+
 ## [11.3.1] - 2020-06-20
 ### Fixed
 - `Open Folder` command in Welcome view not working on Windows (issue [#310](https://github.com/alefragnani/vscode-bookmarks/issues/310))
