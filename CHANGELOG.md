@@ -8,6 +8,9 @@
 ### Fixed
 - Typo in Side Bar welcome page (Thanks to @osteele [PR #316](https://github.com/alefragnani/vscode-bookmarks/pull/316))
 
+### Internal
+- Update CodeStream sponsorship details
+
 ## [11.3.1] - 2020-06-20
 ### Fixed
 - `Open Folder` command in Welcome view not working on Windows (issue [#310](https://github.com/alefragnani/vscode-bookmarks/issues/310))
