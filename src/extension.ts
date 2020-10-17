@@ -18,7 +18,7 @@ import { loadBookmarks, saveBookmarks } from "../vscode-bookmarks-core/src/model
 import { expandSelectionToNextBookmark, shrinkSelection, selectBookmarkedLines } from "../vscode-bookmarks-core/src/selections";
 import { Container } from "../vscode-bookmarks-core/src/container";
 import { registerWhatsNew } from "./whats-new/commands";
-import { codicons, ThemeIcons } from "vscode-ext-codicons";
+import { codicons } from "vscode-ext-codicons";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
