@@ -20,7 +20,7 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
 
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.4.0", releaseDate: "September 2020" } });
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.4.0", releaseDate: "October 2020" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {

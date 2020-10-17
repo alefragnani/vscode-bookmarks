@@ -1,4 +1,4 @@
-## [11.4.0] - 2020-09-??
+## [11.4.0] - 2020-10-16
 ### Added
 - Support clear the bookmark label in `Toggle Labeled` and `Edit Label` commands (issue [#320](https://github.com/alefragnani/vscode-bookmarks/issues/320))
 
