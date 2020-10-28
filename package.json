@@ -193,6 +193,11 @@
                     "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 },
                 {
+                    "command": "bookmarks.toggleLabeled",
+                    "group": "bookmarks",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                },
+                {
                     "command": "bookmarks.jumpToNext",
                     "group": "bookmarks@1",
                     "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
