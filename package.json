@@ -49,6 +49,11 @@
                 {
                     "id": "bookmarksExplorer",
                     "name": "%bookmarks.views.Explorer.name%"
+                },
+                {
+                    "id": "bookmarksHelpAndFeedback",
+                    "name": "Help and Feedback",
+                    "visibility": "collapsed"
                 }
             ]
         },
@@ -153,6 +158,10 @@
             {
                 "command": "_bookmarks.openFolderWelcome",
                 "title": "%bookmarks.commands.openFolderWelcome.title%"
+            },
+            {
+                "command": "bookmarks.supportBookmarks",
+                "title": "%bookmarks.commands.supportBookmarks.title%"
             }
         ],
         "menus": {
