@@ -426,6 +426,7 @@
     "dependencies": {
         "vscode-ext-codicons": "^1.0.0",
         "vscode-ext-decoration": "1.0.0",
+        "vscode-ext-help-and-feedback-view": "^1.0.0",
         "vscode-ext-selection": "1.0.0"
     },
     "devDependencies": {
