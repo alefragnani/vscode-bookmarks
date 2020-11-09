@@ -33,6 +33,9 @@
         "onStartupFinished",
         "onView:bookmarksExplorer"
     ],
+    "extensionKind": [
+        "ui"
+    ],
     "main": "./dist/extension",
     "contributes": {
         "viewsContainers": {
