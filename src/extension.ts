@@ -121,6 +121,20 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }, null, context.subscriptions);
 
+    context.subscriptions.push(vscode.workspace.onDidRenameFiles(rename => {
+        
+        if (rename.files.length === 0) { return; } 
+        
+        rename.files.forEach(file => {
+            const files = bookmarks.storage.fileList.map(file => file.path);
+            if (files.includes(file.oldUri.fsPath)) {
+                bookmarks.storage.updateFilePath(file.oldUri.fsPath, file.newUri.fsPath);
+            }
+        });
+        bookmarkProvider.refresh();
+        saveWorkspaceState();
+    }));
+
     // Timeout
     function triggerUpdateDecorations() {
         if (timeout) {
