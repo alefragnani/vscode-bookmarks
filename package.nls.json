@@ -21,6 +21,7 @@
     "bookmarks.commands.whatsNew.title": "Bookmarks: What's New",
     "bookmarks.commands.whatsNewContextMenu.title": "What's New",
     "bookmarks.commands.openFolderWelcome.title": "Open Folder",
+    "bookmarks.commands.supportBookmarks.title": "Bookmarks: Support Bookmarks",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Path to another image to be presented as Bookmark",

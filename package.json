@@ -49,6 +49,11 @@
                 {
                     "id": "bookmarksExplorer",
                     "name": "%bookmarks.views.Explorer.name%"
+                },
+                {
+                    "id": "bookmarksHelpAndFeedback",
+                    "name": "Help and Feedback",
+                    "visibility": "collapsed"
                 }
             ]
         },
@@ -153,6 +158,10 @@
             {
                 "command": "_bookmarks.openFolderWelcome",
                 "title": "%bookmarks.commands.openFolderWelcome.title%"
+            },
+            {
+                "command": "bookmarks.supportBookmarks",
+                "title": "%bookmarks.commands.supportBookmarks.title%"
             }
         ],
         "menus": {
@@ -431,6 +440,7 @@
     "dependencies": {
         "vscode-ext-codicons": "^1.0.0",
         "vscode-ext-decoration": "1.0.0",
+        "vscode-ext-help-and-feedback-view": "^1.0.0",
         "vscode-ext-selection": "1.0.0"
     },
     "devDependencies": {

@@ -5,20 +5,21 @@
 
 import path = require("path");
 import * as vscode from "vscode";
-
+import { codicons } from "vscode-ext-codicons";
 import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/api/bookmark";
-import { Directions, SEARCH_EDITOR_SCHEME, isWindows } from "../vscode-bookmarks-core/src/api/constants";
+import { Directions, isWindows, SEARCH_EDITOR_SCHEME } from "../vscode-bookmarks-core/src/api/constants";
+import { Container } from "../vscode-bookmarks-core/src/container";
+import { createTextEditorDecoration, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
+import { loadBookmarks, saveBookmarks } from "../vscode-bookmarks-core/src/model/workspaceState";
+import { expandSelectionToNextBookmark, selectBookmarkedLines, shrinkSelection } from "../vscode-bookmarks-core/src/selections";
 import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { parsePosition, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
-import { createTextEditorDecoration, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
-import { loadBookmarks, saveBookmarks } from "../vscode-bookmarks-core/src/model/workspaceState";
-import { expandSelectionToNextBookmark, shrinkSelection, selectBookmarkedLines } from "../vscode-bookmarks-core/src/selections";
-import { Container } from "../vscode-bookmarks-core/src/container";
+import { registerSupportBookmarks } from "./commands/supportBookmarks";
+import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
-import { codicons } from "vscode-ext-codicons";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -30,15 +31,15 @@ export function activate(context: vscode.ExtensionContext) {
     let timeout: NodeJS.Timer;
 
     registerWhatsNew();
-
+    
     context.subscriptions.push(vscode.commands.registerCommand("_bookmarks.openFolderWelcome", () => {
         const openFolderCommand = isWindows ? "workbench.action.files.openFolder" : "workbench.action.files.openFileFolder"
         vscode.commands.executeCommand(openFolderCommand)
     }));    
-
+    
     // load pre-saved bookmarks
     const didLoadBookmarks: boolean = loadWorkspaceState();
-
+    
     // tree-view
     // const bookmarkProvider = new BookmarkProvider(bookmarks, context);
     // vscode.window.registerTreeDataProvider("bookmarksExplorer", bookmarkProvider);
@@ -46,6 +47,8 @@ export function activate(context: vscode.ExtensionContext) {
     const bookmarkExplorer = new BookmarksExplorer(bookmarks, context);
     const bookmarkProvider = bookmarkExplorer.getProvider();
     
+    registerSupportBookmarks();
+    registerHelpAndFeedbackView(context);
     // bookmarkProvider.showTreeView();
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {

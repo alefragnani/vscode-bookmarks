@@ -21,6 +21,7 @@
     "bookmarks.commands.whatsNew.title": "书签: 有什么新特性",
     "bookmarks.commands.whatsNewContextMenu.title": "有什么新特性",
     "bookmarks.commands.openFolderWelcome.title": "打开文件夹",
+    "bookmarks.commands.supportBookmarks.title": "书签：支持书签",
     "bookmarks.configuration.title": "书签",
     "bookmarks.configuration.saveBookmarksInProject.description": "允许书签保存（恢复）在本地。",
     "bookmarks.configuration.gutterIconPath.description": "自定义书签图标的图片路径。",
