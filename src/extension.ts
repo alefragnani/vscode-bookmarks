@@ -125,10 +125,17 @@ export function activate(context: vscode.ExtensionContext) {
         
         if (rename.files.length === 0) { return; } 
         
-        rename.files.forEach(file => {
+        rename.files.forEach(async file => {
             const files = bookmarks.storage.fileList.map(file => file.path);
-            if (files.includes(file.oldUri.fsPath)) {
-                bookmarks.storage.updateFilePath(file.oldUri.fsPath, file.newUri.fsPath);
+            const stat = await vscode.workspace.fs.stat(file.newUri);
+            
+            if (stat.type === vscode.FileType.File) {
+                if (files.includes(file.oldUri.fsPath)) {
+                    bookmarks.storage.updateFilePath(file.oldUri.fsPath, file.newUri.fsPath);
+                }
+            }
+            if (stat.type === vscode.FileType.Directory) {
+                bookmarks.storage.updateDirectoryPath(file.oldUri.fsPath, file.newUri.fsPath);
             }
         });
         bookmarkProvider.refresh();
