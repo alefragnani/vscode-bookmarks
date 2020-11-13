@@ -121,6 +121,10 @@
                 "icon": "$(refresh)"
             },
             {
+                "command": "bookmarks.openSettings",
+                "title": "%bookmarks.commands.openSettings.title%"
+            },
+            {
                 "command": "bookmarks.clear",
                 "title": "%bookmarks.commands.clear.title%"
             },
@@ -172,6 +176,10 @@
                 },
                 {
                     "command": "bookmarks.refresh",
+                    "when": "false"
+                },
+                {
+                    "command": "bookmarks.openSettings",
                     "when": "false"
                 },
                 {
@@ -236,7 +244,12 @@
                     "command": "bookmarks.refresh",
                     "when": "view == bookmarksExplorer",
                     "group": "navigation@10"
-                }
+                },
+                {
+                    "command": "bookmarks.openSettings",
+                    "when": "view == bookmarksExplorer",
+					"group": "2_bookmarks"
+				}
             ],
             "view/item/context": [
                 {

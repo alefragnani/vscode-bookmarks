@@ -12,6 +12,7 @@
     "bookmarks.commands.list.title": "书签: 列表",
     "bookmarks.commands.toggleLabeled.title": "书签: 开关标记",
     "bookmarks.commands.refresh.title": "刷新",
+    "bookmarks.commands.openSettings.title": "打开设置",
     "bookmarks.commands.clear.title": "书签: 清空",
     "bookmarks.commands.clearFromFile.title": "清空",
     "bookmarks.commands.deleteBookmark.title": "删除",

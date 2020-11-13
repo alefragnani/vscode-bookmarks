@@ -17,6 +17,7 @@ import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmark
 import { parsePosition, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
+import { registerOpenSettings } from "./commands/openSettings";
 import { registerSupportBookmarks } from "./commands/supportBookmarks";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
@@ -47,6 +48,7 @@ export function activate(context: vscode.ExtensionContext) {
     const bookmarkExplorer = new BookmarksExplorer(bookmarks, context);
     const bookmarkProvider = bookmarkExplorer.getProvider();
     
+    registerOpenSettings();
     registerSupportBookmarks();
     registerHelpAndFeedbackView(context);
     // bookmarkProvider.showTreeView();

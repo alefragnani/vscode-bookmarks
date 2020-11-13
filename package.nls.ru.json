@@ -12,6 +12,7 @@
     "bookmarks.commands.list.title": "Закладки: Список",
     "bookmarks.commands.toggleLabeled.title": "Закладки: Переключить маркер",
     "bookmarks.commands.refresh.title": "Обновить",
+    "bookmarks.commands.openSettings.title": "Открыть настройки",
     "bookmarks.commands.clear.title": "Закладки: Очистить",
     "bookmarks.commands.clearFromFile.title": "Очистить",
     "bookmarks.commands.deleteBookmark.title": "Удалить",

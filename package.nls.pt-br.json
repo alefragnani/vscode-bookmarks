@@ -12,6 +12,7 @@
     "bookmarks.commands.list.title": "Bookmarks: Listar",
     "bookmarks.commands.toggleLabeled.title": "Bookmarks: Alterar Rotulado",
     "bookmarks.commands.refresh.title": "Atualizar",
+    "bookmarks.commands.openSettings.title": "Abrir Configurações",
     "bookmarks.commands.clear.title": "Bookmarks: Limpar",
     "bookmarks.commands.clearFromFile.title": "Limpar",
     "bookmarks.commands.deleteBookmark.title": "Apagar",

@@ -12,6 +12,7 @@
     "bookmarks.commands.list.title": "Bookmarks: List",
     "bookmarks.commands.toggleLabeled.title": "Bookmarks: Toggle Labeled",
     "bookmarks.commands.refresh.title": "Refresh",
+    "bookmarks.commands.openSettings.title": "Open Settings",
     "bookmarks.commands.clear.title": "Bookmarks: Clear",
     "bookmarks.commands.clearFromFile.title": "Clear",
     "bookmarks.commands.deleteBookmark.title": "Delete",
