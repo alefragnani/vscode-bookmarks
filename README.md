@@ -3,16 +3,13 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 11.4
+# What's new in Bookmarks 12.0
 
-* Adds an all-new **Side Bar**
-* Adds **Label suggestion** based on selection
-* Adds **Multi cursor** support
-* Adds **Column Position** and **Label** support
-* Adds **Localization** support
-* Adds `Collapse All` command in the **Side Bar**
-* Adds **Hover Buttons** for files and Bookmarks in the **Side Bar**
-* Adds **workbench.colorCustomizations** support
+* Improved **Side Bar** usability
+* Adds automatic **Label suggestion** options
+* Full **Multi cursor** support
+* Support for **workbench.colorCustomizations** settings
+* Improved **Localization** options
 
 ## Support
 
@@ -49,11 +46,9 @@ Here are some of the features that **Bookmarks** provides:
 * Mark positions in your code and **give it name**
 * **Jump** forward and backward between bookmarks
 * Icons in **gutter** and **overview ruler**
-* See a list of all Bookmarks in one **file**
-* See a list of all Bookmarks in your **project**
+* See a list of all Bookmarks in one **file** and **project**
+* **Select lines** and **regions** with bookmarks
 * A dedicated **Side Bar**
-* **Select lines** with bookmarks
-* **Select regions** between bookmarks
 
 # Features
 
@@ -201,14 +196,9 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ## Side Bar
 
-The **Bookmarks** extension has its own **Side Bar**, giving you more free space in your Explorer view. You will have a few extra commands available:
+The **Bookmarks** extension has its own **Side Bar**, with a variety of commands to improve you productivity. 
 
-* Jump to Bookmark
-* Edit Label
-* Remove Bookmark
-* Clear Bookmark's file
-
-![Treeview](images/printscreen-activity-bar.png)
+![Side Bar](images/printscreen-activity-bar.png)
 
 ## Project and Session Based
 
