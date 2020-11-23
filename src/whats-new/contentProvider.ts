@@ -20,6 +20,66 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
 
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
+
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.0.0", releaseDate: "November 2020" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Adds <b>Open Settings</b> command to the Side Bar",
+                id: 352,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Adds <b>Toggle Labeled</b> command to the Context Menu",
+                id: 342,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Switch initialization to <b>onStartupFinished</b> API",
+                id: 343,
+                kind: IssueKind.PR,
+                kudos: "@jasonwilliams"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Clearing bookmark label through <b>Toggle Labeled</b> command leaving leading spaces",
+                id: 344,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Leading spaces while using Move Line Up/Down",
+                id: 348,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "<b>Ghost</b> Bookmarks after renaming files",
+                id: 209,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Use <b>vscode-ext-help-and-feedback</b> package",
+                id: 346,
+                kind: IssueKind.Issue
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.4.0", releaseDate: "October 2020" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
@@ -176,64 +236,6 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
             detail: {
                 message: "Support Extension View Context Menu",
                 id: 270,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({
-            kind: ChangeLogKind.VERSION,
-            detail: { releaseNumber: "11.0.0", releaseDate: "February 2020" }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Adds <b>workbench.colorCustomizations</b> support",
-                id: 246,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Use <b>vscode-ext-selection</b> and <b>vscode-ext-decoration</b> packages",
-                id: 266,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({
-            kind: ChangeLogKind.VERSION,
-            detail: { releaseNumber: "10.7.0", releaseDate: "January 2020" }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Adds hover buttons for File and Bookmarks in Side Bar",
-                id: 258,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Adds relative path next to the filename in Side Bar",
-                id: 236,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Renew iconography to match new VS Code identity",
-                id: 231,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Shrink installation size",
-                id: 190,
                 kind: IssueKind.Issue
             }
         });

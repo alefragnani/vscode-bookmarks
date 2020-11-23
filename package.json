@@ -2,10 +2,10 @@
     "name": "Bookmarks",
     "displayName": "Bookmarks",
     "description": "Mark lines and jump to them",
-    "version": "11.4.0",
+    "version": "12.0.0",
     "publisher": "alefragnani",
     "engines": {
-        "vscode": "^1.46.0"
+        "vscode": "^1.50.0"
     },
     "categories": [
         "Other"
@@ -248,8 +248,8 @@
                 {
                     "command": "bookmarks.openSettings",
                     "when": "view == bookmarksExplorer",
-					"group": "2_bookmarks"
-				}
+                    "group": "2_bookmarks"
+                }
             ],
             "view/item/context": [
                 {
@@ -453,12 +453,12 @@
     "dependencies": {
         "vscode-ext-codicons": "^1.0.0",
         "vscode-ext-decoration": "1.0.0",
-        "vscode-ext-help-and-feedback-view": "^1.0.0",
+        "vscode-ext-help-and-feedback-view": "^1.0.1",
         "vscode-ext-selection": "1.0.0"
     },
     "devDependencies": {
         "@types/node": "^10.14.17",
-        "@types/vscode": "^1.45.0",
+        "@types/vscode": "^1.50.0",
         "@typescript-eslint/eslint-plugin": "^3.2.0",
         "@typescript-eslint/parser": "^3.2.0",
         "eslint": "^7.2.0",

@@ -1,3 +1,19 @@
+## [12.0.0] - 2020-11-24
+### Added
+- `Open Settings` command to the Side Bar (issue [#352](https://github.com/alefragnani/vscode-bookmarks/issues/352))
+- `Toggle Labeled` command to the Context Menu (Thanks to @fade2gray [PR #342](https://github.com/alefragnani/vscode-bookmarks/pull/342))
+
+### Changed
+- Switch initialization to `onStartupFinished` API (Thanks to @jasonwilliams [PR #343](https://github.com/alefragnani/vscode-bookmarks/pull/343))
+
+### Fixed
+- Clearing bookmark label through `Toggle Labeled` command leaving leading spaces (issue [#344](https://github.com/alefragnani/vscode-bookmarks/issues/344))
+- Leading spaces while using Move Line Up/Down (issue [#348](https://github.com/alefragnani/vscode-bookmarks/issues/348))
+- "Ghost" Bookmarks after renaming files (issue [#209](https://github.com/alefragnani/vscode-bookmarks/issues/209))
+
+### Internal
+- Use `vscode-ext-help-and-feedback` package (issue [#346](https://github.com/alefragnani/vscode-bookmarks/issues/346))
+
 ## [11.4.0] - 2020-10-16
 ### Added
 - Support clear the bookmark label in `Toggle Labeled` and `Edit Label` commands (issue [#320](https://github.com/alefragnani/vscode-bookmarks/issues/320))
