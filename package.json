@@ -220,24 +220,8 @@
             ],
             "editor/context": [
                 {
-                    "command": "bookmarks.toggle",
-                    "group": "bookmarks",
-                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
-                },
-                {
-                    "command": "bookmarks.toggleLabeled",
-                    "group": "bookmarks",
-                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
-                },
-                {
-                    "command": "bookmarks.jumpToNext",
-                    "group": "bookmarks@1",
-                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
-                },
-                {
-                    "command": "bookmarks.jumpToPrevious",
-                    "group": "bookmarks@1",
-                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                    "submenu": "bookmarks.context",
+                    "group": "bookmarks"
                 }
             ],
             "editor/title": [
@@ -303,8 +287,36 @@
                     "group": "bookmarks",
                     "when": "extension == alefragnani.bookmarks && extensionStatus == installed"
                 }
+            ],
+            "bookmarks.context": [
+                {
+                    "command": "bookmarks.toggle",
+                    "group": "bookmarks",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                },
+                {
+                    "command": "bookmarks.toggleLabeled",
+                    "group": "bookmarks",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                },
+                {
+                    "command": "bookmarks.jumpToNext",
+                    "group": "bookmarks@1",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                },
+                {
+                    "command": "bookmarks.jumpToPrevious",
+                    "group": "bookmarks@1",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                }
             ]
         },
+        "submenus": [
+            {
+                "id": "bookmarks.context",
+                "label": "Bookmarks"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "%bookmarks.configuration.title%",
