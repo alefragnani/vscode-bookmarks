@@ -220,23 +220,15 @@
             ],
             "editor/context": [
                 {
-                    "submenu": "bookmarks.context",
+                    "submenu": "bookmarks.editor.context",
                     "group": "bookmarks"
                 }
             ],
             "editor/title": [
                 {
-                    "command": "bookmarks.list",
+                    "submenu": "bookmarks.editor.title",
                     "group": "bookmarks"
-                },
-                {
-                    "command": "bookmarks.clear",
-                    "group": "bookmarks"
-                },
-                {
-                    "command": "bookmarks.selectLines",
-                    "group": "bookmarks"
-                }
+                }                                
             ],
             "view/title": [
                 {
@@ -288,7 +280,7 @@
                     "when": "extension == alefragnani.bookmarks && extensionStatus == installed"
                 }
             ],
-            "bookmarks.context": [
+            "bookmarks.editor.context": [
                 {
                     "command": "bookmarks.toggle",
                     "group": "bookmarks",
@@ -309,11 +301,29 @@
                     "group": "bookmarks@1",
                     "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 }
+            ],
+            "bookmarks.editor.title": [
+                {
+                    "command": "bookmarks.list",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "bookmarks.clear",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "bookmarks.selectLines",
+                    "group": "bookmarks"
+                }
             ]
         },
         "submenus": [
             {
-                "id": "bookmarks.context",
+                "id": "bookmarks.editor.context",
+                "label": "Bookmarks"
+            },
+            {
+                "id": "bookmarks.editor.title",
                 "label": "Bookmarks"
             }
         ],
