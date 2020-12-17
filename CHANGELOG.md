@@ -1,3 +1,7 @@
+## [12.1.0] - 2020-12-??
+### Added
+- Support submenu for editor commands (issue [#351](https://github.com/alefragnani/vscode-bookmarks/issues/351))
+
 ## [12.0.0] - 2020-11-24
 ### Added
 - `Open Settings` command to the Side Bar (issue [#352](https://github.com/alefragnani/vscode-bookmarks/issues/352))

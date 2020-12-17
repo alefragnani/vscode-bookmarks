@@ -3,7 +3,7 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 12.0
+# What's new in Bookmarks 12.1
 
 * Improved **Side Bar** usability
 * Adds automatic **Label suggestion** options
