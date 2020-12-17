@@ -77,43 +77,53 @@
         "commands": [
             {
                 "command": "bookmarks.toggle",
-                "title": "%bookmarks.commands.toggle.title%"
+                "title": "%bookmarks.commands.toggle.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "bookmarks.jumpToNext",
-                "title": "%bookmarks.commands.jumpToNext.title%"
+                "title": "%bookmarks.commands.jumpToNext.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "bookmarks.jumpToPrevious",
-                "title": "%bookmarks.commands.jumpToPrevious.title%"
+                "title": "%bookmarks.commands.jumpToPrevious.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "_bookmarks.jumpTo",
-                "title": "%bookmarks.commands.jumpTo.title%"
+                "title": "%bookmarks.commands.jumpTo.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "bookmarks.selectLines",
-                "title": "%bookmarks.commands.selectLines.title%"
+                "title": "%bookmarks.commands.selectLines.title%",
+                "category": "Bookmarks (Selection)"
             },
             {
                 "command": "bookmarks.expandSelectionToNext",
-                "title": "%bookmarks.commands.expandSelectionToNext.title%"
+                "title": "%bookmarks.commands.expandSelectionToNext.title%",
+                "category": "Bookmarks (Selection)"
             },
             {
                 "command": "bookmarks.expandSelectionToPrevious",
-                "title": "%bookmarks.commands.expandSelectionToPrevious.title%"
+                "title": "%bookmarks.commands.expandSelectionToPrevious.title%",
+                "category": "Bookmarks (Selection)"
             },
             {
                 "command": "bookmarks.shrinkSelection",
-                "title": "%bookmarks.commands.shrinkSelection.title%"
+                "title": "%bookmarks.commands.shrinkSelection.title%",
+                "category": "Bookmarks (Selection)"
             },
             {
                 "command": "bookmarks.list",
-                "title": "%bookmarks.commands.list.title%"
+                "title": "%bookmarks.commands.list.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "bookmarks.toggleLabeled",
-                "title": "%bookmarks.commands.toggleLabeled.title%"
+                "title": "%bookmarks.commands.toggleLabeled.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "bookmarks.refresh",
@@ -126,7 +136,8 @@
             },
             {
                 "command": "bookmarks.clear",
-                "title": "%bookmarks.commands.clear.title%"
+                "title": "%bookmarks.commands.clear.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "_bookmarks.clearFromFile",
@@ -145,15 +156,18 @@
             },
             {
                 "command": "bookmarks.listFromAllFiles",
-                "title": "%bookmarks.commands.listFromAllFiles.title%"
+                "title": "%bookmarks.commands.listFromAllFiles.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "bookmarks.clearFromAllFiles",
-                "title": "%bookmarks.commands.clearFromAllFiles.title%"
+                "title": "%bookmarks.commands.clearFromAllFiles.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "bookmarks.whatsNew",
-                "title": "%bookmarks.commands.whatsNew.title%"
+                "title": "%bookmarks.commands.whatsNew.title%",
+                "category": "Bookmarks"
             },
             {
                 "command": "_bookmarks.whatsNewContextMenu",
@@ -165,7 +179,8 @@
             },
             {
                 "command": "bookmarks.supportBookmarks",
-                "title": "%bookmarks.commands.supportBookmarks.title%"
+                "title": "%bookmarks.commands.supportBookmarks.title%",
+                "category": "Bookmarks"
             }
         ],
         "menus": {
@@ -205,39 +220,15 @@
             ],
             "editor/context": [
                 {
-                    "command": "bookmarks.toggle",
-                    "group": "bookmarks",
-                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
-                },
-                {
-                    "command": "bookmarks.toggleLabeled",
-                    "group": "bookmarks",
-                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
-                },
-                {
-                    "command": "bookmarks.jumpToNext",
-                    "group": "bookmarks@1",
-                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
-                },
-                {
-                    "command": "bookmarks.jumpToPrevious",
-                    "group": "bookmarks@1",
-                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                    "submenu": "bookmarks.editor.context",
+                    "group": "bookmarks"
                 }
             ],
             "editor/title": [
                 {
-                    "command": "bookmarks.list",
+                    "submenu": "bookmarks.editor.title",
                     "group": "bookmarks"
-                },
-                {
-                    "command": "bookmarks.clear",
-                    "group": "bookmarks"
-                },
-                {
-                    "command": "bookmarks.selectLines",
-                    "group": "bookmarks"
-                }
+                }                                
             ],
             "view/title": [
                 {
@@ -288,8 +279,54 @@
                     "group": "bookmarks",
                     "when": "extension == alefragnani.bookmarks && extensionStatus == installed"
                 }
+            ],
+            "bookmarks.editor.context": [
+                {
+                    "command": "bookmarks.toggle",
+                    "group": "bookmarks",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                },
+                {
+                    "command": "bookmarks.toggleLabeled",
+                    "group": "bookmarks",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                },
+                {
+                    "command": "bookmarks.jumpToNext",
+                    "group": "bookmarks@1",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                },
+                {
+                    "command": "bookmarks.jumpToPrevious",
+                    "group": "bookmarks@1",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                }
+            ],
+            "bookmarks.editor.title": [
+                {
+                    "command": "bookmarks.list",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "bookmarks.clear",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "bookmarks.selectLines",
+                    "group": "bookmarks"
+                }
             ]
         },
+        "submenus": [
+            {
+                "id": "bookmarks.editor.context",
+                "label": "Bookmarks"
+            },
+            {
+                "id": "bookmarks.editor.title",
+                "label": "Bookmarks"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "%bookmarks.configuration.title%",
