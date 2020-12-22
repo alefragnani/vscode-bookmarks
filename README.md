@@ -107,9 +107,9 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ## Available Settings
 
-* Allow navigation through all files that contains bookmarks (`false` by default)
+* Allow navigation through all files that contains bookmarks (`true` by default)
 ```json
-    "bookmarks.navigateThroughAllFiles": true
+    "bookmarks.navigateThroughAllFiles": false
 ```
 
 * Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files) (`true` by default)

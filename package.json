@@ -350,7 +350,7 @@
                 },
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "%bookmarks.configuration.navigateThroughAllFiles.description%"
                 },
                 "bookmarks.wrapNavigation": {
