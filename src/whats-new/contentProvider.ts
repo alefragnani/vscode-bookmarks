@@ -30,6 +30,22 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
                 kind: IssueKind.Issue
             }
         });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Setting <b>bookmarks.navigateThroughAllFiles</b> is now <b>true</b> by default",
+                id: 102,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Remove unnecessary files from extension package",
+                id: 355,
+                kind: IssueKind.Issue
+            }
+        });
 
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.0.0", releaseDate: "November 2020" } });
         changeLog.push({
