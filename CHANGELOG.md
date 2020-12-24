@@ -2,10 +2,10 @@
 ### Added
 - Support submenu for editor commands (issue [#351](https://github.com/alefragnani/vscode-bookmarks/issues/351))
 
-## Changed
+### Changed
 - Setting `bookmarks.navigateThroughAllFiles` is now `true` by default (issue [#102](https://github.com/alefragnani/vscode-bookmarks/issues/102))
 
-## Internal
+### Internal
 - Remove unnecessary files from extension package (issue [#355](https://github.com/alefragnani/vscode-bookmarks/issues/355))
 
 ## [12.0.0] - 2020-11-24
