@@ -52,7 +52,7 @@
                 },
                 {
                     "id": "bookmarksHelpAndFeedback",
-                    "name": "Help and Feedback",
+                    "name": "%bookmarks.views.HelpAndFeedback.name%",
                     "visibility": "collapsed"
                 }
             ]
@@ -60,17 +60,17 @@
         "viewsWelcome": [
             {
                 "view": "bookmarksExplorer",
-                "contents": "In order to use Bookmarks, you have to open a folder or workspace first.\n[Open a Folder](command:_bookmarks.openFolderWelcome)\n[Open a Workspace](command:workbench.action.openWorkspace)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
+                "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.1%",
                 "when": "workbenchState == empty"
             },
             {
                 "view": "bookmarksExplorer",
-                "contents": "No bookmarks yet.\nIn order to use Bookmarks, you have to open a file in the editor.\n[Open a File](command:workbench.action.quickOpen)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
+                "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.2%",
                 "when": "workbenchState != empty && !editorIsOpen"
             },
             {
                 "view": "bookmarksExplorer",
-                "contents": "No bookmarks yet.\nIn order to use Bookmarks, place the cursor in any location in the file and run the command:\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
+                "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.3%",
                 "when": "workbenchState != empty && editorIsOpen"
             }
         ],
@@ -78,52 +78,52 @@
             {
                 "command": "bookmarks.toggle",
                 "title": "%bookmarks.commands.toggle.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "bookmarks.jumpToNext",
                 "title": "%bookmarks.commands.jumpToNext.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "bookmarks.jumpToPrevious",
                 "title": "%bookmarks.commands.jumpToPrevious.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "_bookmarks.jumpTo",
                 "title": "%bookmarks.commands.jumpTo.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "bookmarks.selectLines",
                 "title": "%bookmarks.commands.selectLines.title%",
-                "category": "Bookmarks (Selection)"
+                "category": "%bookmarks.commands.category.2%"
             },
             {
                 "command": "bookmarks.expandSelectionToNext",
                 "title": "%bookmarks.commands.expandSelectionToNext.title%",
-                "category": "Bookmarks (Selection)"
+                "category": "%bookmarks.commands.category.2%"
             },
             {
                 "command": "bookmarks.expandSelectionToPrevious",
                 "title": "%bookmarks.commands.expandSelectionToPrevious.title%",
-                "category": "Bookmarks (Selection)"
+                "category": "%bookmarks.commands.category.2%"
             },
             {
                 "command": "bookmarks.shrinkSelection",
                 "title": "%bookmarks.commands.shrinkSelection.title%",
-                "category": "Bookmarks (Selection)"
+                "category": "%bookmarks.commands.category.2%"
             },
             {
                 "command": "bookmarks.list",
                 "title": "%bookmarks.commands.list.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "bookmarks.toggleLabeled",
                 "title": "%bookmarks.commands.toggleLabeled.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "bookmarks.refresh",
@@ -137,7 +137,7 @@
             {
                 "command": "bookmarks.clear",
                 "title": "%bookmarks.commands.clear.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "_bookmarks.clearFromFile",
@@ -157,17 +157,17 @@
             {
                 "command": "bookmarks.listFromAllFiles",
                 "title": "%bookmarks.commands.listFromAllFiles.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "bookmarks.clearFromAllFiles",
                 "title": "%bookmarks.commands.clearFromAllFiles.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "bookmarks.whatsNew",
                 "title": "%bookmarks.commands.whatsNew.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             },
             {
                 "command": "_bookmarks.whatsNewContextMenu",
@@ -180,7 +180,7 @@
             {
                 "command": "bookmarks.supportBookmarks",
                 "title": "%bookmarks.commands.supportBookmarks.title%",
-                "category": "Bookmarks"
+                "category": "%bookmarks.commands.category.1%"
             }
         ],
         "menus": {
@@ -381,8 +381,8 @@
                         "eachLineIndependently"
                     ],
                     "enumDescriptions": [
-                        "Creates bookmarks in all selected lines at once, if at least one of the lines don't have a bookmark",
-                        "Literally toggles a bookmark in each line, instead of making all lines equals"
+                        "%bookmarks.configuration.multicursor.toggleMode.enumDescriptions.1%",
+                        "%bookmarks.configuration.multicursor.toggleMode.enumDescriptions.2%"
                     ],
                     "description": "%bookmarks.configuration.multicursor.toggleMode.description%"
                 },
@@ -397,10 +397,10 @@
                         "suggestWhenSelectedOrLineWhenNoSelected"
                     ],
                     "enumDescriptions": [
-                        "Don't use the selection (original behavior)",
-                        "Use the selected text (if available) directly, no confirmation required",
-                        "Suggests the selected text (if available). You still need to confirm.",
-                        "Suggests the selected text (if available) or the entire line (when has no selection). You still need to confirm."
+                        "%bookmarks.configuration.label.suggestion.enumDescriptions.1%",
+                        "%bookmarks.configuration.label.suggestion.enumDescriptions.2%",
+                        "%bookmarks.configuration.label.suggestion.enumDescriptions.3%",
+                        "%bookmarks.configuration.label.suggestion.enumDescriptions.4%"
                     ]
                 }
             }
