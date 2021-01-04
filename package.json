@@ -320,11 +320,11 @@
         "submenus": [
             {
                 "id": "bookmarks.editor.context",
-                "label": "Bookmarks"
+                "label": "%bookmarks.editor.context.label%"
             },
             {
                 "id": "bookmarks.editor.title",
-                "label": "Bookmarks"
+                "label": "%bookmarks.editor.title.label%"
             }
         ],
         "configuration": {

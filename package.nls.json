@@ -5,6 +5,8 @@
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.1": "In order to use Bookmarks, you have to open a folder or workspace first.\n[Open a Folder](command:_bookmarks.openFolderWelcome)\n[Open a Workspace](command:workbench.action.openWorkspace)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.2": "No bookmarks yet.\nIn order to use Bookmarks, you have to open a file in the editor.\n[Open a File](command:workbench.action.quickOpen)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.3": "No bookmarks yet.\nIn order to use Bookmarks, place the cursor in any location in the file and run the command:\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
+    "bookmarks.editor.context.label": "Bookmarks",
+    "bookmarks.editor.title.label": "Bookmarks",
     "bookmarks.commands.category.1": "Bookmarks",
     "bookmarks.commands.category.2": "Bookmarks (Selection)",
     "bookmarks.commands.toggle.title": "Toggle",

@@ -5,6 +5,8 @@
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.1": "为了使用书签，你需要打开一个文件夹或工作区。\n[打开文件夹](command:_bookmarks.openFolderWelcome)\n[打开工作区](command:workbench.action.openWorkspace)\n可以[阅读文档](http://github.com/alefragnani/vscode-bookmarks/#bookmarks)了解关于 VS Code 中使用书签的更多信息。",
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.2": "目前无书签。\n为了使用书签，你需要在编辑器中打开一个文件。\n[打开文件](command:workbench.action.quickOpen)\n可以[阅读文档](http://github.com/alefragnani/vscode-bookmarks/#bookmarks)了解关于 VS Code 中使用书签的更多信息。",
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.3": "目前无书签。\n为了使用书签，你需要将光标放在文件的任意位置，然后运行命令：\n[书签: 开关](command:bookmarks.toggle)\n可以[阅读文档](http://github.com/alefragnani/vscode-bookmarks/#bookmarks)了解关于 VS Code 中使用书签的更多信息。",
+    "bookmarks.editor.context.label": "书签",
+    "bookmarks.editor.title.label": "书签",
     "bookmarks.commands.category.1": "书签",
     "bookmarks.commands.category.2": "书签（选择）",
     "bookmarks.commands.toggle.title": "开关",
