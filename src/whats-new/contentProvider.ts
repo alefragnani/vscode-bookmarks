@@ -4,9 +4,9 @@
 *--------------------------------------------------------------------------------------------*/
 
 // tslint:disable-next-line:max-line-length
-import { ChangeLogItem, ChangeLogKind, ContentProvider, Header, Image, Sponsor, IssueKind } from "../../vscode-whats-new/src/ContentProvider";
+import { ChangeLogItem, ChangeLogKind, ContentProvider, Header, Image, Sponsor, IssueKind, SupportChannel, SocialMediaProvider, SponsorProvider } from "../../vscode-whats-new/src/ContentProvider";
 
-export class WhatsNewBookmarksContentProvider implements ContentProvider {
+export class BookmarksContentProvider implements ContentProvider {
 
     public provideHeader(logoUrl: string): Header {
         return <Header>{
@@ -269,6 +269,23 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         return changeLog;
     }
 
+    public provideSupportChannels(): SupportChannel[] {
+        const supportChannels: SupportChannel[] = [];
+        supportChannels.push({
+            title: "Become a sponsor on Patreon",
+            link: "https://www.patreon.com/alefragnani",
+            message: "Become a Sponsor"
+        });
+        supportChannels.push({
+            title: "Donate via PayPal",
+            link: "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=US&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted",
+            message: "Donate via PayPal"
+        });
+        return supportChannels;
+    }
+}
+
+export class BookmarksSponsorProvider implements SponsorProvider {
     public provideSponsors(): Sponsor[] {
         const sponsors: Sponsor[] = [];
         const sponsorCodeStream: Sponsor = <Sponsor>{
@@ -286,5 +303,13 @@ export class WhatsNewBookmarksContentProvider implements ContentProvider {
         sponsors.push(sponsorCodeStream);
         return sponsors;
     }
+}
 
+export class BookmarksSocialMediaProvider implements SocialMediaProvider {
+    public provideSocialMedias() {
+        return [{
+            title: "Follow me on Twitter",
+            link: "https://www.twitter.com/alefragnani"
+        }];
+    }
 }
