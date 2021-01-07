@@ -1,3 +1,8 @@
+## [12.1.1] - 2021-01-07
+### Internal
+- Update whats-new submodule API (issue [#373](https://github.com/alefragnani/vscode-bookmarks/issues/373))
+- Tabnine becomes a Sponsor
+
 ## [12.1.0] - 2020-12-23
 ### Added
 - Support submenu for editor commands (issue [#351](https://github.com/alefragnani/vscode-bookmarks/issues/351))
