@@ -292,15 +292,30 @@ export class BookmarksSponsorProvider implements SponsorProvider {
             title: "Learn more about Codestream",
             link: "https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner",
             image: "https://alt-images.codestream.com/codestream_logo_bookmarks.png",
-            width: 35,
-            message: `<p>Eliminate context switching and costly distractions. 
-                Create and merge PRs and perform code reviews from inside your 
-                IDE while using jump-to-definition, your keybindings, and other IDE favorites.</p>`,
-            extra:
-                `<a title="Learn more about CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner">
-                Learn more</a>`
+            width: 50,
+            // message: `<p>Eliminate context switching and costly distractions. 
+            //     Create and merge PRs and perform code reviews from inside your 
+            //     IDE while using jump-to-definition, your keybindings, and other IDE favorites.</p>`,
+            // extra:
+            //     `<a title="Learn more about CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner">
+            //     Learn more</a>`
         };
         sponsors.push(sponsorCodeStream);
+        const sponsorTabnine: Sponsor = <Sponsor>{
+            title: "Learn more about Tabnine",
+            link: "https://bit.ly/3pqj7o2",
+            image: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res-whats-new.png",
+            width: 50,
+            // message: `<p>Improve your Bookmarks experience with Tabnine code 
+            //     completions! Tabnine is a free powerful Artificial Intelligence 
+            //     assistant designed to help you code faster, reduce mistakes, 
+            //     and discover best coding practices - without ever leaving the 
+            //     comfort of VSCode.</p>`,
+            // extra:
+            //     `<a title="Learn more about Tabnine" href="https://www.tabnine.com">
+            //     Get it now</a>`
+        };
+        sponsors.push(sponsorTabnine);
         return sponsors;
     }
 }
