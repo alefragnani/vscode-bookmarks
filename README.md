@@ -39,7 +39,7 @@
 Eliminate context switching and costly distractions. Create and merge PRs and perform code reviews from inside your IDE while using jump-to-definition, your keybindings, and other IDE favorites.<br> <a title="Learn more about CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner">Learn more</a>
 
 <br>
-<a title="Learn more about Tabnine" href="https://bit.ly/3pqj7o2"><img src="https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res-readme.png" width="26%"/></a></br>
+<a title="Learn more about Tabnine" href="https://bit.ly/3pqj7o2"><img src="https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png" width="26%"/></a></br>
 Improve your Bookmarks experience with Tabnine code completions! Tabnine is a free powerful Artificial Intelligence assistant designed to help you code faster, reduce mistakes, and discover best coding practices - without ever leaving the comfort of VSCode.
 <br>
 <br>
