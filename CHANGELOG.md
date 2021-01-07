@@ -1,3 +1,7 @@
+## [12.1.2] - 2021-01-07
+### Internal
+- Update Tabnine logo
+
 ## [12.1.1] - 2021-01-07
 ### Internal
 - Update whats-new submodule API (issue [#373](https://github.com/alefragnani/vscode-bookmarks/issues/373))
