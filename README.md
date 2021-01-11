@@ -15,7 +15,7 @@
 * Support for **workbench.colorCustomizations** settings
 * Improved **Localization** options
 
-## Support
+# Support
 
 **Bookmarks** is an extension created for **Visual Studio Code**. If you find it useful, please consider supporting it.
 
