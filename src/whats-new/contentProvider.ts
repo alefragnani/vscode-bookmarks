@@ -291,7 +291,10 @@ export class BookmarksSponsorProvider implements SponsorProvider {
         const sponsorCodeStream: Sponsor = <Sponsor>{
             title: "Learn more about Codestream",
             link: "https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner",
-            image: "https://alt-images.codestream.com/codestream_logo_bookmarks.png",
+            image: {
+                dark: "https://alt-images.codestream.com/codestream_logo_bookmarks.png",
+                light: "https://alt-images.codestream.com/codestream_logo_bookmarks.png"
+            },
             width: 52,
             // message: `<p>Eliminate context switching and costly distractions. 
             //     Create and merge PRs and perform code reviews from inside your 
@@ -304,7 +307,10 @@ export class BookmarksSponsorProvider implements SponsorProvider {
         const sponsorTabnine: Sponsor = <Sponsor>{
             title: "Learn more about Tabnine",
             link: "https://bit.ly/3pqj7o2",
-            image: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png",
+            image: {
+                dark: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png",
+                light: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png"
+            },
             width: 40,
             // message: `<p>Improve your Bookmarks experience with Tabnine code 
             //     completions! Tabnine is a free powerful Artificial Intelligence 
