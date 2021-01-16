@@ -1,3 +1,7 @@
+## [12.1.3] - 2021-01-16
+### Internal
+- Update Tabnine URL
+
 ## [12.1.2] - 2021-01-07
 ### Internal
 - Update Tabnine logo

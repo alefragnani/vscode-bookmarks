@@ -2,7 +2,7 @@
     "name": "Bookmarks",
     "displayName": "Bookmarks",
     "description": "Mark lines and jump to them",
-    "version": "12.1.2",
+    "version": "12.1.3",
     "publisher": "alefragnani",
     "engines": {
         "vscode": "^1.50.0"
