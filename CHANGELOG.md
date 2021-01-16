@@ -1,4 +1,7 @@
 ## [12.1.3] - 2021-01-16
+### Changed
+- Added new translations (Thanks to @loniceras [PR #367](https://github.com/alefragnani/vscode-bookmarks/pull/367))
+
 ### Internal
 - Update Tabnine URL
 
