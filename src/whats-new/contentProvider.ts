@@ -327,7 +327,7 @@ export class BookmarksSponsorProvider implements SponsorProvider {
         sponsors.push(sponsorCodeStream);
         const sponsorTabnine: Sponsor = <Sponsor>{
             title: "Learn more about Tabnine",
-            link: "http://wd5a.2.vu/Bookmarks",
+            link: "https://bit.ly/2LZsrQ9",
             image: {
                 dark: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png",
                 light: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png"
