@@ -6,11 +6,13 @@
 import path = require("path");
 import * as vscode from "vscode";
 import { codicons } from "vscode-ext-codicons";
-import { BookmarkedFile, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/api/bookmark";
+import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/api/constants";
 import { Directions, isWindows, SEARCH_EDITOR_SCHEME } from "../vscode-bookmarks-core/src/api/constants";
 import { Container } from "../vscode-bookmarks-core/src/container";
 import { createTextEditorDecoration, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
+import { File } from "../vscode-bookmarks-core/src/file";
 import { BookmarksController } from "../vscode-bookmarks-core/src/model/bookmarks";
+import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "../vscode-bookmarks-core/src/model/operations";
 import { loadBookmarks, saveBookmarks } from "../vscode-bookmarks-core/src/model/workspaceState";
 import { expandSelectionToNextBookmark, selectBookmarkedLines, shrinkSelection } from "../vscode-bookmarks-core/src/selections";
 import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
@@ -183,8 +185,8 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     vscode.commands.registerCommand("_bookmarks.deleteBookmark", node => {
-        const book: BookmarkedFile = bookmarks.fromUri(node.command.arguments[0]);
-        const index = book.indexOfBookmark(node.command.arguments[1] - 1); // bookmarks.indexOf({line: node.command.arguments[1] - 1});
+        const book: File = bookmarks.fromUri(node.command.arguments[0]);
+        const index = indexOfBookmark(book, node.command.arguments[1] - 1); // bookmarks.indexOf({line: node.command.arguments[1] - 1});
         bookmarks.removeBookmark(index, node.command.arguments[1] - 1, book);
         saveWorkspaceState();
         updateDecorations();
@@ -192,8 +194,8 @@ export function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("_bookmarks.editLabel", node => {
         const uriDocBookmark: vscode.Uri = vscode.Uri.file(node.command.arguments[0]);
-        const book: BookmarkedFile = bookmarks.fromUri(uriDocBookmark.fsPath);
-        const index = book.indexOfBookmark(node.command.arguments[1] - 1);
+        const book: File = bookmarks.fromUri(uriDocBookmark.fsPath);
+        const index = indexOfBookmark(book, node.command.arguments[1] - 1);
 
         const position: vscode.Position = new vscode.Position(node.command.arguments[1] - 1, 
             node.command.arguments[2] - 1);
@@ -383,7 +385,7 @@ export function activate(context: vscode.ExtensionContext) {
         
         // for (let index = 0; index < bookmarks.bookmarks.length; index++) {
         for (const bookmark of bookmarks.storage.fileList) {
-            const pp = bookmark.listBookmarks();
+            const pp = listBookmarks(bookmark);
             promisses.push(pp);
         }
         
@@ -593,7 +595,7 @@ export function activate(context: vscode.ExtensionContext) {
         }      
         
         // 
-        bookmarks.activeBookmark.nextBookmark(vscode.window.activeTextEditor.selection.active, direction)
+        nextBookmark(bookmarks.activeBookmark, vscode.window.activeTextEditor.selection.active, direction)
             .then((next) => {
               if (typeof next === "number") {
 
@@ -643,7 +645,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function askForBookmarkLabel(index: number, position: vscode.Position, oldLabel?: string, jumpToPosition?: boolean,
-                                 book?: BookmarkedFile) {
+                                 book?: File) {
         const ibo = <vscode.InputBoxOptions> {
             prompt: "Bookmark Label",
             placeHolder: "Type a label for your bookmark",
@@ -669,8 +671,8 @@ export function activate(context: vscode.ExtensionContext) {
             }
             // sorted
             /* let itemsSorted = [] =*/
-            const b: BookmarkedFile = book ? book : bookmarks.activeBookmark;
-            b.sortBookmarks();
+            const b: File = book ? book : bookmarks.activeBookmark;
+            sortBookmarks(b);
             saveWorkspaceState();
             updateDecorations();
         });
@@ -699,7 +701,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
         }
 
-        bookmarks.activeBookmark.sortBookmarks();
+        sortBookmarks(bookmarks.activeBookmark);
         saveWorkspaceState();
         updateDecorations();
     }
@@ -724,7 +726,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (await bookmarks.toggle(selections, suggestion)) {
                 vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
             }
-            bookmarks.activeBookmark.sortBookmarks(); 
+            sortBookmarks(bookmarks.activeBookmark); 
             saveWorkspaceState();
             updateDecorations();
             return;
@@ -733,7 +735,7 @@ export function activate(context: vscode.ExtensionContext) {
         // ask label
         let oldLabel = "";
         if (suggestion === "" && selections.length === 1) {
-            const index = bookmarks.activeBookmark.indexOfBookmark(selections[0].active.line);
+            const index = indexOfBookmark(bookmarks.activeBookmark, selections[0].active.line);
             oldLabel = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
             suggestion = oldLabel;
         }
@@ -760,7 +762,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         // sorted
         /* let itemsSorted = [] =*/
-        const b: BookmarkedFile = bookmarks.activeBookmark;
+        const b: File = bookmarks.activeBookmark;
         b.bookmarks.sort((n1, n2) => {
             if (n1.line > n2.line) {
                 return 1;
