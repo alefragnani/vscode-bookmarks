@@ -21,6 +21,7 @@ import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmark
 import { parsePosition, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
 import { Sticky } from "../vscode-bookmarks-core/src/sticky/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
+import { appendPath, createDirectoryUri, readFileUri, uriExists, writeFileUri } from "../vscode-bookmarks-core/src/utils/fs";
 import { registerOpenSettings } from "./commands/openSettings";
 import { registerSupportBookmarks } from "./commands/supportBookmarks";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
@@ -271,13 +272,14 @@ export async function activate(context: vscode.ExtensionContext) {
         controller = new Controller(workspaceFolder); 
 
         if (saveBookmarksInProject) {
-            const bookmarksFileInProject: string = path.join(workspaceFolder.uri.fsPath, ".vscode", "bookmarks.json");
-            if (!fs.existsSync(bookmarksFileInProject)) {
+            const bookmarksFileInProject = appendPath(appendPath(vscode.workspace.workspaceFolders[0].uri, ".vscode"), "bookmarks.json");
+            if (!uriExists(bookmarksFileInProject)) {
                 return false;
             }
             
             try {
-                controller.loadFrom(JSON.parse(fs.readFileSync(bookmarksFileInProject).toString()), true);
+                const contents = await readFileUri(bookmarksFileInProject);
+                controller.loadFrom(contents, true);
                 return true;
             } catch (error) {
                 vscode.window.showErrorMessage("Error loading Bookmarks: " + error.toString());
@@ -297,11 +299,11 @@ export async function activate(context: vscode.ExtensionContext) {
         const saveBookmarksInProject: boolean = canSaveBookmarksInProject();
 
         if (saveBookmarksInProject) {
-            const bookmarksFileInProject: string = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, ".vscode", "bookmarks.json");
-            if (!fs.existsSync(path.dirname(bookmarksFileInProject))) {
-                fs.mkdirSync(path.dirname(bookmarksFileInProject));
+            const bookmarksFileInProject = appendPath(appendPath(vscode.workspace.workspaceFolders[0].uri, ".vscode"), "bookmarks.json");
+            if (!uriExists(appendPath(vscode.workspace.workspaceFolders[0].uri, ".vscode"))) {
+                createDirectoryUri(appendPath(vscode.workspace.workspaceFolders[0].uri, ".vscode"));
             }
-            fs.writeFileSync(bookmarksFileInProject, JSON.stringify(controller.zip(), null, "\t"));
+            writeFileUri(bookmarksFileInProject, JSON.stringify(controller.zip(), null, "\t"));
         } else {
             context.workspaceState.update("bookmarks", JSON.stringify(controller.zip()));
         }
