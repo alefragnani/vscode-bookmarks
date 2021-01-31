@@ -172,13 +172,11 @@ export async function activate(context: vscode.ExtensionContext) {
         updateDecorationsInActiveEditor(activeEditor, controller, bookmarkDecorationType);
     }
 
-    vscode.commands.registerCommand("_bookmarks.jumpTo", (documentPath, line, column: string) => {
-        const uriDocBookmark: vscode.Uri = vscode.Uri.file(documentPath);
-        vscode.workspace.openTextDocument(uriDocBookmark).then(doc => {
+    vscode.commands.registerCommand("_bookmarks.jumpTo", (documentPath, line, column: string, uri: Uri) => {
+        vscode.workspace.openTextDocument(uri).then(doc => {
             vscode.window.showTextDocument(doc ).then(() => {
                 const lineInt: number = parseInt(line, 10);
                 const colunnInt: number = parseInt(column, 10);
-                // revealLine(lineInt - 1);
                 revealPosition(lineInt - 1, colunnInt - 1);
             });
         });
@@ -195,7 +193,7 @@ export async function activate(context: vscode.ExtensionContext) {
     });
 
     vscode.commands.registerCommand("_bookmarks.deleteBookmark", node => {
-        const book: File = controller.fromUri(node.command.arguments[0]);
+        const book: File = controller.fromUri(node.command.arguments[3]);
         const index = indexOfBookmark(book, node.command.arguments[1] - 1); // bookmarks.indexOf({line: node.command.arguments[1] - 1});
         controller.removeBookmark(index, node.command.arguments[1] - 1, book);
         saveWorkspaceState();
@@ -203,13 +201,12 @@ export async function activate(context: vscode.ExtensionContext) {
     });
 
     vscode.commands.registerCommand("_bookmarks.editLabel", node => {
-        const uriDocBookmark: vscode.Uri = vscode.Uri.file(node.command.arguments[0]);
-        const book: File = controller.fromUri(uriDocBookmark);
+        // const uriDocBookmark: vscode.Uri = vscode.Uri.file(node.command.arguments[0]);
+        const book: File = controller.fromUri(node.command.arguments[3]);
         const index = indexOfBookmark(book, node.command.arguments[1] - 1);
 
         const position: vscode.Position = new vscode.Position(node.command.arguments[1] - 1, 
             node.command.arguments[2] - 1);
-        // book.bookmarks[index].label = "novo label";
         askForBookmarkLabel(index, position, book.bookmarks[index].label, false, book);
     });
 
