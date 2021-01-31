@@ -679,13 +679,13 @@ export async function activate(context: vscode.ExtensionContext) {
                       }
 
                       // same document?
-                      const activeDocument = Controller.normalize(vscode.window.activeTextEditor.document.uri.fsPath);
+                      const activeDocument = getRelativePath(controller.workspaceFolder.uri.path, vscode.window.activeTextEditor.document.uri.fsPath);
                       if (nextDocument.toString() === activeDocument) {
                         const bookmarkIndex = direction === Directions.Forward ? 0 : controller.activeBookmark.bookmarks.length - 1;
                         revealPosition(controller.activeBookmark.bookmarks[bookmarkIndex].line, 
                             controller.activeBookmark.bookmarks[bookmarkIndex].column);
                         } else { 
-                            vscode.workspace.openTextDocument(nextDocument.toString()).then(doc => {
+                            vscode.workspace.openTextDocument(appendPath(controller.workspaceFolder.uri, nextDocument.toString())).then(doc => {
                                 vscode.window.showTextDocument(doc).then(() => {
                                     const bookmarkIndex = direction === Directions.Forward ? 0 : controller.activeBookmark.bookmarks.length - 1;
                                     revealPosition(controller.activeBookmark.bookmarks[bookmarkIndex].line, 
