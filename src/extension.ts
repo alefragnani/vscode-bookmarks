@@ -454,7 +454,7 @@ export async function activate(context: vscode.ExtensionContext) {
               for (const element of values) {
                   if (element) {
                     for (const elementInside of element) {
-                        if (elementInside.detail.toString().toLocaleLowerCase() === getRelativePath(controller.workspaceFolder.uri.path, activeTextEditor.document.uri.path).toLocaleLowerCase()) {
+                        if (elementInside.detail.toString().toLocaleLowerCase() === getRelativePath(controller.workspaceFolder?.uri?.path, activeTextEditor.document.uri.path).toLocaleLowerCase()) {
                             items.push(
                                 {
                                     label: elementInside.label,
@@ -679,13 +679,16 @@ export async function activate(context: vscode.ExtensionContext) {
                       }
 
                       // same document?
-                      const activeDocument = getRelativePath(controller.workspaceFolder.uri.path, vscode.window.activeTextEditor.document.uri.fsPath);
+                      const activeDocument = getRelativePath(controller.workspaceFolder?.uri?.path, vscode.window.activeTextEditor.document.uri.fsPath);
                       if (nextDocument.toString() === activeDocument) {
                         const bookmarkIndex = direction === Directions.Forward ? 0 : controller.activeBookmark.bookmarks.length - 1;
                         revealPosition(controller.activeBookmark.bookmarks[bookmarkIndex].line, 
                             controller.activeBookmark.bookmarks[bookmarkIndex].column);
                         } else { 
-                            vscode.workspace.openTextDocument(appendPath(controller.workspaceFolder.uri, nextDocument.toString())).then(doc => {
+                            const uriDocument = !controller.workspaceFolder
+                                ? Uri.file(nextDocument.toString())
+                                : appendPath(controller.workspaceFolder.uri, nextDocument.toString());
+                            vscode.workspace.openTextDocument(uriDocument).then(doc => {
                                 vscode.window.showTextDocument(doc).then(() => {
                                     const bookmarkIndex = direction === Directions.Forward ? 0 : controller.activeBookmark.bookmarks.length - 1;
                                     revealPosition(controller.activeBookmark.bookmarks[bookmarkIndex].line, 
