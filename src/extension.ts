@@ -15,6 +15,7 @@ import { File } from "../vscode-bookmarks-core/src/file";
 import { Controller } from "../vscode-bookmarks-core/src/model/controller";
 import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "../vscode-bookmarks-core/src/model/operations";
 import { loadBookmarks, saveBookmarks } from "../vscode-bookmarks-core/src/model/workspaceState";
+import { pickController } from "../vscode-bookmarks-core/src/quickpick/controllerPicker";
 import { expandSelectionToNextBookmark, selectBookmarkedLines, shrinkSelection } from "../vscode-bookmarks-core/src/selections";
 import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { parsePosition, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
@@ -503,16 +504,28 @@ export async function activate(context: vscode.ExtensionContext) {
         updateDecorations();
     }
 
-    function clearFromAllFiles() {
-        activeController.clearAll();
+    async function clearFromAllFiles() {
+        
+        const controller = await pickController(controllers, activeController);
+        if (!controller) {
+            return
+        }
+        
+        controller.clearAll();
+
         saveWorkspaceState();
         updateDecorations();
     }
 
-    function listFromAllFiles() {
+    async function listFromAllFiles() {
+
+        const controller = await pickController(controllers, activeController);
+        if (!controller) {
+            return
+        }
 
         // no bookmark
-        if (!activeController.hasAnyBookmark()) {
+        if (!controller.hasAnyBookmark()) {
             vscode.window.showInformationMessage("No Bookmarks found");
             return;
         }
@@ -530,8 +543,8 @@ export async function activate(context: vscode.ExtensionContext) {
         // }            
         
         // for (let index = 0; index < bookmarks.bookmarks.length; index++) {
-        for (const bookmark of activeController.files) {
-            const pp = listBookmarks(bookmark, activeController.workspaceFolder);
+        for (const bookmark of controller.files) {
+            const pp = listBookmarks(bookmark, controller.workspaceFolder);
             promisses.push(pp);
         }
         
@@ -541,7 +554,8 @@ export async function activate(context: vscode.ExtensionContext) {
               for (const element of values) {
                   if (element) {
                     for (const elementInside of element) {
-                        if (elementInside.detail.toString().toLocaleLowerCase() === getRelativePath(activeController.workspaceFolder?.uri?.path, activeTextEditor.document.uri.path).toLocaleLowerCase()) {
+                        if (activeTextEditor &&
+                            elementInside.detail.toString().toLocaleLowerCase() === getRelativePath(controller.workspaceFolder?.uri?.path, activeTextEditor.document.uri.path).toLocaleLowerCase()) {
                             items.push(
                                 {
                                     label: elementInside.label,
