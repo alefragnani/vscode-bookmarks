@@ -21,6 +21,48 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.0", releaseDate: "February 2021" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Support <b>Remote Development</b>",
+                id: 230,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Improvements on <b>multi-root</b> support",
+                id: 193,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Group bookmarks by folder on multi-root in Side Bar",
+                id: 249,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Multi-platform support",
+                id: 205,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Do not show welcome page if installed by Settings Sync",
+                id: 377,
+                kind: IssueKind.Issue
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.4", releaseDate: "January 2021" } });
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
@@ -251,44 +293,6 @@ export class BookmarksContentProvider implements ContentProvider {
             detail: {
                 message: "Avoid Bookmarks from being toggled in the new Search Editor",
                 id: 279,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({
-            kind: ChangeLogKind.VERSION,
-            detail: { releaseNumber: "11.1.0", releaseDate: "April 2020" }
-        });
-
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Adds <b>Multi cursor</b> support",
-                id: 77,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Support VS Code package split",
-                id: 263,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Support <b>ThemeIcon</b>",
-                id: 269,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Support Extension View Context Menu",
-                id: 270,
                 kind: IssueKind.Issue
             }
         });

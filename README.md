@@ -7,13 +7,15 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 12.1
+# What's new in Bookmarks 13.0
 
+* Full **Remote Development** support
+* Improved **Multi-root** support
+* Adds **Multi-platform** support
 * Improved **Side Bar** usability
 * Adds automatic **Label suggestion** options
 * Full **Multi cursor** support
 * Support for **workbench.colorCustomizations** settings
-* Improved **Localization** options
 
 # Support
 
@@ -98,11 +100,28 @@ Quicky move between bookmarks backward and forward, even if located outside the 
 
 List all bookmarks from the current file/project and easily navigate to any of them. It shows a line preview and temporarily scroll to its position.
 
-![List](images/printscreen-list-from-all-files.png)
+![List](images/bookmarks-list-from-all-files.gif)
 
 * Bookmarks from the active file only shows the line number and its contents
-* Bookmarks from other files in the project also shows the relative path and filename
-* Bookmarks from files outside the project are denoted with ![Folder](images/bookmarks-folder-icon.png)
+* Bookmarks from other files in the project also shows the relative path
+
+## Improved Multi-root support
+
+When you work with **multi-root** workspaces, the extension can manage the bookmarks individually for each folder. 
+
+Simply define `saveBookmarksInProject` as `true` on your **User Settings** or in the **Workspace Settings**, and when you run the `Numbered Bookmarks: List from All Files` command, you will be able to select from which folder the bookmarks will be shown.
+
+![List](images/bookmarks-list-from-all-files-multi-root.gif)
+
+### Remote Development support
+
+The extension now fully supports **Remote Development** scenarios. 
+
+It means that when you connect to a _remote_ location, like a Docker Container, SSH or WSL, the extension will be available, ready to be used. 
+
+> You don't need to install the extension on the remote anymore.
+
+Better yet, if you use `numberedBookmarks.saveBookmarksInProject` setting defined as `true`, the bookmarks saved locally _will be available_ remotely, and you will be able to navigate and update the bookmarks. Just like it was a resource from folder you opened remotely.
 
 ## Selection
 
@@ -112,7 +131,7 @@ You can use **Bookmarks** to easily select lines or text blocks. Simply toggle b
 
 Select all bookmarked lines. Specially useful while working with log files.
 
-![Select Lines](images/printscreen-select-lines.gif)
+![Select Lines](images/bookmarks-select-lines.gif)
 
 #### Expand Selection to the Next/Previous Bookmark or Shrink the Selection
 
@@ -211,7 +230,9 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 The **Bookmarks** extension has its own **Side Bar**, with a variety of commands to improve you productivity. 
 
-![Side Bar](images/printscreen-activity-bar.png)
+| Single Folder | Multi-root Workspace |
+|---------------|------------|
+| ![Side Bar](images/printscreen-activity-bar.png) | ![Side Bar](images/printscreen-activity-bar-multi-root.png) |
 
 ## Project and Session Based
 

@@ -1,3 +1,13 @@
+## [13.0.0] - 2021-02-13
+### Added
+- Support Remote Development (issue [#230](https://github.com/alefragnani/vscode-bookmarks/issues/230))
+- Improvements on multi-root support (issue [#193](https://github.com/alefragnani/vscode-bookmarks/issues/193))
+- Group bookmarks by folder on multi-root in Side Bar (issue [#249](https://github.com/alefragnani/vscode-bookmarks/issues/249))
+- Multi-platform support (issue [#205](https://github.com/alefragnani/vscode-bookmarks/issues/205))
+
+### Internal
+- Do not show welcome message if installed by Settings Sync (issue [#377](https://github.com/alefragnani/vscode-bookmarks/issues/377))
+
 ## [12.1.4] - 2021-01-18
 ### Internal
 - Update Tabnine URL
