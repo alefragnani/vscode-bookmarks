@@ -21,6 +21,16 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.1", releaseDate: "February 2021" } });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Command `bookmarks.toggle` not found - extension was not activated",
+                id: 387,
+                kind: IssueKind.Issue
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.0", releaseDate: "February 2021" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
@@ -49,7 +59,7 @@ export class BookmarksContentProvider implements ContentProvider {
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "Multi-platform support",
+                message: "Cross-platform support",
                 id: 205,
                 kind: IssueKind.Issue
             }

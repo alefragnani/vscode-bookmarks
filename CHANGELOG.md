@@ -1,3 +1,7 @@
+## [13.0.1] - 2021-02-15
+### Fixed
+- Command `bookmarks.toggle` not found - extension was not activated (issue [#387](https://github.com/alefragnani/vscode-bookmarks/issues/387))
+
 ## [13.0.0] - 2021-02-13
 ### Added
 - Support Remote Development (issue [#230](https://github.com/alefragnani/vscode-bookmarks/issues/230))

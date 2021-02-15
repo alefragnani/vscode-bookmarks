@@ -11,7 +11,7 @@
 
 * Full **Remote Development** support
 * Improved **Multi-root** support
-* Adds **Multi-platform** support
+* Adds **Cross-platform** support
 * Improved **Side Bar** usability
 * Adds automatic **Label suggestion** options
 * Full **Multi cursor** support
