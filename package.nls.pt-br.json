@@ -43,7 +43,7 @@
     "bookmarks.configuration.sideBar.expanded.description": "Define se a Side Bar deve ser exibida expandida",
     "bookmarks.configuration.multicursor.toggleMode.description": "Define como funciona são tratadas as linhas que já possuem bookmark quando utiliza-se multicursor",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce": "Creates bookmarks in all selected lines at once, if at least one of the lines don't have a bookmark",
-    "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "Literally toggles a bookmark in each line, instead of making all lines equals",
+    "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "Literally toggles a bookmark in each line, instead of making all lines equal",
     "bookmarks.configuration.label.suggestion.description": "Define como rótulos são sugeridos quando se cria Bookmarks",
     "bookmarks.configuration.label.suggestion.enumDescriptions.dontUse": "Don't use the selection (original behavior)",
     "bookmarks.configuration.label.suggestion.enumDescriptions.useWhenSelected": "Use the selected text (if available) directly, no confirmation required",
