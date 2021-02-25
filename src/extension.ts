@@ -589,16 +589,26 @@ export async function activate(context: vscode.ExtensionContext) {
                         return;
                       }
 
+                      let uriDocument: Uri;
+                      if (typeof nextDocument === "string") {
+                        uriDocument = !activeController.workspaceFolder
+                            ? Uri.file(nextDocument.toString())
+                            : appendPath(activeController.workspaceFolder.uri, nextDocument.toString());
+                      } else {
+                          uriDocument = <Uri>nextDocument;
+                      }
+
                       // same document?
-                      const activeDocument = getRelativePath(activeController.workspaceFolder?.uri?.path, vscode.window.activeTextEditor.document.uri.fsPath);
-                      if (nextDocument.toString() === activeDocument) {
+                      //const activeDocument = getRelativePath(activeController.workspaceFolder?.uri?.path, vscode.window.activeTextEditor.document.uri.fsPath);
+                      //if (nextDocument.toString() === activeDocument) {
+                      if (uriDocument.fsPath === vscode.window.activeTextEditor.document.uri.fsPath) {
                         const bookmarkIndex = direction === Directions.Forward ? 0 : activeController.activeFile.bookmarks.length - 1;
                         revealPosition(activeController.activeFile.bookmarks[bookmarkIndex].line, 
                             activeController.activeFile.bookmarks[bookmarkIndex].column);
                         } else { 
-                            const uriDocument = !activeController.workspaceFolder
-                                ? Uri.file(nextDocument.toString())
-                                : appendPath(activeController.workspaceFolder.uri, nextDocument.toString());
+                            // const uriDocument = !activeController.workspaceFolder
+                            //     ? Uri.file(nextDocument.toString())
+                            //     : appendPath(activeController.workspaceFolder.uri, nextDocument.toString());
                             vscode.workspace.openTextDocument(uriDocument).then(doc => {
                                 vscode.window.showTextDocument(doc).then(() => {
                                     const bookmarkIndex = direction === Directions.Forward ? 0 : activeController.activeFile.bookmarks.length - 1;
