@@ -1,3 +1,7 @@
+## [13.0.2] - 2021-02-25
+### Fixed
+- Command `bookmarks.toggle` not found - loading empty workspace with random files (issue [#395](https://github.com/alefragnani/vscode-bookmarks/issues/395))
+
 ## [13.0.1] - 2021-02-15
 ### Fixed
 - Command `bookmarks.toggle` not found - extension was not activated (issue [#387](https://github.com/alefragnani/vscode-bookmarks/issues/387))
