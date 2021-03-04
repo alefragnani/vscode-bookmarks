@@ -21,6 +21,12 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.3", releaseDate: "March 2021" } });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: "Update Tabnine URL"
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.2", releaseDate: "February 2021" } });
         changeLog.push({
             kind: ChangeLogKind.FIXED,

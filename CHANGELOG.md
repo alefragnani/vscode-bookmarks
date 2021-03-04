@@ -1,3 +1,7 @@
+## [13.0.3] - 2021-01-04
+### Internal
+- Update Tabnine URL
+
 ## [13.0.2] - 2021-02-25
 ### Fixed
 - Command `bookmarks.toggle` not found - loading empty workspace with random files (issue [#395](https://github.com/alefragnani/vscode-bookmarks/issues/395))
