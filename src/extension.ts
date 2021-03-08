@@ -620,7 +620,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     function checkBookmarks(result: number | vscode.Position): boolean {
         if (result === NO_BOOKMARKS_BEFORE || result === NO_BOOKMARKS_AFTER) {
-            if (vscode.workspace.getConfiguration("bookmarks").get("showNotifications", true)) {
+            if (vscode.workspace.getConfiguration("bookmarks").get("showNoMoreBoomarksWarning", true)) {
                 vscode.window.showInformationMessage("No more bookmarks");
             }
             return false;
