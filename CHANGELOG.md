@@ -1,4 +1,9 @@
-## [13.0.3] - 2021-01-04
+## [13.0.4] - 2021-03-13
+### Fixed
+- Bookmarks on deleted/missing files breaks jumping (issue [#390](https://github.com/alefragnani/vscode-bookmarks/issues/390))
+- Toggling bookmarks on Untitled documents does not work (issue [#391](https://github.com/alefragnani/vscode-bookmarks/issues/391))
+
+## [13.0.3] - 2021-03-04
 ### Internal
 - Update Tabnine URL
 
