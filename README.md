@@ -186,7 +186,7 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 * Choose how multi cursor handles already bookmarked lines (`allLinesAtOnce` by default)
 
   * `allLinesAtOnce`: Creates bookmarks in all selected lines at once, if at least one of the lines don't have a bookmark
-  * `eachLineIndependently`: Literally toggles a bookmark in each line, instead of making all lines equals
+  * `eachLineIndependently`: Literally toggles a bookmark in each line, instead of making all lines equal
 
 ```json
     "bookmarks.multicursor.toggleMode": "eachLineIndependently"
