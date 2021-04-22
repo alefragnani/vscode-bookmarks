@@ -367,10 +367,10 @@
                     "default": false,
                     "description": "%bookmarks.configuration.useWorkaroundForFormatters.description%"
                 },
-                "bookmarks.showNoMoreBoomarksWarning": {
+                "bookmarks.showNoMoreBookmarksWarning": {
                   "type": "boolean",
                   "default": true,
-                  "description": "%bookmarks.configuration.showNoMoreBoomarksWarning.description%"
+                  "description": "%bookmarks.configuration.showNoMoreBookmarksWarning.description%"
                 },
                 "bookmarks.showCommandsInContextMenu": {
                     "type": "boolean",
