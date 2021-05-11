@@ -7,10 +7,6 @@
     "engines": {
         "vscode": "^1.51.0"
     },
-    "extensionKind": [
-        "ui",
-        "workspace"
-    ],
     "categories": [
         "Other"
     ],
@@ -23,6 +19,13 @@
         "navigation",
         "multi-root ready"
     ],
+    "extensionKind": [
+        "ui",
+        "workspace"
+    ],
+    "capabilities": {
+        "virtualWorkspaces": true
+    },
     "icon": "images/icon.png",
     "license": "SEE LICENSE IN LICENSE.md",
     "homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
