@@ -24,7 +24,10 @@
         "workspace"
     ],
     "capabilities": {
-        "virtualWorkspaces": true
+        "virtualWorkspaces": true,
+        "untrustedWorkspaces": {
+            "supported": true
+        }
     },
     "icon": "images/icon.png",
     "license": "SEE LICENSE IN LICENSE.md",
