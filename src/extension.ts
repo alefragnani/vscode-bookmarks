@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import * as vscode from "vscode";
-import { TextDocument, Uri } from "vscode";
+import { Position, TextDocument, Uri } from "vscode";
 import { codicons } from "vscode-ext-codicons";
 import { BookmarkQuickPickItem } from "../vscode-bookmarks-core/src/bookmark";
 import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/constants";
@@ -357,7 +357,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         // pick one
-        const currentLine: number = vscode.window.activeTextEditor.selection.active.line + 1;
+        const currentPosition: Position = vscode.window.activeTextEditor.selection.active;
         const options = <vscode.QuickPickOptions> {
             placeHolder: "Type a line number or a piece of code to navigate to",
             matchOnDescription: true,
@@ -373,7 +373,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         vscode.window.showQuickPick(items, options).then(selection => {
             if (typeof selection === "undefined") {
-                revealLine(currentLine - 1);
+                revealPosition(currentPosition.line, currentPosition.character);
                 return;
             }
             const itemT = <vscode.QuickPickItem> selection;
@@ -426,7 +426,7 @@ export async function activate(context: vscode.ExtensionContext) {
         const items: BookmarkQuickPickItem[] = [];
         const activeTextEditor = vscode.window.activeTextEditor;
         const promisses = [];
-        const currentLine: number = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.selection.active.line + 1 : -1;
+        const currentPosition: Position = vscode.window.activeTextEditor?.selection.active;
         
         for (const bookmark of controller.files) {
             const pp = listBookmarks(bookmark, controller.workspaceFolder);
@@ -536,11 +536,12 @@ export async function activate(context: vscode.ExtensionContext) {
               vscode.window.showQuickPick(itemsSorted, options).then(selection => {
                   if (typeof selection === "undefined") {
                       if (!activeTextEditor)  {
+                            vscode.commands.executeCommand("workbench.action.closeActiveEditor");
                           return;
                       } else {
                         vscode.workspace.openTextDocument(activeTextEditor.document.uri).then(doc => {
                             vscode.window.showTextDocument(doc).then(() => {
-                                revealLine(currentLine - 1);
+                                revealPosition(currentPosition.line, currentPosition.character);
                                 return;
                             });
                         });                          
