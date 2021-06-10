@@ -7,15 +7,14 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 13.0
+# What's new in Bookmarks 13.1
 
+* Adds **Virtual Workspaces** support
+* Adds **Workspace Trust** support
 * Full **Remote Development** support
 * Improved **Multi-root** support
 * Adds **Cross-platform** support
 * Improved **Side Bar** usability
-* Adds automatic **Label suggestion** options
-* Full **Multi cursor** support
-* Support for **workbench.colorCustomizations** settings
 
 # Support
 

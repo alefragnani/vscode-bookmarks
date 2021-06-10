@@ -2,7 +2,7 @@
     "name": "Bookmarks",
     "displayName": "Bookmarks",
     "description": "Mark lines and jump to them",
-    "version": "13.0.4",
+    "version": "13.1.0",
     "publisher": "alefragnani",
     "engines": {
         "vscode": "^1.51.0"
@@ -374,9 +374,9 @@
                     "description": "%bookmarks.configuration.useWorkaroundForFormatters.description%"
                 },
                 "bookmarks.showNoMoreBookmarksWarning": {
-                  "type": "boolean",
-                  "default": true,
-                  "description": "%bookmarks.configuration.showNoMoreBookmarksWarning.description%"
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%bookmarks.configuration.showNoMoreBookmarksWarning.description%"
                 },
                 "bookmarks.showCommandsInContextMenu": {
                     "type": "boolean",

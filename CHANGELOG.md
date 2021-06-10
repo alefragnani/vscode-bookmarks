@@ -1,3 +1,20 @@
+## [13.1.0] - 2021-06-10
+### Added
+- Support **Virtual Workspaces** (issue [#432](https://github.com/alefragnani/vscode-bookmarks/issues/432))
+- Support **Workspace Trust** (issue [#430](https://github.com/alefragnani/vscode-bookmarks/issues/430))
+- Return to line/column when cancel List or List from All Files (issue [#386](https://github.com/alefragnani/vscode-bookmarks/issues/386))
+- Update pt-br translation (issue [#376](https://github.com/alefragnani/vscode-bookmarks/issues/376))
+
+### Fixed
+- Latest bookmark could not be removed (issue [#422](https://github.com/alefragnani/vscode-bookmarks/issues/422))
+- Minor grammatical and spelling issue (Thanks to @derekpock [PR #388](https://github.com/alefragnani/vscode-bookmarks/pull/388))
+
+### Internal
+- Security Alert: lodash (dependabot [PR #433](https://github.com/alefragnani/vscode-bookmarks/pull/433))
+- Security Alert: ssri (dependabot [PR #425](https://github.com/alefragnani/vscode-bookmarks/pull/425))
+- Security Alert: y18n (dependabot [PR #418](https://github.com/alefragnani/vscode-bookmarks/pull/418))
+- Security Alert: elliptic (dependabot [PR #408](https://github.com/alefragnani/vscode-bookmarks/pull/408))
+
 ## [13.0.4] - 2021-03-13
 ### Fixed
 - Bookmarks on deleted/missing files breaks jumping (issue [#390](https://github.com/alefragnani/vscode-bookmarks/issues/390))
