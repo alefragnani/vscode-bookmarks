@@ -145,6 +145,14 @@
                 "title": "%bookmarks.commands.openSettings.title%"
             },
             {
+                "command": "_bookmarks.sidebar.hidePosition",
+                "title": "%bookmarks.commands.hidePosition.title%"
+            },
+            {
+                "command": "_bookmarks.sidebar.showPosition",
+                "title": "%bookmarks.commands.showPosition.title%"
+            },
+            {
                 "command": "bookmarks.clear",
                 "title": "%bookmarks.commands.clear.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
@@ -208,6 +216,14 @@
                     "when": "false"
                 },
                 {
+                    "command": "_bookmarks.sidebar.hidePosition",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.sidebar.showPosition",
+                    "when": "false"
+                },
+                {
                     "command": "_bookmarks.clearFromFile",
                     "when": "false"
                 },
@@ -247,9 +263,19 @@
                     "group": "navigation@10"
                 },
                 {
+                    "command": "_bookmarks.sidebar.hidePosition",
+                    "when": "view == bookmarksExplorer && !bookmarks.isHidingPosition",
+                    "group": "2_bookmarks"
+                },
+                {
+                    "command": "_bookmarks.sidebar.showPosition",
+                    "when": "view == bookmarksExplorer && bookmarks.isHidingPosition",
+                    "group": "2_bookmarks"
+                },
+                {
                     "command": "bookmarks.openSettings",
                     "when": "view == bookmarksExplorer",
-                    "group": "2_bookmarks"
+                    "group": "3_bookmarks"
                 }
             ],
             "view/item/context": [

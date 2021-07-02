@@ -21,6 +21,8 @@
     "bookmarks.commands.toggleLabeled.title": "Alterar Rotulado",
     "bookmarks.commands.refresh.title": "Atualizar",
     "bookmarks.commands.openSettings.title": "Abrir Configurações",
+    "bookmarks.commands.hidePosition.title": "Ocultar Posição",
+    "bookmarks.commands.showPosition.title": "Mostrar Posição",
     "bookmarks.commands.clear.title": "Limpar",
     "bookmarks.commands.clearFromFile.title": "Limpar",
     "bookmarks.commands.deleteBookmark.title": "Apagar",
