@@ -22,7 +22,7 @@ import { parsePosition, Point } from "../vscode-bookmarks-core/src/sidebar/parse
 import { Sticky } from "../vscode-bookmarks-core/src/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
 import { appendPath, getRelativePath } from "../vscode-bookmarks-core/src/utils/fs";
-import { previewPositionInDocument } from "../vscode-bookmarks-core/src/utils/reveal";
+import { previewPositionInDocument, revealPosition } from "../vscode-bookmarks-core/src/utils/reveal";
 import { registerOpenSettings } from "./commands/openSettings";
 import { registerSupportBookmarks } from "./commands/supportBookmarks";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
@@ -219,31 +219,6 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("bookmarks.list", () => list());
     vscode.commands.registerCommand("bookmarks.listFromAllFiles", () => listFromAllFiles());
     
-    function revealLine(line: number) {
-        let reviewType: vscode.TextEditorRevealType = vscode.TextEditorRevealType.InCenter;
-        if (line === vscode.window.activeTextEditor.selection.active.line) {
-            reviewType = vscode.TextEditorRevealType.InCenterIfOutsideViewport;
-        }
-        const newSe = new vscode.Selection(line, 0, line, 0);
-        vscode.window.activeTextEditor.selection = newSe;
-        vscode.window.activeTextEditor.revealRange(newSe, reviewType);
-    }
-
-    function revealPosition(line, column: number) {
-
-        if (isNaN(column)) {
-            revealLine(line);
-        } else {
-            let reviewType: vscode.TextEditorRevealType = vscode.TextEditorRevealType.InCenter;
-            if (line === vscode.window.activeTextEditor.selection.active.line) {
-                reviewType = vscode.TextEditorRevealType.InCenterIfOutsideViewport;
-            }
-            const newSe = new vscode.Selection(line, column, line, column);
-            vscode.window.activeTextEditor.selection = newSe;
-            vscode.window.activeTextEditor.revealRange(newSe, reviewType);
-        }
-    }
-
     function getActiveController(document: TextDocument): void {
         // system files don't have workspace, so use the first one [0]
         if (!vscode.workspace.getWorkspaceFolder(document.uri)) {
