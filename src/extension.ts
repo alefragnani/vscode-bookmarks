@@ -88,6 +88,16 @@ export async function activate(context: vscode.ExtensionContext) {
     const bookmarkExplorer = new BookmarksExplorer(controllers, context);
     const bookmarkProvider = bookmarkExplorer.getProvider();    
 
+    vscode.commands.registerCommand("_bookmarks.sidebar.hidePosition", () => toggleSidebarPositionVisibility(false));
+    vscode.commands.registerCommand("_bookmarks.sidebar.showPosition", () => toggleSidebarPositionVisibility(true));
+    vscode.commands.executeCommand("setContext", "bookmarks.isHidingPosition", 
+        Container.context.globalState.get<boolean>("bookmarks.sidebar.hidePosition", false));
+    function toggleSidebarPositionVisibility(visible: boolean) {
+        vscode.commands.executeCommand("setContext", "bookmarks.isHidingPosition", !visible);
+        Container.context.globalState.update("bookmarks.sidebar.hidePosition", !visible);
+        bookmarkProvider.refresh();
+    }    
+
     vscode.window.onDidChangeActiveTextEditor(editor => {
         activeEditor = editor;
         if (editor) {
