@@ -22,7 +22,7 @@ import { parsePosition, Point } from "../vscode-bookmarks-core/src/sidebar/parse
 import { Sticky } from "../vscode-bookmarks-core/src/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
 import { appendPath, getRelativePath } from "../vscode-bookmarks-core/src/utils/fs";
-import { previewPositionInDocument, revealPosition } from "../vscode-bookmarks-core/src/utils/reveal";
+import { isInDiffEditor, previewPositionInDocument, revealPosition } from "../vscode-bookmarks-core/src/utils/reveal";
 import { registerOpenSettings } from "./commands/openSettings";
 import { registerSupportBookmarks } from "./commands/supportBookmarks";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
@@ -678,7 +678,9 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         if (await activeController.toggle(selections)) {
-            vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
+            if (!isInDiffEditor()) {
+                vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
+            }
         }
 
         sortBookmarks(activeController.activeFile);
