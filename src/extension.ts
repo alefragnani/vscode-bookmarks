@@ -85,7 +85,7 @@ export async function activate(context: vscode.ExtensionContext) {
         triggerUpdateDecorations();
     }
 
-    const bookmarkExplorer = new BookmarksExplorer(controllers, context);
+    const bookmarkExplorer = new BookmarksExplorer(controllers);
     const bookmarkProvider = bookmarkExplorer.getProvider();    
 
     vscode.commands.registerCommand("_bookmarks.sidebar.hidePosition", () => toggleSidebarPositionVisibility(false));
