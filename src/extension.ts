@@ -27,6 +27,7 @@ import { registerOpenSettings } from "./commands/openSettings";
 import { registerSupportBookmarks } from "./commands/supportBookmarks";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
+import { ViewAs } from "../vscode-bookmarks-core/src/sidebar/nodes";
 
 // this method is called when vs code is activated
 export async function activate(context: vscode.ExtensionContext) {
@@ -85,7 +86,7 @@ export async function activate(context: vscode.ExtensionContext) {
         triggerUpdateDecorations();
     }
 
-    const bookmarkExplorer = new BookmarksExplorer(controllers, context);
+    const bookmarkExplorer = new BookmarksExplorer(controllers);
     const bookmarkProvider = bookmarkExplorer.getProvider();    
 
     vscode.commands.registerCommand("_bookmarks.sidebar.hidePosition", () => toggleSidebarPositionVisibility(false));
@@ -96,7 +97,21 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.executeCommand("setContext", "bookmarks.isHidingPosition", !visible);
         Container.context.globalState.update("bookmarks.sidebar.hidePosition", !visible);
         bookmarkProvider.refresh();
-    }    
+    }   
+    
+    const viewAsList = Container.context.globalState.get<boolean>("viewAsList", false);
+    vscode.commands.executeCommand("setContext", "bookmarks.viewAsList", viewAsList);
+    vscode.commands.registerCommand("_bookmarks.viewAsTree#sideBar", () => toggleViewAs(ViewAs.VIEW_AS_TREE));
+    vscode.commands.registerCommand("_bookmarks.viewAsList#sideBar", () => toggleViewAs(ViewAs.VIEW_AS_LIST));
+    function toggleViewAs(view: ViewAs) {
+        if (view === ViewAs.VIEW_AS_LIST) {
+            vscode.commands.executeCommand("setContext", "bookmarks.viewAsList", true);
+        } else {
+            vscode.commands.executeCommand("setContext", "bookmarks.viewAsList", false);
+        }
+        Container.context.globalState.update("viewAsList", view === ViewAs.VIEW_AS_LIST);
+        bookmarkProvider.refresh();
+    }
 
     vscode.window.onDidChangeActiveTextEditor(editor => {
         activeEditor = editor;

@@ -20,6 +20,8 @@
     "bookmarks.commands.list.title": "Список",
     "bookmarks.commands.toggleLabeled.title": "Переключить маркер",
     "bookmarks.commands.refresh.title": "Обновить",
+    "bookmarks.commands.viewAsTree#sideBar.title": "Просмотреть как дерево",
+    "bookmarks.commands.viewAsList#sideBar.title": "Просмотреть как список",
     "bookmarks.commands.openSettings.title": "Открыть настройки",
     "bookmarks.commands.clear.title": "Очистить",
     "bookmarks.commands.clearFromFile.title": "Очистить",

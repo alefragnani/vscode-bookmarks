@@ -20,6 +20,8 @@
     "bookmarks.commands.list.title": "列表",
     "bookmarks.commands.toggleLabeled.title": "含标签的开关",
     "bookmarks.commands.refresh.title": "刷新",
+    "bookmarks.commands.viewAsTree#sideBar.title": "以树的形式查看",
+    "bookmarks.commands.viewAsList#sideBar.title": "以列表形式查看",
     "bookmarks.commands.openSettings.title": "打开设置",
     "bookmarks.commands.clear.title": "清空",
     "bookmarks.commands.clearFromFile.title": "清空",

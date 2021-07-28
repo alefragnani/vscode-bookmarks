@@ -20,6 +20,8 @@
     "bookmarks.commands.list.title": "Listar",
     "bookmarks.commands.toggleLabeled.title": "Alterar Rotulado",
     "bookmarks.commands.refresh.title": "Atualizar",
+    "bookmarks.commands.viewAsTree#sideBar.title": "Exibir como Árvore",
+    "bookmarks.commands.viewAsList#sideBar.title": "Exibir como Lista",
     "bookmarks.commands.openSettings.title": "Abrir Configurações",
     "bookmarks.commands.hidePosition.title": "Ocultar Posição",
     "bookmarks.commands.showPosition.title": "Mostrar Posição",

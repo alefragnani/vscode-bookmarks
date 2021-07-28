@@ -140,6 +140,18 @@
                 "title": "%bookmarks.commands.refresh.title%",
                 "icon": "$(refresh)"
             },
+			{
+                "command": "_bookmarks.viewAsTree#sideBar",
+				"title": "%bookmarks.commands.viewAsTree#sideBar.title%",
+				"icon": "$(list-tree)",
+                "enablement": "bookmarks.viewAsList"
+			},
+			{
+				"command": "_bookmarks.viewAsList#sideBar",
+				"title": "%bookmarks.commands.viewAsList#sideBar.title%",
+				"icon": "$(list-flat)",
+                "enablement": "!bookmarks.viewAsList"
+			},
             {
                 "command": "bookmarks.openSettings",
                 "title": "%bookmarks.commands.openSettings.title%"
@@ -212,6 +224,14 @@
                     "when": "false"
                 },
                 {
+                    "command": "_bookmarks.viewAsTree#sideBar",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.viewAsList#sideBar",
+                    "when": "false"
+                },
+                {
                     "command": "bookmarks.openSettings",
                     "when": "false"
                 },
@@ -261,6 +281,21 @@
                     "command": "bookmarks.refresh",
                     "when": "view == bookmarksExplorer",
                     "group": "navigation@10"
+                },
+                {
+                    "command": "_bookmarks.viewAsList#sideBar",
+                    "when": "view == bookmarksExplorer && !bookmarks.viewAsList",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "_bookmarks.viewAsTree#sideBar",
+                    "when": "view == bookmarksExplorer && bookmarks.viewAsList",
+                    "group": "navigation@10"
+                },
+                {
+                    "submenu": "bookmarks.sideBar.title",
+                    "when": "view == bookmarksExplorer",
+                    "group": "1_bookmarks"
                 },
                 {
                     "command": "_bookmarks.sidebar.hidePosition",
@@ -351,6 +386,16 @@
                     "command": "bookmarks.selectLines",
                     "group": "bookmarks"
                 }
+            ],
+            "bookmarks.sideBar.title": [
+                {
+                    "command": "_bookmarks.viewAsTree#sideBar",
+                    "group": "bookmarks#sideBar.view@1"
+                },
+                {
+                    "command": "_bookmarks.viewAsList#sideBar",
+                    "group": "bookmarks#sideBar.view@2"
+                }
             ]
         },
         "submenus": [
@@ -361,6 +406,10 @@
             {
                 "id": "bookmarks.editor.title",
                 "label": "%bookmarks.editor.title.label%"
+            },
+            {
+                "id": "bookmarks.sideBar.title",
+                "label": "View & Sort"
             }
         ],
         "configuration": {
