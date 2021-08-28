@@ -139,7 +139,7 @@ export async function activate(context: vscode.ExtensionContext) {
             // call sticky function when the activeEditor is changed
             if (activeController.activeFile && activeController.activeFile.bookmarks.length > 0) {
                 if (vscode.workspace.getConfiguration("bookmarks").get<boolean>("experimental.enableNewStickyEngine", true)) {
-                    updatedBookmark = updateStickyBookmarks(event, activeEditorCountLine, activeController.activeFile,
+                    updatedBookmark = updateStickyBookmarks(event, activeController.activeFile,
                         activeEditor, activeController);
                 } else {
                     updatedBookmark = Sticky.stickyBookmarks(event, activeEditorCountLine, activeController.activeFile,
