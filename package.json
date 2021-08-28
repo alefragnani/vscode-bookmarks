@@ -448,6 +448,11 @@
                     "default": false,
                     "description": "%bookmarks.configuration.useWorkaroundForFormatters.description%"
                 },
+                "bookmarks.experimental.enableNewStickyEngine": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%bookmarks.configuration.experimental.enableNewStickyEngine.description%"
+                },
                 "bookmarks.showNoMoreBookmarksWarning": {
                     "type": "boolean",
                     "default": true,

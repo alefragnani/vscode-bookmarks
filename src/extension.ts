@@ -19,6 +19,7 @@ import { pickController } from "../vscode-bookmarks-core/src/quickpick/controlle
 import { expandSelectionToNextBookmark, selectBookmarkedLines, shrinkSelection } from "../vscode-bookmarks-core/src/selections";
 import { BookmarksExplorer } from "../vscode-bookmarks-core/src/sidebar/bookmarkProvider";
 import { parsePosition, Point } from "../vscode-bookmarks-core/src/sidebar/parser";
+import { Sticky } from "../vscode-bookmarks-core/src/stickyLegacy";
 import { updateStickyBookmarks } from "../vscode-bookmarks-core/src/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "../vscode-bookmarks-core/src/suggestion";
 import { appendPath, getRelativePath } from "../vscode-bookmarks-core/src/utils/fs";
@@ -137,8 +138,13 @@ export async function activate(context: vscode.ExtensionContext) {
 
             // call sticky function when the activeEditor is changed
             if (activeController.activeFile && activeController.activeFile.bookmarks.length > 0) {
-                updatedBookmark = updateStickyBookmarks(event, activeEditorCountLine, activeController.activeFile,
-                activeEditor, activeController);
+                if (vscode.workspace.getConfiguration("bookmarks").get<boolean>("experimental.enableNewStickyEngine", true)) {
+                    updatedBookmark = updateStickyBookmarks(event, activeEditorCountLine, activeController.activeFile,
+                        activeEditor, activeController);
+                } else {
+                    updatedBookmark = Sticky.stickyBookmarks(event, activeEditorCountLine, activeController.activeFile,
+                        activeEditor, activeController);
+                }
             }
 
             activeEditorCountLine = event.document.lineCount;
