@@ -41,6 +41,7 @@
     "bookmarks.configuration.navigateThroughAllFiles.description": "Разрешить навигатору искать закладки во всех файлах проекта, а не только в текущем",
     "bookmarks.configuration.wrapNavigation.description": "Разрешить навигацию по первой и последней закладкам в области (текущий файл или все файлы)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Использовать обходной путь для форматировщиков таких как Prettier, который не уведомляет об изменениях документа и путает поведение прикреплённой закладки",
+    "bookmarks.configuration.experimental.enableNewStickyEngine.description": "Экспериментальный. Включает новый механизм Sticky с поддержкой форматеров, улучшенным обнаружением изменений источника и операциями отмены",
     "bookmarks.configuration.showCommandsInContextMenu.description": "Specifies whether Bookmarks commands are displayed on the context menu",
     "bookmarks.configuration.sidebar.expanded.description": "Specifies whether the Side Bar show be displayed expanded",
     "bookmarks.configuration.multicursor.toggleMode.description": "Specifies how multi cursor handles already bookmarked lines",
