@@ -23,6 +23,8 @@
     "bookmarks.commands.viewAsTree#sideBar.title": "Ver como Árbol",
     "bookmarks.commands.viewAsList#sideBar.title": "Ver como Lista",
     "bookmarks.commands.openSettings.title": "Abrir Opciones",
+    "bookmarks.commands.hidePosition.title": "Ocultar posición",
+    "bookmarks.commands.showPosition.title": "Mostrar posición",
     "bookmarks.commands.clear.title": "Limpiar",
     "bookmarks.commands.clearFromFile.title": "Limpiar",
     "bookmarks.commands.deleteBookmark.title": "Borrar",
