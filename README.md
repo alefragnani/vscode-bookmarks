@@ -7,8 +7,9 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 13.1
+# What's new in Bookmarks 13.2
 
+* New **Sticky Engine**
 * Adds **Virtual Workspaces** support
 * Adds **Workspace Trust** support
 * Full **Remote Development** support
@@ -170,12 +171,18 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.showCommandsInContextMenu": true
 ```
 
+* **Experimental**. Enables the new **Sticky engine** with support for Formatters, improved source change detections and undo operations _(`true` by default)_
+
+```json
+    "bookmarks.experimental.enableNewStickyEngine": false
+```
+
 * Use a **workaround** for formatters, like Prettier, which does not notify on document changes and messes Bookmark's _Sticky_ behavior _(`false` by default)_
 
 ```json
     "bookmarks.useWorkaroundForFormatters": true
 ```
-> This workaround should be temporary, until a proper research and suggested APIs are available  
+> This workaround can be turned off if you are using the new Sticky Engine (setting above)  
 
 * Choose if the Side Bar should start expanded (`false` by default)
 ```json

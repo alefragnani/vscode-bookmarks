@@ -1,3 +1,18 @@
+## [13.2.0] - 2021-09-05
+### Added
+- New **Sticky Engine** with improved support to Formatters, Multi-cursor and Undo operations (issue [#463](https://github.com/alefragnani/vscode-bookmarks/issues/463))
+- `View as Tree` and `View as List` options in Side Bar (issue [#453](https://github.com/alefragnani/vscode-bookmarks/issues/453))
+- New command to Hide/Show bookmark position in Side Bar (issue [#143](https://github.com/alefragnani/vscode-bookmarks/issues/143))
+- Updated translations (issue [#464](https://github.com/alefragnani/vscode-bookmarks/issues/464))
+
+### Fixed
+- Bookmark positions didn't update after pasting content above (issue [#446](https://github.com/alefragnani/vscode-bookmarks/issues/446))
+- Bookmark positions didn't update after adding empty lines above (issue [#457](https://github.com/alefragnani/vscode-bookmarks/issues/457))
+- Bookmark moving off original line (issue [#168](https://github.com/alefragnani/vscode-bookmarks/issues/168))
+- Undo messes up bookmarks (issue [#116](https://github.com/alefragnani/vscode-bookmarks/issues/116))
+- `Toggle` command in Notebook cells causes duplicate editor to be opened (issue [#456](https://github.com/alefragnani/vscode-bookmarks/issues/456))
+- `Toggle` command causes exiting diff editor (issue [#440](https://github.com/alefragnani/vscode-bookmarks/issues/440))
+
 ## [13.1.0] - 2021-06-10
 ### Added
 - Support **Virtual Workspaces** (issue [#432](https://github.com/alefragnani/vscode-bookmarks/issues/432))

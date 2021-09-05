@@ -21,6 +21,88 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.0", releaseDate: "August 2021" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "New <b>Sticky Engine</b> with improved support to Formatters, Multi-cursor and Undo operations",
+                id: 463,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "<b>View as Tree</b> and <b>View as List</b> options in Side Bar",
+                id: 453,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "New command to Hide/Show bookmark position in Side Bar",
+                id: 143,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Updated translations",
+                id: 464,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Bookmark positions didn't update after pasting content above",
+                id: 446,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Bookmark positions didn't update after adding empty lines above",
+                id: 457,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Bookmark moving off original line",
+                id: 168,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Undo messes up bookmarks",
+                id: 116,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "<b>Toggle</b> command in Notebook cells causes duplicate editor to be opened",
+                id: 456,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "<b>Toggle</b> command causes exiting diff editor",
+                id: 440,
+                kind: IssueKind.Issue
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.1.0", releaseDate: "May 2021" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
@@ -243,111 +325,6 @@ export class BookmarksContentProvider implements ContentProvider {
             detail: {
                 message: "Remove unnecessary files from extension package",
                 id: 355,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.0.0", releaseDate: "November 2020" } });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Adds <b>Open Settings</b> command to the Side Bar",
-                id: 352,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Adds <b>Toggle Labeled</b> command to the Context Menu",
-                id: 342,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.CHANGED,
-            detail: {
-                message: "Switch initialization to <b>onStartupFinished</b> API",
-                id: 343,
-                kind: IssueKind.PR,
-                kudos: "@jasonwilliams"
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Clearing bookmark label through <b>Toggle Labeled</b> command leaving leading spaces",
-                id: 344,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Leading spaces while using Move Line Up/Down",
-                id: 348,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "<b>Ghost</b> Bookmarks after renaming files",
-                id: 209,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Use <b>vscode-ext-help-and-feedback</b> package",
-                id: 346,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.4.0", releaseDate: "October 2020" } });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Support clear the bookmark label in <b>Toggle Labeled</b> and <b>Edit Label</b> commands",
-                id: 320,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.CHANGED,
-            detail: {
-                message: "Localization support - zh-cn",
-                id: 327,
-                kind: IssueKind.PR,
-                kudos: "@loniceras"
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Typo in Side Bar welcome page",
-                id: 316,
-                kind: IssueKind.PR,
-                kudos: "@osteele"
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "11.3.1", releaseDate: "June 2020" } });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "<b>Open Folder</b> command in Welcome view not working on Windows",
-                id: 310,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Stars visibility on Marketplace",
-                id: 314,
                 kind: IssueKind.Issue
             }
         });
