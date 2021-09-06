@@ -1,3 +1,7 @@
+## [13.2.1] - 2021-09-05
+### Internal
+- Remove unnecessary files from extension package (issue [#465](https://github.com/alefragnani/vscode-bookmarks/issues/465))
+
 ## [13.2.0] - 2021-09-05
 ### Added
 - New **Sticky Engine** with improved support to Formatters, Multi-cursor and Undo operations (issue [#463](https://github.com/alefragnani/vscode-bookmarks/issues/463))
