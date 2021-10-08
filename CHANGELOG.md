@@ -1,3 +1,7 @@
+## [13.2.2] - 2021-10-08
+### Internal
+- Update Tabnine URL
+
 ## [13.2.1] - 2021-09-05
 ### Internal
 - Remove unnecessary files from extension package (issue [#465](https://github.com/alefragnani/vscode-bookmarks/issues/465))

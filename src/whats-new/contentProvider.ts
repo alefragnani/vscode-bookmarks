@@ -21,6 +21,22 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.2", releaseDate: "September 2021" } });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: "Update Tabnine URL"
+        });        
+
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.1", releaseDate: "August 2021" } });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Remove unnecessary files from extension package",
+                id: 465,
+                kind: IssueKind.Issue
+            }
+        });       
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.0", releaseDate: "August 2021" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
@@ -369,7 +385,7 @@ export class BookmarksSponsorProvider implements SponsorProvider {
         sponsors.push(sponsorCodeStream);
         const sponsorTabnine: Sponsor = <Sponsor>{
             title: "Learn more about Tabnine",
-            link: "http://wd5a.2.vu/Bookmarks",
+            link: "https://bit.ly/2LZsrQ9",
             image: {
                 dark: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png",
                 light: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png"
