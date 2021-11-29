@@ -1,7 +1,197 @@
-## [10.5.0] - 2019-??-??
+## [13.2.2] - 2021-10-08
+### Internal
+- Update Tabnine URL
+
+## [13.2.1] - 2021-09-05
+### Internal
+- Remove unnecessary files from extension package (issue [#465](https://github.com/alefragnani/vscode-bookmarks/issues/465))
+
+## [13.2.0] - 2021-09-05
+### Added
+- New **Sticky Engine** with improved support to Formatters, Multi-cursor and Undo operations (issue [#463](https://github.com/alefragnani/vscode-bookmarks/issues/463))
+- `View as Tree` and `View as List` options in Side Bar (issue [#453](https://github.com/alefragnani/vscode-bookmarks/issues/453))
+- New command to Hide/Show bookmark position in Side Bar (issue [#143](https://github.com/alefragnani/vscode-bookmarks/issues/143))
+- Updated translations (issue [#464](https://github.com/alefragnani/vscode-bookmarks/issues/464))
+
+### Fixed
+- Bookmark positions didn't update after pasting content above (issue [#446](https://github.com/alefragnani/vscode-bookmarks/issues/446))
+- Bookmark positions didn't update after adding empty lines above (issue [#457](https://github.com/alefragnani/vscode-bookmarks/issues/457))
+- Bookmark moving off original line (issue [#168](https://github.com/alefragnani/vscode-bookmarks/issues/168))
+- Undo messes up bookmarks (issue [#116](https://github.com/alefragnani/vscode-bookmarks/issues/116))
+- `Toggle` command in Notebook cells causes duplicate editor to be opened (issue [#456](https://github.com/alefragnani/vscode-bookmarks/issues/456))
+- `Toggle` command causes exiting diff editor (issue [#440](https://github.com/alefragnani/vscode-bookmarks/issues/440))
+
+## [13.1.0] - 2021-06-10
+### Added
+- Support **Virtual Workspaces** (issue [#432](https://github.com/alefragnani/vscode-bookmarks/issues/432))
+- Support **Workspace Trust** (issue [#430](https://github.com/alefragnani/vscode-bookmarks/issues/430))
+- Return to line/column when cancel List or List from All Files (issue [#386](https://github.com/alefragnani/vscode-bookmarks/issues/386))
+- Update pt-br translation (issue [#376](https://github.com/alefragnani/vscode-bookmarks/issues/376))
+
+### Fixed
+- Latest bookmark could not be removed (issue [#422](https://github.com/alefragnani/vscode-bookmarks/issues/422))
+- Minor grammatical and spelling issue (Thanks to @derekpock [PR #388](https://github.com/alefragnani/vscode-bookmarks/pull/388))
+
+### Internal
+- Security Alert: lodash (dependabot [PR #433](https://github.com/alefragnani/vscode-bookmarks/pull/433))
+- Security Alert: ssri (dependabot [PR #425](https://github.com/alefragnani/vscode-bookmarks/pull/425))
+- Security Alert: y18n (dependabot [PR #418](https://github.com/alefragnani/vscode-bookmarks/pull/418))
+- Security Alert: elliptic (dependabot [PR #408](https://github.com/alefragnani/vscode-bookmarks/pull/408))
+
+## [13.0.4] - 2021-03-13
+### Fixed
+- Bookmarks on deleted/missing files breaks jumping (issue [#390](https://github.com/alefragnani/vscode-bookmarks/issues/390))
+- Toggling bookmarks on Untitled documents does not work (issue [#391](https://github.com/alefragnani/vscode-bookmarks/issues/391))
+
+## [13.0.3] - 2021-03-04
+### Internal
+- Update Tabnine URL
+
+## [13.0.2] - 2021-02-25
+### Fixed
+- Command `bookmarks.toggle` not found - loading empty workspace with random files (issue [#395](https://github.com/alefragnani/vscode-bookmarks/issues/395))
+
+## [13.0.1] - 2021-02-15
+### Fixed
+- Command `bookmarks.toggle` not found - extension was not activated (issue [#387](https://github.com/alefragnani/vscode-bookmarks/issues/387))
+
+## [13.0.0] - 2021-02-13
+### Added
+- Support Remote Development (issue [#230](https://github.com/alefragnani/vscode-bookmarks/issues/230))
+- Improvements on multi-root support (issue [#193](https://github.com/alefragnani/vscode-bookmarks/issues/193))
+- Group bookmarks by folder on multi-root in Side Bar (issue [#249](https://github.com/alefragnani/vscode-bookmarks/issues/249))
+- Multi-platform support (issue [#205](https://github.com/alefragnani/vscode-bookmarks/issues/205))
+
+### Internal
+- Do not show welcome message if installed by Settings Sync (issue [#377](https://github.com/alefragnani/vscode-bookmarks/issues/377))
+
+## [12.1.4] - 2021-01-18
+### Internal
+- Update Tabnine URL
+
+## [12.1.3] - 2021-01-16
+### Changed
+- Added new translations (Thanks to @loniceras [PR #367](https://github.com/alefragnani/vscode-bookmarks/pull/367))
+
+### Internal
+- Update Tabnine URL
+
+## [12.1.2] - 2021-01-07
+### Internal
+- Update Tabnine logo
+
+## [12.1.1] - 2021-01-07
+### Internal
+- Update whats-new submodule API (issue [#373](https://github.com/alefragnani/vscode-bookmarks/issues/373))
+- Tabnine becomes a Sponsor
+
+## [12.1.0] - 2020-12-23
+### Added
+- Support submenu for editor commands (issue [#351](https://github.com/alefragnani/vscode-bookmarks/issues/351))
+
+### Changed
+- Setting `bookmarks.navigateThroughAllFiles` is now `true` by default (issue [#102](https://github.com/alefragnani/vscode-bookmarks/issues/102))
+
+### Internal
+- Remove unnecessary files from extension package (issue [#355](https://github.com/alefragnani/vscode-bookmarks/issues/355))
+
+## [12.0.0] - 2020-11-24
+### Added
+- `Open Settings` command to the Side Bar (issue [#352](https://github.com/alefragnani/vscode-bookmarks/issues/352))
+- `Toggle Labeled` command to the Context Menu (Thanks to @fade2gray [PR #342](https://github.com/alefragnani/vscode-bookmarks/pull/342))
+
+### Changed
+- Switch initialization to `onStartupFinished` API (Thanks to @jasonwilliams [PR #343](https://github.com/alefragnani/vscode-bookmarks/pull/343))
+
+### Fixed
+- Clearing bookmark label through `Toggle Labeled` command leaving leading spaces (issue [#344](https://github.com/alefragnani/vscode-bookmarks/issues/344))
+- Leading spaces while using Move Line Up/Down (issue [#348](https://github.com/alefragnani/vscode-bookmarks/issues/348))
+- "Ghost" Bookmarks after renaming files (issue [#209](https://github.com/alefragnani/vscode-bookmarks/issues/209))
+
+### Internal
+- Use `vscode-ext-help-and-feedback` package (issue [#346](https://github.com/alefragnani/vscode-bookmarks/issues/346))
+
+## [11.4.0] - 2020-10-16
+### Added
+- Support clear the bookmark label in `Toggle Labeled` and `Edit Label` commands (issue [#320](https://github.com/alefragnani/vscode-bookmarks/issues/320))
+
+### Changed
+- Localization support - zh-cn (Thanks to @loniceras [PR #327](https://github.com/alefragnani/vscode-bookmarks/pull/327))
+
+### Fixed
+- Typo in Side Bar welcome page (Thanks to @osteele [PR #316](https://github.com/alefragnani/vscode-bookmarks/pull/316))
+
+### Internal
+- Update CodeStream sponsorship details
+
+## [11.3.1] - 2020-06-20
+### Fixed
+- `Open Folder` command in Welcome view not working on Windows (issue [#310](https://github.com/alefragnani/vscode-bookmarks/issues/310))
+- Stars visibility on Marketplace (issue [#314](https://github.com/alefragnani/vscode-bookmarks/issues/314))
+
+## [11.3.0] - 2020-06-15
+### Added
+- Auto-save bookmarks when changing `saveBookmarksInProject` setting (issue [#242](https://github.com/alefragnani/vscode-bookmarks/issues/242))
+
+### Changed
+- Internal commands can't be customisable (issue [#306](https://github.com/alefragnani/vscode-bookmarks/issues/306))
+
+### Internal
+- Migrate from TSLint to ESLint (issue [#290](https://github.com/alefragnani/vscode-bookmarks/issues/290))
+- Remove `vscode` dependency (issue [#296](https://github.com/alefragnani/vscode-bookmarks/issues/296))
+- Use `vscode-ext-codicons` package  (issue [#309](https://github.com/alefragnani/vscode-bookmarks/issues/309))
+
+## [11.2.0] - 2020-05-09
+### Added
+- Use selected text as Label (issue [#239](https://github.com/alefragnani/vscode-bookmarks/issues/239))
+- **Side Bar** welcome message (issue [#284](https://github.com/alefragnani/vscode-bookmarks/issues/284))
+
+### Changed
+- Bookmark position in **Side Bar** became more subtle (issue [#295](https://github.com/alefragnani/vscode-bookmarks/issues/295))
+
+### Fixed
+- Avoid Bookmarks from being toggled in the new Search Editor (issue [#279](https://github.com/alefragnani/vscode-bookmarks/issues/279))
+
+## [11.1.0] - 2020-04-10
+### Added
+- Multi Cursor support (issue [#77](https://github.com/alefragnani/vscode-bookmarks/issues/77))
+
+### Internal
+- Support VS Code package split  (issue [#263](https://github.com/alefragnani/vscode-bookmarks/issues/263))
+- Support **ThemeIcon** (issue [#269](https://github.com/alefragnani/vscode-bookmarks/issues/269))
+- Support Extension View Context Menu (issue [#270](https://github.com/alefragnani/vscode-bookmarks/issues/270))
+
+## [11.0.0] - 2020-02-17
+### Added
+- Support `workbench.colorCustomizations` (issue [#246](https://github.com/alefragnani/vscode-bookmarks/issues/246))
+
+### Internal
+- Use `vscode-ext-selection` and `vscode-ext-decoration` packages
+
+## [10.7.0] - 2020-01-27
+### Added
+- Hover buttons for File and Bookmarks in Side Bar (issue [#258](https://github.com/alefragnani/vscode-bookmarks/issues/258))
+- Relative path next to the filename in Side Bar (issue [#236](https://github.com/alefragnani/vscode-bookmarks/issues/236))
+
+### Internal
+- Renew iconography to match new VS Code identity (issue [#231](https://github.com/alefragnani/vscode-bookmarks/issues/231))
+- Shrink installation size (issue [#190](https://github.com/alefragnani/vscode-bookmarks/issues/190))
+
+## [10.6.0] - 2019-11-21
+### Added
+- `Collapse All` command in the Side Bar (issue [#92](https://github.com/alefragnani/vscode-bookmarks/issues/92))
+- New Setting to start Side Bar expanded (issue [#176](https://github.com/alefragnani/vscode-bookmarks/issues/176))
+
+### Changed
+- The `Expand Selection ...` commands now works even if the file has only one Bookmark (issue [#120](https://github.com/alefragnani/vscode-bookmarks/issues/120))
+- Update CodeStream Ad and URL
+
+## [10.5.0] - 2019-08-12
 ### Added
 - Localization support - Portuguese (Brazil)
 - Remote Development support for configurations - (issue [#219](https://github.com/alefragnani/vscode-bookmarks/issues/219))
+- New Side Bar icon matching new VS Code icon style (Thanks to @snnsnn [PR #227](https://github.com/alefragnani/vscode-bookmarks/pull/227))
+- Show only filename in Side Bar (issue [#149](https://github.com/alefragnani/vscode-bookmarks/issues/149))
 
 ### Fixed
 - Activation error for "No-Folders Workspace" scenario (issue [#212](https://github.com/alefragnani/vscode-bookmarks/issues/212))

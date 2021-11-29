@@ -1,1 +1,64 @@
-<?xml version="1.0" ?><svg height="32px" version="1.1" viewBox="0 0 32 32" width="32px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="#157EFB" id="icon-18-bookmark"><path d="M12.997152,4 C11.3418707,4 10,5.34177063 10,6.99109042 L10,28 L16,22 L22,28 L22,6.99109042 C22,5.33915679 20.6583772,4 19.002848,4 L12.997152,4 Z" id="bookmark"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   version="1.1"
+   id="svg34"
+   sodipodi:docname="bookmark-activity-bar.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata40">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs38" />
+  <sodipodi:namedview
+     pagecolor="#ff6f1d"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="740"
+     id="namedview36"
+     showgrid="false"
+     inkscape:pagecheckerboard="false"
+     inkscape:zoom="13.906433"
+     inkscape:cx="7.0197125"
+     inkscape:cy="9.885415"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer4" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="bookmark"
+     style="display:inline;opacity:1">
+    <path
+       inkscape:connector-curvature="0"
+       d="M 5.1003496,2.5214868 V 23.004825 c 0,0.177882 0.2048334,0.2803 0.3449817,0.172493 l 6.2959307,-4.959123 c 0.156322,-0.113196 0.366545,-0.113196 0.517475,0 l 6.29593,4.959123 c 0.140151,0.107805 0.344983,0.0057 0.344983,-0.172493 V 2.5214868 c 0,-0.9540932 -0.770821,-1.72491264 -1.724912,-1.72491264 H 6.8252612 c -0.954092,0 -1.7249116,0.77081944 -1.7249116,1.72491264 z"
+       id="path2-5"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.59314787;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>

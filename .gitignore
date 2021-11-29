@@ -1,6 +1,6 @@
 out
 node_modules
-issues
-debug.log
-npm-debug.log
+.vscode-test/
+*.vsix
 dist
+issues

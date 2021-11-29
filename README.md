@@ -1,18 +1,23 @@
+[![](https://vsmarketplacebadge.apphb.com/version-short/alefragnani.bookmarks.svg)](https://marketplace.visualstudio.com/items?itemName=alefragnani.bookmarks)
+[![](https://vsmarketplacebadge.apphb.com/downloads-short/alefragnani.bookmarks.svg)](https://marketplace.visualstudio.com/items?itemName=alefragnani.bookmarks)
+[![](https://vsmarketplacebadge.apphb.com/rating-short/alefragnani.bookmarks.svg)](https://marketplace.visualstudio.com/items?itemName=alefragnani.bookmarks)
+
 <p align="center">
   <br />
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 10
+# What's new in Bookmarks 13.2
 
-* Adds an all-new Bookmarks **Side Bar**
-* Adds **Column Position** and **Label** support
-* Adds `Edit Label` command in the **Side Bar**
-* Adds **Localization** support
-* Adds `Jump to Next` and `Jump to Previous` commands to Context Menu
-* Adds **background color** for bookmarked lines
+* New **Sticky Engine**
+* Adds **Virtual Workspaces** support
+* Adds **Workspace Trust** support
+* Full **Remote Development** support
+* Improved **Multi-root** support
+* Adds **Cross-platform** support
+* Improved **Side Bar** usability
 
-## Support
+# Support
 
 **Bookmarks** is an extension created for **Visual Studio Code**. If you find it useful, please consider supporting it.
 
@@ -32,16 +37,23 @@
 
 ## Sponsors
 
-<a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks"><img src="https://alt-images.codestream.com/codestream_logo_bookmarks.png" width="35%"/></a></br>
-Discuss, review, and share code with your team in VS Code. Links discussions about code to your code. Integrates w/ Slack, Jira, Trello, and Live Share.<br> <a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks">Try it free</a>
+<a title="Learn more about CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner"><img src="https://alt-images.codestream.com/codestream_logo_bookmarks.png" width="35%"/></a></br>
+Eliminate context switching and costly distractions. Create and merge PRs and perform code reviews from inside your IDE while using jump-to-definition, your keybindings, and other IDE favorites.<br> <a title="Learn more about CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner">Learn more</a>
 
+<br>
+<a title="Learn more about Tabnine" href="https://bit.ly/2LZsrQ9"><img src="https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png" width="26%"/></a></br>
+Improve your Bookmarks experience with Tabnine code completions! Tabnine is a free powerful Artificial Intelligence assistant designed to help you code faster, reduce mistakes, and discover best coding practices - without ever leaving the comfort of VSCode.
+<br>
+<br>
+No more memorizing coding syntax, worrying about typos, neglecting to add that crucial comma, or even search for coding solutions online. Start reducing your development costs, deliver reliable code faster, and explore best coding practices.
+Tabnine is trusted by more than a million developers worldwide.<br> <a title="Learn more about Tabnine" href="https://bit.ly/2LZsrQ9">Get it now</a>
+
+<br>
 <br>
 
 # Bookmarks
 
 It helps you to navigate in your code, moving between important positions easily and quickly. _No more need to search for code._ It also supports a set of **selection** commands, which allows you to select bookmarked lines and regions between bookmarked lines. It's really useful for log file analysis.
-
-Since version 9 you can also define **Labels** for you bookmarks!
 
 Here are some of the features that **Bookmarks** provides:
 
@@ -49,11 +61,9 @@ Here are some of the features that **Bookmarks** provides:
 * Mark positions in your code and **give it name**
 * **Jump** forward and backward between bookmarks
 * Icons in **gutter** and **overview ruler**
-* See a list of all Bookmarks in one **file**
-* See a list of all Bookmarks in your **project**
+* See a list of all Bookmarks in one **file** and **project**
+* **Select lines** and **regions** with bookmarks
 * A dedicated **Side Bar**
-* **Select lines** with bookmarks
-* **Select regions** between bookmarks
 
 # Features
 
@@ -74,17 +84,11 @@ Here are some of the features that **Bookmarks** provides:
 
 ## Manage your bookmarks
 
-### Toggle
+### Toggle / Toggle Labeled
 
-You can easily Mark/Unmark bookmarks on any position.
+You can easily Mark/Unmark bookmarks on any position. You can even define **Labels** for each bookmark.
 
-![Toggle](images/bookmarks-toggle.png)
-
-### Toggle Labeled
-
-You can even mark _labeled_ bookmarks on any position.
-
-![Toggle](images/bookmarks-toggle-labeled.gif)
+![Toggle](images/printscreen-toggle.png)
 
 ## Navigation
 
@@ -99,8 +103,25 @@ List all bookmarks from the current file/project and easily navigate to any of t
 ![List](images/bookmarks-list-from-all-files.gif)
 
 * Bookmarks from the active file only shows the line number and its contents
-* Bookmarks from other files in the project also shows the relative path and filename
-* Bookmarks from files outside the project are denoted with ![Folder](images/bookmarks-folder-icon.png)
+* Bookmarks from other files in the project also shows the relative path
+
+## Improved Multi-root support
+
+When you work with **multi-root** workspaces, the extension can manage the bookmarks individually for each folder. 
+
+Simply define `saveBookmarksInProject` as `true` on your **User Settings** or in the **Workspace Settings**, and when you run the `Numbered Bookmarks: List from All Files` command, you will be able to select from which folder the bookmarks will be shown.
+
+![List](images/bookmarks-list-from-all-files-multi-root.gif)
+
+### Remote Development support
+
+The extension now fully supports **Remote Development** scenarios. 
+
+It means that when you connect to a _remote_ location, like a Docker Container, SSH or WSL, the extension will be available, ready to be used. 
+
+> You don't need to install the extension on the remote anymore.
+
+Better yet, if you use `numberedBookmarks.saveBookmarksInProject` setting defined as `true`, the bookmarks saved locally _will be available_ remotely, and you will be able to navigate and update the bookmarks. Just like it was a resource from folder you opened remotely.
 
 ## Selection
 
@@ -110,19 +131,17 @@ You can use **Bookmarks** to easily select lines or text blocks. Simply toggle b
 
 Select all bookmarked lines. Specially useful while working with log files.
 
-![Select Lines](images/bookmarks-selection-select-line.gif)
+![Select Lines](images/bookmarks-select-lines.gif)
 
 #### Expand Selection to the Next/Previous Bookmark or Shrink the Selection
 
 Manipulate the selection of lines _between_ bookmarks, up and down.
 
-![Expand/Shrink](images/bookmarks-selection-expand-shrink.gif)
-
 ## Available Settings
 
-* Allow navigation through all files that contains bookmarks (`false` by default)
+* Allow navigation through all files that contains bookmarks (`true` by default)
 ```json
-    "bookmarks.navigateThroughAllFiles": true
+    "bookmarks.navigateThroughAllFiles": false
 ```
 
 * Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files) (`true` by default)
@@ -145,10 +164,17 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```json
     "bookmarks.backgroundLineColor"
 ```
+> Deprecated in 10.7: Use `workbench.colorCustomizations` instead. More info in [Available Colors](#available-colors)
 
 * Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu (`true` by default)
 ```json
     "bookmarks.showCommandsInContextMenu": true
+```
+
+* **Experimental**. Enables the new **Sticky engine** with support for Formatters, improved source change detections and undo operations _(`true` by default)_
+
+```json
+    "bookmarks.experimental.enableNewStickyEngine": false
 ```
 
 * Use a **workaround** for formatters, like Prettier, which does not notify on document changes and messes Bookmark's _Sticky_ behavior _(`false` by default)_
@@ -156,19 +182,63 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```json
     "bookmarks.useWorkaroundForFormatters": true
 ```
-> This workaround should be temporary, until a proper research and suggested APIs are available  
+> This workaround can be turned off if you are using the new Sticky Engine (setting above)  
+
+* Choose if the Side Bar should start expanded (`false` by default)
+```json
+    "bookmarks.sideBar.expanded": true
+```
+
+* Choose how multi cursor handles already bookmarked lines (`allLinesAtOnce` by default)
+
+  * `allLinesAtOnce`: Creates bookmarks in all selected lines at once, if at least one of the lines don't have a bookmark
+  * `eachLineIndependently`: Literally toggles a bookmark in each line, instead of making all lines equal
+
+```json
+    "bookmarks.multicursor.toggleMode": "eachLineIndependently"
+```
+
+* Choose how labels are suggested when creating bookmarks (`dontUse` by default)
+
+  * `dontUse`: Don't use the selection (original behavior)
+  * `useWhenSelected`: Use the selected text _(if available)_ directly, no confirmation required
+  * `suggestWhenSelected`: Suggests the selected text _(if available)_. You still need to confirm.
+  * `suggestWhenSelectedOrLineWhenNoSelected`: Suggests the selected text _(if available)_ or the entire line (when has no selection). You still need to confirm
+
+```json
+    "bookmarks.label.suggestion": "useWhenSelected"
+```
+
+## Available Colors
+
+* Choose the background color to use on a bookmarked line
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.lineBackground": "#157EFB22"  
+    }
+```
+
+* Choose the border color to use on a bookmarked line
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.lineBorder": "#FF0000"  
+    }
+```
+
+* Choose marker color to use in the overview ruler
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.overviewRuler": "#157EFB88"  
+    }
+```
 
 ## Side Bar
 
-The **Bookmarks** are now presented in its own **Side Bar**, giving you more free space in your Explorer view. You will have a few extra commands available:
+The **Bookmarks** extension has its own **Side Bar**, with a variety of commands to improve you productivity. 
 
-* Jump to a bookmark, simply clicking in the bookmark item
-* Remove a bookmark, right clicking in the bookmark item
-* Clear the bookmark's file, right-clickin in the file item
-
-![Treeview](images/bookmarks-activity-bar.gif)
-
-> The `bookmarks.treeview.visible` setting was deprecated. If you don't want to see the **Bookmarks** icon in the Activity Bar, right-click and uncheck it from the context menu. 
+| Single Folder | Multi-root Workspace |
+|---------------|------------|
+| ![Side Bar](images/printscreen-activity-bar.png) | ![Side Bar](images/printscreen-activity-bar-multi-root.png) |
 
 ## Project and Session Based
 
