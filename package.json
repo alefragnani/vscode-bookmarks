@@ -453,6 +453,11 @@
                     "default": true,
                     "description": "%bookmarks.configuration.experimental.enableNewStickyEngine.description%"
                 },
+                "bookmarks.keepBookmarksOnLineDelete": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.keepBookmarksOnLineDelete.description%"
+                },
                 "bookmarks.showNoMoreBookmarksWarning": {
                     "type": "boolean",
                     "default": true,
