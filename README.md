@@ -109,7 +109,7 @@ List all bookmarks from the current file/project and easily navigate to any of t
 
 When you work with **multi-root** workspaces, the extension can manage the bookmarks individually for each folder. 
 
-Simply define `saveBookmarksInProject` as `true` on your **User Settings** or in the **Workspace Settings**, and when you run the `Numbered Bookmarks: List from All Files` command, you will be able to select from which folder the bookmarks will be shown.
+Simply define `saveBookmarksInProject` as `true` on your **User Settings** or in the **Workspace Settings**, and when you run the `Bookmarks: List from All Files` command, you will be able to select from which folder the bookmarks will be shown.
 
 ![List](images/bookmarks-list-from-all-files-multi-root.gif)
 
@@ -121,7 +121,7 @@ It means that when you connect to a _remote_ location, like a Docker Container, 
 
 > You don't need to install the extension on the remote anymore.
 
-Better yet, if you use `numberedBookmarks.saveBookmarksInProject` setting defined as `true`, the bookmarks saved locally _will be available_ remotely, and you will be able to navigate and update the bookmarks. Just like it was a resource from folder you opened remotely.
+Better yet, if you use `bookmarks.saveBookmarksInProject` setting defined as `true`, the bookmarks saved locally _will be available_ remotely, and you will be able to navigate and update the bookmarks. Just like it was a resource from folder you opened remotely.
 
 ## Selection
 
