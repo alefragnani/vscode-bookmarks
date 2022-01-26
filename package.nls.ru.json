@@ -44,6 +44,7 @@
     "bookmarks.configuration.wrapNavigation.description": "Разрешить навигацию по первой и последней закладкам в области (текущий файл или все файлы)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Использовать обходной путь для форматировщиков таких как Prettier, который не уведомляет об изменениях документа и путает поведение прикреплённой закладки",
     "bookmarks.configuration.experimental.enableNewStickyEngine.description": "Экспериментальный. Включает новый механизм Sticky с поддержкой форматеров, улучшенным обнаружением изменений источника и операциями отмены",
+    "bookmarks.configuration.keepBookmarksOnLineDelete.description": "Указывает, должны ли закладки на удаленной строке сохраняться в файле, перемещая его вниз на следующую строку, вместо того, чтобы удалять его вместе со строкой, в которой он был переключен.",
     "bookmarks.configuration.showNoMoreBookmarksWarning.description": "Указывает, будет ли отображаться уведомление при попытке перехода между закладками, когда их больше нет.",
     "bookmarks.configuration.showCommandsInContextMenu.description": "Определяет, отображаются ли команды закладок в контекстном меню",
     "bookmarks.configuration.sidebar.expanded.description": "Определяет, будет ли отображаться развернутая боковая панель.",
