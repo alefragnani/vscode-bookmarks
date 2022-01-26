@@ -177,6 +177,14 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.experimental.enableNewStickyEngine": false
 ```
 
+* "Specifies whether bookmarks on deleted line should be kept on file, moving it down to the next line, instead of deleting it with the line where it was toggled." _(`false` by default)_
+
+```json
+    "bookmarks.keepBookmarksOnLineDelete": true
+```
+
+> **Limitation:** It does not support `Undo` operations. It means that, once you delete a line and the bookmark is moved to the next available line, the `Undo` operation won't move the bookmark back to the previous line. The next line is now the new location of the bookmark.
+
 * Use a **workaround** for formatters, like Prettier, which does not notify on document changes and messes Bookmark's _Sticky_ behavior _(`false` by default)_
 
 ```json
