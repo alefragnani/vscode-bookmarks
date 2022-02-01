@@ -44,6 +44,7 @@
     "bookmarks.configuration.wrapNavigation.description": "Permite que a navegação fique em círculos ente o primeiro e último Bookmark no escopo (arquivo corrente ou todos os arquivos)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Use a solução alternativa para formatadores como Prettier, os quais não notificam de mudanças no documento e acabam bagunçando o comportamento Sticky (atrelado a linha de código) do Bookmark",
     "bookmarks.configuration.experimental.enableNewStickyEngine.description": "Experimental. Ativa o novo motor Sticky engine com suporte a Formatadores, detecção de mudança de fonte e operações de desfazer melhoradas",
+    "bookmarks.configuration.keepBookmarksOnLineDelete.description": "Determina se bookmarks em linhas excluídas devem ser mantidos no arquivo, movendo-os para a próxima linha, ao invés de excluídos com a linha onde se encontravam",
     "bookmarks.configuration.showNoMoreBookmarksWarning.description": "Define se uma notificação deve ser apresentada quando navegando entre bookmarks, não houverem mais bookmarks.",
     "bookmarks.configuration.showCommandsInContextMenu.description": "Define se os comandos Bookmarks são apresentados no menu de contexto",
     "bookmarks.configuration.sidebar.expanded.description": "Define se a Side Bar deve ser exibida expandida",

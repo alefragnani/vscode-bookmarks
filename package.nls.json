@@ -44,6 +44,7 @@
     "bookmarks.configuration.wrapNavigation.description": "Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Use a workaround for formatters like Prettier, which does not notify on document changes and messes Bookmark's Sticky behavior",
     "bookmarks.configuration.experimental.enableNewStickyEngine.description": "Experimental. Enables the new Sticky engine with support for Formatters, improved source change detections and undo operations",
+    "bookmarks.configuration.keepBookmarksOnLineDelete.description": "Specifies whether bookmarks on deleted line should be kept on file, moving it down to the next line, instead of deleting it with the line where it was toggled.",
     "bookmarks.configuration.showNoMoreBookmarksWarning.description": "Specifies whether a notification will be shown when attempting to navigate between bookmarks when no more exist.",
     "bookmarks.configuration.showCommandsInContextMenu.description": "Specifies whether Bookmarks commands are displayed on the context menu",
     "bookmarks.configuration.sidebar.expanded.description": "Specifies whether the Side Bar show be displayed expanded",

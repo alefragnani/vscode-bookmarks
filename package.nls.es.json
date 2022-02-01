@@ -44,6 +44,7 @@
     "bookmarks.configuration.wrapNavigation.description": "Permitir que la ventana se ajuste entre el primer y el último Marcador (del fichero actual o de todos)",
     "bookmarks.configuration.useWorkaroundForFormatters.description": "Utilizar una solución para formateadores como Prettier, los cuales no notifican cambios en el documento y rompen el funcionamiento de Bookmarks",
     "bookmarks.configuration.experimental.enableNewStickyEngine.description": "Experimental. Habilita el nuevo motor Sticky con soporte para formateadores, detecciones de cambio de fuente mejoradas y operaciones de deshacer",
+    "bookmarks.configuration.keepBookmarksOnLineDelete.description": "Especifica si los marcadores en la línea eliminada deben mantenerse en el archivo, moviéndolos hacia abajo a la línea siguiente, en lugar de eliminarlos con la línea donde se alternaron.",
     "bookmarks.configuration.showNoMoreBoomarksWarning.description": "Especifíca cuando msotrar una notificación si se intenta navegar mas allá de el último Marcador.",
     "bookmarks.configuration.showCommandsInContextMenu.description": "Especifíca como se muestran los comandos en el menú contextual de Bookmark",
     "bookmarks.configuration.sidebar.expanded.description": "Especifica si la barra lateral se muestra expandida",
