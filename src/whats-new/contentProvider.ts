@@ -21,6 +21,20 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.3", releaseDate: "January 2022" } });
+        // changeLog.push({
+        //     kind: ChangeLogKind.NEW,
+        //     detail: {
+        //         message: "New setting to keep bookmarks on line delete",
+        //         id: 503,
+        //         kind: IssueKind.Issue
+        //     }
+        // });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: "<b>Duckly</b> becomes a Sponsor"
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.2", releaseDate: "September 2021" } });
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
