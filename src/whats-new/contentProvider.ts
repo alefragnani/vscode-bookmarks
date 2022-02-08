@@ -401,6 +401,16 @@ export class BookmarksSponsorProvider implements SponsorProvider {
             //     Get it now</a>`
         };
         sponsors.push(sponsorTabnine);
+        const sponsorDuckly: Sponsor = <Sponsor>{
+            title: "Try it out for free",
+            link: "https://bit.ly/3Hxe4e4",
+            image: {
+                dark: "https://storage.googleapis.com/gitduck/img/duckly-sponsor-vsc-opt.png",
+                light: "https://storage.googleapis.com/gitduck/img/duckly-sponsor-vsc-opt.png"
+            },
+            width: 40,
+        };
+        sponsors.push(sponsorDuckly);
         return sponsors;
     }
 }
