@@ -49,6 +49,7 @@ No more memorizing coding syntax, worrying about typos, neglecting to add that c
 Tabnine is trusted by more than a million developers worldwide.<br> <a title="Learn more about Tabnine" href="https://bit.ly/2LZsrQ9">Get it now</a>
 
 <br>
+<br>
 <a title="Try it out for free" href="https://bit.ly/3Hxe4e4"><img src="https://storage.googleapis.com/gitduck/img/duckly-sponsor-vsc-opt.png" width="25%"/></a></br>
 Easy pair programming with any IDE. Duckly enables you to talk, share your code in real-time, server and terminal with people using different IDEs.<br> <a title="Try it out for free" href="https://bit.ly/3Hxe4e4">Try it out for free</a>
 
