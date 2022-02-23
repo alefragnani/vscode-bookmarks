@@ -21,6 +21,12 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.4", releaseDate: "January 2022" } });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: "Update Tabnine URL"
+        });   
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.3", releaseDate: "January 2022" } });
         // changeLog.push({
         //     kind: ChangeLogKind.NEW,
@@ -399,7 +405,7 @@ export class BookmarksSponsorProvider implements SponsorProvider {
         sponsors.push(sponsorCodeStream);
         const sponsorTabnine: Sponsor = <Sponsor>{
             title: "Learn more about Tabnine",
-            link: "https://bit.ly/2LZsrQ9",
+            link: "https://bit.ly/3M0p0nd",
             image: {
                 dark: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png",
                 light: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png"

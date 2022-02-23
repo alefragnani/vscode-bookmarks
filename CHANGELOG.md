@@ -1,3 +1,7 @@
+## [13.2.4] - 2022-02-23
+### Internal
+- Update Tabnine URL
+
 ## [13.2.3] - 2022-02-08
 ### Internal
 - Duckly becomes a Sponsor
