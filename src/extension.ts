@@ -66,6 +66,7 @@ export async function activate(context: vscode.ExtensionContext) {
             context.subscriptions.push(bookmarkDecorationType);
 
             updateDecorations();
+            bookmarkProvider.refresh();
         }
         
         if (cfg.affectsConfiguration("bookmarks.saveBookmarksInProject")) {
