@@ -425,7 +425,8 @@
                     "type": "string",
                     "default": "",
                     "description": "%bookmarks.configuration.gutterIconPath.description%",
-                    "scope": "machine"
+                    "scope": "machine",
+                    "deprecationMessage": "%bookmarks.configuration.gutterIconPath.deprecation%"
                 },
                 "bookmarks.gutterIconFillColor": {
                     "type": "string",
