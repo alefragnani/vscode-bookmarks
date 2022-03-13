@@ -56,15 +56,17 @@ export async function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
         // Allow change the gutterIcon without reload
-        if (cfg.affectsConfiguration("bookmarks.gutterIconPath")) {
+        if (cfg.affectsConfiguration("bookmarks.gutterIconFillColor") || 
+            cfg.affectsConfiguration("bookmarks.gutterIconBorderColor")) {
             if (bookmarkDecorationType) {
                 bookmarkDecorationType.dispose();
             }
 
-            bookmarkDecorationType = createTextEditorDecoration(context);
+            bookmarkDecorationType = createTextEditorDecoration();
             context.subscriptions.push(bookmarkDecorationType);
 
             updateDecorations();
+            bookmarkProvider.refresh();
         }
         
         if (cfg.affectsConfiguration("bookmarks.saveBookmarksInProject")) {
@@ -73,7 +75,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }));
 
-    let bookmarkDecorationType = createTextEditorDecoration(context);
+    let bookmarkDecorationType = createTextEditorDecoration();
     context.subscriptions.push(bookmarkDecorationType);
 
     // Connect it to the Editors Events
@@ -189,6 +191,8 @@ export async function activate(context: vscode.ExtensionContext) {
     function updateDecorations() {
         updateDecorationsInActiveEditor(activeEditor, activeController, bookmarkDecorationType);
     }
+
+    updateDecorations();
 
     vscode.commands.registerCommand("_bookmarks.jumpTo", (documentPath, line, column: string, uri: Uri) => {
         vscode.workspace.openTextDocument(uri).then(doc => {
