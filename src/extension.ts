@@ -40,7 +40,7 @@ export async function activate(context: vscode.ExtensionContext) {
     let activeEditorCountLine: number;
     let timeout: NodeJS.Timer;
 
-    registerWhatsNew();
+    // registerWhatsNew();
     
     context.subscriptions.push(vscode.commands.registerCommand("_bookmarks.openFolderWelcome", () => {
         const openFolderCommand = isWindows ? "workbench.action.files.openFolder" : "workbench.action.files.openFileFolder"
