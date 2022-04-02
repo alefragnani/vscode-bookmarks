@@ -261,4 +261,4 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 
 # License
 
-[MIT](LICENSE.md) &copy; Alessandro Fragnani
+[GPL-3.0](LICENSE.md) &copy; Alessandro Fragnani
