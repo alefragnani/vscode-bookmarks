@@ -43,7 +43,8 @@
         "onStartupFinished",
         "onView:bookmarksExplorer"
     ],
-    "main": "./dist/extension",
+    "main": "./dist/extension-node.js",
+    "browser": "./dist/extension-web.js",
     "contributes": {
         "viewsContainers": {
             "activitybar": [
@@ -601,6 +602,8 @@
         "lint": "eslint -c package.json --ext .ts src vscode-bookmarks-core vscode-whats-new"
     },
     "dependencies": {
+        "os-browserify": "^0.3.0",
+        "path-browserify": "^1.0.1",
         "vscode-ext-codicons": "^1.0.0",
         "vscode-ext-decoration": "1.1.0",
         "vscode-ext-help-and-feedback-view": "^1.0.1",
