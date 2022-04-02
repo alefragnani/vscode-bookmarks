@@ -2,7 +2,7 @@
     "name": "Bookmarks",
     "displayName": "Bookmarks",
     "description": "Mark lines and jump to them",
-    "version": "13.2.4",
+    "version": "13.3.0",
     "publisher": "alefragnani",
     "engines": {
         "vscode": "^1.61.0"
@@ -30,7 +30,7 @@
         }
     },
     "icon": "images/icon.png",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "license": "GPL-3.0",
     "homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
     "repository": {
         "type": "git",
