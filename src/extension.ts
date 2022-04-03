@@ -158,25 +158,33 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }, null, context.subscriptions);
 
-    context.subscriptions.push(vscode.workspace.onDidRenameFiles(rename => {
+    context.subscriptions.push(vscode.workspace.onDidRenameFiles(async rename => {
         
         if (rename.files.length === 0) { return; } 
         
-        rename.files.forEach(async file => {
+        for (const file of rename.files) {
             const files = activeController.files.map(file => file.path);
             const stat = await vscode.workspace.fs.stat(file.newUri);
             
+            const fileRelativeOldPath = getRelativePath(activeController.workspaceFolder.uri.path, file.oldUri.path);
+            const fileRelativeNewPath = getRelativePath(activeController.workspaceFolder.uri.path, file.newUri.path);
+
             if (stat.type === vscode.FileType.File) {
-                if (files.includes(file.oldUri.fsPath)) {
-                    activeController.updateFilePath(file.oldUri.fsPath, file.newUri.fsPath);
+                if (files.includes(fileRelativeOldPath)) {
+                    activeController.updateFilePath(fileRelativeOldPath, fileRelativeNewPath);
                 }
             }
             if (stat.type === vscode.FileType.Directory) {
-                activeController.updateDirectoryPath(file.oldUri.fsPath, file.newUri.fsPath);
+                activeController.updateDirectoryPath(fileRelativeOldPath, fileRelativeNewPath);
             }
-        });
+        }
+
         bookmarkProvider.refresh();
         saveWorkspaceState();
+        if (activeEditor) {
+            activeController.activeFile = activeController.fromUri(activeEditor.document.uri);
+            updateDecorations();
+        }
     }));
 
     // Timeout
