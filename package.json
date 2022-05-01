@@ -44,7 +44,6 @@
         "onView:bookmarksExplorer"
     ],
     "main": "./dist/extension-node.js",
-    "browser": "./dist/extension-web.js",
     "contributes": {
         "viewsContainers": {
             "activitybar": [
