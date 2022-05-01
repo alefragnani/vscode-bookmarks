@@ -58,22 +58,4 @@ const nodeConfig = {
     },
 }
 
-const webConfig = {
-    ...config,
-    target: "webworker",
-    output: { // the bundle is stored in the 'dist' folder (check package.json), 📖 -> https://webpack.js.org/configuration/output/
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'extension-web.js',
-        libraryTarget: "commonjs2",
-        devtoolModuleFilenameTemplate: "../[resource-path]",
-    },
-    resolve: {
-        extensions: ['.ts', '.js'],
-        fallback: {
-            path: require.resolve('path-browserify'),
-            os: require.resolve('os-browserify/browser')
-        }
-    }
-}
-
-module.exports = [webConfig,  nodeConfig];
+module.exports = [nodeConfig];
