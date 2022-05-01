@@ -394,43 +394,15 @@ export class BookmarksSponsorProvider implements SponsorProvider {
                 dark: "https://alt-images.codestream.com/codestream_logo_bookmarks.png",
                 light: "https://alt-images.codestream.com/codestream_logo_bookmarks.png"
             },
-            width: 52,
-            // message: `<p>Eliminate context switching and costly distractions. 
-            //     Create and merge PRs and perform code reviews from inside your 
-            //     IDE while using jump-to-definition, your keybindings, and other IDE favorites.</p>`,
-            // extra:
-            //     `<a title="Learn more about CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner">
-            //     Learn more</a>`
+            width: 35,
+            message: `<p>Eliminate context switching and costly distractions. 
+                Create and merge PRs and perform code reviews from inside your 
+                IDE while using jump-to-definition, your keybindings, and other IDE favorites.</p>`,
+            extra:
+                `<a title="Learn more about CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner">
+                Learn more</a>`
         };
         sponsors.push(sponsorCodeStream);
-        const sponsorTabnine: Sponsor = <Sponsor>{
-            title: "Learn more about Tabnine",
-            link: "https://bit.ly/3M0p0nd",
-            image: {
-                dark: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png",
-                light: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png"
-            },
-            width: 40,
-            // message: `<p>Improve your Bookmarks experience with Tabnine code 
-            //     completions! Tabnine is a free powerful Artificial Intelligence 
-            //     assistant designed to help you code faster, reduce mistakes, 
-            //     and discover best coding practices - without ever leaving the 
-            //     comfort of VSCode.</p>`,
-            // extra:
-            //     `<a title="Learn more about Tabnine" href="https://www.tabnine.com">
-            //     Get it now</a>`
-        };
-        sponsors.push(sponsorTabnine);
-        const sponsorDuckly: Sponsor = <Sponsor>{
-            title: "Try it out for free",
-            link: "https://bit.ly/3Hxe4e4",
-            image: {
-                dark: "https://storage.googleapis.com/gitduck/img/duckly-sponsor-vsc-opt.png",
-                light: "https://storage.googleapis.com/gitduck/img/duckly-sponsor-vsc-opt.png"
-            },
-            width: 40,
-        };
-        sponsors.push(sponsorDuckly);
         return sponsors;
     }
 }
