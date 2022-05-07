@@ -38,6 +38,8 @@
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Permitir a bookmarks guardar (y recuperar)  localmente las carpetas/proyectos  en vez de VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Ruta para mostrar otra imagen como Marcador",
+    "bookmarks.configuration.gutterIconFillColor.description": "Especifica el color de relleno del icono de marcador",
+    "bookmarks.configuration.gutterIconBorderColor.description": "Especifica el color del borde del icono de marcador",
     "bookmarks.configuration.backgroundLineColor.description": "Color de fondo del decorador. Se utiliza rgba(), permite el uso de fondos con transparencia. Ej.: rgba(21, 126, 251, 0.1)",
     "bookmarks.configuration.backgroundLineColor.deprecation": "Usa `bookmarks.lineBackground` en `workbench.colorCustomizations` en su lugar",
     "bookmarks.configuration.navigateThroughAllFiles.description": "Permitir la navegación entre los Marcadores de todos los archivos en lugar se solamente el actual",
