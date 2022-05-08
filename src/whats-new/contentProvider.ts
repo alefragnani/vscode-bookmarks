@@ -21,6 +21,32 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.3.0", releaseDate: "April 2022" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "New setting to decide if should delete bookmark if associated line is deleted",
+                id: 503,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Allow customization of bookmark color (fill and border)",
+                id: 445,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Bookmarks being lost on file renames",
+                id: 529,
+                kind: IssueKind.Issue
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.4", releaseDate: "January 2022" } });
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
@@ -310,60 +336,7 @@ export class BookmarksContentProvider implements ContentProvider {
                 id: 377,
                 kind: IssueKind.Issue
             }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.4", releaseDate: "January 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
-        });
-        
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.3", releaseDate: "January 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Added new translations",
-                id: 367,
-                kind: IssueKind.PR,
-                kudos: "@loniceras"
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
-        });
-        
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.2", releaseDate: "January 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Tabnine becomes a Sponsor"
-        });
-        
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.0", releaseDate: "December 2020" } });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Support submenu for editor commands",
-                id: 351,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.CHANGED,
-            detail: {
-                message: "Setting <b>bookmarks.navigateThroughAllFiles</b> is now <b>true</b> by default",
-                id: 102,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Remove unnecessary files from extension package",
-                id: 355,
-                kind: IssueKind.Issue
-            }
-        });
+        });        
 
         return changeLog;
     }

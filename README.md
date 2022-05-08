@@ -7,15 +7,13 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 13.2
+# What's new in Bookmarks 13.3
 
+* Adds **Icon** customization
 * New **Sticky Engine**
 * Adds **Virtual Workspaces** support
 * Adds **Workspace Trust** support
 * Full **Remote Development** support
-* Improved **Multi-root** support
-* Adds **Cross-platform** support
-* Improved **Side Bar** usability
 
 # Support
 
@@ -148,6 +146,17 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 * Path to another image to be shown as Bookmark (16x16 px)
 ```json
     "bookmarks.gutterIconPath": "c:\\temp\\othericon.png"
+```
+> Deprecated in 13.3: Use `bookmarks.gutterIconFillColor` and `bookmarks.gutterIconBorderColor` instead
+
+* Specifies the fill color of the bookmark icon
+```json
+    "bookmarks.gutterIconFillColor"
+```
+
+* Specifies the border color of the bookmark icon
+```json
+    "bookmarks.gutterIconBorderColor"
 ```
 
 * Choose the background color to use on a bookmarked line

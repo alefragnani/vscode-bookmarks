@@ -1,3 +1,11 @@
+## [13.3.0] - 2022-05-08
+### Added
+- New setting to decide if should delete bookmark if associated line is deleted (issue [#503](https://github.com/alefragnani/vscode-bookmarks/issues/503))
+- Allow customization of bookmark icon - border and fill colors (issue [#445](https://github.com/alefragnani/vscode-bookmarks/issues/445))
+
+### Fixed
+- Bookmarks being lost on file renames (issue [#529](https://github.com/alefragnani/vscode-bookmarks/issues/529))
+
 ## [13.2.4] - 2022-02-23
 ### Internal
 - Update Tabnine URL
