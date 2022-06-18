@@ -39,6 +39,9 @@
     "bugs": {
         "url": "https://github.com/alefragnani/vscode-bookmarks/issues"
     },
+    "sponsor": {
+        "url": "https://github.com/sponsors/alefragnani"
+    },
     "activationEvents": [
         "onStartupFinished",
         "onView:bookmarksExplorer"
