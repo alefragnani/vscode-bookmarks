@@ -1,3 +1,7 @@
+## [13.3.1] - 2022-07-18
+### Internal
+- Add GitHub Sponsors support (PR [#544](https://github.com/alefragnani/vscode-bookmarks/pull/544))
+
 ## [13.3.0] - 2022-05-08
 ### Added
 - New setting to decide if should delete bookmark if associated line is deleted (issue [#503](https://github.com/alefragnani/vscode-bookmarks/issues/503))
