@@ -92,6 +92,8 @@ export async function activate(context: vscode.ExtensionContext) {
     const bookmarkExplorer = new BookmarksExplorer(controllers);
     const bookmarkProvider = bookmarkExplorer.getProvider();    
 
+    bookmarkExplorer.updateBadge();
+
     vscode.commands.registerCommand("_bookmarks.sidebar.hidePosition", () => toggleSidebarPositionVisibility(false));
     vscode.commands.registerCommand("_bookmarks.sidebar.showPosition", () => toggleSidebarPositionVisibility(true));
     vscode.commands.executeCommand("setContext", "bookmarks.isHidingPosition", 
@@ -719,6 +721,7 @@ export async function activate(context: vscode.ExtensionContext) {
         sortBookmarks(activeController.activeFile);
         saveWorkspaceState();
         updateDecorations();
+        bookmarkExplorer.updateBadge();
     }
 
     async function toggleLabeled() {
