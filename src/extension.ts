@@ -721,7 +721,7 @@ export async function activate(context: vscode.ExtensionContext) {
         sortBookmarks(activeController.activeFile);
         saveWorkspaceState();
         updateDecorations();
-        bookmarkExplorer.updateBadge();
+        // bookmarkExplorer.updateBadge();
     }
 
     async function toggleLabeled() {
