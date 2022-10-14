@@ -73,6 +73,10 @@ export async function activate(context: vscode.ExtensionContext) {
             splitOrMergeFilesInMultiRootControllers();
             saveWorkspaceState();
         }
+
+        if (cfg.affectsConfiguration("bookmarks.sideBar.countBadge")) {
+            bookmarkExplorer.updateBadge();
+        }
     }));
 
     let bookmarkDecorationType = createTextEditorDecoration();

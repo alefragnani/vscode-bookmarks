@@ -489,6 +489,21 @@
                     "default": false,
                     "description": "%bookmarks.configuration.sidebar.expanded.description%"
                 },
+                "bookmarks.sideBar.countBadge": {
+                    "type": "string",
+                    "default": "all",
+                    "enum": [
+                        "all",
+                        "files",
+                        "off"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.all%",
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.files%",
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.off%"
+                    ],
+                    "description": "%bookmarks.configuration.sideBar.countBadge.description%"
+                },
                 "bookmarks.multicursor.toggleMode": {
                     "type": "string",
                     "default": "allLinesAtOnce",
