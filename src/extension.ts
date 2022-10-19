@@ -73,6 +73,10 @@ export async function activate(context: vscode.ExtensionContext) {
             splitOrMergeFilesInMultiRootControllers();
             saveWorkspaceState();
         }
+
+        if (cfg.affectsConfiguration("bookmarks.sideBar.countBadge")) {
+            bookmarkExplorer.updateBadge();
+        }
     }));
 
     let bookmarkDecorationType = createTextEditorDecoration();
@@ -91,6 +95,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
     const bookmarkExplorer = new BookmarksExplorer(controllers);
     const bookmarkProvider = bookmarkExplorer.getProvider();    
+
+    bookmarkExplorer.updateBadge();
 
     vscode.commands.registerCommand("_bookmarks.sidebar.hidePosition", () => toggleSidebarPositionVisibility(false));
     vscode.commands.registerCommand("_bookmarks.sidebar.showPosition", () => toggleSidebarPositionVisibility(true));
@@ -719,6 +725,7 @@ export async function activate(context: vscode.ExtensionContext) {
         sortBookmarks(activeController.activeFile);
         saveWorkspaceState();
         updateDecorations();
+        // bookmarkExplorer.updateBadge();
     }
 
     async function toggleLabeled() {

@@ -5,7 +5,7 @@
     "version": "13.3.1",
     "publisher": "alefragnani",
     "engines": {
-        "vscode": "^1.61.0"
+        "vscode": "^1.72.0"
     },
     "categories": [
         "Other"
@@ -489,6 +489,21 @@
                     "default": false,
                     "description": "%bookmarks.configuration.sidebar.expanded.description%"
                 },
+                "bookmarks.sideBar.countBadge": {
+                    "type": "string",
+                    "default": "all",
+                    "enum": [
+                        "all",
+                        "files",
+                        "off"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.all%",
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.files%",
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.off%"
+                    ],
+                    "description": "%bookmarks.configuration.sideBar.countBadge.description%"
+                },
                 "bookmarks.multicursor.toggleMode": {
                     "type": "string",
                     "default": "allLinesAtOnce",
@@ -613,7 +628,7 @@
     },
     "devDependencies": {
         "@types/node": "^14.17.27",
-        "@types/vscode": "^1.61.0",
+        "@types/vscode": "^1.72.0",
         "@types/mocha": "^9.0.0",
         "@types/glob": "^7.1.4",
         "@vscode/test-electron": "^1.6.2",
