@@ -10,7 +10,7 @@ import { BookmarkQuickPickItem } from "../vscode-bookmarks-core/src/bookmark";
 import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/constants";
 import { Directions, isWindows, SEARCH_EDITOR_SCHEME } from "../vscode-bookmarks-core/src/constants";
 import { Container } from "../vscode-bookmarks-core/src/container";
-import { createTextEditorDecoration, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
+import { createBookmarkDecorations, updateDecorationsInActiveEditor } from "../vscode-bookmarks-core/src/decoration";
 import { File } from "../vscode-bookmarks-core/src/file";
 import { Controller } from "../vscode-bookmarks-core/src/controller";
 import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "../vscode-bookmarks-core/src/operations";
@@ -58,12 +58,12 @@ export async function activate(context: vscode.ExtensionContext) {
         // Allow change the gutterIcon without reload
         if (cfg.affectsConfiguration("bookmarks.gutterIconFillColor") || 
             cfg.affectsConfiguration("bookmarks.gutterIconBorderColor")) {
-            if (bookmarkDecorationType) {
-                bookmarkDecorationType.dispose();
+            if (bookmarkDecorationType.length > 0) {
+                bookmarkDecorationType.forEach(b => b.dispose());
             }
 
-            bookmarkDecorationType = createTextEditorDecoration();
-            context.subscriptions.push(bookmarkDecorationType);
+            bookmarkDecorationType = createBookmarkDecorations();
+            context.subscriptions.push(...bookmarkDecorationType);
 
             updateDecorations();
             bookmarkProvider.refresh();
@@ -79,8 +79,8 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }));
 
-    let bookmarkDecorationType = createTextEditorDecoration();
-    context.subscriptions.push(bookmarkDecorationType);
+    let bookmarkDecorationType = createBookmarkDecorations();
+    context.subscriptions.push(...bookmarkDecorationType);
 
     // Connect it to the Editors Events
     let activeEditor = vscode.window.activeTextEditor;
