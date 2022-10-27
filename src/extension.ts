@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import * as vscode from "vscode";
-import { Position, TextDocument, Uri } from "vscode";
+import { Position, TextDocument, Uri, l10n } from "vscode";
 import { codicons } from "vscode-ext-codicons";
 import { BookmarkQuickPickItem } from "../vscode-bookmarks-core/src/bookmark";
 import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/constants";
@@ -29,6 +29,7 @@ import { registerSupportBookmarks } from "./commands/supportBookmarks";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
 import { ViewAs } from "../vscode-bookmarks-core/src/sidebar/nodes";
+// import * as l10n from '@vscode/l10n';
 
 // this method is called when vs code is activated
 export async function activate(context: vscode.ExtensionContext) {
@@ -345,7 +346,8 @@ export async function activate(context: vscode.ExtensionContext) {
     function list() {
         
         if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to list bookmarks");
+            const message = l10n.t('Open a file first to list bookmarks');
+          vscode.window.showInformationMessage(message);
           return;
         }
         
@@ -704,7 +706,8 @@ export async function activate(context: vscode.ExtensionContext) {
         }         
       
         if (vscode.window.activeTextEditor.document.uri.scheme === SEARCH_EDITOR_SCHEME) {
-          vscode.window.showInformationMessage("You can't toggle bookmarks in Search Editor");
+            const message = l10n.t("You can't toggle bookmarks in Search {0}", "xixixi");
+          vscode.window.showInformationMessage(message);
           return;
         }         
       

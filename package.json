@@ -29,6 +29,8 @@
             "supported": true
         }
     },
+    "enabledApiProposals": ["localization"],
+    "l10n": "./l10n",
     "icon": "images/icon.png",
     "license": "GPL-3.0",
     "homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
@@ -624,7 +626,8 @@
         "vscode-ext-codicons": "^1.0.0",
         "vscode-ext-decoration": "1.1.0",
         "vscode-ext-help-and-feedback-view": "^1.0.1",
-        "vscode-ext-selection": "1.0.0"
+        "vscode-ext-selection": "1.0.0",
+        "@vscode/l10n": "^0.0.3"
     },
     "devDependencies": {
         "@types/node": "^14.17.27",
