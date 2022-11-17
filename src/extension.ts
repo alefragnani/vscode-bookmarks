@@ -345,19 +345,19 @@ export async function activate(context: vscode.ExtensionContext) {
     function list() {
         
         if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to list bookmarks");
+          vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to list bookmarks"));
           return;
         }
         
         // no active bookmark
         if (!activeController.activeFile) {
-            vscode.window.showInformationMessage("No Bookmark found");
+            vscode.window.showInformationMessage(vscode.l10n.t("No Bookmarks found"));
             return;  
         }
       
         // no bookmark
         if (activeController.activeFile.bookmarks.length === 0) {
-            vscode.window.showInformationMessage("No Bookmark found");
+            vscode.window.showInformationMessage(vscode.l10n.t("No Bookmarks found"));
             return;
         }
 
@@ -383,7 +383,7 @@ export async function activate(context: vscode.ExtensionContext) {
         // pick one
         const currentPosition: Position = vscode.window.activeTextEditor.selection.active;
         const options = <vscode.QuickPickOptions> {
-            placeHolder: "Type a line number or a piece of code to navigate to",
+            placeHolder: vscode.l10n.t("Type a line number or a piece of code to navigate to"),
             matchOnDescription: true,
             // matchOnDetail: true,
             onDidSelectItem: item => {
@@ -411,7 +411,7 @@ export async function activate(context: vscode.ExtensionContext) {
     function clear() {
         
         if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to clear bookmarks");
+          vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to clear bookmarks"));
           return;
         }      
       
@@ -442,7 +442,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         // no bookmark
         if (!controller.hasAnyBookmark()) {
-            vscode.window.showInformationMessage("No Bookmarks found");
+            vscode.window.showInformationMessage(vscode.l10n.t("No Bookmarks found"));
             return;
         }
 
@@ -534,7 +534,7 @@ export async function activate(context: vscode.ExtensionContext) {
               });
 
               const options = <vscode.QuickPickOptions> {
-                  placeHolder: "Type a line number or a piece of code to navigate to",
+                  placeHolder: vscode.l10n.t("Type a line number or a piece of code to navigate to"),
                   matchOnDescription: true,
                   onDidSelectItem: item => {
 
@@ -590,7 +590,7 @@ export async function activate(context: vscode.ExtensionContext) {
     function jumpToNext(direction: Directions) {
         
         if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to jump to bookmarks");
+          vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to jump to bookmarks"));
           return;
         }
         
@@ -656,7 +656,7 @@ export async function activate(context: vscode.ExtensionContext) {
     function checkBookmarks(result: number | vscode.Position): boolean {
         if (result === NO_BOOKMARKS_BEFORE || result === NO_BOOKMARKS_AFTER) {
             if (vscode.workspace.getConfiguration("bookmarks").get("showNoMoreBookmarksWarning", true)) {
-                vscode.window.showInformationMessage("No more bookmarks");
+                vscode.window.showInformationMessage(vscode.l10n.t("No more bookmarks"));
             }
             return false;
         }
@@ -666,8 +666,8 @@ export async function activate(context: vscode.ExtensionContext) {
     function askForBookmarkLabel(index: number, position: vscode.Position, oldLabel?: string, jumpToPosition?: boolean,
                                  book?: File) {
         const ibo = <vscode.InputBoxOptions> {
-            prompt: "Bookmark Label",
-            placeHolder: "Type a label for your bookmark",
+            prompt: vscode.l10n.t("Bookmark Label"),
+            placeHolder: vscode.l10n.t("Type a label for your bookmark"),
             value: oldLabel
         };
         vscode.window.showInputBox(ibo).then(bookmarkLabel => {
@@ -676,7 +676,7 @@ export async function activate(context: vscode.ExtensionContext) {
             }
             // 'empty'
             if (bookmarkLabel === "" && oldLabel === "") {
-                vscode.window.showWarningMessage("You must define a label for the bookmark.");
+                vscode.window.showWarningMessage(vscode.l10n.t("You must define a label for the bookmark."));
                 return;
             }
             if (index >= 0) {
@@ -699,12 +699,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
     async function toggle() {
         if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage("Open a file first to toggle bookmarks");
+          vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to toggle bookmarks"));
           return;
         }         
       
         if (vscode.window.activeTextEditor.document.uri.scheme === SEARCH_EDITOR_SCHEME) {
-          vscode.window.showInformationMessage("You can't toggle bookmarks in Search Editor");
+          vscode.window.showInformationMessage(vscode.l10n.t("You can't toggle bookmarks in Search Editor"));
           return;
         }         
       
@@ -731,7 +731,7 @@ export async function activate(context: vscode.ExtensionContext) {
     async function toggleLabeled() {
 
         if (!vscode.window.activeTextEditor) {
-            vscode.window.showInformationMessage("Open a file first to toggle bookmarks");
+            vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to toggle bookmarks"));
             return;
         }
 
@@ -767,14 +767,14 @@ export async function activate(context: vscode.ExtensionContext) {
         //     oldLabel = index > -1 ? bookmarks.activeBookmark.bookmarks[index].label : "";
         // }
         const ibo = <vscode.InputBoxOptions> {
-            prompt: "Bookmark Label",
-            placeHolder: "Type a label for your bookmark",
+            prompt: vscode.l10n.t("Bookmark Label"),
+            placeHolder: vscode.l10n.t("Type a label for your bookmark"),
             value: suggestion
         };
         const newLabel = await vscode.window.showInputBox(ibo);
         if (typeof newLabel === "undefined") { return; }
         if (newLabel === "" && oldLabel === "") {
-            vscode.window.showWarningMessage("You must define a label for the bookmark.");
+            vscode.window.showWarningMessage(vscode.l10n.t("You must define a label for the bookmark."));
             return;
         }
 

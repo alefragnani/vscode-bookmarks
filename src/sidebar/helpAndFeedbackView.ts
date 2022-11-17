@@ -3,7 +3,7 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import { ExtensionContext } from "vscode";
+import { ExtensionContext, l10n } from "vscode";
 import { HelpAndFeedbackView, Link, StandardLinksProvider, ProvideFeedbackLink, Command } from "vscode-ext-help-and-feedback-view";
 
 export function registerHelpAndFeedbackView(context: ExtensionContext) {
@@ -15,7 +15,7 @@ export function registerHelpAndFeedbackView(context: ExtensionContext) {
   items.push(predefinedProvider.getReportIssueLink());
   items.push({
     icon: 'heart',
-    title: 'Support',
+    title: l10n.t('Support'),
     command: 'bookmarks.supportBookmarks'
   });
   new HelpAndFeedbackView(context, "bookmarksHelpAndFeedback", items);
