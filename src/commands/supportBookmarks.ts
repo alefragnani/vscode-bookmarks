@@ -3,17 +3,17 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import { commands, env, MessageItem, Uri, window } from "vscode";
+import { commands, env, l10n, MessageItem, Uri, window } from "vscode";
 import { Container } from "../../vscode-bookmarks-core/src/container";
 
 export function registerSupportBookmarks() {
   Container.context.subscriptions.push(commands.registerCommand("bookmarks.supportBookmarks", async () => {
     const actions: MessageItem[] = [
-      { title: 'Become a Sponsor' },
-      { title: 'Donate via PayPal' }
+      { title: l10n.t('Become a Sponsor') },
+      { title: l10n.t('Donate via PayPal') }
     ];
-    const option = await window.showInformationMessage(`While Bookmarks is offered for free, if you 
-        find it useful, please consider supporting it. Thank you!`, ...actions);
+    const option = await window.showInformationMessage(l10n.t(`While Bookmarks is offered for free, if you find it useful, 
+        please consider supporting it. Thank you!`), ...actions);
     let uri: Uri;
     if (option === actions[ 0 ]) {
       uri = Uri.parse('https://github.com/sponsors/alefragnani');
