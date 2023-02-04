@@ -5,7 +5,7 @@
     "version": "13.3.1",
     "publisher": "alefragnani",
     "engines": {
-        "vscode": "^1.73.0"
+        "vscode": "^1.74.0"
     },
     "categories": [
         "Other"
@@ -43,8 +43,7 @@
         "url": "https://github.com/sponsors/alefragnani"
     },
     "activationEvents": [
-        "onStartupFinished",
-        "onView:bookmarksExplorer"
+        "onStartupFinished"
     ],
     "main": "./dist/extension-node.js",
     "l10n": "./l10n",
