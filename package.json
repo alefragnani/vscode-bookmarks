@@ -46,6 +46,9 @@
         "onStartupFinished"
     ],
     "main": "./dist/extension-node.js",
+    "enabledApiProposals": [
+        "contribEditorLineNumberMenu"
+    ],
     "l10n": "./l10n",
     "contributes": {
         "viewsContainers": {
@@ -92,6 +95,14 @@
                 "command": "bookmarks.toggle",
                 "title": "%bookmarks.commands.toggle.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.addAtLine",
+                "title": "Add Bookmark"
+            },
+            {
+                "command": "_bookmarks.removeAtLine",
+                "title": "Remove Bookmark"
             },
             {
                 "command": "bookmarks.jumpToNext",
@@ -277,6 +288,16 @@
                 {
                     "submenu": "bookmarks.editor.title",
                     "group": "bookmarks"
+                }
+            ],
+            "editor/lineNumber/context": [
+                {
+                    "command": "_bookmarks.addAtLine",
+                    "when": "!bookmarks.hasBookmarkAtLine"
+                },
+                {
+                    "command": "_bookmarks.removeAtLine",
+                    "when": "bookmarks.hasBookmarkAtLine"
                 }
             ],
             "view/title": [

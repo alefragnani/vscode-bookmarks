@@ -29,6 +29,12 @@ import { registerSupportBookmarks } from "./commands/supportBookmarks";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
 import { ViewAs } from "../vscode-bookmarks-core/src/sidebar/nodes";
+import { Selection } from "vscode";
+
+interface EditorLineNumberContextParams {
+    lineNumber: number,
+    uri: Uri
+}
 
 // this method is called when vs code is activated
 export async function activate(context: vscode.ExtensionContext) {
@@ -216,6 +222,30 @@ export async function activate(context: vscode.ExtensionContext) {
                 revealPosition(lineInt - 1, colunnInt - 1);
             });
         });
+    });
+
+    vscode.commands.registerCommand("_bookmarks.addAtLine", async (params: EditorLineNumberContextParams ) => {
+        const selections: Selection[] = [];
+        const posAnchor = new Position(params.lineNumber - 1, 0);
+        const posActive= new Position(params.lineNumber - 1, 0);
+        const sel = new Selection(posAnchor, posActive);
+        selections.push(sel);
+
+        // fix issue emptyAtLaunch
+        if (!activeController.activeFile) {
+            activeController.addFile(vscode.window.activeTextEditor.document.uri);
+            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
+        }
+
+        if (await activeController.toggle(selections)) {
+            if (!isInDiffEditor()) {
+                vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
+            }
+        }
+
+        sortBookmarks(activeController.activeFile);
+        saveWorkspaceState();
+        updateDecorations();
     });
 
     vscode.commands.registerCommand("bookmarks.refresh", () => {
