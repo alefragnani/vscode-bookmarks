@@ -435,13 +435,11 @@
                     "type": "string",
                     "default": "#157EFB",
                     "description": "%bookmarks.configuration.gutterIconFillColor.description%",
-                    "scope": "machine"
                 },
                 "bookmarks.gutterIconBorderColor": {
                     "type": "string",
                     "default": "#157EFB",
                     "description": "%bookmarks.configuration.gutterIconBorderColor.description%",
-                    "scope": "machine"
                 },
                 "bookmarks.backgroundLineColor": {
                     "type": "string",
