@@ -29,6 +29,8 @@ import { registerSupportBookmarks } from "./commands/supportBookmarks";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
 import { ViewAs } from "../vscode-bookmarks-core/src/sidebar/nodes";
+import { Selection } from "vscode";
+import { EditorLineNumberContextParams, updateLinesWithBookmarkContext } from "./editorLineNumberContext";
 
 // this method is called when vs code is activated
 export async function activate(context: vscode.ExtensionContext) {
@@ -91,6 +93,7 @@ export async function activate(context: vscode.ExtensionContext) {
         activeEditorCountLine = activeEditor.document.lineCount;
         activeController.activeFile = activeController.fromUri(activeEditor.document.uri);
         triggerUpdateDecorations();
+        updateLinesWithBookmarkContext(activeController.activeFile);
     }
 
     const bookmarkExplorer = new BookmarksExplorer(controllers);
@@ -130,6 +133,7 @@ export async function activate(context: vscode.ExtensionContext) {
             activeController.addFile(editor.document.uri);
             activeController.activeFile = activeController.fromUri(editor.document.uri);
             triggerUpdateDecorations();
+            updateLinesWithBookmarkContext(activeController.activeFile);
         }
     }, null, context.subscriptions);
 
@@ -217,6 +221,41 @@ export async function activate(context: vscode.ExtensionContext) {
             });
         });
     });
+
+    vscode.commands.registerCommand("_bookmarks.addBookmarkAtLine#gutter", async (params: EditorLineNumberContextParams ) => {
+        await toggleAtline(params);
+    });
+
+    vscode.commands.registerCommand("_bookmarks.removeBookmarkAtLine#gutter", async (params: EditorLineNumberContextParams ) => {
+        await toggleAtline(params);
+    });
+
+    async function toggleAtline(params: EditorLineNumberContextParams) {
+        const selections: Selection[] = [];
+        const posAnchor = new Position(params.lineNumber - 1, 0);
+        const posActive= new Position(params.lineNumber - 1, 0);
+        const sel = new Selection(posAnchor, posActive);
+        selections.push(sel);
+
+        // fix issue emptyAtLaunch
+        if (!activeController.activeFile) {
+            activeController.addFile(vscode.window.activeTextEditor.document.uri);
+            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
+        }
+
+        if (await activeController.toggle(selections)) {
+            if (!isInDiffEditor()) {
+                vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
+            }
+        }
+
+        sortBookmarks(activeController.activeFile);
+        saveWorkspaceState();
+        updateDecorations();
+        updateLinesWithBookmarkContext(activeController.activeFile);
+    }
+
+
 
     vscode.commands.registerCommand("bookmarks.refresh", () => {
         bookmarkProvider.refresh();
