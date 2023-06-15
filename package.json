@@ -189,15 +189,15 @@
             },
             {
                 "command": "_bookmarks.addBookmarkAtLine#gutter",
-                "title": "Add Bookmark"
+                "title": "%bookmarks.commands.addBookmarkAtLine#gutter.title%"
             },
             {
                 "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
-                "title": "Add Labeled Bookmark"
+                "title": "%bookmarks.commands.addLabeledBookmarkAtLine#gutter.title%"
             },
             {
                 "command": "_bookmarks.removeBookmarkAtLine#gutter",
-                "title": "Remove Bookmark"
+                "title": "%bookmarks.commands.removeBookmarkAtLine#gutter.title%"
             },
             {
                 "command": "bookmarks.listFromAllFiles",
