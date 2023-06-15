@@ -30,7 +30,8 @@ import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
 import { ViewAs } from "../vscode-bookmarks-core/src/sidebar/nodes";
 import { Selection } from "vscode";
-import { EditorLineNumberContextParams, updateLinesWithBookmarkContext } from "./editorLineNumberContext";
+import { EditorLineNumberContextParams, updateLinesWithBookmarkContext } from "./gutter/editorLineNumberContext";
+import { registerGutterCommands } from "./gutter/commands";
 
 // this method is called when vs code is activated
 export async function activate(context: vscode.ExtensionContext) {
@@ -222,40 +223,7 @@ export async function activate(context: vscode.ExtensionContext) {
         });
     });
 
-    vscode.commands.registerCommand("_bookmarks.addBookmarkAtLine#gutter", async (params: EditorLineNumberContextParams ) => {
-        await toggleAtline(params);
-    });
-
-    vscode.commands.registerCommand("_bookmarks.removeBookmarkAtLine#gutter", async (params: EditorLineNumberContextParams ) => {
-        await toggleAtline(params);
-    });
-
-    async function toggleAtline(params: EditorLineNumberContextParams) {
-        const selections: Selection[] = [];
-        const posAnchor = new Position(params.lineNumber - 1, 0);
-        const posActive= new Position(params.lineNumber - 1, 0);
-        const sel = new Selection(posAnchor, posActive);
-        selections.push(sel);
-
-        // fix issue emptyAtLaunch
-        if (!activeController.activeFile) {
-            activeController.addFile(vscode.window.activeTextEditor.document.uri);
-            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
-        }
-
-        if (await activeController.toggle(selections)) {
-            if (!isInDiffEditor()) {
-                vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
-            }
-        }
-
-        sortBookmarks(activeController.activeFile);
-        saveWorkspaceState();
-        updateDecorations();
-        updateLinesWithBookmarkContext(activeController.activeFile);
-    }
-
-
+    registerGutterCommands(toggle);
 
     vscode.commands.registerCommand("bookmarks.refresh", () => {
         bookmarkProvider.refresh();
@@ -736,18 +704,28 @@ export async function activate(context: vscode.ExtensionContext) {
         });
     }
 
-    async function toggle() {
-        if (!vscode.window.activeTextEditor) {
-          vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to toggle bookmarks"));
-          return;
-        }         
-      
-        if (vscode.window.activeTextEditor.document.uri.scheme === SEARCH_EDITOR_SCHEME) {
-          vscode.window.showInformationMessage(vscode.l10n.t("You can't toggle bookmarks in Search Editor"));
-          return;
-        }         
-      
-        const selections = vscode.window.activeTextEditor.selections;
+    async function toggle(params?: EditorLineNumberContextParams) {
+        const selections: Selection[] = [];
+
+        if (params) {
+            const posAnchor = new Position(params.lineNumber - 1, 0);
+            const posActive= new Position(params.lineNumber - 1, 0);
+            const sel = new Selection(posAnchor, posActive);
+            selections.push(sel);
+        } else {
+
+            if (!vscode.window.activeTextEditor) {
+                vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to toggle bookmarks"));
+                return;
+            }         
+            
+            if (vscode.window.activeTextEditor.document.uri.scheme === SEARCH_EDITOR_SCHEME) {
+                vscode.window.showInformationMessage(vscode.l10n.t("You can't toggle bookmarks in Search Editor"));
+                return;
+            }         
+            
+            selections.push(...vscode.window.activeTextEditor.selections);
+        }
 
         // fix issue emptyAtLaunch
         if (!activeController.activeFile) {
@@ -764,6 +742,7 @@ export async function activate(context: vscode.ExtensionContext) {
         sortBookmarks(activeController.activeFile);
         saveWorkspaceState();
         updateDecorations();
+        updateLinesWithBookmarkContext(activeController.activeFile);
         // bookmarkExplorer.updateBadge();
     }
 
@@ -790,6 +769,7 @@ export async function activate(context: vscode.ExtensionContext) {
             sortBookmarks(activeController.activeFile); 
             saveWorkspaceState();
             updateDecorations();
+            updateLinesWithBookmarkContext(activeController.activeFile);
             return;
         }
 
@@ -836,5 +816,6 @@ export async function activate(context: vscode.ExtensionContext) {
         
         saveWorkspaceState();
         updateDecorations();
+        updateLinesWithBookmarkContext(activeController.activeFile);
     }
 }

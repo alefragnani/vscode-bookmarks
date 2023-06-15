@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { Uri, commands } from "vscode";
-import { File } from "../vscode-bookmarks-core/src/file";
+import { File } from "../../vscode-bookmarks-core/src/file";
 
 export interface EditorLineNumberContextParams {
     lineNumber: number,
@@ -14,6 +14,6 @@ export interface EditorLineNumberContextParams {
 export function updateLinesWithBookmarkContext(activeFile: File) {
     const linesWithBookmarks = activeFile.bookmarks.map(b => b.line + 1);
 
-    commands.executeCommand("setContext", "bookmarks.linesWithBookmarks", 
+    commands.executeCommand("setContext", "bookmarks.linesWithBookmarks",
         linesWithBookmarks);
 }
