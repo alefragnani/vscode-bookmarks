@@ -223,7 +223,7 @@ export async function activate(context: vscode.ExtensionContext) {
         });
     });
 
-    registerGutterCommands(toggle);
+    registerGutterCommands(toggle, toggleLabeled);
 
     vscode.commands.registerCommand("bookmarks.refresh", () => {
         bookmarkProvider.refresh();
@@ -746,15 +746,23 @@ export async function activate(context: vscode.ExtensionContext) {
         // bookmarkExplorer.updateBadge();
     }
 
-    async function toggleLabeled() {
+    async function toggleLabeled(params?: EditorLineNumberContextParams) {
 
-        if (!vscode.window.activeTextEditor) {
-            vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to toggle bookmarks"));
-            return;
+        const selections: Selection[] = [];
+
+        if (params) {
+            const posAnchor = new Position(params.lineNumber - 1, 0);
+            const posActive= new Position(params.lineNumber - 1, 0);
+            const sel = new Selection(posAnchor, posActive);
+            selections.push(sel);
+        } else {
+            if (!vscode.window.activeTextEditor) {
+                vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to toggle bookmarks"));
+                return;
+            }
+
+            selections.push(...vscode.window.activeTextEditor.selections);
         }
-
-        const selections = vscode.window.activeTextEditor.selections;
-
         // fix issue emptyAtLaunch
         if (!activeController.activeFile) {
             activeController.addFile(vscode.window.activeTextEditor.document.uri);
@@ -762,7 +770,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         let suggestion = suggestLabel(vscode.window.activeTextEditor.selection);
-        if (suggestion !== "" && useSelectionWhenAvailable()) {
+        if (!params && suggestion !== "" && useSelectionWhenAvailable()) {
             if (await activeController.toggle(selections, suggestion)) {
                 vscode.window.showTextDocument(vscode.window.activeTextEditor.document, {preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn} );
             }
@@ -775,7 +783,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         // ask label
         let oldLabel = "";
-        if (suggestion === "" && selections.length === 1) {
+        if (!params && suggestion === "" && selections.length === 1) {
             const index = indexOfBookmark(activeController.activeFile, selections[0].active.line);
             oldLabel = index > -1 ? activeController.activeFile.bookmarks[index].label : "";
             suggestion = oldLabel;
@@ -788,7 +796,7 @@ export async function activate(context: vscode.ExtensionContext) {
         const ibo = <vscode.InputBoxOptions> {
             prompt: vscode.l10n.t("Bookmark Label"),
             placeHolder: vscode.l10n.t("Type a label for your bookmark"),
-            value: suggestion
+            value: !params ? suggestion : ""
         };
         const newLabel = await vscode.window.showInputBox(ibo);
         if (typeof newLabel === "undefined") { return; }

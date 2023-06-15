@@ -192,6 +192,10 @@
                 "title": "Add Bookmark"
             },
             {
+                "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                "title": "Add Labeled Bookmark"
+            },
+            {
                 "command": "_bookmarks.removeBookmarkAtLine#gutter",
                 "title": "Remove Bookmark"
             },
@@ -271,6 +275,10 @@
                     "when": "false"
                 },
                 {
+                    "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                    "when": "false"
+                },
+                {
                     "command": "_bookmarks.removeBookmarkAtLine#gutter",
                     "when": "false"
                 },
@@ -298,11 +306,18 @@
             "editor/lineNumber/context": [
                 {
                     "command": "_bookmarks.addBookmarkAtLine#gutter",
-                    "when": "editorLineNumber not in bookmarks.linesWithBookmarks"
+                    "when": "editorLineNumber not in bookmarks.linesWithBookmarks",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                    "when": "editorLineNumber not in bookmarks.linesWithBookmarks",
+                    "group": "bookmarks"
                 },
                 {
                     "command": "_bookmarks.removeBookmarkAtLine#gutter",
-                    "when": "editorLineNumber in bookmarks.linesWithBookmarks"
+                    "when": "editorLineNumber in bookmarks.linesWithBookmarks",
+                    "group": "bookmarks"
                 }
             ],
             "view/title": [
