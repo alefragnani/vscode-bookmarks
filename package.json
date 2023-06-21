@@ -5,7 +5,7 @@
     "version": "13.3.1",
     "publisher": "alefragnani",
     "engines": {
-        "vscode": "^1.74.0"
+        "vscode": "^1.78.0"
     },
     "categories": [
         "Other"
@@ -188,6 +188,18 @@
                 "icon": "$(edit)"
             },
             {
+                "command": "_bookmarks.addBookmarkAtLine#gutter",
+                "title": "%bookmarks.commands.addBookmarkAtLine#gutter.title%"
+            },
+            {
+                "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                "title": "%bookmarks.commands.addLabeledBookmarkAtLine#gutter.title%"
+            },
+            {
+                "command": "_bookmarks.removeBookmarkAtLine#gutter",
+                "title": "%bookmarks.commands.removeBookmarkAtLine#gutter.title%"
+            },
+            {
                 "command": "bookmarks.listFromAllFiles",
                 "title": "%bookmarks.commands.listFromAllFiles.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
@@ -259,6 +271,18 @@
                     "when": "false"
                 },
                 {
+                    "command": "_bookmarks.addBookmarkAtLine#gutter",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.removeBookmarkAtLine#gutter",
+                    "when": "false"
+                },
+                {
                     "command": "_bookmarks.whatsNewContextMenu",
                     "when": "false"
                 },
@@ -276,6 +300,23 @@
             "editor/title": [
                 {
                     "submenu": "bookmarks.editor.title",
+                    "group": "bookmarks"
+                }
+            ],
+            "editor/lineNumber/context": [
+                {
+                    "command": "_bookmarks.addBookmarkAtLine#gutter",
+                    "when": "editorLineNumber not in bookmarks.linesWithBookmarks",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                    "when": "editorLineNumber not in bookmarks.linesWithBookmarks",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "_bookmarks.removeBookmarkAtLine#gutter",
+                    "when": "editorLineNumber in bookmarks.linesWithBookmarks",
                     "group": "bookmarks"
                 }
             ],
@@ -628,7 +669,7 @@
     },
     "devDependencies": {
         "@types/node": "^14.17.27",
-        "@types/vscode": "^1.73.0",
+        "@types/vscode": "^1.78.0",
         "@types/mocha": "^9.0.0",
         "@types/glob": "^7.1.4",
         "@vscode/test-electron": "^1.6.2",
