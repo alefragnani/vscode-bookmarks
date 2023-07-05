@@ -643,6 +643,63 @@
                     "highContrast": "#157EFB88"
                 }
             }
+        ],
+        "walkthroughs": [
+            {
+                "id": "bookmarksWelcome",
+                "title": "%bookmarks.walkthroughs.title%",
+                "description": "%bookmarks.walkthroughs.description%",
+                "steps": [
+                    {
+                        "id": "toggle",
+                        "title": "%bookmarks.walkthroughs.toggle.title%",
+                        "description": "%bookmarks.walkthroughs.toggle.description%",
+                        "media": {
+                            "markdown": "walkthrough/toggle.md"
+                        }
+                    },
+                    {
+                        "id": "navigate",
+                        "title": "%bookmarks.walkthroughs.navigate.title%",
+                        "description": "%bookmarks.walkthroughs.navigate.description%",
+                        "media": {
+                            "markdown": "walkthrough/navigate.md"
+                        }
+                    },
+                    {
+                        "id": "labels",
+                        "title": "%bookmarks.walkthroughs.labels.title%",
+                        "description": "%bookmarks.walkthroughs.labels.description%",
+                        "media": {
+                            "markdown": "walkthrough/labels.md"
+                        }
+                    },
+                    {
+                        "id": "exclusiveSideBar",
+                        "title": "%bookmarks.walkthroughs.exclusiveSideBar.title%",
+                        "description": "%bookmarks.walkthroughs.exclusiveSideBar.description%",
+                        "media": {
+                            "markdown": "walkthrough/exclusiveSideBar.md"
+                        }
+                    },
+                    {
+                        "id": "workingWithRemotes",
+                        "title": "%bookmarks.walkthroughs.workingWithRemotes.title%",
+                        "description": "%bookmarks.walkthroughs.workingWithRemotes.description%",
+                        "media": {
+                            "markdown": "walkthrough/workingWithRemotes.md"
+                        }
+                    },
+                    {
+                        "id": "customizingAppearance",
+                        "title": "%bookmarks.walkthroughs.customizingAppearance.title%",
+                        "description": "%bookmarks.walkthroughs.customizingAppearance.description%",
+                        "media": {
+                            "markdown": "walkthrough/customizingAppearance.md"
+                        }
+                    }
+                ]
+            }
         ]
     },
     "eslintConfig": {
