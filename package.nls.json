@@ -72,15 +72,17 @@
     "bookmarks.walkthroughs.title": "Get Started with Bookmarks",
     "bookmarks.walkthroughs.description": "Learn more about Bookmarks to optimize your workflow",
     "bookmarks.walkthroughs.toggle.title": "Toggle Bookmarks",
-    "bookmarks.walkthroughs.toggle.description": "Easily Mark/Unmark Bookmarks at any position",
+    "bookmarks.walkthroughs.toggle.description": {
+        "message": "Easily Mark/Unmark Bookmarks at any position\n[Toggle Bookmark](command:bookmarks.toggle)"
+    },
     "bookmarks.walkthroughs.navigate.title": "Navigate",
     "bookmarks.walkthroughs.navigate.description": "Quickly jump between bookmarked lines. Search bookmarks using the line's content and/or labels",
     "bookmarks.walkthroughs.labels.title": "Labels",
     "bookmarks.walkthroughs.labels.description": "Add labels for Bookmarks, so you ...",
     "bookmarks.walkthroughs.exclusiveSideBar.title": "Exclusive Side Bar",
-    "bookmarks.walkthroughs.exclusiveSideBar.description": "An exclusive Side Bar with everything you need for great productivity.\n[Open Side Bar](command:_bookmarks.openSideBar)",
+    "bookmarks.walkthroughs.exclusiveSideBar.description": "An exclusive Side Bar with everything you need to increase your productivity.\n[Open Side Bar](command:_bookmarks.openSideBar)",
     "bookmarks.walkthroughs.workingWithRemotes.title": "Working with Remotes",
     "bookmarks.walkthroughs.workingWithRemotes.description": "The extension support [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview) scenarios. Even installed locally, you can use Bookmarks in WSL, Containers, SSH and Codespaces.",
     "bookmarks.walkthroughs.customizingAppearance.title": "Customizing Appearance",
-    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruller"
+    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruller\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
 }
