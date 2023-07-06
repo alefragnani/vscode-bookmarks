@@ -75,10 +75,10 @@
     "bookmarks.walkthroughs.toggle.description": {
         "message": "Easily Mark/Unmark Bookmarks at any position\n[Toggle Bookmark](command:bookmarks.toggle)"
     },
-    "bookmarks.walkthroughs.navigate.title": "Navigate",
-    "bookmarks.walkthroughs.navigate.description": "Quickly jump between bookmarked lines. Search bookmarks using the line's content and/or labels",
-    "bookmarks.walkthroughs.labels.title": "Labels",
-    "bookmarks.walkthroughs.labels.description": "Add labels for Bookmarks, so you ...",
+    "bookmarks.walkthroughs.navigateToBookmarks.title": "Navigate to Bookmarks",
+    "bookmarks.walkthroughs.navigateToBookmarks.description": "Quickly jump between bookmarked lines. Search bookmarks using the line's content and/or labels",
+    "bookmarks.walkthroughs.defineLabelsForYourBookmarks.title": "Define labels for your bookmarks",
+    "bookmarks.walkthroughs.defineLabelsForYourBookmarks.description": "You can define labels for any bookmark, giving them an special meaning other than its position.",
     "bookmarks.walkthroughs.exclusiveSideBar.title": "Exclusive Side Bar",
     "bookmarks.walkthroughs.exclusiveSideBar.description": "An exclusive Side Bar with everything you need to increase your productivity.\n[Open Side Bar](command:_bookmarks.openSideBar)",
     "bookmarks.walkthroughs.workingWithRemotes.title": "Working with Remotes",

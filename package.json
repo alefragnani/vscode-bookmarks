@@ -659,19 +659,19 @@
                         }
                     },
                     {
-                        "id": "navigate",
-                        "title": "%bookmarks.walkthroughs.navigate.title%",
-                        "description": "%bookmarks.walkthroughs.navigate.description%",
+                        "id": "navigateToBookmarks",
+                        "title": "%bookmarks.walkthroughs.navigateToBookmarks.title%",
+                        "description": "%bookmarks.walkthroughs.navigateToBookmarks.description%",
                         "media": {
-                            "markdown": "walkthrough/navigate.md"
+                            "markdown": "walkthrough/navigateToBookmarks.md"
                         }
                     },
                     {
-                        "id": "labels",
-                        "title": "%bookmarks.walkthroughs.labels.title%",
-                        "description": "%bookmarks.walkthroughs.labels.description%",
+                        "id": "defineLabelsForYourBookmarks",
+                        "title": "%bookmarks.walkthroughs.defineLabelsForYourBookmarks.title%",
+                        "description": "%bookmarks.walkthroughs.defineLabelsForYourBookmarks.description%",
                         "media": {
-                            "markdown": "walkthrough/labels.md"
+                            "markdown": "walkthrough/defineLabelsForYourBookmarks.md"
                         }
                     },
                     {

@@ -6,7 +6,7 @@ Something like this in your settings:
 
 ```json
     "bookmarks.gutterIconFillColor": "none",
-    // "bookmarks.gutterIconBorderColor"
+    // "bookmarks.gutterIconBorderColor": "157EFB",
     "workbench.colorCustomizations": {
       ...
       "bookmarks.lineBackground": "#0077ff2a",
