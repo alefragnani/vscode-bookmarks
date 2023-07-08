@@ -1,6 +1,6 @@
 ## Customizing Appearance
 
-You can customize not only how the icon is show in the Gutter, but also add a background color to the bookmarked line, and even how Bookmarks are presented, its icon, line and overview ruller.
+You can customize not only how the icon is show in the Gutter, but also add a background color to the bookmarked line and the overview ruller.
 
 Something like this in your settings:
 

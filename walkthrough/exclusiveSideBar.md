@@ -1,4 +1,4 @@
-## Toggle Bookmarks
+## Exclusive Side Bar
 
 An exclusive Side Bar with everything you need to increase your productivity.
 
