@@ -38,6 +38,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "Novidades",
     "bookmarks.commands.openFolderWelcome.title": "Abrir Pasta",
     "bookmarks.commands.supportBookmarks.title": "Suporte Bookmarks",
+    "bookmarks.commands.openSideBar.title": "Abrir Barra Lateral",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Permite que os Bookmarks sejam salvos (e restaurados) localmente no Projeto/Pasta aberto ao invés do VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Caminho para outra imagem a ser apresentada como Bookmark",
@@ -68,5 +69,19 @@
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelectedOrLineWhenNoSelected": "Sugere o texto selecionado (se disponível) ou a toda a linha (quando não houver seleção). Você ainda precisa confirmar.",
     "bookmarks.colors.lineBackground.description": "Cor de fundo para linha com Bookmark",
     "bookmarks.colors.lineBorder.description": "Cor de fundo da borda ao redor da linha com Bookmark",
-    "bookmarks.colors.overviewRuler.description": "Cor do marcador de régua com Bookmarks"
+    "bookmarks.colors.overviewRuler.description": "Cor do marcador de régua com Bookmarks",
+    "bookmarks.walkthroughs.title": "Começar a trabalhar com Bookmarks",
+    "bookmarks.walkthroughs.description": "Aprenda mais sobre Bookmarks para otimizar seu trabalho",
+    "bookmarks.walkthroughs.toggle.title": "Alternar Bookmarks",
+    "bookmarks.walkthroughs.toggle.description": "Facilmente adicione/remova Bookmarks em qualquer posição.\nUm ícone é adicionado tanto a medianiz quanto a régua de visão geral para identificar facilmente as linhas com Bookmarks.",
+    "bookmarks.walkthroughs.navigateToBookmarks.title": "Navegar para Bookmarks",
+    "bookmarks.walkthroughs.navigateToBookmarks.description": "Facilmente pule entre linhas com Bookmarks.\nProcure Bookmarks usando o conteúdo da linha e/ou seus rótulos.",
+    "bookmarks.walkthroughs.defineLabelsForYourBookmarks.title": "Defina rótulos para seus Bookmarks",
+    "bookmarks.walkthroughs.defineLabelsForYourBookmarks.description": "Você pode definir rótulos para qualquer bookmark, dando a eles um significado especial além da sua posição..",
+    "bookmarks.walkthroughs.exclusiveSideBar.title": "Barra Lateral Exclusiva",
+    "bookmarks.walkthroughs.exclusiveSideBar.description": "Uma Barra Lateral exclusiva com tudo que você precisa para aumentar sua produtividade.\n[Abrir Barra Lateral](command:_bookmarks.openSideBar)",
+    "bookmarks.walkthroughs.workingWithRemotes.title": "Trabalhando com Remotos",
+    "bookmarks.walkthroughs.workingWithRemotes.description": "A extensão suporta cenários de [Desenvolvimento Remoto(https://code.visualstudio.com/docs/remote/remote-overview). Mesmo instalada localmente, você pode usar Bookmarks em WSL, Containers, SSH e Codespaces.",
+    "bookmarks.walkthroughs.customizingAppearance.title": "Personalizando a Aparência",
+    "bookmarks.walkthroughs.customizingAppearance.description": "Personalize como Bookmarks são apresentados, seu ícone, linha e régua de visão geral\n[Abrir Configurações - Ícon Medianiz](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Abrir Configurações - Linha](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
 }
