@@ -73,7 +73,7 @@
     "bookmarks.walkthroughs.title": "Get Started with Bookmarks",
     "bookmarks.walkthroughs.description": "Learn more about Bookmarks to optimize your workflow",
     "bookmarks.walkthroughs.toggle.title": "Toggle Bookmarks",
-    "bookmarks.walkthroughs.toggle.description": "Easily Mark/Unmark Bookmarks at any position.\nAn icon is added to both the gutter and overview ruller to easily identify the lines with Bookmarks.",
+    "bookmarks.walkthroughs.toggle.description": "Easily Mark/Unmark Bookmarks at any position.\nAn icon is added to both the gutter and overview ruler to easily identify the lines with Bookmarks.",
     "bookmarks.walkthroughs.navigateToBookmarks.title": "Navigate to Bookmarks",
     "bookmarks.walkthroughs.navigateToBookmarks.description": "Quickly jump between bookmarked lines.\nSearch bookmarks using the line's content and/or labels.",
     "bookmarks.walkthroughs.defineLabelsForYourBookmarks.title": "Define labels for your bookmarks",
@@ -83,5 +83,5 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "Working with Remotes",
     "bookmarks.walkthroughs.workingWithRemotes.description": "The extension support [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview) scenarios. Even installed locally, you can use Bookmarks in WSL, Containers, SSH and Codespaces.",
     "bookmarks.walkthroughs.customizingAppearance.title": "Customizing Appearance",
-    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruller\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruler\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
 }
