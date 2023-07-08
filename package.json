@@ -226,6 +226,10 @@
                 "command": "bookmarks.supportBookmarks",
                 "title": "%bookmarks.commands.supportBookmarks.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.openSideBar",
+                "title": "%bookmarks.commands.openSideBar.title%"
             }
         ],
         "menus": {
@@ -288,6 +292,10 @@
                 },
                 {
                     "command": "_bookmarks.openFolderWelcome",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.openSideBar",
                     "when": "false"
                 }
             ],

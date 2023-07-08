@@ -38,6 +38,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "What's New",
     "bookmarks.commands.openFolderWelcome.title": "Open Folder",
     "bookmarks.commands.supportBookmarks.title": "Support Bookmarks",
+    "bookmarks.commands.openSideBar.title": "Open Side Bar",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Path to another image to be presented as Bookmark",
@@ -72,11 +73,9 @@
     "bookmarks.walkthroughs.title": "Get Started with Bookmarks",
     "bookmarks.walkthroughs.description": "Learn more about Bookmarks to optimize your workflow",
     "bookmarks.walkthroughs.toggle.title": "Toggle Bookmarks",
-    "bookmarks.walkthroughs.toggle.description": {
-        "message": "Easily Mark/Unmark Bookmarks at any position\n[Toggle Bookmark](command:bookmarks.toggle)"
-    },
+    "bookmarks.walkthroughs.toggle.description": "Easily Mark/Unmark Bookmarks at any position.\nAn icon is added to both the gutter and overview ruller to easily identify the lines with Bookmarks.",
     "bookmarks.walkthroughs.navigateToBookmarks.title": "Navigate to Bookmarks",
-    "bookmarks.walkthroughs.navigateToBookmarks.description": "Quickly jump between bookmarked lines. Search bookmarks using the line's content and/or labels",
+    "bookmarks.walkthroughs.navigateToBookmarks.description": "Quickly jump between bookmarked lines.\nSearch bookmarks using the line's content and/or labels.",
     "bookmarks.walkthroughs.defineLabelsForYourBookmarks.title": "Define labels for your bookmarks",
     "bookmarks.walkthroughs.defineLabelsForYourBookmarks.description": "You can define labels for any bookmark, giving them an special meaning other than its position.",
     "bookmarks.walkthroughs.exclusiveSideBar.title": "Exclusive Side Bar",
