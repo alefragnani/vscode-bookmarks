@@ -226,6 +226,10 @@
                 "command": "bookmarks.supportBookmarks",
                 "title": "%bookmarks.commands.supportBookmarks.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.openSideBar",
+                "title": "%bookmarks.commands.openSideBar.title%"
             }
         ],
         "menus": {
@@ -288,6 +292,10 @@
                 },
                 {
                     "command": "_bookmarks.openFolderWelcome",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.openSideBar",
                     "when": "false"
                 }
             ],
@@ -642,6 +650,63 @@
                     "light": "#157EFB88",
                     "highContrast": "#157EFB88"
                 }
+            }
+        ],
+        "walkthroughs": [
+            {
+                "id": "bookmarksWelcome",
+                "title": "%bookmarks.walkthroughs.title%",
+                "description": "%bookmarks.walkthroughs.description%",
+                "steps": [
+                    {
+                        "id": "toggle",
+                        "title": "%bookmarks.walkthroughs.toggle.title%",
+                        "description": "%bookmarks.walkthroughs.toggle.description%",
+                        "media": {
+                            "markdown": "walkthrough/toggle.md"
+                        }
+                    },
+                    {
+                        "id": "navigateToBookmarks",
+                        "title": "%bookmarks.walkthroughs.navigateToBookmarks.title%",
+                        "description": "%bookmarks.walkthroughs.navigateToBookmarks.description%",
+                        "media": {
+                            "markdown": "walkthrough/navigateToBookmarks.md"
+                        }
+                    },
+                    {
+                        "id": "defineLabelsForYourBookmarks",
+                        "title": "%bookmarks.walkthroughs.defineLabelsForYourBookmarks.title%",
+                        "description": "%bookmarks.walkthroughs.defineLabelsForYourBookmarks.description%",
+                        "media": {
+                            "markdown": "walkthrough/defineLabelsForYourBookmarks.md"
+                        }
+                    },
+                    {
+                        "id": "exclusiveSideBar",
+                        "title": "%bookmarks.walkthroughs.exclusiveSideBar.title%",
+                        "description": "%bookmarks.walkthroughs.exclusiveSideBar.description%",
+                        "media": {
+                            "markdown": "walkthrough/exclusiveSideBar.md"
+                        }
+                    },
+                    {
+                        "id": "workingWithRemotes",
+                        "title": "%bookmarks.walkthroughs.workingWithRemotes.title%",
+                        "description": "%bookmarks.walkthroughs.workingWithRemotes.description%",
+                        "media": {
+                            "markdown": "walkthrough/workingWithRemotes.md"
+                        }
+                    },
+                    {
+                        "id": "customizingAppearance",
+                        "title": "%bookmarks.walkthroughs.customizingAppearance.title%",
+                        "description": "%bookmarks.walkthroughs.customizingAppearance.description%",
+                        "media": {
+                            "markdown": "walkthrough/customizingAppearance.md"
+                        }
+                    }
+                ]
             }
         ]
     },

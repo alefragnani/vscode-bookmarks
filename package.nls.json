@@ -38,6 +38,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "What's New",
     "bookmarks.commands.openFolderWelcome.title": "Open Folder",
     "bookmarks.commands.supportBookmarks.title": "Support Bookmarks",
+    "bookmarks.commands.openSideBar.title": "Open Side Bar",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Path to another image to be presented as Bookmark",
@@ -68,5 +69,19 @@
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelectedOrLineWhenNoSelected": "Suggests the selected text (if available) or the entire line (when has no selection). You still need to confirm.",
     "bookmarks.colors.lineBackground.description": "Background color for the bookmarked line",
     "bookmarks.colors.lineBorder.description": "Background color for the border around the bookmarked line",
-    "bookmarks.colors.overviewRuler.description": "Overview ruler marker color for bookmarks"
+    "bookmarks.colors.overviewRuler.description": "Overview ruler marker color for bookmarks",
+    "bookmarks.walkthroughs.title": "Get Started with Bookmarks",
+    "bookmarks.walkthroughs.description": "Learn more about Bookmarks to optimize your workflow",
+    "bookmarks.walkthroughs.toggle.title": "Toggle Bookmarks",
+    "bookmarks.walkthroughs.toggle.description": "Easily Mark/Unmark Bookmarks at any position.\nAn icon is added to both the gutter and overview ruler to easily identify the lines with Bookmarks.",
+    "bookmarks.walkthroughs.navigateToBookmarks.title": "Navigate to Bookmarks",
+    "bookmarks.walkthroughs.navigateToBookmarks.description": "Quickly jump between bookmarked lines.\nSearch bookmarks using the line's content and/or labels.",
+    "bookmarks.walkthroughs.defineLabelsForYourBookmarks.title": "Define labels for your bookmarks",
+    "bookmarks.walkthroughs.defineLabelsForYourBookmarks.description": "You can define labels for any bookmark, giving them an special meaning other than its position.",
+    "bookmarks.walkthroughs.exclusiveSideBar.title": "Exclusive Side Bar",
+    "bookmarks.walkthroughs.exclusiveSideBar.description": "An exclusive Side Bar with everything you need to increase your productivity.\n[Open Side Bar](command:_bookmarks.openSideBar)",
+    "bookmarks.walkthroughs.workingWithRemotes.title": "Working with Remotes",
+    "bookmarks.walkthroughs.workingWithRemotes.description": "The extension support [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview) scenarios. Even installed locally, you can use Bookmarks in WSL, Containers, SSH and Codespaces.",
+    "bookmarks.walkthroughs.customizingAppearance.title": "Customizing Appearance",
+    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruler\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
 }

@@ -32,6 +32,7 @@ import { ViewAs } from "../vscode-bookmarks-core/src/sidebar/nodes";
 import { Selection } from "vscode";
 import { EditorLineNumberContextParams, updateLinesWithBookmarkContext } from "./gutter/editorLineNumberContext";
 import { registerGutterCommands } from "./gutter/commands";
+import { registerWalkthrough } from "./commands/walkthrough";
 
 // this method is called when vs code is activated
 export async function activate(context: vscode.ExtensionContext) {
@@ -44,6 +45,7 @@ export async function activate(context: vscode.ExtensionContext) {
     let timeout: NodeJS.Timer;
 
     await registerWhatsNew();
+    await registerWalkthrough();
     
     context.subscriptions.push(vscode.commands.registerCommand("_bookmarks.openFolderWelcome", () => {
         const openFolderCommand = isWindows ? "workbench.action.files.openFolder" : "workbench.action.files.openFileFolder"
