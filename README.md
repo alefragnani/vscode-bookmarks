@@ -1,7 +1,3 @@
-[![](https://vsmarketplacebadge.apphb.com/version-short/alefragnani.bookmarks.svg)](https://marketplace.visualstudio.com/items?itemName=alefragnani.bookmarks)
-[![](https://vsmarketplacebadge.apphb.com/downloads-short/alefragnani.bookmarks.svg)](https://marketplace.visualstudio.com/items?itemName=alefragnani.bookmarks)
-[![](https://vsmarketplacebadge.apphb.com/rating-short/alefragnani.bookmarks.svg)](https://marketplace.visualstudio.com/items?itemName=alefragnani.bookmarks)
-
 <p align="center">
   <br />
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
