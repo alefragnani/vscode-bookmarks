@@ -1,3 +1,22 @@
+## [13.4.0] - 2023-07-12
+### Added
+- Getting Started/Walkthrough (issue [#442](https://github.com/alefragnani/vscode-bookmarks/issues/442))
+- Toggle bookmark via mouse click (context menu) (issue [#615](https://github.com/alefragnani/vscode-bookmarks/issues/615))
+- Localization (l10n) support (issue [#565](https://github.com/alefragnani/vscode-bookmarks/issues/565))
+- Side Bar Badge (issue [#153](https://github.com/alefragnani/vscode-bookmarks/issues/153))
+
+### Changed
+- Avoid What's New when using Gitpod (issue [#611](https://github.com/alefragnani/vscode-bookmarks/issues/611))
+- Avoid What's New when installing lower versions (issue [#611](https://github.com/alefragnani/vscode-bookmarks/issues/611))
+
+### Fixed
+- Repeated gutter icon on line wrap (issue [#552](https://github.com/alefragnani/vscode-bookmarks/issues/552))
+
+### Internal
+- Support Implicit Activation Events API (issue [#572](https://github.com/alefragnani/vscode-bookmarks/issues/572))
+- Security Alert: minimatch (dependabot [PR #566](https://github.com/alefragnani/vscode-bookmarks/pull/566))
+- Security Alert: terser (dependabot [PR #546](https://github.com/alefragnani/vscode-bookmarks/pull/546))
+
 ## [13.3.1] - 2022-07-18
 ### Internal
 - Add GitHub Sponsors support (PR [#544](https://github.com/alefragnani/vscode-bookmarks/pull/544))

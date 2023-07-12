@@ -7,13 +7,12 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 13.3
+# What's new in Bookmarks 13.4
 
+* Adds **Getting Started / Walkthrough**
+* Adds **Side Bar** badge
+* Adds Toggle bookmark via mouse click
 * Adds **Icon** customization
-* New **Sticky Engine**
-* Adds **Virtual Workspaces** support
-* Adds **Workspace Trust** support
-* Full **Remote Development** support
 
 # Support
 
@@ -128,12 +127,12 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ## Available Settings
 
-* Allow navigation through all files that contains bookmarks (`true` by default)
+* Allow navigation through all files that contains bookmarks _(`true` by default)_
 ```json
     "bookmarks.navigateThroughAllFiles": false
 ```
 
-* Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files) (`true` by default)
+* Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files) _(`true` by default)_
 ```json
     "bookmarks.wrapNavigation": true
 ```
@@ -166,7 +165,7 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```
 > Deprecated in 10.7: Use `workbench.colorCustomizations` instead. More info in [Available Colors](#available-colors)
 
-* Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu (`true` by default)
+* Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu _(`true` by default)_
 ```json
     "bookmarks.showCommandsInContextMenu": true
 ```
@@ -192,12 +191,22 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```
 > This workaround can be turned off if you are using the new Sticky Engine (setting above)  
 
-* Choose if the Side Bar should start expanded (`false` by default)
+* Choose if the Side Bar should start expanded _(`false` by default)_
 ```json
     "bookmarks.sideBar.expanded": true
 ```
 
-* Choose how multi cursor handles already bookmarked lines (`allLinesAtOnce` by default)
+* Controls the count badge on the Bookmark icon on the Activity Bar _(`all` by default)_
+
+  * `all`: Show the sum of bookmarks from all files
+  * `files`: Show the sum of files that contains some bookmarks
+  * `off`: Disable the Bookmarks count badge
+
+```json
+    "bookmarks.sideBar.countBadge": "files"
+```
+
+* Choose how multi cursor handles already bookmarked lines _(`allLinesAtOnce` by default)_
 
   * `allLinesAtOnce`: Creates bookmarks in all selected lines at once, if at least one of the lines don't have a bookmark
   * `eachLineIndependently`: Literally toggles a bookmark in each line, instead of making all lines equal
@@ -206,7 +215,7 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.multicursor.toggleMode": "eachLineIndependently"
 ```
 
-* Choose how labels are suggested when creating bookmarks (`dontUse` by default)
+* Choose how labels are suggested when creating bookmarks _(`dontUse` by default)_
 
   * `dontUse`: Don't use the selection (original behavior)
   * `useWhenSelected`: Use the selected text _(if available)_ directly, no confirmation required

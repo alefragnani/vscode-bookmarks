@@ -21,6 +21,90 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.4.0", releaseDate: "June 2023" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add <b>Getting Started/Walkthrough</b> support",
+                id: 442,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add Toggle bookmark via mouse click (context menu)",
+                id: 615,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add <b>Localization (l10n)</b> support",
+                id: 565,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add Side Bar Badge",
+                id: 153,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Avoid What's New when using Gitpod",
+                id: 611,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Avoid What's New when installing lower versions",
+                id: 611,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Repeated gutter icon on line wrap",
+                id: 552,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Support Implicit Activation Event API",
+                id: 573,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Security Alert: minimatch",
+                id: 566,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Security Alert: terser",
+                id: 546,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.3.1", releaseDate: "June 2022" } });
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
@@ -257,92 +341,6 @@ export class BookmarksContentProvider implements ContentProvider {
                 kudos: "dependabot"
             }
         });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.4", releaseDate: "March 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmarks on deleted/missing files breaks jumping",
-                id: 390,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Toggling bookmarks on Untitled documents does not work",
-                id: 391,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.3", releaseDate: "March 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.2", releaseDate: "February 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Command `bookmarks.toggle` not found - loading empty workspace with random files",
-                id: 395,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.1", releaseDate: "February 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Command `bookmarks.toggle` not found - extension was not activated",
-                id: 387,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.0", releaseDate: "February 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Support <b>Remote Development</b>",
-                id: 230,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Improvements on <b>multi-root</b> support",
-                id: 193,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Group bookmarks by folder on multi-root in Side Bar",
-                id: 249,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Cross-platform support",
-                id: 205,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Do not show welcome page if installed by Settings Sync",
-                id: 377,
-                kind: IssueKind.Issue
-            }
-        });        
 
         return changeLog;
     }
