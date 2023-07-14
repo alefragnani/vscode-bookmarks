@@ -243,6 +243,7 @@ export async function activate(context: vscode.ExtensionContext) {
         activeController.removeBookmark(index, node.command.arguments[1] - 1, book);
         saveWorkspaceState();
         updateDecorations();
+        updateLinesWithBookmarkContext(activeController.activeFile);
     });
 
     vscode.commands.registerCommand("_bookmarks.editLabel", node => {
