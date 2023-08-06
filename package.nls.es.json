@@ -38,6 +38,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "¿Qué hay nuevo?",
     "bookmarks.commands.openFolderWelcome.title": "Abrir Carpeta",
     "bookmarks.commands.supportBookmarks.title": "Ayudar a Bookmarks",
+    "bookmarks.commands.openSideBar.title": "Abrir la Barra lateral",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Permitir a bookmarks guardar (y recuperar) localmente las carpetas/proyectos en vez de VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Ruta para mostrar otra imagen como Marcador",
@@ -68,5 +69,19 @@
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelectedOrLineWhenNoSelected": "Sugiere el texto seleccionado (si está disponible) o la línea entera (cuando no hay nada seleccionado). Se sigue requiriendo confirmación.",
     "bookmarks.colors.lineBackground.description": "Color de fondo de la línea con Marcador",
     "bookmarks.colors.lineBorder.description": "Color del borde de la línea con Marcador",
-    "bookmarks.colors.overviewRuler.description": "Color general de fondo para todos los Marcadores"
+    "bookmarks.colors.overviewRuler.description": "Color general de fondo para todos los Marcadores",
+    "bookmarks.walkthroughs.title": "Empieza a usar Bookmarks",
+    "bookmarks.walkthroughs.description": "Aprende más sobre Bookmarks para optimizar tu trabajo",
+    "bookmarks.walkthroughs.toggle.title": "Alternar marcadores",
+    "bookmarks.walkthroughs.toggle.description": "Marca y desmarca marcadores en cualquier lugar.\nSe añadirá un icono tanto en el canal como en la regla general para que puedas identificar fácilmente qué líneas tienen un marcador.",
+    "bookmarks.walkthroughs.navigateToBookmarks.title": "Ir a los marcadores",
+    "bookmarks.walkthroughs.navigateToBookmarks.description": "Navega rápidamente entre líneas que tengan un marcador.\nBusca marcadores mediante el contenido de la línea o sus etiquetas.",
+    "bookmarks.walkthroughs.defineLabelsForYourBookmarks.title": "Elegir etiquetas para tus marcadores",
+    "bookmarks.walkthroughs.defineLabelsForYourBookmarks.description": "Puedes elegir etiquetas para cada marcador, dándoles un distintivo especial más allá de su posición.",
+    "bookmarks.walkthroughs.exclusiveSideBar.title": "Barra lateral exclusiva",
+    "bookmarks.walkthroughs.exclusiveSideBar.description": "Una barra lateral exclusiva con todo lo que necesitas para aumentar tu productividad..\n[Abrir la Barra lateral](command:_bookmarks.openSideBar)",
+    "bookmarks.walkthroughs.workingWithRemotes.title": "Trabajando con remotos",
+    "bookmarks.walkthroughs.workingWithRemotes.description": "La extensión acepta escenarios de [Desarrollo remoto](https://code.visualstudio.com/docs/remote/remote-overview). Además de poder usar Bookmarks localmente, también puedes usarla en WSL, Contenedores, SSH y Codespaces.",
+    "bookmarks.walkthroughs.customizingAppearance.title": "Personalizando la apariencia",
+    "bookmarks.walkthroughs.customizingAppearance.description": "Personaliza cómo se ven los marcadores, sus iconos, sus líneas y la regla general.\n[Abrir la configuración - Icono del canal](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Abrir la configuración - Línea](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
 }
