@@ -21,6 +21,50 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.4.2", releaseDate: "September 2023" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Spanish translations",
+                id: 629,
+                kind: IssueKind.PR,
+                kudos: "@JoseDeFreitas"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Toggle bookmark via mouse click (context menu) outdated by Explorer View",
+                id: 627,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Support for <b>vscode-memfs FileSystemProvider</b>",
+                id: 645,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Typos in Portuguese translations",
+                id: 635,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Security Alert: word-wrap",
+                id: 634,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.4.0", releaseDate: "June 2023" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
@@ -252,93 +296,6 @@ export class BookmarksContentProvider implements ContentProvider {
                 message: "<b>Toggle</b> command causes exiting diff editor",
                 id: 440,
                 kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.1.0", releaseDate: "May 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Support <b>Virtual Workspaces</b>",
-                id: 432,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Support <b>Workspace Trust</b>",
-                id: 430,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Return to line/column when cancel List or List from All Files",
-                id: 386,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Update pt-br translation",
-                id: 376,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Latest bookmark could not be removed",
-                id: 422,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Minor grammatical and spelling issue",
-                id: 388,
-                kind: IssueKind.PR,
-                kudos: "@derekpock"
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Security Alert: lodash",
-                id: 433,
-                kind: IssueKind.PR,
-                kudos: "dependabot"
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Security Alert: ssri",
-                id: 425,
-                kind: IssueKind.PR,
-                kudos: "dependabot"
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Security Alert: y18n",
-                id: 418,
-                kind: IssueKind.PR,
-                kudos: "dependabot"
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Security Alert: elliptic",
-                id: 408,
-                kind: IssueKind.PR,
-                kudos: "dependabot"
             }
         });
 
