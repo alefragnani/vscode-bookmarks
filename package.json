@@ -582,6 +582,19 @@
                         "%bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelected%",
                         "%bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelectedOrLineWhenNoSelected%"
                     ]
+                },
+                "bookmarks.revealLocation": {
+                    "type": "string",
+                    "default": "center",
+                    "description": "%bookmarks.configuration.revealLocation.description%",
+                    "enum": [
+                        "top",
+                        "center"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.revealLocation.enumDescriptions.top%",
+                        "%bookmarks.configuration.revealLocation.enumDescriptions.center%"
+                    ]
                 }
             }
         },
