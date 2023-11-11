@@ -66,6 +66,9 @@
     "bookmarks.configuration.label.suggestion.enumDescriptions.useWhenSelected": "使用选择的文本作为标签，不需要额外的确认。",
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelected": "使用选择的文本作为标签，需要额外的确认。",
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelectedOrLineWhenNoSelected": "使用选择的文本或（无选择的文本时）使用整个行作为标签，需要额外的确认。",
+    "bookmarks.configuration.revealLocation.description": "指定显示书签行的位置",
+    "bookmarks.configuration.revealLocation.enumDescriptions.top": "显示编辑器顶部的书签行",
+    "bookmarks.configuration.revealLocation.enumDescriptions.center": "显示编辑器中心的书签行",
     "bookmarks.colors.lineBackground.description": "书签行的背景色",
     "bookmarks.colors.lineBorder.description": "书签行的外边框颜色",
     "bookmarks.colors.overviewRuler.description": "概览标尺中书签行的颜色"
