@@ -222,6 +222,15 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.label.suggestion": "useWhenSelected"
 ```
 
+* Choose the location where the bookmarked line will be revealed _(`center` by default)_
+
+  * `top`: Reveals the bookmarked line at the top of the editor
+  * `center`: Reveals the bookmarked line in the center of the editor
+
+```json
+    "bookmarks.revealPosition": "center"
+```
+
 ## Available Colors
 
 * Choose the background color to use on a bookmarked line
