@@ -66,6 +66,9 @@
     "bookmarks.configuration.label.suggestion.enumDescriptions.useWhenSelected": "Использовать выделенный текст (если есть) напрямую, подтверждение не требуется",
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelected": "Предлагает выделенный текст (если есть). Вам все еще нужно подтвердить.",
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelectedOrLineWhenNoSelected": "Предлагает выделенный текст (если есть) или всю строку (если нет выделения). Вам все еще нужно подтвердить.",
+    "bookmarks.configuration.revealLocation.description": "Указывает место, где будет отображаться строка с закладкой.",
+    "bookmarks.configuration.revealLocation.enumDescriptions.top": "Показывает строку с закладкой в верхней части редактора.",
+    "bookmarks.configuration.revealLocation.enumDescriptions.center": "Показывает строку с закладкой в центре редактора.",
     "bookmarks.colors.lineBackground.description": "Цвет фона для отмеченной строки",
     "bookmarks.colors.lineBorder.description": "Цвет фона для границы вокруг линии с закладкой",
     "bookmarks.colors.overviewRuler.description": "Обзор цвета маркера линейки для закладок"
