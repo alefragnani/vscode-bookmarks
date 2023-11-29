@@ -1,3 +1,15 @@
+## [13.4.2] - 2023-10-06
+### Added
+- Spanish translations (PR [#629](https://github.com/alefragnani/vscode-bookmarks/pull/629) - kudos to @JoseDeFreitas)
+
+### Fixed
+- Toogle bookmark via mouse click (context menu) outdated by Explorer view (issue [#627](https://github.com/alefragnani/vscode-bookmarks/issues/627))
+- Support for `vscode-memfs` FileSystemProvider (issue [#645](https://github.com/alefragnani/vscode-bookmarks/issues/645))
+- Typos in Portuguese translations (PR [#635](https://github.com/alefragnani/vscode-bookmarks/pull/635))
+
+### Internal
+- Security Alert: word-wrap (dependabot [PR #634](https://github.com/alefragnani/vscode-bookmarks/pull/634))
+
 ## [13.4.0] - 2023-07-12
 ### Added
 - Getting Started/Walkthrough (issue [#442](https://github.com/alefragnani/vscode-bookmarks/issues/442))
