@@ -8,6 +8,6 @@ import { Container } from "../../vscode-bookmarks-core/src/container";
 
 export function registerOpenSettings() {
     Container.context.subscriptions.push(commands.registerCommand("bookmarks.openSettings", async () => {
-        commands.executeCommand("workbench.action.openSettings", "bookmarks");
+        commands.executeCommand("workbench.action.openSettings", "@ext:alefragnani.bookmarks");
     }));
 }
