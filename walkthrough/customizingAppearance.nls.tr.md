@@ -1,8 +1,8 @@
-## Customizing Appearance
+## Görünümü Özelleştirme
 
-You can customize not only how the icon is show in the Gutter, but also add a background color to the bookmarked line and the overview ruller.
+Yalnızca simgenin Cilt Payı'nda nasıl gösterileceğini özelleştirmekle kalmaz, aynı zamanda yer imi çizgisine ve genel bakış cetveline bir arka plan rengi de ekleyebilirsiniz.
 
-Something like this in your settings:
+Ayarlarınızda buna benzer bir şey:
 
 ```json
     "bookmarks.gutterIconFillColor": "none",
@@ -15,6 +15,6 @@ Something like this in your settings:
     }
 ```
 
-Could end up with a bookmark like this:
+Bunun gibi bir yer işaretiyle sonuçlanabilir:
 
-![Customized Bookmark](customizedBookmark.png)
+![Özelleştirilmiş Yer İşareti](customizedBookmark.png)
