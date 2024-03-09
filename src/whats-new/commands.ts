@@ -6,14 +6,13 @@
 import { commands } from "vscode";
 import { Container } from "../../vscode-bookmarks-core/src/container";
 import { WhatsNewManager } from "../../vscode-whats-new/src/Manager";
-import { BookmarksSocialMediaProvider, BookmarksSponsorProvider, BookmarksContentProvider } from "./contentProvider";
+import { BookmarksSocialMediaProvider, BookmarksContentProvider } from "./contentProvider";
 
 export async function registerWhatsNew() {
     const provider = new BookmarksContentProvider();
     const viewer = new WhatsNewManager(Container.context)
         .registerContentProvider("alefragnani", "Bookmarks", provider)
-        .registerSocialMediaProvider(new BookmarksSocialMediaProvider())
-        .registerSponsorProvider(new BookmarksSponsorProvider());
+        .registerSocialMediaProvider(new BookmarksSocialMediaProvider());
     await viewer.showPageInActivation();
     Container.context.subscriptions.push(commands.registerCommand("bookmarks.whatsNew", () => viewer.showPage()));
     Container.context.subscriptions.push(commands.registerCommand("_bookmarks.whatsNewContextMenu", () => viewer.showPage()));
