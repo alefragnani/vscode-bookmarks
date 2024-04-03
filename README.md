@@ -3,8 +3,9 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 13.4
+# What's new in Bookmarks 13.5
 
+* Published to **Open VSX**
 * Adds **Getting Started / Walkthrough**
 * Adds **Side Bar** badge
 * Adds Toggle bookmark via mouse click

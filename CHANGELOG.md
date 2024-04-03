@@ -1,3 +1,12 @@
+## [13.5.0] - 2024-04-03
+### Added
+- Turkish translations (PR [#683](https://github.com/alefragnani/vscode-bookmarks/pull/683) - kudos to @ksckaan1)
+- New setting to choose viewport position on navigation (issue [#504](https://github.com/alefragnani/vscode-bookmarks/issues/504))
+
+### Fixed
+- Simplified Chinese translations (PR [#635](https://github.com/alefragnani/vscode-bookmarks/pull/635) - kudos to @huangyxi)
+- Refine extension settings query (PR [#681](https://github.com/alefragnani/vscode-bookmarks/pull/681) - kudos to @aramikuto)
+
 ## [13.4.2] - 2023-10-06
 ### Added
 - Spanish translations (PR [#629](https://github.com/alefragnani/vscode-bookmarks/pull/629) - kudos to @JoseDeFreitas)
