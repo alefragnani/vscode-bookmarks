@@ -17,7 +17,7 @@
   "bookmarks.commands.expandSelectionToNext.title": "扩展光标选区至下一个书签处",
   "bookmarks.commands.expandSelectionToPrevious.title": "扩展光标选区至上一个书签处",
   "bookmarks.commands.shrinkSelection.title": "收缩光标选区尾至选区中最后一个书签",
-  "bookmarks.commands.list.title": "书签列表",
+  "bookmarks.commands.list.title": "列出文件中所有书签",
   "bookmarks.commands.toggleLabeled.title": "添加含标签的书签 / 删除书签",
   "bookmarks.commands.refresh.title": "刷新",
   "bookmarks.commands.viewAsTree#sideBar.title": "以树形式查看",
@@ -73,7 +73,7 @@
   "bookmarks.colors.lineBorder.description": "书签所在行的外边框颜色",
   "bookmarks.colors.overviewRuler.description": "编辑器的概览标尺（Overview Ruler）中，书签标记的颜色",
   "bookmarks.walkthroughs.title": "开始使用 Bookmarks",
-  "bookmarks.walkthroughs.description": "了解有关 Bookmarks 插件的更多信息以优化您的工作流程",
+  "bookmarks.walkthroughs.description": "了解有关 Bookmarks 扩展的更多信息以优化您的工作流程",
   "bookmarks.walkthroughs.toggle.title": "添加 / 删除书签",
   "bookmarks.walkthroughs.toggle.description": "为任何位置添加或删除书签。\n边缘标尺（Gutter Ruler）和概览标尺（Overview Ruler）中均添加了显眼的标示，以便轻松识别带有书签标记的行。",
   "bookmarks.walkthroughs.navigateToBookmarks.title": "跳转至书签",
@@ -83,7 +83,7 @@
   "bookmarks.walkthroughs.exclusiveSideBar.title": "专属侧边栏",
   "bookmarks.walkthroughs.exclusiveSideBar.description": "活用侧边栏能够十足有效的提高你的工作效率。\n[打开书签侧边栏](command:_bookmarks.openSideBar)",
   "bookmarks.walkthroughs.workingWithRemotes.title": "兼容 VS Code 远程开发",
-  "bookmarks.walkthroughs.workingWithRemotes.description": "本插件完全兼容 [远程开发](https://code.visualstudio.com/docs/remote/remote-overview)。只需要在本地编辑器中安装，便能够在 WSL、Containers、SSH 或是 Codespaces 中正常使用书签功能。",
+  "bookmarks.walkthroughs.workingWithRemotes.description": "本扩展完全兼容 [远程开发](https://code.visualstudio.com/docs/remote/remote-overview)。只需要在本地编辑器中安装，便能够在 WSL、Containers、SSH 或是 Codespaces 中正常使用书签功能。",
   "bookmarks.walkthroughs.customizingAppearance.title": "自定义外观",
   "bookmarks.walkthroughs.customizingAppearance.description": "你可以自定义书签在编辑器中的呈现方式，例如书签标记使用的图标，或是概览标尺（Overview Ruler）中书签标记的颜色。\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
 }
