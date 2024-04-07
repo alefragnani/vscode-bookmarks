@@ -2,7 +2,7 @@
 
 本扩展完全兼容 [远程开发](https://code.visualstudio.com/docs/remote/remote-overview)。
 
-这意味着当你连接到远程，比如 Docker 容器，SSH 或是 WSL 时，本扩展依旧可用，_时刻准备着！_
+这意味着当你连接到远程，比如 Docker 容器，SSH 或是 WSL 时，本扩展依旧可用。
 
 > 你不需要在远程环境中安装本扩展。
 
