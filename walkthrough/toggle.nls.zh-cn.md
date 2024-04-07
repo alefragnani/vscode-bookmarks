@@ -4,4 +4,4 @@
 
 ![Toggle](../images/printscreen-toggle.png)
 
-> Tip: 可以使用快捷键组合 <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>K</kbd>
+> Tip: 该指令默认绑定在快捷键组合 <kbd>Cmd</kbd> + <kbd>Alt</kbd> + <kbd>K</kbd>
