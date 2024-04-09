@@ -8,9 +8,9 @@ Możesz łatwo wpisać własną **Etykietę** podczas przełączania zakładki, 
 
 Masz do wyboru kilka alternatyw:
 
--  `useWhenSelected`: Użyj zaznaczonego tekstu _(jeśli dostępny)_ bezpośrednio, bez potrzeby potwierdzenia
--  `suggestWhenSelected`: Zaproponuj zaznaczony tekst _(jeśli dostępny)_. Nadal musisz potwierdzić.
--  `suggestWhenSelectedOrLineWhenNoSelected`: Zaproponuj zaznaczony tekst _(jeśli dostępny)_ lub całą linię (kiedy nie ma zaznaczenia). Nadal musisz potwierdzić
+  * `useWhenSelected`: Użyj zaznaczonego tekstu _(jeśli dostępny)_ bezpośrednio, bez potrzeby potwierdzenia
+  * `suggestWhenSelected`: Zaproponuj zaznaczony tekst _(jeśli dostępny)_. Nadal musisz potwierdzić.
+  * `suggestWhenSelectedOrLineWhenNoSelected`: Zaproponuj zaznaczony tekst _(jeśli dostępny)_ lub całą linię (kiedy nie ma zaznaczenia). Nadal musisz potwierdzić
 
 <table align="center" width="85%" border="0">
   <tr>
