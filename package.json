@@ -595,6 +595,25 @@
                         "%bookmarks.configuration.revealLocation.enumDescriptions.top%",
                         "%bookmarks.configuration.revealLocation.enumDescriptions.center%"
                     ]
+                },
+                "bookmarks.overviewRulerLane": {
+                    "type": "string",
+                    "default": "full",
+                    "description": "%bookmarks.configuration.overviewRulerLane.description%",
+                    "enum": [
+                        "none",
+                        "left",
+                        "center",
+                        "right",
+                        "full"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.none%",
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.left%",
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.center%",
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.right%",
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.full%"
+                    ]
                 }
             }
         },
