@@ -62,7 +62,8 @@ export async function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
         // Allow change the gutterIcon without reload
         if (cfg.affectsConfiguration("bookmarks.gutterIconFillColor") || 
-            cfg.affectsConfiguration("bookmarks.gutterIconBorderColor")) {
+            cfg.affectsConfiguration("bookmarks.gutterIconBorderColor") ||
+            cfg.affectsConfiguration("bookmarks.overviewRulerLane")) {
             if (bookmarkDecorationType.length > 0) {
                 bookmarkDecorationType.forEach(b => b.dispose());
             }
