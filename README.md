@@ -225,6 +225,18 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.revealPosition": "center"
 ```
 
+* Specifies the lane in the overview ruler where the bookmarked line will be shown _(`full` by default)_
+
+  * `none`: Don't show the bookmarked line in the overview ruler
+  * `left`: Show the bookmarked line in the left lane of the overview ruler
+  * `center`: Show the bookmarked line in the center lane of the overview ruler
+  * `right`: Show the bookmarked line in the right lane of the overview ruler
+  * `full`: Show the bookmarked line in the full height of the overview ruler
+
+```json
+    "bookmarks.overviewRulerLane": "left"
+```
+
 ## Available Colors
 
 * Choose the background color to use on a bookmarked line
