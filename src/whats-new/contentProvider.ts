@@ -21,6 +21,43 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.5.0", releaseDate: "March 2024" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Turkish translations",
+                id: 683,
+                kind: IssueKind.PR,
+                kudos: "@ksckaan1"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "New setting to choose viewport position on navigation",
+                id: 504,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Simplified Chinese translations",
+                id: 635,
+                kind: IssueKind.PR,
+                kudos: "@huangyxi"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Refine extension settings query",
+                id: 681,
+                kind: IssueKind.PR,
+                kudos: "@aramikuto"
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.4.2", releaseDate: "September 2023" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
@@ -177,124 +214,6 @@ export class BookmarksContentProvider implements ContentProvider {
             detail: {
                 message: "Bookmarks being lost on file renames",
                 id: 529,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.4", releaseDate: "January 2022" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
-        });   
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.3", releaseDate: "January 2022" } });
-        // changeLog.push({
-        //     kind: ChangeLogKind.NEW,
-        //     detail: {
-        //         message: "New setting to keep bookmarks on line delete",
-        //         id: 503,
-        //         kind: IssueKind.Issue
-        //     }
-        // });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "<b>Duckly</b> becomes a Sponsor"
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.2", releaseDate: "September 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
-        });        
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.1", releaseDate: "August 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Remove unnecessary files from extension package",
-                id: 465,
-                kind: IssueKind.Issue
-            }
-        });       
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.0", releaseDate: "August 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "New <b>Sticky Engine</b> with improved support to Formatters, Multi-cursor and Undo operations",
-                id: 463,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "<b>View as Tree</b> and <b>View as List</b> options in Side Bar",
-                id: 453,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "New command to Hide/Show bookmark position in Side Bar",
-                id: 143,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Updated translations",
-                id: 464,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmark positions didn't update after pasting content above",
-                id: 446,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmark positions didn't update after adding empty lines above",
-                id: 457,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmark moving off original line",
-                id: 168,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Undo messes up bookmarks",
-                id: 116,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "<b>Toggle</b> command in Notebook cells causes duplicate editor to be opened",
-                id: 456,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "<b>Toggle</b> command causes exiting diff editor",
-                id: 440,
                 kind: IssueKind.Issue
             }
         });

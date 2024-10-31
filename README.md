@@ -3,8 +3,9 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 13.4
+# What's new in Bookmarks 13.5
 
+* Published to **Open VSX**
 * Adds **Getting Started / Walkthrough**
 * Adds **Side Bar** badge
 * Adds Toggle bookmark via mouse click
@@ -222,6 +223,18 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ```json
     "bookmarks.revealPosition": "center"
+```
+
+* Specifies the lane in the overview ruler where the bookmarked line will be shown _(`full` by default)_
+
+  * `none`: Don't show the bookmarked line in the overview ruler
+  * `left`: Show the bookmarked line in the left lane of the overview ruler
+  * `center`: Show the bookmarked line in the center lane of the overview ruler
+  * `right`: Show the bookmarked line in the right lane of the overview ruler
+  * `full`: Show the bookmarked line in the full height of the overview ruler
+
+```json
+    "bookmarks.overviewRulerLane": "left"
 ```
 
 ## Available Colors
