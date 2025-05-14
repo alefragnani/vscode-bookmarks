@@ -34,7 +34,7 @@
     "bookmarks.commands.removeBookmarkAtLine#gutter.title": "Supprimer le signet",
     "bookmarks.commands.listFromAllFiles.title": "Lister depuis tous les fichiers",
     "bookmarks.commands.clearFromAllFiles.title": "Effacer depuis tous les fichiers",
-    "bookmarks.commands.whatsNew.title": "Quoi de Neuf",
+    "bookmarks.commands.whatsNew.title": "Quoi de neuf",
     "bookmarks.commands.whatsNewContextMenu.title": "Quoi de neuf",
     "bookmarks.commands.openFolderWelcome.title": "Ouvrir un dossier",
     "bookmarks.commands.supportBookmarks.title": "Support des signets",
