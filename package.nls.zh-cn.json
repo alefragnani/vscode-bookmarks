@@ -58,6 +58,7 @@
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "显示所有文件的书签总数",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "显示包含书签的文件的总数",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "禁用计数与圆点提示",
+    "bookmarks.configuration.sidebar.hideWelcome.description": "控制侧边栏中欢迎视图的可见性",
     "bookmarks.configuration.multicursor.toggleMode.description": "指定当使用多光标的同时新建书签，此时对已有书签行的处理方式。",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce": "为所有没有被书签标记的行创建书签。",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "如果选中行存在书签，则删除该书签；如果选中行不存在书签，则为该行添加书签。",
