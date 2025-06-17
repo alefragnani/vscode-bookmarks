@@ -83,6 +83,10 @@ export async function activate(context: vscode.ExtensionContext) {
         if (cfg.affectsConfiguration("bookmarks.sideBar.countBadge")) {
             bookmarkExplorer.updateBadge();
         }
+
+        if (cfg.affectsConfiguration("bookmarks.sideBar.hideWelcome")) {
+            toggleSideBarWelcomeVisibility();
+        }
     }));
 
     let bookmarkDecorationType = createBookmarkDecorations();
@@ -105,10 +109,19 @@ export async function activate(context: vscode.ExtensionContext) {
 
     bookmarkExplorer.updateBadge();
 
+    toggleSideBarWelcomeVisibility();
+
     vscode.commands.registerCommand("_bookmarks.sidebar.hidePosition", () => toggleSidebarPositionVisibility(false));
     vscode.commands.registerCommand("_bookmarks.sidebar.showPosition", () => toggleSidebarPositionVisibility(true));
     vscode.commands.executeCommand("setContext", "bookmarks.isHidingPosition", 
         Container.context.globalState.get<boolean>("bookmarks.sidebar.hidePosition", false));
+    
+    function toggleSideBarWelcomeVisibility() {
+        vscode.commands.executeCommand("setContext", "bookmarks.isHidingWelcome",
+            vscode.workspace.getConfiguration("bookmarks").get("sideBar.hideWelcome", false)
+        );
+    }
+
     function toggleSidebarPositionVisibility(visible: boolean) {
         vscode.commands.executeCommand("setContext", "bookmarks.isHidingPosition", !visible);
         Container.context.globalState.update("bookmarks.sidebar.hidePosition", !visible);
