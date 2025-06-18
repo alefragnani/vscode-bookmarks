@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import * as vscode from "vscode";
-import { Position, TextDocument, Uri } from "vscode";
+import { Position, TabInputText, TextDocument, Uri, ViewColumn } from "vscode";
 import { codicons } from "vscode-ext-codicons";
 import { BookmarkQuickPickItem } from "../vscode-bookmarks-core/src/bookmark";
 import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/constants";
@@ -644,8 +644,10 @@ export async function activate(context: vscode.ExtensionContext) {
                             // const uriDocument = !activeController.workspaceFolder
                             //     ? Uri.file(nextDocument.toString())
                             //     : appendPath(activeController.workspaceFolder.uri, nextDocument.toString());
+                            const tabGroupColumn = findTabGroupColumn(uriDocument, vscode.window.activeTextEditor.viewColumn);
+
                             vscode.workspace.openTextDocument(uriDocument).then(doc => {
-                                vscode.window.showTextDocument(doc).then(() => {
+                                vscode.window.showTextDocument(doc, tabGroupColumn).then(() => {
                                     const bookmarkIndex = direction === Directions.Forward ? 0 : activeController.activeFile.bookmarks.length - 1;
                                     revealPosition(activeController.activeFile.bookmarks[bookmarkIndex].line, 
                                         activeController.activeFile.bookmarks[bookmarkIndex].column);
@@ -661,6 +663,35 @@ export async function activate(context: vscode.ExtensionContext) {
             .catch((error) => {
               console.log("activeBookmark.nextBookmark REJECT" + error);
             });
+    }
+
+    function findTabGroupColumn(uri: Uri, column: ViewColumn): ViewColumn {
+
+        if (vscode.window.tabGroups.all.length === 1) 
+            return column;
+
+        const activeTabGroup = vscode.window.tabGroups.activeTabGroup;
+        
+        let uriColumn = undefined;
+        activeTabGroup.tabs.forEach(tab => {
+            if (tab.input instanceof TabInputText && tab.input.uri.fsPath.toLocaleLowerCase() === uri.fsPath.toLocaleLowerCase() ) {
+                uriColumn = tab.group.viewColumn;
+            }
+        });
+        
+        if (uriColumn !== undefined) return uriColumn;
+
+        vscode.window.tabGroups.all.forEach(tabGroup => {
+            if (tabGroup.viewColumn !== column) {
+                tabGroup.tabs.forEach(tab => {
+                    if (tab.input instanceof TabInputText && tab.input.uri.fsPath.toLocaleLowerCase() === uri.fsPath.toLocaleLowerCase() ) {
+                        uriColumn = tab.group.viewColumn;
+                    }
+                });
+            }
+        });
+        
+        return uriColumn;
     }
 
     function checkBookmarks(result: number | vscode.Position): boolean {
