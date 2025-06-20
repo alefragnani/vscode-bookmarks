@@ -59,6 +59,7 @@
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "सभी फ़ाइलों से बुकमार्क्स की कुल संख्या दिखाएँ",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "बुकमार्क्स वाली फ़ाइलों की संख्या दिखाएँ",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "काउंट बैज को अक्षम करें",
+    "bookmarks.configuration.sidebar.hideWelcome.description": "साइड बार में स्वागत दृश्यों की दृश्यता को नियंत्रित करता है",
     "bookmarks.configuration.multicursor.toggleMode.description": "मल्टी कर्सर बुकमार्क टॉगल को कैसे संभाले, यह निर्दिष्ट करें",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce": "यदि किसी भी चयनित पंक्ति में बुकमार्क नहीं है, तो सभी में जोड़ें",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "प्रत्येक पंक्ति पर अलग-अलग टॉगल करें",

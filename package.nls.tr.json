@@ -59,6 +59,7 @@
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Tüm dosyalardaki yer işaretlerinin toplamını göster",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Bazı yer işaretlerini içeren dosyaların toplamını göster",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Yer İşaretleri sayısı rozetini devre dışı bırakın",
+    "bookmarks.configuration.sidebar.hideWelcome.description": "Yan Çubuktaki Hoş Geldiniz Görünümlerinin görünürlüğünü kontrol eder",
     "bookmarks.configuration.multicursor.toggleMode.description": "Çoklu imlecin önceden işaretlenmiş satırları nasıl işleyeceğini belirtir",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce": "Satırlardan en az birinde yer işareti yoksa, seçilen tüm satırlarda aynı anda yer işaretleri oluşturur",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "Tüm satırları eşitlemek yerine, kelimenin tam anlamıyla her satırdaki bir yer işaretini değiştirir",

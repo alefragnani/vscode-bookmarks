@@ -58,6 +58,7 @@
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Показать сумму закладок из всех файлов",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Показать сумму файлов, содержащих некоторые закладки",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Отключить значок счетчика закладок",
+    "bookmarks.configuration.sidebar.hideWelcome.description": "Управляет видимостью приветственных окон на боковой панели.",
     "bookmarks.configuration.multicursor.toggleMode.description": "Определяет, как несколько курсоров обрабатывают уже отмеченные закладки строки",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce": "Создает закладки сразу во всех выбранных строках, если хотя бы в одной из строк нет закладки",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "Буквально переключает закладку в каждой строке вместо того, чтобы сделать все строки равными",

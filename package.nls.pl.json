@@ -59,6 +59,7 @@
 	"bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Pokaż sumę zakładek ze wszystkich plików",
 	"bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Pokaż sumę plików zawierających jakieś zakładki",
 	"bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Wyłącz odznakę liczby Zakładek",
+    "bookmarks.configuration.sidebar.hideWelcome.description": "Steruje widocznością widoków powitalnych na pasku bocznym",
 	"bookmarks.configuration.multicursor.toggleMode.description": "Określa, jak wielokursor obsługuje już oznaczone linie zakładkami",
 	"bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce": "Tworzy zakładki we wszystkich zaznaczonych liniach naraz, jeśli przynajmniej jedna z linii nie ma zakładki",
 	"bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "Dosłownie przełącza zakładkę w każdej linii, zamiast czynić wszystkie linie równymi",

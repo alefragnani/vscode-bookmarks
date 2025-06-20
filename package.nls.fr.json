@@ -59,6 +59,7 @@
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Afficher le nombre de signets de tous les fichiers",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Afficher le npombre des fichiers contenant des signets",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Désactiver le badge de comptage des signets",
+    "bookmarks.configuration.sidebar.hideWelcome.description": "Contrôle la visibilité des vues de bienvenue dans la barre latérale",
     "bookmarks.configuration.multicursor.toggleMode.description": "Spécifie comment le multi-curseur gère les lignes déjà marquées comme signets",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce": "Crée des signets sur toutes les lignes sélectionnées à la fois, si au moins une des lignes n’a pas de signet",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "Bascule le signet sur chaque ligne, au lieu de rendre toutes les lignes identiques",

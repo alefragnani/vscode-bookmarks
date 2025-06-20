@@ -59,6 +59,7 @@
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Mostrar a soma dos Bookmarks de todos os arquivos",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Mostrar a soma de arquivos que contém alguns Bookmarks",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Desative o emblema de contagem de Bookmarks",
+    "bookmarks.configuration.sidebar.hideWelcome.description": "Controla a visibilidade da View de Boas Vindas na Side Bar",
     "bookmarks.configuration.multicursor.toggleMode.description": "Define como funciona são tratadas as linhas que já possuem bookmark quando utiliza-se multicursor",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce": "Cria bookmarks em todas as linhas selecionadas de uma só vez, se ao menos uma linha não tiver bookmark",
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "Literalmente alterna o bookmark em cada linha, ao invés de deixar todas as linhas iguais",

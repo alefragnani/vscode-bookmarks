@@ -74,17 +74,17 @@
             {
                 "view": "bookmarksExplorer",
                 "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.whenEmpty%",
-                "when": "workbenchState == empty"
+                "when": "workbenchState == empty && !bookmarks.isHidingWelcome"
             },
             {
                 "view": "bookmarksExplorer",
                 "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.whenNoFileOpen%",
-                "when": "workbenchState != empty && !editorIsOpen"
+                "when": "workbenchState != empty && !editorIsOpen && !bookmarks.isHidingWelcome"
             },
             {
                 "view": "bookmarksExplorer",
                 "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.whenHasFileOpen%",
-                "when": "workbenchState != empty && editorIsOpen"
+                "when": "workbenchState != empty && editorIsOpen && !bookmarks.isHidingWelcome"
             }
         ],
         "commands": [
@@ -552,6 +552,11 @@
                         "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.off%"
                     ],
                     "description": "%bookmarks.configuration.sideBar.countBadge.description%"
+                },
+                "bookmarks.sideBar.hideWelcome": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.sidebar.hideWelcome.description%"
                 },
                 "bookmarks.multicursor.toggleMode": {
                     "type": "string",

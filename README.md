@@ -196,6 +196,12 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
     "bookmarks.sideBar.countBadge": "files"
 ```
 
+* Controls the visibility of the Welcome Views in the Side Bar _(`false` by default)_
+
+```json
+    "bookmarks.sideBar.hideWelcome": true
+```
+
 * Choose how multi cursor handles already bookmarked lines _(`allLinesAtOnce` by default)_
 
   * `allLinesAtOnce`: Creates bookmarks in all selected lines at once, if at least one of the lines don't have a bookmark
