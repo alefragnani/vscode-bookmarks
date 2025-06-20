@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import * as vscode from "vscode";
-import { Position, TabInputText, TextDocument, Uri, ViewColumn } from "vscode";
+import { Position, Tab, TabInputText, TextDocument, Uri, ViewColumn } from "vscode";
 import { codicons } from "vscode-ext-codicons";
 import { BookmarkQuickPickItem } from "../vscode-bookmarks-core/src/bookmark";
 import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "../vscode-bookmarks-core/src/constants";
@@ -666,32 +666,33 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     function findTabGroupColumn(uri: Uri, column: ViewColumn): ViewColumn {
-
-        if (vscode.window.tabGroups.all.length === 1) 
+        if (vscode.window.tabGroups.all.length === 1) {
             return column;
+        }
 
-        const activeTabGroup = vscode.window.tabGroups.activeTabGroup;
-        
-        let uriColumn = undefined;
-        activeTabGroup.tabs.forEach(tab => {
-            if (tab.input instanceof TabInputText && tab.input.uri.fsPath.toLocaleLowerCase() === uri.fsPath.toLocaleLowerCase() ) {
-                uriColumn = tab.group.viewColumn;
+        for (const tab of vscode.window.tabGroups.activeTabGroup.tabs) {
+            if (isTabOfUri(tab, uri)) {
+                return tab.group.viewColumn;
             }
-        });
-        
-        if (uriColumn !== undefined) return uriColumn;
+        }
 
-        vscode.window.tabGroups.all.forEach(tabGroup => {
-            if (tabGroup.viewColumn !== column) {
-                tabGroup.tabs.forEach(tab => {
-                    if (tab.input instanceof TabInputText && tab.input.uri.fsPath.toLocaleLowerCase() === uri.fsPath.toLocaleLowerCase() ) {
-                        uriColumn = tab.group.viewColumn;
-                    }
-                });
+        for (const tabGroup of vscode.window.tabGroups.all) {
+            if (tabGroup.viewColumn === column) 
+                continue;
+            
+            for (const tab of tabGroup.tabs) {
+                if (isTabOfUri(tab, uri)) {
+                    return tab.group.viewColumn;
+                }
             }
-        });
-        
-        return uriColumn;
+        }
+
+        return column;
+    }
+
+    function isTabOfUri(tab: Tab, uri: Uri): boolean {
+        return tab.input instanceof TabInputText &&
+                tab.input.uri.fsPath.toLocaleLowerCase() === uri.fsPath.toLocaleLowerCase()
     }
 
     function checkBookmarks(result: number | vscode.Position): boolean {
