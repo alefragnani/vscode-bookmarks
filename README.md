@@ -228,7 +228,7 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
   * `center`: Reveals the bookmarked line in the center of the editor
 
 ```json
-    "bookmarks.revealPosition": "center"
+    "bookmarks.revealLocation": "center"
 ```
 
 * Specifies the lane in the overview ruler where the bookmarked line will be shown _(`full` by default)_
