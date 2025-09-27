@@ -482,12 +482,14 @@
                 },
                 "bookmarks.gutterIconFillColor": {
                     "type": "string",
+                    "format": "color",
                     "default": "#157EFB",
                     "description": "%bookmarks.configuration.gutterIconFillColor.description%",
                     "scope": "application"
                 },
                 "bookmarks.gutterIconBorderColor": {
                     "type": "string",
+                    "format": "color",
                     "default": "#157EFB",
                     "description": "%bookmarks.configuration.gutterIconBorderColor.description%",
                     "scope": "application"
