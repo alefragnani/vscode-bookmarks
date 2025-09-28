@@ -57,7 +57,7 @@
     "bookmarks.configuration.sidebar.expanded.description": "Specifies whether the Side Bar show be displayed expanded",
     "bookmarks.configuration.sideBar.countBadge.description": "Controls the count badge on the Bookmark icon on the Activity Bar",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Show the sum of bookmarks from all files",
-    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Show the sum of files that contains some bookmarks",
+    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Show the sum of files that contains at least one bookmark",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Disable the Bookmarks count badge",
     "bookmarks.configuration.sidebar.hideWelcome.description": "Controls the visibility of the Welcome Views in the Side Bar",
     "bookmarks.configuration.multicursor.toggleMode.description": "Specifies how multi cursor handles already bookmarked lines",

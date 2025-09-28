@@ -57,7 +57,7 @@
     "bookmarks.configuration.sidebar.expanded.description": "Especifica si la barra lateral se muestra expandida",
     "bookmarks.configuration.sideBar.countBadge.description": "Controla la insignia de conteo en el ícono de Bookmarks en la barra de actividad",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Mostrar la suma de Bookmarks de todos los archivos",
-    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Mostrar la suma de archivos que contiene algunos Bookmarks",
+    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Mostrar la suma de archivos que contienen al menos un Bookmark",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Deshabilitar la insignia de recuento de Bookmarks",
     "bookmarks.configuration.sidebar.hideWelcome.description": "Controla la visibilidad de las Vistas de Bienvenida en la Barra Lateral",
     "bookmarks.configuration.multicursor.toggleMode.description": "Especifíca cómo se trata el modo multicursor cuando ya hay líneas con Marcadores",

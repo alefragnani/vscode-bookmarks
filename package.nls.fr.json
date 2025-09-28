@@ -57,7 +57,7 @@
     "bookmarks.configuration.sidebar.expanded.description": "Spécifie si la barre latérale doit être affichée développée",
     "bookmarks.configuration.sideBar.countBadge.description": "Contrôle le badge de comptage sur l’icône des signets dans la barre d’activité",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Afficher le nombre de signets de tous les fichiers",
-    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Afficher le npombre des fichiers contenant des signets",
+    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Afficher le nombre de fichiers contenant au moins un signet",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Désactiver le badge de comptage des signets",
     "bookmarks.configuration.sidebar.hideWelcome.description": "Contrôle la visibilité des vues de bienvenue dans la barre latérale",
     "bookmarks.configuration.multicursor.toggleMode.description": "Spécifie comment le multi-curseur gère les lignes déjà marquées comme signets",

@@ -57,7 +57,7 @@
     "bookmarks.configuration.sidebar.expanded.description": "Define se a Side Bar deve ser exibida expandida",
     "bookmarks.configuration.sideBar.countBadge.description": "Controla o emblema de contagem no ícone de Bookmarks na barra de atividades",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Mostrar a soma dos Bookmarks de todos os arquivos",
-    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Mostrar a soma de arquivos que contém alguns Bookmarks",
+    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Mostrar a soma de arquivos que contém pelo menos um Bookmark",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Desative o emblema de contagem de Bookmarks",
     "bookmarks.configuration.sidebar.hideWelcome.description": "Controla a visibilidade da View de Boas Vindas na Side Bar",
     "bookmarks.configuration.multicursor.toggleMode.description": "Define como funciona são tratadas as linhas que já possuem bookmark quando utiliza-se multicursor",

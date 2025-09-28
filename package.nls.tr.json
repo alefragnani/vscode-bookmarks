@@ -57,7 +57,7 @@
     "bookmarks.configuration.sidebar.expanded.description": "Kenar Çubuğu gösterisinin genişletilmiş olarak görüntülenip görüntülenmeyeceğini belirtir",
     "bookmarks.configuration.sideBar.countBadge.description": "Etkinlik Çubuğundaki Yer İşareti simgesindeki sayım rozetini kontrol eder",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Tüm dosyalardaki yer işaretlerinin toplamını göster",
-    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Bazı yer işaretlerini içeren dosyaların toplamını göster",
+    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "En az bir yer işareti içeren dosyaların toplamını göster",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Yer İşaretleri sayısı rozetini devre dışı bırakın",
     "bookmarks.configuration.sidebar.hideWelcome.description": "Yan Çubuktaki Hoş Geldiniz Görünümlerinin görünürlüğünü kontrol eder",
     "bookmarks.configuration.multicursor.toggleMode.description": "Çoklu imlecin önceden işaretlenmiş satırları nasıl işleyeceğini belirtir",
