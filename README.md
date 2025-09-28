@@ -189,7 +189,7 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 * Controls the count badge on the Bookmark icon on the Activity Bar _(`all` by default)_
 
   * `all`: Show the sum of bookmarks from all files
-  * `files`: Show the sum of files that contains some bookmarks
+  * `files`: Show the sum of files that contains at least one bookmark
   * `off`: Disable the Bookmarks count badge
 
 ```json
