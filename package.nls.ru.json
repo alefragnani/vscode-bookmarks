@@ -56,7 +56,7 @@
     "bookmarks.configuration.sidebar.expanded.description": "Определяет, будет ли отображаться развернутая боковая панель.",
     "bookmarks.configuration.sideBar.countBadge.description": "Управляет значком счетчика на значке закладки на панели действий.",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Показать сумму закладок из всех файлов",
-    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Показать сумму файлов, содержащих некоторые закладки",
+    "bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Показать количество файлов, содержащих хотя бы одну закладку",
     "bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Отключить значок счетчика закладок",
     "bookmarks.configuration.sidebar.hideWelcome.description": "Управляет видимостью приветственных окон на боковой панели.",
     "bookmarks.configuration.multicursor.toggleMode.description": "Определяет, как несколько курсоров обрабатывают уже отмеченные закладки строки",

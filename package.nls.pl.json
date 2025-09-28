@@ -57,7 +57,7 @@
 	"bookmarks.configuration.sidebar.expanded.description": "Określa, czy pasek boczny ma być wyświetlany rozwinięty",
 	"bookmarks.configuration.sideBar.countBadge.description": "Kontroluje odznakę z liczbą na ikonie Zakładki na pasku aktywności",
 	"bookmarks.configuration.sideBar.countBadge.enumDescriptions.all": "Pokaż sumę zakładek ze wszystkich plików",
-	"bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Pokaż sumę plików zawierających jakieś zakładki",
+	"bookmarks.configuration.sideBar.countBadge.enumDescriptions.files": "Pokaż sumę plików zawierających co najmniej jedną zakładkę",
 	"bookmarks.configuration.sideBar.countBadge.enumDescriptions.off": "Wyłącz odznakę liczby Zakładek",
     "bookmarks.configuration.sidebar.hideWelcome.description": "Steruje widocznością widoków powitalnych na pasku bocznym",
 	"bookmarks.configuration.multicursor.toggleMode.description": "Określa, jak wielokursor obsługuje już oznaczone linie zakładkami",
