@@ -5,7 +5,7 @@
 
 import { TreeItem, TreeItemCollapsibleState, WorkspaceFolder } from "vscode";
 import { ThemeIcons } from "vscode-ext-codicons";
-import { Controller } from "../controller";
+import { Controller } from "../core/controller";
 import { FileNode } from "./fileNode";
 import { BookmarkNodeKind } from "./nodes";
 

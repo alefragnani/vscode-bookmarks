@@ -5,10 +5,10 @@
 
 import { createLineDecoration } from "vscode-ext-decoration";
 import { workspace, ThemeColor, OverviewRulerLane, TextEditor, Range, TextEditorDecorationType, Uri, DecorationRenderOptions, window } from "vscode";
-import { Controller } from "./controller";
-import { indexOfBookmark } from "./operations";
-import { DEFAULT_GUTTER_ICON_BORDER_COLOR, DEFAULT_GUTTER_ICON_FILL_COLOR } from "./constants";
-import { getOverviewRulerLaneConfig } from "./utils/overviewRulerLane";
+import { Controller } from "../core/controller";
+import { indexOfBookmark } from "../core/operations";
+import { DEFAULT_GUTTER_ICON_BORDER_COLOR, DEFAULT_GUTTER_ICON_FILL_COLOR } from "../core/constants";
+import { getOverviewRulerLaneConfig } from "../utils/overviewRulerLane";
 
 function createGutterRulerDecoration(
     overviewRulerLane?: OverviewRulerLane,

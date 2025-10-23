@@ -5,16 +5,16 @@
 
 import path = require("path");
 import * as vscode from "vscode";
-import { Controller } from "../controller";
+import { Controller } from "../core/controller";
 import { parsePosition, Point } from "./parser";
 import { codicons } from "vscode-ext-codicons";
-import { listBookmarks } from "../operations";
-import { Container } from "../container";
+import { listBookmarks } from "../core/operations";
+import { Container } from "../core/container";
 import { FileNode } from "./fileNode";
 import { BookmarkNode, BookmarkPreview } from "./bookmarkNode";
 import { WorkspaceNode } from "./workspaceNode";
 import { BookmarkNodeKind } from "./nodes";
-import { BadgeConfig } from "../constants";
+import { BadgeConfig } from "../core/constants";
 
 export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | WorkspaceNode | FileNode> {
 

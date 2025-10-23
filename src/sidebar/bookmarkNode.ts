@@ -4,8 +4,8 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { Command, TreeItem, TreeItemCollapsibleState, Uri, workspace } from "vscode";
-import { DEFAULT_GUTTER_ICON_BORDER_COLOR, DEFAULT_GUTTER_ICON_FILL_COLOR } from "../constants";
-import { File } from "../file";
+import { DEFAULT_GUTTER_ICON_BORDER_COLOR, DEFAULT_GUTTER_ICON_FILL_COLOR } from "../core/constants";
+import { File } from "../core/file";
 import { BookmarkNodeKind } from "./nodes";
 
 export interface BookmarkPreview {

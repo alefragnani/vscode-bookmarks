@@ -9,9 +9,9 @@ import * as vscode from "vscode";
 import { Uri, WorkspaceFolder } from "vscode";
 import { Directions, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS, UNTITLED_SCHEME } from "./constants";
 import { createFile, File } from "./file";
-import { getFileUri, getRelativePath, uriExists } from "./utils/fs";
+import { getFileUri, getRelativePath, uriExists } from "../utils/fs";
 import { clear, getLinePreview, indexOfBookmark } from "./operations";
-import { updateLinesWithBookmarkContext } from "./gutter/editorLineNumberContext";
+import { updateLinesWithBookmarkContext } from "../gutter/editorLineNumberContext";
 
 interface BookmarkAdded {
     file: File;

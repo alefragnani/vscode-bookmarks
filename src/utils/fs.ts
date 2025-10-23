@@ -6,9 +6,9 @@
 import os = require("os");
 import path = require("path");
 import { Uri, workspace, WorkspaceFolder } from "vscode";
-import { Bookmark } from "../bookmark";
-import { UNTITLED_SCHEME } from "../constants";
-import { File } from "../file";
+import { Bookmark } from "../core/bookmark";
+import { UNTITLED_SCHEME } from "../core/constants";
+import { File } from "../core/file";
 
 export function getRelativePath(folder: string, filePath: string) {
     if (!folder) {

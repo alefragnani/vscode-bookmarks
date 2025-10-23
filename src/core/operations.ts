@@ -8,7 +8,7 @@ import { codicons } from "vscode-ext-codicons";
 import { Bookmark, BookmarkQuickPickItem } from "./bookmark";
 import { Directions, NO_BOOKMARKS, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "./constants";
 import { File } from "./file";
-import { uriExists, uriWith } from "./utils/fs";
+import { uriExists, uriWith } from "../utils/fs";
 
 export function nextBookmark(file: File, currentPosition: Position, direction: Directions): Promise<number | Position> {
     return new Promise((resolve, reject) => {

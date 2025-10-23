@@ -4,10 +4,10 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { window, Position, l10n } from "vscode";
-import { Directions } from "./constants";
+import { Directions } from "./core/constants";
 import { selectLines, expandSelectionToPosition, shrinkSelectionToPosition } from "vscode-ext-selection";
-import { Controller } from "./controller";
-import { nextBookmark } from "./operations";
+import { Controller } from "./core/controller";
+import { nextBookmark } from "./core/operations";
 
 export function selectBookmarkedLines(bookmarks: Controller) {
     if (!window.activeTextEditor) {

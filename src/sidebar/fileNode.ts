@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { Command, ThemeIcon, TreeItem, TreeItemCollapsibleState, Uri } from "vscode";
-import { File } from "../file";
+import { File } from "../core/file";
 import { BookmarkPreview } from "./bookmarkNode";
 import { BookmarkNodeKind } from "./nodes";
 

@@ -7,9 +7,9 @@
 *--------------------------------------------------------------------------------------------*/
 
 import * as vscode from "vscode";
-import { Controller } from "./controller";
-import { File } from "./file";
-import { indexOfBookmark } from "./operations";
+import { Controller } from "../core/controller";
+import { File } from "../core/file";
+import { indexOfBookmark } from "../core/operations";
 
 export class Sticky {
     

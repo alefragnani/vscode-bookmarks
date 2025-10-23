@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { commands } from "vscode";
-import { Container } from "../container";
+import { Container } from "../core/container";
 
 export function registerOpenSettings() {
     Container.context.subscriptions.push(commands.registerCommand("bookmarks.openSettings", async () => {
