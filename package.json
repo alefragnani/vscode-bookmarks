@@ -761,7 +761,7 @@
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
         "compile": "tsc -watch -p ./",
-        "lint": "eslint -c package.json --ext .ts src vscode-bookmarks-core vscode-whats-new"
+        "lint": "eslint -c package.json --ext .ts src vscode-whats-new"
     },
     "dependencies": {
         "os-browserify": "^0.3.0",
