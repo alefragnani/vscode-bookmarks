@@ -3,8 +3,11 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 13.5
+# What's new in Bookmarks 14
 
+* Fully Open Source again
+* Adds **Persian**, **French**, **Hindi** and **Polish** translations
+* Setting to customize overview ruler lane
 * Published to **Open VSX**
 * Adds **Getting Started / Walkthrough**
 * Adds **Side Bar** badge

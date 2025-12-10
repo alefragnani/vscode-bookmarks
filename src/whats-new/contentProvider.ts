@@ -21,6 +21,153 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "14.0.0", releaseDate: "November 2025" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Fully Open Source again",
+                id: 523,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Update Side Bar: Count Badge description",
+                id: 739,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Reuse opened file",
+                id: 775,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "New setting to hide Welcome view",
+                id: 792,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "New setting to specify the Bookmark's overview ruler lane",
+                id: 357,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Added color format support for gutter icon color settings",
+                id: 814,
+                kind: IssueKind.PR,
+                kudos: "@ajpemok"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Persian translations",
+                id: 813,
+                kind: IssueKind.PR,
+                kudos: "@k1nxx"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "French translations",
+                id: 789,
+                kind: IssueKind.PR,
+                kudos: "@alex-kinokon"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Hindi translations",
+                id: 787,
+                kind: IssueKind.PR,
+                kudos: "@jatinderbhola"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Polish translations",
+                id: 708,
+                kind: IssueKind.PR,
+                kudos: "@Rinnsy"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Update Simplified Chinese translations",
+                id: 707,
+                kind: IssueKind.PR,
+                kudos: "@GreyElaina"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Clear command not updating context menu",
+                id: 758,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Side Bar: Count Badge tooltip error",
+                id: 809,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Incorrect command in documentation",
+                id: 797,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Security Alert: braces",
+                id: 728,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Security Alert: webpack",
+                id: 746,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Security Alert: serialize-javascript and mocha",
+                id: 772,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.5.0", releaseDate: "March 2024" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
@@ -183,38 +330,6 @@ export class BookmarksContentProvider implements ContentProvider {
                 id: 546,
                 kind: IssueKind.PR,
                 kudos: "dependabot"
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.3.1", releaseDate: "June 2022" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Add <b>GitHub Sponsors</b> support"
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.3.0", releaseDate: "April 2022" } });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "New setting to decide if should delete bookmark if associated line is deleted",
-                id: 503,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Allow customization of bookmark color (fill and border)",
-                id: 445,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmarks being lost on file renames",
-                id: 529,
-                kind: IssueKind.Issue
             }
         });
 
