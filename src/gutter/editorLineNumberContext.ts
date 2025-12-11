@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { Uri, commands } from "vscode";
-import { File } from "../../vscode-bookmarks-core/src/file";
+import { File } from "../core/file";
 
 export interface EditorLineNumberContextParams {
     lineNumber: number,

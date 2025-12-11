@@ -4,7 +4,7 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { commands, env, l10n, MessageItem, Uri, window } from "vscode";
-import { Container } from "../../vscode-bookmarks-core/src/container";
+import { Container } from "../core/container";
 
 export function registerSupportBookmarks() {
   Container.context.subscriptions.push(commands.registerCommand("bookmarks.supportBookmarks", async () => {

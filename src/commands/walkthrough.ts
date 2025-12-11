@@ -4,7 +4,7 @@
 *---------------------------------------------------------------------------------------------*/
 
 import { commands } from "vscode";
-import { Container } from "../../vscode-bookmarks-core/src/container";
+import { Container } from "../core/container";
 
 function openSideBar() {
     commands.executeCommand("bookmarksExplorer.focus");

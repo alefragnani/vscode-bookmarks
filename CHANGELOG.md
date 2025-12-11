@@ -1,3 +1,27 @@
+## [14.0.0] - 2025-12-10
+### Added
+- Fully Open Source again (issue [#523](https://github.com/alefragnani/vscode-bookmarks/issues/523))
+- Update Side Bar: Count Badge description (issue [#739](https://github.com/alefragnani/vscode-bookmarks/issues/739))
+- Reuse opened file (issue [#775](https://github.com/alefragnani/vscode-bookmarks/issues/775))
+- New setting to hide Welcome view (issue [#792](https://github.com/alefragnani/vscode-bookmarks/issues/792))
+- New setting to specify the Bookmark's overview ruler lane (issue [#357](https://github.com/alefragnani/vscode-bookmarks/issues/357))
+- Added color format support for gutter icon color settings (PR [#814](https://github.com/alefragnani/vscode-bookmarks/pull/814) - kudos to @ajpemok)
+- Persian translations (PR [#813](https://github.com/alefragnani/vscode-bookmarks/pull/813) - kudos to @k1nxx)
+- French translations (PR [#789](https://github.com/alefragnani/vscode-bookmarks/pull/789) - kudos to @alex-kinokon)
+- Hindi translations (PR [#787](https://github.com/alefragnani/vscode-bookmarks/pull/787) - kudos to @jatinderbhola)
+- Polish translations (PR [#708](https://github.com/alefragnani/vscode-bookmarks/pull/708) - kudos to @Rinnsy)
+- Update Simplified Chinese translations (PR [#707](https://github.com/alefragnani/vscode-bookmarks/pull/707) - kudos to @GreyElaina)
+
+### Fixed
+- Clear command not updating context menu (issue [#758](https://github.com/alefragnani/vscode-bookmarks/issues/758))
+- Side Bar: Count Badge tooltip error (issue [#809](https://github.com/alefragnani/vscode-bookmarks/issues/809))
+- Incorrect command in documentation (issue [#797](https://github.com/alefragnani/vscode-bookmarks/issues/797))
+
+### Internal
+- Security Alert: braces (dependabot [PR #728](https://github.com/alefragnani/vscode-bookmarks/pull/728))
+- Security Alert: webpack (dependabot [PR #746](https://github.com/alefragnani/vscode-bookmarks/pull/746))
+- Security Alert: serialize-javascript and mocha (dependabot [PR #772](https://github.com/alefragnani/vscode-bookmarks/pull/772))
+
 ## [13.5.0] - 2024-04-03
 ### Added
 - Turkish translations (PR [#683](https://github.com/alefragnani/vscode-bookmarks/pull/683) - kudos to @ksckaan1)

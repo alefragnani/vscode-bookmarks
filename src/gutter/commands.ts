@@ -5,7 +5,7 @@
 
 import { commands } from "vscode";
 import { EditorLineNumberContextParams } from "./editorLineNumberContext";
-import { Container } from "../../vscode-bookmarks-core/src/container";
+import { Container } from "../core/container";
 
 export function registerGutterCommands(toggleCommand: (params: EditorLineNumberContextParams) => void, toggleLabeledCommand: (params: EditorLineNumberContextParams) => void) {
     Container.context.subscriptions.push(

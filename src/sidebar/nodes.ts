@@ -3,11 +3,6 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import { commands } from "vscode";
-import { Container } from "../core/container";
+export enum BookmarkNodeKind { NODE_FILE, NODE_BOOKMARK, NODE_WORKSPACE_FOLDER }
 
-export function registerOpenSettings() {
-    Container.context.subscriptions.push(commands.registerCommand("bookmarks.openSettings", async () => {
-        commands.executeCommand("workbench.action.openSettings", "@ext:alefragnani.bookmarks");
-    }));
-}
+export enum ViewAs { VIEW_AS_TREE, VIEW_AS_LIST }

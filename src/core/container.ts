@@ -3,11 +3,17 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import { commands } from "vscode";
-import { Container } from "../core/container";
+import { ExtensionContext } from "vscode";
 
-export function registerOpenSettings() {
-    Container.context.subscriptions.push(commands.registerCommand("bookmarks.openSettings", async () => {
-        commands.executeCommand("workbench.action.openSettings", "@ext:alefragnani.bookmarks");
-    }));
+export class Container {
+    private static _extContext: ExtensionContext;
+  
+    public static get context(): ExtensionContext {
+      return this._extContext;
+    }
+  
+    public static set context(ec: ExtensionContext) {
+      this._extContext = ec;
+    }
 }
+  
