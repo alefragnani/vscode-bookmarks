@@ -761,7 +761,11 @@
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
         "compile": "tsc -watch -p ./",
-        "lint": "eslint -c package.json --ext .ts src vscode-whats-new"
+        "lint": "eslint -c package.json --ext .ts src vscode-whats-new",
+        "pretest": "npm run compile && npm run lint",
+        "test-compile": "tsc -p ./ && npm run webpack",
+        "just-test": "node ./out/src/test/runTest.js",
+        "test": "npm run test-compile && npm run just-test"
     },
     "dependencies": {
         "os-browserify": "^0.3.0",
