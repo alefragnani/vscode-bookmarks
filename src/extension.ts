@@ -42,7 +42,7 @@ export async function activate(context: vscode.ExtensionContext) {
     let activeController: Controller;
     let controllers: Controller[] = [];
     let activeEditorCountLine: number;
-    let timeout: NodeJS.Timer;
+    let timeout = null;
 
     await registerWhatsNew();
     await registerWalkthrough();
