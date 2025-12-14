@@ -27,5 +27,5 @@ suite('Extension Test Suite', () => {
 	test('Extension loads in VSCode and is active', async () => {
 		await timeout(1500);
 		assert.equal(extension.isActive, true);
-    });
+	});
 });
