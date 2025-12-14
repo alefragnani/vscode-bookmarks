@@ -86,6 +86,7 @@ export function nextBookmark(file: File, currentPosition: Position, direction: D
 
 export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
     
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
 
         // no bookmark, returns empty
