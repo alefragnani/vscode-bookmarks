@@ -760,7 +760,7 @@
         "vscode:prepublish": "webpack --mode production",
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
-        "compile": "tsc -watch -p ./",
+        "compile": "tsc -p ./",
         "lint": "eslint -c package.json --ext .ts src vscode-whats-new",
         "pretest": "npm run compile && npm run lint",
         "test-compile": "tsc -p ./ && npm run webpack",
