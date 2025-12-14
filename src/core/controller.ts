@@ -167,6 +167,7 @@ export class Controller {
                 }
             }
 
+            // eslint-disable-next-line no-async-promise-executor
             return new Promise(async (resolve, reject) => {
 
                 const wrapNavigation: boolean = vscode.workspace.getConfiguration("bookmarks").get("wrapNavigation", true);
