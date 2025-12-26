@@ -230,6 +230,11 @@
             {
                 "command": "_bookmarks.openSideBar",
                 "title": "%bookmarks.commands.openSideBar.title%"
+            },
+            {
+                "command": "bookmarks.export",
+                "title": "%bookmarks.commands.export.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             }
         ],
         "menus": {
@@ -621,6 +626,12 @@
                         "%bookmarks.configuration.overviewRulerLane.enumDescriptions.right%",
                         "%bookmarks.configuration.overviewRulerLane.enumDescriptions.full%"
                     ]
+                },
+                "bookmarks.export.pattern": {
+                    "type": "string",
+                    "default": "| $file | $line | $column | $label | $content |",
+                    "description": "%bookmarks.configuration.export.pattern.description%",
+                    "markdownDescription": "%bookmarks.configuration.export.pattern.markdownDescription%"
                 }
             }
         },
