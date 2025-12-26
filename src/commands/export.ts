@@ -112,7 +112,9 @@ function formatBookmarks(bookmarks: BookmarkExportItem[], pattern: string): stri
 
         let line = pattern;
         for (const [key, value] of Object.entries(replacements)) {
-            line = line.replace(new RegExp(key.replace(/\$/g, "\\$"), "g"), value);
+            // Escape special regex characters in the key
+            const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            line = line.replace(new RegExp(escapedKey, "g"), value);
         }
         
         lines.push(line);
