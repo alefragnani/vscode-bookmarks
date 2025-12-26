@@ -6,7 +6,8 @@
 import { commands, l10n, Uri, window, workspace } from "vscode";
 import { Container } from "../core/container";
 import { Controller } from "../core/controller";
-import { getRelativePath } from "../utils/fs";
+import { getRelativePath, uriExists, uriWith } from "../utils/fs";
+import { getLinePreview } from "../core/operations";
 
 interface BookmarkExportItem {
     file: string;
@@ -14,18 +15,6 @@ interface BookmarkExportItem {
     column: number;
     label: string;
     content: string;
-}
-
-async function getLineContent(fileUri: Uri, lineNumber: number): Promise<string> {
-    try {
-        const document = await workspace.openTextDocument(fileUri);
-        if (lineNumber < document.lineCount) {
-            return document.lineAt(lineNumber).text.trim();
-        }
-        return "";
-    } catch (error) {
-        return "";
-    }
 }
 
 function escapeForMarkdown(text: string): string {
@@ -43,18 +32,37 @@ async function collectBookmarks(controllers: Controller[]): Promise<BookmarkExpo
                 continue;
             }
 
+            // Determine the file URI using the same logic as listBookmarks
+            let uriDocBookmark: Uri;
+            if (file.uri) {
+                uriDocBookmark = file.uri;
+            } else {
+                if (!controller.workspaceFolder) {
+                    uriDocBookmark = Uri.file(file.path);
+                } else {
+                    const prefix = controller.workspaceFolder.uri.path.endsWith("/")
+                        ? controller.workspaceFolder.uri.path
+                        : `${controller.workspaceFolder.uri.path}/`;
+                    uriDocBookmark = uriWith(controller.workspaceFolder.uri, prefix, file.path);
+                }
+            }
+
+            // Skip if file doesn't exist
+            if (! await uriExists(uriDocBookmark)) {
+                continue;
+            }
+
             // Sort bookmarks by line number
             const sortedBookmarks = [...file.bookmarks].sort((a, b) => a.line - b.line);
 
             for (const bookmark of sortedBookmarks) {
-                let fileUri: Uri;
+                let content = "";
                 try {
-                    fileUri = file.uri || Uri.file(file.path);
+                    content = await getLinePreview(uriDocBookmark, bookmark.line);
                 } catch (error) {
-                    // Skip bookmarks with invalid file paths
-                    continue;
+                    // If we can't get the line preview, use empty string
+                    content = "";
                 }
-                const content = await getLineContent(fileUri, bookmark.line);
                 
                 // Get relative path for display
                 let displayPath = file.path;
