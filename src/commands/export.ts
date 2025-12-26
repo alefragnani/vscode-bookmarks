@@ -29,7 +29,9 @@ async function getLineContent(fileUri: Uri, lineNumber: number): Promise<string>
 }
 
 function escapeForMarkdown(text: string): string {
-    return text.replace(/\|/g, "\\|");
+    // Escape pipe characters for markdown tables
+    // Also escape backslashes to prevent escape sequence issues
+    return text.replace(/\\/g, "\\\\").replace(/\|/g, "\\|");
 }
 
 async function collectBookmarks(controllers: Controller[]): Promise<BookmarkExportItem[]> {
@@ -45,7 +47,13 @@ async function collectBookmarks(controllers: Controller[]): Promise<BookmarkExpo
             const sortedBookmarks = [...file.bookmarks].sort((a, b) => a.line - b.line);
 
             for (const bookmark of sortedBookmarks) {
-                const fileUri = file.uri || Uri.file(file.path);
+                let fileUri: Uri;
+                try {
+                    fileUri = file.uri || Uri.file(file.path);
+                } catch (error) {
+                    // Skip bookmarks with invalid file paths
+                    continue;
+                }
                 const content = await getLineContent(fileUri, bookmark.line);
                 
                 // Get relative path for display
@@ -83,8 +91,8 @@ function formatBookmarks(bookmarks: BookmarkExportItem[], pattern: string): stri
 
     const lines: string[] = [];
 
-    // Check if using default table format
-    const isDefaultTableFormat = pattern.includes("|");
+    // Check if using default table format by looking for the complete table pattern
+    const isDefaultTableFormat = pattern.trim().startsWith("|") && pattern.trim().endsWith("|");
     
     if (isDefaultTableFormat) {
         // Add table header
@@ -92,13 +100,20 @@ function formatBookmarks(bookmarks: BookmarkExportItem[], pattern: string): stri
         lines.push("|------|------|--------|-------|---------|");
     }
 
+    // Create a replacement map for efficient substitution
     for (const bookmark of bookmarks) {
-        const line = pattern
-            .replace(/\$file/g, isDefaultTableFormat ? escapeForMarkdown(bookmark.file) : bookmark.file)
-            .replace(/\$line/g, bookmark.line.toString())
-            .replace(/\$column/g, bookmark.column.toString())
-            .replace(/\$label/g, isDefaultTableFormat ? escapeForMarkdown(bookmark.label) : bookmark.label)
-            .replace(/\$content/g, isDefaultTableFormat ? escapeForMarkdown(bookmark.content) : bookmark.content);
+        const replacements: { [key: string]: string } = {
+            "$file": isDefaultTableFormat ? escapeForMarkdown(bookmark.file) : bookmark.file,
+            "$line": bookmark.line.toString(),
+            "$column": bookmark.column.toString(),
+            "$label": isDefaultTableFormat ? escapeForMarkdown(bookmark.label) : bookmark.label,
+            "$content": isDefaultTableFormat ? escapeForMarkdown(bookmark.content) : bookmark.content
+        };
+
+        let line = pattern;
+        for (const [key, value] of Object.entries(replacements)) {
+            line = line.replace(new RegExp(key.replace(/\$/g, "\\$"), "g"), value);
+        }
         
         lines.push(line);
     }
