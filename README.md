@@ -58,6 +58,7 @@ Here are some of the features that **Bookmarks** provides:
 * `Bookmarks: List from All Files` List all bookmarks from all files
 * `Bookmarks: Clear` remove all bookmarks in the current file
 * `Bookmarks: Clear from All Files` remove all bookmarks from all files
+* `Bookmarks: Export` Export all bookmarks to a Markdown document with customizable format
 * `Bookmarks (Selection): Select Lines` Select all lines that contains bookmarks
 * `Bookmarks (Selection): Expand Selection to Next` Expand the selected text to the next bookmark
 * `Bookmarks (Selection): Expand Selection to Previous` Expand the selected text to the previous bookmark
@@ -85,6 +86,36 @@ List all bookmarks from the current file/project and easily navigate to any of t
 
 * Bookmarks from the active file only shows the line number and its contents
 * Bookmarks from other files in the project also shows the relative path
+
+### Export
+
+Export all bookmarks to a new Markdown document with a customizable format. This is especially useful for documentation and sharing bookmarks with others.
+
+The default format exports bookmarks as a Markdown table, grouped by file and sorted by line number:
+
+| File | Line | Column | Label | Content |
+|------|------|--------|-------|---------|
+| src/example.ts | 10 | 5 | Important | function calculateTotal() { |
+| src/utils.ts | 25 | 1 | TODO | // TODO: Implement error handling |
+
+You can customize the export format using the `bookmarks.export.pattern` setting with the following variables:
+* `$file` - File path (relative to workspace)
+* `$line` - Line number
+* `$column` - Column number
+* `$label` - Bookmark label
+* `$content` - Line content
+
+**Example custom formats:**
+
+CSV format:
+```
+$file,$line,$column,"$label","$content"
+```
+
+Simple list:
+```
+$file:$line - $label
+```
 
 ## Improved Multi-root support
 
@@ -244,6 +275,24 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 
 ```json
     "bookmarks.overviewRulerLane": "left"
+```
+
+* Specifies the export pattern for bookmarks. Use variables like `$file`, `$line`, `$column`, `$label`, and `$content` to customize the output format _(table format by default)_
+
+```json
+    "bookmarks.export.pattern": "| $file | $line | $column | $label | $content |"
+```
+
+**Example patterns:**
+
+CSV format:
+```json
+    "bookmarks.export.pattern": "$file,$line,$column,\"$label\",\"$content\""
+```
+
+Simple list:
+```json
+    "bookmarks.export.pattern": "$file:$line - $label"
 ```
 
 ## Available Colors

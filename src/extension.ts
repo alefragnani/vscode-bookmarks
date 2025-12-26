@@ -26,6 +26,7 @@ import { appendPath, getRelativePath } from "./utils/fs";
 import { isInDiffEditor, previewPositionInDocument, revealPosition } from "./utils/reveal";
 import { registerOpenSettings } from "./commands/openSettings";
 import { registerSupportBookmarks } from "./commands/supportBookmarks";
+import { registerExport } from "./commands/export";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
 import { ViewAs } from "./sidebar/nodes";
@@ -57,6 +58,7 @@ export async function activate(context: vscode.ExtensionContext) {
     
     registerOpenSettings();
     registerSupportBookmarks();
+    registerExport(() => controllers);
     registerHelpAndFeedbackView(context);
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
