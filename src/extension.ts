@@ -267,7 +267,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
         const position: vscode.Position = new vscode.Position(node.command.arguments[1] - 1, 
             node.command.arguments[2] - 1);
-        askForBookmarkLabel(index, position, book.bookmarks[index].label, false, book);
+        const suggestedLabel = book.bookmarks[index].label || node.label;
+        askForBookmarkLabel(index, position, suggestedLabel, false, book);
     });
 
     vscode.commands.registerCommand("bookmarks.clear", () => clear());
