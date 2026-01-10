@@ -21,6 +21,7 @@
     "bookmarks.commands.toggleLabeled.title": "लेबल टॉगल करें",
     "bookmarks.commands.refresh.title": "रीफ़्रेश करें",
     "bookmarks.commands.addBookmark#sideBar.title": "बुकमार्क जोड़ें",
+    "bookmarks.commands.search#sideBar.title": "खोजें",
     "bookmarks.commands.viewAsTree#sideBar.title": "ट्री रूप में देखें",
     "bookmarks.commands.viewAsList#sideBar.title": "सूची रूप में देखें",
     "bookmarks.commands.openSettings.title": "सेटिंग्स खोलें",

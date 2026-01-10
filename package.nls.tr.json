@@ -21,6 +21,7 @@
     "bookmarks.commands.toggleLabeled.title": "Etiketliyi aç/kapat",
     "bookmarks.commands.refresh.title": "Yenile",
     "bookmarks.commands.addBookmark#sideBar.title": "Yer İşareti Ekle",
+    "bookmarks.commands.search#sideBar.title": "Ara",
     "bookmarks.commands.viewAsTree#sideBar.title": "Ağaç Olarak Görüntüle",
     "bookmarks.commands.viewAsList#sideBar.title": "Liste Olarak Görüntüle",
     "bookmarks.commands.openSettings.title": "Ayarları aç",

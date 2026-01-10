@@ -21,6 +21,7 @@
 	"bookmarks.commands.toggleLabeled.title": "Przełącz z etykietą",
 	"bookmarks.commands.refresh.title": "Odśwież",
 	"bookmarks.commands.addBookmark#sideBar.title": "Dodaj zakładkę",
+	"bookmarks.commands.search#sideBar.title": "Wyszukaj",
 	"bookmarks.commands.viewAsTree#sideBar.title": "Pokaż jako drzewo",
 	"bookmarks.commands.viewAsList#sideBar.title": "Pokaż jako listę",
 	"bookmarks.commands.openSettings.title": "Otwórz ustawienia",

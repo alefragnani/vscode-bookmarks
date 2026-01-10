@@ -21,6 +21,7 @@
     "bookmarks.commands.toggleLabeled.title": "添加含标签的书签/删除书签",
     "bookmarks.commands.refresh.title": "刷新",
     "bookmarks.commands.addBookmark#sideBar.title": "添加书签",
+    "bookmarks.commands.search#sideBar.title": "搜索",
     "bookmarks.commands.viewAsTree#sideBar.title": "以树形式查看",
     "bookmarks.commands.viewAsList#sideBar.title": "以列表形式查看",
     "bookmarks.commands.openSettings.title": "打开设置",

@@ -21,6 +21,7 @@
     "bookmarks.commands.toggleLabeled.title": "Activar Etiquetados",
     "bookmarks.commands.refresh.title": "Actualizar",
     "bookmarks.commands.addBookmark#sideBar.title": "Añadir Marcador",
+    "bookmarks.commands.search#sideBar.title": "Buscar",
     "bookmarks.commands.viewAsTree#sideBar.title": "Ver como Árbol",
     "bookmarks.commands.viewAsList#sideBar.title": "Ver como Lista",
     "bookmarks.commands.openSettings.title": "Abrir Opciones",

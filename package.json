@@ -144,6 +144,11 @@
                 "icon": "$(add)"
             },
             {
+                "command": "_bookmarks.search#sideBar",
+                "title": "%bookmarks.commands.search#sideBar.title%",
+                "icon": "$(search)"
+            },
+            {
                 "command": "bookmarks.refresh",
                 "title": "%bookmarks.commands.refresh.title%",
                 "icon": "$(refresh)"
@@ -253,6 +258,10 @@
                     "when": "false"
                 },
                 {
+                    "command": "_bookmarks.search#sideBar",
+                    "when": "false"
+                },
+                {
                     "command": "bookmarks.refresh",
                     "when": "false"
                 },
@@ -347,6 +356,11 @@
                     "command": "_bookmarks.addBookmark#sideBar",
                     "when": "view == bookmarksExplorer",
                     "group": "navigation@5"
+                },
+                {
+                    "command": "_bookmarks.search#sideBar",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@7"
                 },
                 {
                     "command": "bookmarks.refresh",
