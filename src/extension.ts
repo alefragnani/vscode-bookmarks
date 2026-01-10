@@ -292,7 +292,13 @@ export async function activate(context: vscode.ExtensionContext) {
         askForBookmarkLabel(index, position, suggestedLabel, false, activeController.activeFile);
     });
 
-    vscode.commands.registerCommand("_bookmarks.clearFromFile", node => {
+    vscode.commands.registerCommand("_bookmarks.clearFromFile", async node => {
+        // Check if we should confirm before clearing (this is from Side Bar)
+        const shouldProceed = await shouldConfirmClear("sideBar");
+        if (!shouldProceed) {
+            return;
+        }
+
         activeController.clear(node.bookmark);
         saveWorkspaceState();
         updateDecorations();
@@ -316,7 +322,7 @@ export async function activate(context: vscode.ExtensionContext) {
         askForBookmarkLabel(index, position, suggestedLabel, false, book);
     });
 
-    vscode.commands.registerCommand("bookmarks.clear", () => clear());
+    vscode.commands.registerCommand("bookmarks.clear", () => clear("commandPalette"));
     vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => clearFromAllFiles());
     vscode.commands.registerCommand("bookmarks.selectLines", () => selectBookmarkedLines(activeController));
     vscode.commands.registerCommand("bookmarks.expandSelectionToNext", () => expandSelectionToNextBookmark(activeController, Directions.Forward));
@@ -482,10 +488,45 @@ export async function activate(context: vscode.ExtensionContext) {
         });
     }
 
-    function clear() {
+    async function shouldConfirmClear(source: "commandPalette" | "sideBar"): Promise<boolean> {
+        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "never");
+        
+        // Check if confirmation should be shown based on the setting
+        if (confirmClearSetting === "never") {
+            return true; // No confirmation needed, proceed with clear
+        }
+        
+        if (confirmClearSetting === "always") {
+            // Always show confirmation
+        } else if (confirmClearSetting === "commandPalette" && source !== "commandPalette") {
+            return true; // Confirmation only for command palette, this is not from command palette
+        } else if (confirmClearSetting === "sideBar" && source !== "sideBar") {
+            return true; // Confirmation only for side bar, this is not from side bar
+        }
+        
+        // Show confirmation dialog
+        const message = vscode.l10n.t("Are you sure you want to clear all bookmarks from this file?");
+        const clearButton = vscode.l10n.t("Clear");
+        
+        const result = await vscode.window.showWarningMessage(
+            message,
+            { modal: true },
+            clearButton
+        );
+        
+        return result === clearButton;
+    }
+
+    async function clear(source: "commandPalette" | "sideBar" = "commandPalette") {
 
         if (!vscode.window.activeTextEditor) {
             vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to clear bookmarks"));
+            return;
+        }
+
+        // Check if we should confirm before clearing
+        const shouldProceed = await shouldConfirmClear(source);
+        if (!shouldProceed) {
             return;
         }
 
@@ -499,6 +540,27 @@ export async function activate(context: vscode.ExtensionContext) {
         const controller = await pickController(controllers, activeController);
         if (!controller) {
             return;
+        }
+
+        // Show confirmation dialog for clearing all files
+        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "never");
+        
+        if (confirmClearSetting !== "never") {
+            // Show confirmation unless set to "never" (sideBar and commandPalette settings don't apply here since this is always from command palette)
+            if (confirmClearSetting === "always" || confirmClearSetting === "commandPalette") {
+                const message = vscode.l10n.t("Are you sure you want to clear all bookmarks from all files?");
+                const clearButton = vscode.l10n.t("Clear");
+                
+                const result = await vscode.window.showWarningMessage(
+                    message,
+                    { modal: true },
+                    clearButton
+                );
+                
+                if (result !== clearButton) {
+                    return;
+                }
+            }
         }
 
         controller.clearAll();

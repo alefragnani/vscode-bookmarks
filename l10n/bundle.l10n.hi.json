@@ -23,5 +23,8 @@
     "No more bookmarks to shrink": "संकुचित करने के लिए और कोई बुकमार्क नहीं है",
     "1 file with bookmarks": "एक फ़ाइल बुकमार्क हैं",
     "files with bookmarks": "फ़ाइलें बुकमार्क हैं",
-    "Error loading Bookmarks: ": "बुकमार्क लोड करने में त्रुटि: "
+    "Error loading Bookmarks: ": "बुकमार्क लोड करने में त्रुटि: ",
+    "Are you sure you want to clear all bookmarks from this file?": "क्या आप वाकई इस फ़ाइल से सभी बुकमार्क साफ़ करना चाहते हैं?",
+    "Are you sure you want to clear all bookmarks from all files?": "क्या आप वाकई सभी फ़ाइलों से सभी बुकमार्क साफ़ करना चाहते हैं?",
+    "Clear": "साफ़ करें"
 }

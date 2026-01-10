@@ -660,6 +660,23 @@
                     "default": "| $file | $line | $column | $label | $content |",
                     "description": "%bookmarks.configuration.export.pattern.description%",
                     "markdownDescription": "%bookmarks.configuration.export.pattern.markdownDescription%"
+                },
+                "bookmarks.confirmClear": {
+                    "type": "string",
+                    "default": "never",
+                    "description": "%bookmarks.configuration.confirmClear.description%",
+                    "enum": [
+                        "never",
+                        "always",
+                        "commandPalette",
+                        "sideBar"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.confirmClear.enumDescriptions.never%",
+                        "%bookmarks.configuration.confirmClear.enumDescriptions.always%",
+                        "%bookmarks.configuration.confirmClear.enumDescriptions.commandPalette%",
+                        "%bookmarks.configuration.confirmClear.enumDescriptions.sideBar%"
+                    ]
                 }
             }
         },
