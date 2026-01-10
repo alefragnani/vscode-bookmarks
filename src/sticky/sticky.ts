@@ -78,7 +78,7 @@ export function updateStickyBookmarks(event: vscode.TextDocumentChangeEvent,
                     if (keepBookmarksOnLineDelete) {
                         const hasBookmarkAfterDeletionBlock = indexOfBookmark(activeBookmark, contentChangeEvent.range.end.line) > -1;
                         if (!hasBookmarkAfterDeletionBlock) {
-                            controller.updateBookmark(index, i, contentChangeEvent.range.end.line)
+                            controller.updateBookmark(index, i, contentChangeEvent.range.end.line);
                         } else {
                             controller.removeBookmark(index, i);
                         }
@@ -139,7 +139,7 @@ function isAddEmptyLineWithIndent(event: vscode.TextDocumentChangeEvent, activeB
     const firstEvent = event.contentChanges[0];
     const firstEventIsExpectation = (firstEvent.range.start.line === firstEvent.range.end.line &&
         firstEvent.range.start.character === firstEvent.range.end.character &&
-        firstEvent.text.match(/\n/g).length > 0) 
+        firstEvent.text.match(/\n/g).length > 0); 
     const secondEvent = event.contentChanges[1];
     const secondEventIsExpectation = (secondEvent.range.start.line === secondEvent.range.end.line &&
         secondEvent.range.start.character === 0 &&

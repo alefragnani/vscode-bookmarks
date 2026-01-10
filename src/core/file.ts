@@ -27,6 +27,6 @@ export function createFile(filePath: string, uri?: Uri): File {
         path: filePath,
         bookmarks: [],
         uri//: newUri
-    }
+    };
     return newFile;
 }
