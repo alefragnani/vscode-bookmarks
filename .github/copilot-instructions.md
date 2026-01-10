@@ -62,9 +62,13 @@ All source files should include the GPL-3.0 license header:
 - Use named imports for specific VS Code types
 - Import from local modules using relative paths
 
+### Indentation & Formatting
+- We use spaces, not tabs   
+- Use **4 spaces** for indentation
+- We use **semicolons** at the end of statements
+
 ### Code Style
 - Use double quotes for strings
-- Use semicolons
 - Use camelCase for variables and functions
 - Use PascalCase for classes and interfaces
 - Prefer `const` over `let` where possible
