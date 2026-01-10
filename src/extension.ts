@@ -389,7 +389,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
         // push the items
         const items: vscode.QuickPickItem[] = [];
-        // tslint:disable-next-line:prefer-for-of
         for (let index = 0; index < activeController.activeFile.bookmarks.length; index++) {
 
             const bookmarkLine = activeController.activeFile.bookmarks[ index ].line + 1;

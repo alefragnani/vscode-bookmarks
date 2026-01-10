@@ -74,17 +74,14 @@ export class Controller {
     private onDidUpdateBookmarkEmitter = new vscode.EventEmitter<BookmarkUpdated>();
     get onDidUpdateBookmark(): vscode.Event<BookmarkUpdated> { return this.onDidUpdateBookmarkEmitter.event; }
 
-    // tslint:disable-next-line: member-ordering
     public static normalize(uri: string): string {
         // a simple workaround for what appears to be a vscode.Uri bug
         // (inconsistent fsPath values for the same document, ex. ///foo/x.cpp and /foo/x.cpp)
         return uri.replace("///", "/");
     }
 
-    // tslint:disable-next-line: member-ordering
     // public storage: Storage.BookmarksStorage;
     // public bookmarks: File[];
-    // tslint:disable-next-line: member-ordering
     public activeFile: File = undefined;
 
     constructor(workspaceFolder: WorkspaceFolder | undefined) {

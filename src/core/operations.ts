@@ -120,7 +120,6 @@ export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
 
             const items: BookmarkQuickPickItem[] = [];
             const invalids = [];
-            // tslint:disable-next-line:prefer-for-of
             for (let index = 0; index < file.bookmarks.length; index++) {
 
                 const bookmarkLine = file.bookmarks[ index ].line + 1;
@@ -154,7 +153,6 @@ export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
             }
             if (invalids.length > 0) {
                 let idxInvalid: number;
-                // tslint:disable-next-line:prefer-for-of
                 for (let indexI = 0; indexI < invalids.length; indexI++) {
                     idxInvalid = file.bookmarks.indexOf(<Bookmark>{ line: invalids[ indexI ] - 1 });
                     file.bookmarks.splice(idxInvalid, 1);

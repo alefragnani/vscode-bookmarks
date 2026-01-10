@@ -233,7 +233,6 @@ function moveStickyBookmarks(direction: string, range: vscode.Range, activeBookm
         lineRange = lineRange.reverse();
     }
 
-    // tslint:disable-next-line: forin
     for (const i in lineRange) {
         const index = indexOfBookmark(activeBookmark, lineRange[ i ]);
         if (index > -1) {

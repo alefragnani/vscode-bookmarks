@@ -18,9 +18,7 @@ import { BadgeConfig } from "../core/constants";
 
 export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | WorkspaceNode | FileNode> {
 
-    // tslint:disable-next-line: variable-name
     private _onDidChangeTreeData: vscode.EventEmitter<BookmarkNode | void> = new vscode.EventEmitter<BookmarkNode | void>();
-    // tslint:disable-next-line: member-ordering
     public readonly onDidChangeTreeData: vscode.Event<BookmarkNode | void> = this._onDidChangeTreeData.event;
 
     private tree: BookmarkNode[] = [];
