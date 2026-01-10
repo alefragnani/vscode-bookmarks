@@ -247,6 +247,10 @@ export async function activate(context: vscode.ExtensionContext) {
         bookmarkProvider.refresh();
     });
 
+    vscode.commands.registerCommand("_bookmarks.find#sideBar", () => {
+        list();
+    });
+
     vscode.commands.registerCommand("_bookmarks.addBookmark#sideBar", async () => {
         // Validate if there is an open file in the editor
         if (!vscode.window.activeTextEditor) {
