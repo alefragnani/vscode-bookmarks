@@ -247,6 +247,47 @@ export async function activate(context: vscode.ExtensionContext) {
         bookmarkProvider.refresh();
     });
 
+    vscode.commands.registerCommand("_bookmarks.addBookmark#sideBar", async () => {
+        // Validate if there is an open file in the editor
+        if (!vscode.window.activeTextEditor) {
+            vscode.window.showInformationMessage(vscode.l10n.t("Open a file first to add bookmarks"));
+            return;
+        }
+
+        if (vscode.window.activeTextEditor.document.uri.scheme === SEARCH_EDITOR_SCHEME) {
+            vscode.window.showInformationMessage(vscode.l10n.t("You can't add bookmarks in Search Editor"));
+            return;
+        }
+
+        // Ensure activeFile is initialized
+        if (!activeController.activeFile) {
+            activeController.addFile(vscode.window.activeTextEditor.document.uri);
+            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
+        }
+
+        const currentPosition = vscode.window.activeTextEditor.selection.active;
+        const index = indexOfBookmark(activeController.activeFile, currentPosition.line);
+
+        // Scenario 1: No bookmark at current line -> add new bookmark
+        if (index === -1) {
+            await toggle();
+            return;
+        }
+
+        const bookmark = activeController.activeFile.bookmarks[index];
+
+        // Scenario 2: Regular bookmark found -> show information message
+        if (!bookmark.label || bookmark.label === "") {
+            vscode.window.showInformationMessage(vscode.l10n.t("There is already a bookmark at this line"));
+            return;
+        }
+
+        // Scenario 3: Labeled bookmark found -> edit the label
+        const position: vscode.Position = new vscode.Position(currentPosition.line, currentPosition.character);
+        const suggestedLabel = bookmark.label;
+        askForBookmarkLabel(index, position, suggestedLabel, false, activeController.activeFile);
+    });
+
     vscode.commands.registerCommand("_bookmarks.clearFromFile", node => {
         activeController.clear(node.bookmark);
         saveWorkspaceState();

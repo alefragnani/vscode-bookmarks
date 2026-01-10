@@ -139,6 +139,11 @@
                 "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
+                "command": "_bookmarks.addBookmark#sideBar",
+                "title": "%bookmarks.commands.addBookmark#sideBar.title%",
+                "icon": "$(add)"
+            },
+            {
                 "command": "bookmarks.refresh",
                 "title": "%bookmarks.commands.refresh.title%",
                 "icon": "$(refresh)"
@@ -244,6 +249,10 @@
                     "when": "false"
                 },
                 {
+                    "command": "_bookmarks.addBookmark#sideBar",
+                    "when": "false"
+                },
+                {
                     "command": "bookmarks.refresh",
                     "when": "false"
                 },
@@ -334,6 +343,11 @@
                 }
             ],
             "view/title": [
+                {
+                    "command": "_bookmarks.addBookmark#sideBar",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@5"
+                },
                 {
                     "command": "bookmarks.refresh",
                     "when": "view == bookmarksExplorer",
