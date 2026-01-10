@@ -53,7 +53,7 @@
                 {
                     "id": "bookmarks",
                     "title": "%bookmarks.activitybar.title%",
-                    "icon": "images/bookmark-activity-bar.svg"
+                    "icon": "$(bookmark)"
                 }
             ]
         },
