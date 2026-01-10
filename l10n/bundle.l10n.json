@@ -23,5 +23,9 @@
     "No more bookmarks to shrink":"No more bookmarks to shrink",
     "1 file with bookmarks":"1 file with bookmarks",
     "files with bookmarks":"files with bookmarks",
-    "Error loading Bookmarks: ":"Error loading Bookmarks: "
+    "Error loading Bookmarks: ":"Error loading Bookmarks: ",
+    "Are you sure you want to clear all bookmarks from this file?":"Are you sure you want to clear all bookmarks from this file?",
+    "Are you sure you want to clear all bookmarks from all files?":"Are you sure you want to clear all bookmarks from all files?",
+    "Clear":"Clear",
+    "Cancel":"Cancel"
 }
