@@ -87,35 +87,13 @@ List all bookmarks from the current file/project and easily navigate to any of t
 * Bookmarks from the active file only shows the line number and its contents
 * Bookmarks from other files in the project also shows the relative path
 
-### Export
+## Side Bar
 
-Export all bookmarks to a new Markdown document with a customizable format. This is especially useful for documentation and sharing bookmarks with others.
+The **Bookmarks** extension has its own **Side Bar**, with a variety of commands to improve you productivity. 
 
-The default format exports bookmarks as a Markdown table, grouped by file and sorted by line number:
-
-| File | Line | Column | Label | Content |
-|------|------|--------|-------|---------|
-| src/example.ts | 10 | 5 | Important | function calculateTotal() { |
-| src/utils.ts | 25 | 1 | TODO | // TODO: Implement error handling |
-
-You can customize the export format using the `bookmarks.export.pattern` setting with the following variables:
-* `$file` - File path (relative to workspace)
-* `$line` - Line number
-* `$column` - Column number
-* `$label` - Bookmark label
-* `$content` - Line content
-
-**Example custom formats:**
-
-CSV format:
-```
-$file,$line,$column,"$label","$content"
-```
-
-Simple list:
-```
-$file:$line - $label
-```
+| Single Folder | Multi-root Workspace |
+|---------------|------------|
+| ![Side Bar](images/printscreen-activity-bar.png) | ![Side Bar](images/printscreen-activity-bar-multi-root.png) |
 
 ## Improved Multi-root support
 
@@ -148,6 +126,36 @@ Select all bookmarked lines. Specially useful while working with log files.
 #### Expand Selection to the Next/Previous Bookmark or Shrink the Selection
 
 Manipulate the selection of lines _between_ bookmarks, up and down.
+
+## Export
+
+Export all bookmarks to a new Markdown document with a customizable format. This is especially useful for documentation and sharing bookmarks with others.
+
+The default format exports bookmarks as a Markdown table, grouped by file and sorted by line number:
+
+| File | Line | Column | Label | Content |
+|------|------|--------|-------|---------|
+| src/example.ts | 10 | 5 | Important | function calculateTotal() { |
+| src/utils.ts | 25 | 1 | TODO | // TODO: Implement error handling |
+
+You can customize the export format using the `bookmarks.export.pattern` setting with the following variables:
+* `$file` - File path (relative to workspace)
+* `$line` - Line number
+* `$column` - Column number
+* `$label` - Bookmark label
+* `$content` - Line content
+
+**Example custom formats:**
+
+CSV format:
+```
+$file,$line,$column,"$label","$content"
+```
+
+Simple list:
+```
+$file:$line - $label
+```
 
 ## Available Settings
 
@@ -317,14 +325,6 @@ Simple list:
       "bookmarks.overviewRuler": "#157EFB88"  
     }
 ```
-
-## Side Bar
-
-The **Bookmarks** extension has its own **Side Bar**, with a variety of commands to improve you productivity. 
-
-| Single Folder | Multi-root Workspace |
-|---------------|------------|
-| ![Side Bar](images/printscreen-activity-bar.png) | ![Side Bar](images/printscreen-activity-bar-multi-root.png) |
 
 ## Project and Session Based
 
