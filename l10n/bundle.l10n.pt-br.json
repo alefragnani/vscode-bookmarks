@@ -23,10 +23,9 @@
     "No more bookmarks to shrink":"Sem mais bookmarks para contrair",
     "1 file with bookmarks":"1 arquivo com bookmarks",
     "files with bookmarks":"arquivos com bookmarks",
-    "Error loading Bookmarks: ":"Erro lendo Bookmarks: "
-,
-    "Are you sure you want to clear all bookmarks from this file?":"Tem certeza de que deseja limpar todos os marcadores deste arquivo?",
-    "Are you sure you want to clear all bookmarks from all files?":"Tem certeza de que deseja limpar todos os marcadores de todos os arquivos?",
-    "Clear":"Limpar",
-    "Cancel":"Cancelar"
+    "Error loading Bookmarks: ":"Erro lendo Bookmarks: ",
+    "Are you sure you want to clear all bookmarks from this file?": "Tem certeza de que deseja limpar todos os marcadores deste arquivo?",
+    "Are you sure you want to clear all bookmarks from all files?": "Tem certeza de que deseja limpar todos os marcadores de todos os arquivos?",
+    "Clear": "Limpar",
+    "Cancel": "Cancelar"
 }

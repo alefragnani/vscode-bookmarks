@@ -23,10 +23,9 @@
     "No more bookmarks to shrink": "没有更多的书签可供收缩选区",
     "1 file with bookmarks": "一个具有书签的文件",
     "files with bookmarks": "个具有书签的文件",
-    "Error loading Bookmarks: ": "在载入书签时发生问题: "
-,
-    "Are you sure you want to clear all bookmarks from this file?":"您确定要清除此文件中的所有书签吗？",
-    "Are you sure you want to clear all bookmarks from all files?":"您确定要清除所有文件中的所有书签吗？",
-    "Clear":"清除",
-    "Cancel":"取消"
+    "Error loading Bookmarks: ": "在载入书签时发生问题: ",
+    "Are you sure you want to clear all bookmarks from this file?": "您确定要清除此文件中的所有书签吗？",
+    "Are you sure you want to clear all bookmarks from all files?": "您确定要清除所有文件中的所有书签吗？",
+    "Clear": "清除",
+    "Cancel": "取消"
 }
