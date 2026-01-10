@@ -11,6 +11,6 @@ function openSideBar() {
 }
 
 export function registerWalkthrough() {
-    Container.context.subscriptions.push(commands.registerCommand("_bookmarks.openSideBar", () => openSideBar()))
+    Container.context.subscriptions.push(commands.registerCommand("_bookmarks.openSideBar", () => openSideBar()));
 }
 

@@ -18,9 +18,7 @@ import { BadgeConfig } from "../core/constants";
 
 export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | WorkspaceNode | FileNode> {
 
-    // tslint:disable-next-line: variable-name
     private _onDidChangeTreeData: vscode.EventEmitter<BookmarkNode | void> = new vscode.EventEmitter<BookmarkNode | void>();
-    // tslint:disable-next-line: member-ordering
     public readonly onDidChangeTreeData: vscode.Event<BookmarkNode | void> = this._onDidChangeTreeData.event;
 
     private tree: BookmarkNode[] = [];
@@ -178,7 +176,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
         let someFileHasBookmark: boolean;
         for (const controller of this.controllers) {
             someFileHasBookmark = controller.hasAnyBookmark();
-            if (someFileHasBookmark) { break }
+            if (someFileHasBookmark) { break; }
         }
 
         if (!someFileHasBookmark) {
@@ -244,7 +242,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                             resolve(lll);
                         }
                     );
-                    return
+                    return;
                 }
 
                 if (element.kind === BookmarkNodeKind.NODE_FILE) {
@@ -280,12 +278,12 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                         workspaces.push(wn);
                     }
                     resolve(workspaces);
-                    return
+                    return;
                 }
 
                 this.tree = [];
                 const promisses = [];
-                
+
                 // get all files, from all controllers/workspaces
                 for (const controller of this.controllers) {
                     for (const file of controller.files) {
@@ -353,7 +351,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                             });
                             resolve(bookmarkNodes);
                         }
-                        
+
                         // viewAsTree returns FileNode[]
                         resolve(lll);
                     }
@@ -366,7 +364,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
 
 function removeRelativePathFromFile(aPath: string): string {
     const filename = path.basename(aPath);
-    const dirname = aPath.substring(0, aPath.length - filename.length - 1)
+    const dirname = aPath.substring(0, aPath.length - filename.length - 1);
     return dirname;
 }
 
@@ -404,12 +402,12 @@ export class BookmarksExplorer {
     updateBadge() {
         const config = vscode.workspace.getConfiguration("bookmarks.sideBar").get<string>("countBadge", "all");
         if (config === BadgeConfig.Off) {
-            this.bookmarksExplorer.badge = { value: 0, tooltip: ""};
+            this.bookmarksExplorer.badge = { value: 0, tooltip: "" };
             return;
         }
 
         if (config === BadgeConfig.All) {
-            this.updateBadgeAllFiles()
+            this.updateBadgeAllFiles();
         } else {
             this.updateBadgePerFile();
         }
@@ -417,32 +415,32 @@ export class BookmarksExplorer {
 
     private updateBadgeAllFiles() {
         let total = 0;
-        this.controllers.forEach(controller => 
+        this.controllers.forEach(controller =>
             total = total + controller.countBookmarks()
         );
-            
+
         const badgeTooltip = total === 0
             ? ""
             : total === 1
                 ? "1 bookmark"
                 : `${total} bookmarks`;
 
-        this.bookmarksExplorer.badge = { value: total, tooltip: badgeTooltip};
+        this.bookmarksExplorer.badge = { value: total, tooltip: badgeTooltip };
     }
 
     private updateBadgePerFile() {
         let total = 0;
-        this.controllers.forEach(controller => 
-                total = total + controller.countFilesWithBookmarks()
+        this.controllers.forEach(controller =>
+            total = total + controller.countFilesWithBookmarks()
         );
-            
+
         const badgeTooltip = total === 0
             ? ""
             : total === 1
                 ? vscode.l10n.t("1 file with bookmarks")
                 : `${total} ` + vscode.l10n.t("files with bookmarks");
 
-        this.bookmarksExplorer.badge = { value: total, tooltip: badgeTooltip};
+        this.bookmarksExplorer.badge = { value: total, tooltip: badgeTooltip };
 
     }
 }

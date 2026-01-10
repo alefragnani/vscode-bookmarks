@@ -85,9 +85,9 @@ export function nextBookmark(file: File, currentPosition: Position, direction: D
 }
 
 export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
-    
+
     // eslint-disable-next-line no-async-promise-executor
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
 
         // no bookmark, returns empty
         if (file.bookmarks.length === 0) {
@@ -120,7 +120,6 @@ export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
 
             const items: BookmarkQuickPickItem[] = [];
             const invalids = [];
-            // tslint:disable-next-line:prefer-for-of
             for (let index = 0; index < file.bookmarks.length; index++) {
 
                 const bookmarkLine = file.bookmarks[ index ].line + 1;
@@ -131,18 +130,22 @@ export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
                     const lineText = doc.lineAt(bookmarkLine - 1).text.trim();
                     // const normalizedPath = doc.uri.fsPath;
 
-                    if (file.bookmarks[index].label === "") {
-                        items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
-                            bookmarkColumn.toString() + ")", 
+                    if (file.bookmarks[ index ].label === "") {
+                        items.push({
+                            description: "(Ln " + bookmarkLine.toString() + ", Col " +
+                                bookmarkColumn.toString() + ")",
                             label: lineText,
                             detail: file.path,
-                            uri: uriDocBookmark });
+                            uri: uriDocBookmark
+                        });
                     } else {
-                        items.push({ description: "(Ln " + bookmarkLine.toString() + ", Col " + 
-                            bookmarkColumn.toString() + ")", 
-                            label: codicons.tag + " " + file.bookmarks[index].label,
+                        items.push({
+                            description: "(Ln " + bookmarkLine.toString() + ", Col " +
+                                bookmarkColumn.toString() + ")",
+                            label: codicons.tag + " " + file.bookmarks[ index ].label,
                             detail: file.path,
-                            uri: uriDocBookmark });
+                            uri: uriDocBookmark
+                        });
                     }
                 } else {
                     invalids.push(bookmarkLine);
@@ -150,9 +153,8 @@ export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
             }
             if (invalids.length > 0) {
                 let idxInvalid: number;
-                // tslint:disable-next-line:prefer-for-of
                 for (let indexI = 0; indexI < invalids.length; indexI++) {
-                    idxInvalid = file.bookmarks.indexOf(<Bookmark> {line: invalids[ indexI ] - 1});
+                    idxInvalid = file.bookmarks.indexOf(<Bookmark>{ line: invalids[ indexI ] - 1 });
                     file.bookmarks.splice(idxInvalid, 1);
                 }
             }
@@ -169,7 +171,7 @@ export function clear(file: File): void {
 
 export function indexOfBookmark(file: File, line: number): number {
     for (let index = 0; index < file.bookmarks.length; index++) {
-        const element = file.bookmarks[index];
+        const element = file.bookmarks[ index ];
         if (element.line === line) {
             return index;
         }

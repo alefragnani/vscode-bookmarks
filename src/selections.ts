@@ -11,46 +11,46 @@ import { nextBookmark } from "./core/operations";
 
 export function selectBookmarkedLines(bookmarks: Controller) {
     if (!window.activeTextEditor) {
-      window.showInformationMessage(l10n.t("Open a file first to clear bookmarks"));
-      return;
+        window.showInformationMessage(l10n.t("Open a file first to clear bookmarks"));
+        return;
     }
-    
+
     if (bookmarks.activeFile.bookmarks.length === 0) {
-      window.showInformationMessage(l10n.t("No Bookmarks found"));
-      return;
-    }      
+        window.showInformationMessage(l10n.t("No Bookmarks found"));
+        return;
+    }
 
     const lines: number[] = [];
     for (const bookmark of bookmarks.activeFile.bookmarks) {
         lines.push(bookmark.line);
     }
     selectLines(window.activeTextEditor, lines);
-}  
+}
 
 export function shrinkSelection(bookmarks: Controller) {
     if (!window.activeTextEditor) {
-      window.showInformationMessage(l10n.t("Open a file first to shrink bookmark selection"));
-      return;
+        window.showInformationMessage(l10n.t("Open a file first to shrink bookmark selection"));
+        return;
     }
-    
+
     if (window.activeTextEditor.selections.length > 1) {
-      window.showInformationMessage(l10n.t("Command not supported with more than one selection"));
-      return;
+        window.showInformationMessage(l10n.t("Command not supported with more than one selection"));
+        return;
     }
-    
+
     if (window.activeTextEditor.selection.isEmpty) {
-      window.showInformationMessage(l10n.t("No selection found"));
-      return;
-    }              
-    
+        window.showInformationMessage(l10n.t("No selection found"));
+        return;
+    }
+
     if (bookmarks.activeFile.bookmarks.length === 0) {
-      window.showInformationMessage(l10n.t("No Bookmarks found"));
-      return;
-    }      
-  
+        window.showInformationMessage(l10n.t("No Bookmarks found"));
+        return;
+    }
+
     // which direction?
     const direction: Directions = window.activeTextEditor.selection.isReversed ? Directions.Forward : Directions.Backward;
-    const activeSelectionStartLine: number = window.activeTextEditor.selection.isReversed ? window.activeTextEditor.selection.end.line : window.activeTextEditor.selection.start.line; 
+    const activeSelectionStartLine: number = window.activeTextEditor.selection.isReversed ? window.activeTextEditor.selection.end.line : window.activeTextEditor.selection.start.line;
 
     let currPosition: Position;
     if (direction === Directions.Forward) {
@@ -61,22 +61,22 @@ export function shrinkSelection(bookmarks: Controller) {
 
     nextBookmark(bookmarks.activeFile, currPosition, direction)
         .then((next) => {
-          if (typeof next === "number") {
+            if (typeof next === "number") {
                 window.setStatusBarMessage(l10n.t("No more bookmarks"), 2000);
                 return;
-          } else {
-               
-              if ((direction === Directions.Backward && next.line < activeSelectionStartLine) || 
-                (direction === Directions.Forward && next.line > activeSelectionStartLine)) {
-                  window.setStatusBarMessage(l10n.t("No more bookmarks to shrink"), 2000);
-              } else {                  
-                shrinkSelectionToPosition(window.activeTextEditor, next, direction);
-              }
-          }
+            } else {
+
+                if ((direction === Directions.Backward && next.line < activeSelectionStartLine) ||
+                    (direction === Directions.Forward && next.line > activeSelectionStartLine)) {
+                    window.setStatusBarMessage(l10n.t("No more bookmarks to shrink"), 2000);
+                } else {
+                    shrinkSelectionToPosition(window.activeTextEditor, next, direction);
+                }
+            }
         })
         .catch((error) => {
-          console.log("activeBookmark.nextBookmark REJECT" + error);
-        });        
+            console.log("activeBookmark.nextBookmark REJECT" + error);
+        });
 }
 
 export function expandSelectionToNextBookmark(bookmarks: Controller, direction: Directions) {

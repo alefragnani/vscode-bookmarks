@@ -12,14 +12,14 @@ import { File } from "../core/file";
 import { indexOfBookmark } from "../core/operations";
 
 export class Sticky {
-    
-    public static stickyBookmarks(event: vscode.TextDocumentChangeEvent, 
-                                  activeEditorCountLine: number, activeBookmark: File, 
-                                  activeEditor: vscode.TextEditor, controller: Controller): boolean {
+
+    public static stickyBookmarks(event: vscode.TextDocumentChangeEvent,
+        activeEditorCountLine: number, activeBookmark: File,
+        activeEditor: vscode.TextEditor, controller: Controller): boolean {
 
         let diffLine: number;
         let updatedBookmark = false;
-        
+
         // fix autoTrimWhitespace
         if (this.HadOnlyOneValidContentChange(event)) {
             // add or delete line case
@@ -70,7 +70,7 @@ export class Sticky {
 
                     // also =
                     if (
-                        ((activeBookmark.bookmarks[ index ].line >  eventLine) && (eventcharacter > 0)) ||
+                        ((activeBookmark.bookmarks[ index ].line > eventLine) && (eventcharacter > 0)) ||
                         ((activeBookmark.bookmarks[ index ].line >= eventLine) && (eventcharacter === 0))
                     ) {
                         let newLine = activeBookmark.bookmarks[ index ].line + diffLine;
@@ -78,7 +78,7 @@ export class Sticky {
                             newLine = 0;
                         }
 
-                        controller.updateBookmark(index, activeBookmark.bookmarks[index].line, newLine);
+                        controller.updateBookmark(index, activeBookmark.bookmarks[ index ].line, newLine);
                         updatedBookmark = true;
                     }
                 }
@@ -133,7 +133,7 @@ export class Sticky {
         let updatedBookmark = false;
         let diffLine;
         const selection = activeEditor.selection;
-        let lineRange = [selection.start.line, selection.end.line];
+        let lineRange = [ selection.start.line, selection.end.line ];
         const lineMin = Math.min.apply(this, lineRange);
         let lineMax = Math.max.apply(this, lineRange);
 
@@ -174,12 +174,11 @@ export class Sticky {
             lineRange = lineRange.reverse();
         }
 
-// tslint:disable-next-line: forin
         for (const i in lineRange) {
-            const index = indexOfBookmark(activeBookmark, lineRange[i]);
+            const index = indexOfBookmark(activeBookmark, lineRange[ i ]);
             if (index > -1) {
-                controller.updateBookmark(index, lineRange[i], 
-                    activeBookmark.bookmarks[index].line - diffLine);
+                controller.updateBookmark(index, lineRange[ i ],
+                    activeBookmark.bookmarks[ index ].line - diffLine);
                 updatedBookmark = true;
             }
         }
@@ -193,12 +192,12 @@ export class Sticky {
     }
 
     private static HadOnlyOneValidContentChange(event): boolean {
-        
+
         // not valid
         if ((event.contentChanges.length > 2) || (event.contentChanges.length === 0)) {
             return false;
         }
-        
+
         // normal behavior - only 1
         if (event.contentChanges.length === 1) {
             return true;
@@ -208,19 +207,19 @@ export class Sticky {
                 if (!trimAutoWhitespace) {
                     return false;
                 }
-                
+
                 // check if the first range is 'equal' and if the second is 'empty'
-                const fistRangeEquals: boolean = 
+                const fistRangeEquals: boolean =
                     (event.contentChanges[ 0 ].range.start.character === event.contentChanges[ 0 ].range.end.character) &&
-                    (event.contentChanges[ 0 ].range.start.line === event.contentChanges[ 0 ].range.end.line);    
-                    
-                const secondRangeEmpty: boolean = (event.contentChanges[ 1 ].text === "") && 
+                    (event.contentChanges[ 0 ].range.start.line === event.contentChanges[ 0 ].range.end.line);
+
+                const secondRangeEmpty: boolean = (event.contentChanges[ 1 ].text === "") &&
                     (event.contentChanges[ 1 ].range.start.line === event.contentChanges[ 1 ].range.end.line) &&
                     (event.contentChanges[ 1 ].range.start.character === 0) &&
                     (event.contentChanges[ 1 ].range.end.character > 0);
-                
+
                 return fistRangeEquals && secondRangeEmpty;
-            } 
+            }
         }
-     }
+    }
 }

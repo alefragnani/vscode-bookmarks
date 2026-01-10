@@ -23,7 +23,7 @@ export async function pickController(controllers: Controller[], activeController
             label: codicons.root_folder + ' ' + controller.workspaceFolder.name,
             description: path.dirname(controller.workspaceFolder.uri.path),
             controller: controller
-        }
+        };
     }
     );
 
@@ -32,7 +32,7 @@ export async function pickController(controllers: Controller[], activeController
     });
 
     if (typeof selection === "undefined") {
-        return undefined
+        return undefined;
     }
 
     return selection.controller;

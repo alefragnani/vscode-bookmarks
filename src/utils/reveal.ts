@@ -20,13 +20,13 @@ export function revealPosition(line: number, column: number): void {
         const revealType = getRevealLocationConfig(line === window.activeTextEditor.selection.active.line);
         const newPosition = new Selection(line, column, line, column);
         window.activeTextEditor.selection = newPosition;
-    window.activeTextEditor.revealRange(newPosition, revealType);
+        window.activeTextEditor.revealRange(newPosition, revealType);
     }
 }
 
 export async function previewPositionInDocument(point: Bookmark, uri: Uri): Promise<void> {
     const textDocument = await workspace.openTextDocument(uri);
-    await window.showTextDocument(textDocument, { preserveFocus: true, preview: true } );
+    await window.showTextDocument(textDocument, { preserveFocus: true, preview: true });
     revealPosition(point.line - 1, point.column - 1);
 }
 

@@ -105,7 +105,7 @@ export async function writeFileUri(uri: Uri, contents: string): Promise<void> {
 }
 
 export async function deleteFileUri(uri: Uri): Promise<void> {
-    await workspace.fs.delete(uri, { recursive: false, useTrash: false})
+    await workspace.fs.delete(uri, { recursive: false, useTrash: false});
 }
 
 export function parsePosition(position: string): Bookmark | undefined {
