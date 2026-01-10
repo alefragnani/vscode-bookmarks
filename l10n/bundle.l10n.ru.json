@@ -26,6 +26,5 @@
     "Error loading Bookmarks: ":"Ошибка загрузки закладок: ",
     "Are you sure you want to clear all bookmarks from this file?": "Вы уверены, что хотите очистить все закладки из этого файла?",
     "Are you sure you want to clear all bookmarks from all files?": "Вы уверены, что хотите очистить все закладки из всех файлов?",
-    "Clear": "Очистить",
-    "Cancel": "Отменить"
+    "Clear": "Очистить"
 }

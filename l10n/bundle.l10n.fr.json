@@ -26,6 +26,5 @@
     "Error loading Bookmarks: ": "Erreur lors du chargement des signets : ",
     "Are you sure you want to clear all bookmarks from this file?": "Êtes-vous sûr de vouloir effacer tous les signets de ce fichier?",
     "Are you sure you want to clear all bookmarks from all files?": "Êtes-vous sûr de vouloir effacer tous les signets de tous les fichiers?",
-    "Clear": "Effacer",
-    "Cancel": "Annuler"
+    "Clear": "Effacer"
 }

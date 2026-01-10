@@ -26,6 +26,5 @@
     "Error loading Bookmarks: ":"Error al cargar Bookmarks: ",
     "Are you sure you want to clear all bookmarks from this file?": "¿Estás seguro de que quieres borrar todos los marcadores de este archivo?",
     "Are you sure you want to clear all bookmarks from all files?": "¿Estás seguro de que quieres borrar todos los marcadores de todos los archivos?",
-    "Clear": "Borrar",
-    "Cancel": "Cancelar"
+    "Clear": "Borrar"
 }

@@ -290,26 +290,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("_bookmarks.clearFromFile", async node => {
         // Check if we should confirm before clearing (this is from Side Bar)
-        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "never");
-        
-        if (confirmClearSetting !== "never") {
-            // Show confirmation if setting is "always" or "sideBar"
-            if (confirmClearSetting === "always" || confirmClearSetting === "sideBar") {
-                const message = vscode.l10n.t("Are you sure you want to clear all bookmarks from this file?");
-                const clearButton = vscode.l10n.t("Clear");
-                const cancelButton = vscode.l10n.t("Cancel");
-                
-                const result = await vscode.window.showWarningMessage(
-                    message,
-                    { modal: true },
-                    clearButton,
-                    cancelButton
-                );
-                
-                if (result !== clearButton) {
-                    return;
-                }
-            }
+        const shouldProceed = await shouldConfirmClear("sideBar");
+        if (!shouldProceed) {
+            return;
         }
 
         activeController.clear(node.bookmark);
@@ -518,18 +501,13 @@ export async function activate(context: vscode.ExtensionContext) {
         }
         
         // Show confirmation dialog
-        const message = source === "sideBar" 
-            ? vscode.l10n.t("Are you sure you want to clear all bookmarks from this file?")
-            : vscode.l10n.t("Are you sure you want to clear all bookmarks from this file?");
-        
+        const message = vscode.l10n.t("Are you sure you want to clear all bookmarks from this file?");
         const clearButton = vscode.l10n.t("Clear");
-        const cancelButton = vscode.l10n.t("Cancel");
         
         const result = await vscode.window.showWarningMessage(
             message,
             { modal: true },
-            clearButton,
-            cancelButton
+            clearButton
         );
         
         return result === clearButton;
@@ -568,13 +546,11 @@ export async function activate(context: vscode.ExtensionContext) {
             if (confirmClearSetting === "always" || confirmClearSetting === "commandPalette") {
                 const message = vscode.l10n.t("Are you sure you want to clear all bookmarks from all files?");
                 const clearButton = vscode.l10n.t("Clear");
-                const cancelButton = vscode.l10n.t("Cancel");
                 
                 const result = await vscode.window.showWarningMessage(
                     message,
                     { modal: true },
-                    clearButton,
-                    cancelButton
+                    clearButton
                 );
                 
                 if (result !== clearButton) {

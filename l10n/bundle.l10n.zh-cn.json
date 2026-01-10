@@ -26,6 +26,5 @@
     "Error loading Bookmarks: ": "在载入书签时发生问题: ",
     "Are you sure you want to clear all bookmarks from this file?": "您确定要清除此文件中的所有书签吗？",
     "Are you sure you want to clear all bookmarks from all files?": "您确定要清除所有文件中的所有书签吗？",
-    "Clear": "清除",
-    "Cancel": "取消"
+    "Clear": "清除"
 }
