@@ -21,7 +21,7 @@
     "bookmarks.commands.toggleLabeled.title": "Basculer étiquetté",
     "bookmarks.commands.refresh.title": "Actualiser",
     "bookmarks.commands.addBookmark#sideBar.title": "Ajouter un signet",
-    "bookmarks.commands.find#sideBar.title": "Rechercher",
+    "bookmarks.commands.search#sideBar.title": "Rechercher",
     "bookmarks.commands.viewAsTree#sideBar.title": "Afficher comme arbre",
     "bookmarks.commands.viewAsList#sideBar.title": "Afficher comme liste",
     "bookmarks.commands.openSettings.title": "Ouvrir les paramètres",

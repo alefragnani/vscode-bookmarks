@@ -21,7 +21,7 @@
     "bookmarks.commands.toggleLabeled.title": "تغییر وضعیت برچسب‌دار",
     "bookmarks.commands.refresh.title": "بازآوری",
     "bookmarks.commands.addBookmark#sideBar.title": "افزودن نشانک",
-    "bookmarks.commands.find#sideBar.title": "یافتن",
+    "bookmarks.commands.search#sideBar.title": "جستجو",
     "bookmarks.commands.viewAsTree#sideBar.title": "نمایش به صورت درخت",
     "bookmarks.commands.viewAsList#sideBar.title": "نمایش به صورت فهرست",
     "bookmarks.commands.openSettings.title": "باز کردن تنظیمات",

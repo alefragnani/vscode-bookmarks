@@ -144,8 +144,8 @@
                 "icon": "$(add)"
             },
             {
-                "command": "_bookmarks.find#sideBar",
-                "title": "%bookmarks.commands.find#sideBar.title%",
+                "command": "_bookmarks.search#sideBar",
+                "title": "%bookmarks.commands.search#sideBar.title%",
                 "icon": "$(search)"
             },
             {
@@ -258,7 +258,7 @@
                     "when": "false"
                 },
                 {
-                    "command": "_bookmarks.find#sideBar",
+                    "command": "_bookmarks.search#sideBar",
                     "when": "false"
                 },
                 {
@@ -358,7 +358,7 @@
                     "group": "navigation@5"
                 },
                 {
-                    "command": "_bookmarks.find#sideBar",
+                    "command": "_bookmarks.search#sideBar",
                     "when": "view == bookmarksExplorer",
                     "group": "navigation@7"
                 },

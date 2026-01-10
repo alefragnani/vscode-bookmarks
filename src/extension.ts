@@ -247,8 +247,8 @@ export async function activate(context: vscode.ExtensionContext) {
         bookmarkProvider.refresh();
     });
 
-    vscode.commands.registerCommand("_bookmarks.find#sideBar", () => {
-        list();
+    vscode.commands.registerCommand("_bookmarks.search#sideBar", () => {
+        listFromAllFiles();
     });
 
     vscode.commands.registerCommand("_bookmarks.addBookmark#sideBar", async () => {

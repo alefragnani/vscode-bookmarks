@@ -21,7 +21,7 @@
     "bookmarks.commands.toggleLabeled.title": "Переключить маркер",
     "bookmarks.commands.refresh.title": "Обновить",
     "bookmarks.commands.addBookmark#sideBar.title": "Добавить закладку",
-    "bookmarks.commands.find#sideBar.title": "Найти",
+    "bookmarks.commands.search#sideBar.title": "Поиск",
     "bookmarks.commands.viewAsTree#sideBar.title": "Просмотреть как дерево",
     "bookmarks.commands.viewAsList#sideBar.title": "Просмотреть как список",
     "bookmarks.commands.openSettings.title": "Открыть настройки",

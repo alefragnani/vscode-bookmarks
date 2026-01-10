@@ -21,7 +21,7 @@
     "bookmarks.commands.toggleLabeled.title": "Toggle Labeled",
     "bookmarks.commands.refresh.title": "Refresh",
     "bookmarks.commands.addBookmark#sideBar.title": "Add Bookmark",
-    "bookmarks.commands.find#sideBar.title": "Find",
+    "bookmarks.commands.search#sideBar.title": "Search",
     "bookmarks.commands.viewAsTree#sideBar.title": "View as Tree",
     "bookmarks.commands.viewAsList#sideBar.title": "View as List",
     "bookmarks.commands.openSettings.title": "Open Settings",
