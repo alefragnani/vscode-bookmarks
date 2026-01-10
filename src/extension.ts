@@ -290,7 +290,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("_bookmarks.clearFromFile", async node => {
         // Check if we should confirm before clearing (this is from Side Bar)
-        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "always");
+        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "never");
         
         if (confirmClearSetting !== "never") {
             // Show confirmation if setting is "always" or "sideBar"
@@ -502,7 +502,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     async function shouldConfirmClear(source: "commandPalette" | "sideBar"): Promise<boolean> {
-        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "always");
+        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "never");
         
         // Check if confirmation should be shown based on the setting
         if (confirmClearSetting === "never") {
@@ -561,7 +561,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         // Show confirmation dialog for clearing all files
-        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "always");
+        const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "never");
         
         if (confirmClearSetting !== "never") {
             // Show confirmation unless set to "never" (sideBar and commandPalette settings don't apply here since this is always from command palette)

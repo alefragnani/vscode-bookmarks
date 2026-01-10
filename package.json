@@ -649,7 +649,7 @@
                 },
                 "bookmarks.confirmClear": {
                     "type": "string",
-                    "default": "always",
+                    "default": "never",
                     "description": "%bookmarks.configuration.confirmClear.description%",
                     "enum": [
                         "never",

@@ -78,8 +78,6 @@
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.center": "Afficher la ligne marquée dans la bande centrale de la règle d’aperçu",
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.right": "Afficher la ligne marquée dans la bande de droite de la règle d’aperçu",
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.full": "Afficher la ligne marquée dans la hauteur complète de la règle d’aperçu",
-    "bookmarks.configuration.export.pattern.description": "Spécifie le modèle d'exportation pour les signets. Variables disponibles: $file, $line, $column, $label, $content",
-    "bookmarks.configuration.export.pattern.markdownDescription": "Spécifie le modèle d'exportation pour les signets. Variables disponibles: `$file`, `$line`, `$column`, `$label`, `$content`",
     "bookmarks.configuration.confirmClear.description": "Spécifie quand un message de confirmation doit être affiché avant d'effacer les signets",
     "bookmarks.configuration.confirmClear.enumDescriptions.never": "Ne jamais afficher le message de confirmation",
     "bookmarks.configuration.confirmClear.enumDescriptions.always": "Toujours afficher le message de confirmation",

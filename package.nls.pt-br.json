@@ -78,8 +78,6 @@
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.center": "Mostrar a linha com bookmark na faixa central da régua de visão geral",
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.right": "Mostrar a linha com bookmark na faixa direita da régua de visão geral",
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.full": "Mostrar a linha com bookmark na altura total da régua de visão geral",
-    "bookmarks.configuration.export.pattern.description": "Especifica o padrão de exportação para marcadores. Variáveis disponíveis: $file, $line, $column, $label, $content",
-    "bookmarks.configuration.export.pattern.markdownDescription": "Especifica o padrão de exportação para marcadores. Variáveis disponíveis: `$file`, `$line`, `$column`, `$label`, `$content`",
     "bookmarks.configuration.confirmClear.description": "Especifica quando uma mensagem de confirmação deve ser exibida antes de limpar marcadores",
     "bookmarks.configuration.confirmClear.enumDescriptions.never": "Nunca mostrar mensagem de confirmação",
     "bookmarks.configuration.confirmClear.enumDescriptions.always": "Sempre mostrar mensagem de confirmação",

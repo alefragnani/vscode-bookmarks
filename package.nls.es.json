@@ -78,8 +78,6 @@
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.center": "Mostrar la línea con marcador en el carril central de la regla general",
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.right": "Mostrar la línea con marcador en el carril derecho de la regla general",
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.full": "Mostrar la línea con marcador en toda la altura de la regla general",
-    "bookmarks.configuration.export.pattern.description": "Especifica el patrón de exportación para marcadores. Variables disponibles: $file, $line, $column, $label, $content",
-    "bookmarks.configuration.export.pattern.markdownDescription": "Especifica el patrón de exportación para marcadores. Variables disponibles: `$file`, `$line`, `$column`, `$label`, `$content`",
     "bookmarks.configuration.confirmClear.description": "Especifica cuándo se debe mostrar un mensaje de confirmación antes de borrar marcadores",
     "bookmarks.configuration.confirmClear.enumDescriptions.never": "Nunca mostrar mensaje de confirmación",
     "bookmarks.configuration.confirmClear.enumDescriptions.always": "Siempre mostrar mensaje de confirmación",

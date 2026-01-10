@@ -78,8 +78,6 @@
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.center": "केंद्र लेन में दिखाएँ",
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.right": "दाईं लेन में दिखाएँ",
     "bookmarks.configuration.overviewRulerLane.enumDescriptions.full": "पूरी ऊंचाई पर दिखाएँ",
-    "bookmarks.configuration.export.pattern.description": "बुकमार्क के लिए निर्यात पैटर्न निर्दिष्ट करता है। उपलब्ध चर: $file, $line, $column, $label, $content",
-    "bookmarks.configuration.export.pattern.markdownDescription": "बुकमार्क के लिए निर्यात पैटर्न निर्दिष्ट करता है। उपलब्ध चर: `$file`, `$line`, `$column`, `$label`, `$content`",
     "bookmarks.configuration.confirmClear.description": "बुकमार्क साफ़ करने से पहले पुष्टि संदेश कब प्रदर्शित किया जाना चाहिए, यह निर्दिष्ट करता है",
     "bookmarks.configuration.confirmClear.enumDescriptions.never": "पुष्टि संदेश कभी न दिखाएं",
     "bookmarks.configuration.confirmClear.enumDescriptions.always": "हमेशा पुष्टि संदेश दिखाएं",
