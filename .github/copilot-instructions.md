@@ -1,4 +1,4 @@
-# Copilot Instructions for vscode-bookmarks
+# Copilot Instructions for Bookmarks
 
 ## Project Overview
 
