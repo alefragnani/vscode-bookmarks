@@ -87,7 +87,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
             if (changedFromFalseToTrue && vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
                 let hasAnyBookmarksFile = false;
-                let mostRecentMtime = 0;
+                let mostRecentMtime: number | undefined;
                 const isSingleWorkspace = vscode.workspace.workspaceFolders.length === 1;
 
                 // Check all workspace folders to find if bookmarks.json exists
@@ -97,7 +97,7 @@ export async function activate(context: vscode.ExtensionContext) {
                     try {
                         const stat = await vscode.workspace.fs.stat(bookmarksFileInProject);
                         hasAnyBookmarksFile = true;
-                        if (stat.mtime > mostRecentMtime) {
+                        if (mostRecentMtime === undefined || stat.mtime > mostRecentMtime) {
                             mostRecentMtime = stat.mtime;
                         }
                         // For single workspace, we can break after finding the file
@@ -113,15 +113,15 @@ export async function activate(context: vscode.ExtensionContext) {
                     }
                 }
 
-                if (hasAnyBookmarksFile) {
+                if (hasAnyBookmarksFile && mostRecentMtime !== undefined) {
                     const loadOption = vscode.l10n.t("Load bookmarks from project");
                     const message = vscode.l10n.t("A local copy of bookmarks was found in the project. Do you want to load?");
-                    const lastModifiedLabel = new Date(mostRecentMtime).toLocaleString();
+                    const mostRecentModificationLabel = new Date(mostRecentMtime).toLocaleString();
 
                     // Different messages for single vs multi-root workspaces
                     const detailMessage = isSingleWorkspace
-                        ? vscode.l10n.t("The project's file was last modified at {0}", lastModifiedLabel)
-                        : vscode.l10n.t("One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}", lastModifiedLabel);
+                        ? vscode.l10n.t("The project's file was last modified at {0}", mostRecentModificationLabel)
+                        : vscode.l10n.t("One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}", mostRecentModificationLabel);
 
                     const selection = await vscode.window.showInformationMessage(
                         message,
