@@ -26,5 +26,8 @@
     "Error loading Bookmarks: ":"載入書籤錯誤：",
     "Are you sure you want to clear all bookmarks from this file?": "您確定要清除此檔案中的所有書籤嗎？",
     "Are you sure you want to clear all bookmarks from all files?": "您確定要清除所有檔案中的所有書籤嗎？",
+    "Load bookmarks from project": "從專案載入書籤",
+    "A local copy of bookmarks was found in the project. Do you want to load?": "在專案中發現了書籤的本機副本。要載入它嗎？",
+    "The project's file were last modified at {0}": "專案檔案上次修改時間為 {0}",
     "Clear": "清除"
 }

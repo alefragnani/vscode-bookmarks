@@ -26,5 +26,8 @@
     "Error loading Bookmarks: ":"Error loading Bookmarks: ",
     "Are you sure you want to clear all bookmarks from this file?":"Are you sure you want to clear all bookmarks from this file?",
     "Are you sure you want to clear all bookmarks from all files?":"Are you sure you want to clear all bookmarks from all files?",
+    "Load bookmarks from project":"Load bookmarks from project",
+    "A local copy of bookmarks was found in the project. Do you want to load?":"A local copy of bookmarks was found in the project. Do you want to load?",
+    "The project's file were last modified at {0}":"The project's file were last modified at {0}",
     "Clear":"Clear"
 }

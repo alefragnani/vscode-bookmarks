@@ -26,5 +26,8 @@
     "Error loading Bookmarks: ": "Erreur lors du chargement des signets : ",
     "Are you sure you want to clear all bookmarks from this file?": "Êtes-vous sûr de vouloir effacer tous les signets de ce fichier?",
     "Are you sure you want to clear all bookmarks from all files?": "Êtes-vous sûr de vouloir effacer tous les signets de tous les fichiers?",
+    "Load bookmarks from project": "Charger les signets depuis le projet",
+    "A local copy of bookmarks was found in the project. Do you want to load?": "Une copie locale des signets a été trouvée dans le projet. Voulez-vous la charger ?",
+    "The project's file were last modified at {0}": "Le fichier du projet a été modifié pour la dernière fois le {0}",
     "Clear": "Effacer"
 }
