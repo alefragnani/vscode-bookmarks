@@ -29,5 +29,6 @@
     "Load bookmarks from project": "Charger les signets depuis le projet",
     "A local copy of bookmarks was found in the project. Do you want to load?": "Une copie locale des signets a été trouvée dans le projet. Voulez-vous la charger ?",
     "The project's file were last modified at {0}": "Le fichier du projet a été modifié pour la dernière fois le {0}",
+    "One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}": "L'un des projets dans le workspace possède un fichier de bookmarks. Le plus récent a été modifié le {0}",
     "Clear": "Effacer"
 }
