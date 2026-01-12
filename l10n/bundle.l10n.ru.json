@@ -26,5 +26,9 @@
     "Error loading Bookmarks: ":"Ошибка загрузки закладок: ",
     "Are you sure you want to clear all bookmarks from this file?": "Вы уверены, что хотите очистить все закладки из этого файла?",
     "Are you sure you want to clear all bookmarks from all files?": "Вы уверены, что хотите очистить все закладки из всех файлов?",
+    "Load bookmarks from project": "Загрузить закладки из проекта",
+    "A local copy of bookmarks was found in the project. Do you want to load?": "В проекте найдена локальная копия закладок. Хотите её загрузить?",
+    "The project's file was last modified at {0}": "Файл проекта был в последний раз изменён {0}",
+    "One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}": "Один из проектов в workspace имеет файл bookmarks. Самый последний был изменён {0}",
     "Clear": "Очистить"
 }

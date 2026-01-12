@@ -31,6 +31,17 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
             this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
         }
 
+        this.registerControllerListeners(controllers);
+    }
+
+    public updateControllers(controllers: Controller[]): void {
+        this.controllers = controllers;
+        this.registerControllerListeners(controllers);
+        this.refresh();
+    }
+
+    private registerControllerListeners(controllers: Controller[]): void {
+
         for (const controller of controllers) {
             controller.onDidClearBookmarks(() => {
                 this._onDidChangeTreeData.fire();
@@ -373,6 +384,7 @@ export class BookmarksExplorer {
     private bookmarksExplorer: vscode.TreeView<BookmarkNode | WorkspaceNode | FileNode>;
     private treeDataProvider: BookmarkProvider;
     private controllers: Controller[];
+    private controllerListenerDisposables: vscode.Disposable[] = [];
 
     constructor(controllers: Controller[]) {
         this.controllers = controllers;
@@ -382,16 +394,26 @@ export class BookmarksExplorer {
             showCollapseAll: true
         });
 
+        this.registerControllerListeners(controllers);
+    }
+
+    private registerControllerListeners(controllers: Controller[]): void {
         for (const controller of controllers) {
-            controller.onDidClearBookmarks(() => {
-                this.updateBadge();
-            });
-            controller.onDidAddBookmark(() => {
-                this.updateBadge();
-            });
-            controller.onDidRemoveBookmark(() => {
-                this.updateBadge();
-            });
+            this.controllerListenerDisposables.push(
+                controller.onDidClearBookmarks(() => {
+                    this.updateBadge();
+                })
+            );
+            this.controllerListenerDisposables.push(
+                controller.onDidAddBookmark(() => {
+                    this.updateBadge();
+                })
+            );
+            this.controllerListenerDisposables.push(
+                controller.onDidRemoveBookmark(() => {
+                    this.updateBadge();
+                })
+            );
         }
     }
 
@@ -442,5 +464,19 @@ export class BookmarksExplorer {
 
         this.bookmarksExplorer.badge = { value: total, tooltip: badgeTooltip };
 
+    }
+
+    updateControllers(controllers: Controller[]): void {
+        this.controllers = controllers;
+        this.treeDataProvider.updateControllers(controllers);
+
+        // Dispose of old listeners to prevent memory leaks
+        this.controllerListenerDisposables.forEach(disposable => disposable.dispose());
+        this.controllerListenerDisposables = [];
+
+        // Register new listeners
+        this.registerControllerListeners(controllers);
+
+        this.updateBadge();
     }
 }

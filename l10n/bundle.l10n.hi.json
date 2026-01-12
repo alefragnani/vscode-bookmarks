@@ -26,5 +26,9 @@
     "Error loading Bookmarks: ": "बुकमार्क लोड करने में त्रुटि: ",
     "Are you sure you want to clear all bookmarks from this file?": "क्या आप वाकई इस फ़ाइल से सभी बुकमार्क साफ़ करना चाहते हैं?",
     "Are you sure you want to clear all bookmarks from all files?": "क्या आप वाकई सभी फ़ाइलों से सभी बुकमार्क साफ़ करना चाहते हैं?",
+    "Load bookmarks from project": "प्रोजेक्ट से बुकमार्क लोड करें",
+    "A local copy of bookmarks was found in the project. Do you want to load?": "प्रोजेक्ट में बुकमार्क की एक स्थानीय प्रति मिली है। क्या आप उसे लोड करना चाहते हैं?",
+    "The project's file was last modified at {0}": "प्रोजेक्ट की फ़ाइल को आखिरी बार {0} पर संशोधित किया गया था",
+    "One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}": "वर्कस्पेस में से एक प्रोजेक्ट में बुकमार्क फ़ाइल है। सबसे हाल की {0} पर संशोधित की गई थी",
     "Clear": "साफ़ करें"
 }

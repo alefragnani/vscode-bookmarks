@@ -25,6 +25,10 @@
 	"files with bookmarks": "pliki z zakładkami",
 	"Error loading Bookmarks: ": "Błąd ładowania Zakładek: ",
     "Are you sure you want to clear all bookmarks from this file?": "Czy na pewno chcesz wyczyścić wszystkie zakładki z tego pliku?",
-    "Are you sure you want to clear all bookmarks from all files?": "Czy na pewno chcesz wyczyścić wszystkie zakładki ze wszystkich plików?",
-    "Clear": "Wyczyść"
+	"Are you sure you want to clear all bookmarks from all files?": "Czy na pewno chcesz wyczyścić wszystkie zakładki ze wszystkich plików?",
+	"Load bookmarks from project": "Wczytaj zakładki z projektu",
+	"A local copy of bookmarks was found in the project. Do you want to load?": "W projekcie znaleziono lokalną kopię zakładek. Czy chcesz ją wczytać?",
+	"The project's file was last modified at {0}": "Plik projektu został ostatnio zmodyfikowany o {0}",
+	"One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}": "Jeden z projektów w workspace ma plik zakładek. Ostatnio zmodyfikowano o {0}",
+	"Clear": "Wyczyść"
 }

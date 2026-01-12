@@ -45,6 +45,8 @@ export async function activate(context: vscode.ExtensionContext) {
     let activeEditorCountLine: number;
     let timeout = null;
 
+    let saveBookmarksInProjectSetting = vscode.workspace.getConfiguration("bookmarks").get<boolean>("saveBookmarksInProject", false);
+
     await registerWhatsNew();
     await registerWalkthrough();
 
@@ -61,7 +63,7 @@ export async function activate(context: vscode.ExtensionContext) {
     registerExport(() => controllers);
     registerHelpAndFeedbackView(context);
 
-    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
+    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(async cfg => {
         // Allow change the gutterIcon without reload
         if (cfg.affectsConfiguration("bookmarks.gutterIconFillColor") ||
             cfg.affectsConfiguration("bookmarks.gutterIconBorderColor") ||
@@ -78,6 +80,79 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         if (cfg.affectsConfiguration("bookmarks.saveBookmarksInProject")) {
+            const newSaveBookmarksInProjectSetting = vscode.workspace.getConfiguration("bookmarks").get<boolean>("saveBookmarksInProject", false);
+
+            const changedFromFalseToTrue = !saveBookmarksInProjectSetting && newSaveBookmarksInProjectSetting;
+            saveBookmarksInProjectSetting = newSaveBookmarksInProjectSetting;
+
+            if (changedFromFalseToTrue && vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
+                let hasAnyBookmarksFile = false;
+                let mostRecentMtime: number | undefined;
+                const isSingleWorkspace = vscode.workspace.workspaceFolders.length === 1;
+
+                // Check all workspace folders to find if bookmarks.json exists
+                // For multi-root, track the most recent modification time
+                for (const workspaceFolder of vscode.workspace.workspaceFolders) {
+                    const bookmarksFileInProject = appendPath(appendPath(workspaceFolder.uri, ".vscode"), "bookmarks.json");
+                    try {
+                        const stat = await vscode.workspace.fs.stat(bookmarksFileInProject);
+                        hasAnyBookmarksFile = true;
+                        if (mostRecentMtime === undefined || stat.mtime > mostRecentMtime) {
+                            mostRecentMtime = stat.mtime;
+                        }
+                        // For single workspace, we can break after finding the file
+                        if (isSingleWorkspace) {
+                            break;
+                        }
+                    } catch (error) {
+                        // It is expected that the bookmarks file might not exist in a workspace;
+                        // ignore "FileNotFound" errors but log any other unexpected errors.
+                        if (!(error instanceof vscode.FileSystemError) || error.code !== "FileNotFound") {
+                            console.error("Error while checking for project bookmarks file:", error);
+                        }
+                    }
+                }
+
+                if (hasAnyBookmarksFile && mostRecentMtime !== undefined) {
+                    const loadOption = vscode.l10n.t("Load bookmarks from project");
+                    const message = vscode.l10n.t("A local copy of bookmarks was found in the project. Do you want to load?");
+                    const mostRecentModificationLabel = new Date(mostRecentMtime).toLocaleString();
+
+                    // Different messages for single vs multi-root workspaces
+                    const detailMessage = isSingleWorkspace
+                        ? vscode.l10n.t("The project's file was last modified at {0}", mostRecentModificationLabel)
+                        : vscode.l10n.t("One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}", mostRecentModificationLabel);
+
+                    const selection = await vscode.window.showInformationMessage(
+                        message,
+                        { modal: true, detail: detailMessage },
+                        loadOption
+                    );
+
+                    if (selection === loadOption) {
+                        const oldControllers = controllers.slice();
+                        await loadWorkspaceState();
+                        for (const controller of oldControllers) {
+                            const disposable = controller as unknown as { dispose?: () => void };
+                            if (typeof disposable.dispose === "function") {
+                                disposable.dispose();
+                            }
+                        }
+                        bookmarkExplorer.updateControllers(controllers);
+                        if (vscode.window.activeTextEditor) {
+                            getActiveController(vscode.window.activeTextEditor.document);
+                            activeController.addFile(vscode.window.activeTextEditor.document.uri);
+                            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
+                            updateDecorations();
+                            updateLinesWithBookmarkContext(activeController.activeFile);
+                        }
+                        return;
+                    }
+
+                    // cancelled: fall through to default handling below without changing controllers
+                }
+            }
+
             splitOrMergeFilesInMultiRootControllers();
             saveWorkspaceState();
         }
