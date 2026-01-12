@@ -87,12 +87,14 @@ export async function activate(context: vscode.ExtensionContext) {
 
             if (changedFromFalseToTrue && vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
                 let hasAnyBookmarksFile = false;
+                let lastModifiedLabel: string;
 
                 for (const workspaceFolder of vscode.workspace.workspaceFolders) {
                     const bookmarksFileInProject = appendPath(appendPath(workspaceFolder.uri, ".vscode"), "bookmarks.json");
                     try {
-                        await vscode.workspace.fs.stat(bookmarksFileInProject);
+                        const stat = await vscode.workspace.fs.stat(bookmarksFileInProject);
                         hasAnyBookmarksFile = true;
+                        lastModifiedLabel = new Date(stat.mtime).toLocaleString();
                         break;
                     } catch {
                         // ignore
@@ -100,18 +102,18 @@ export async function activate(context: vscode.ExtensionContext) {
                 }
 
                 if (hasAnyBookmarksFile) {
-                    const overwriteOption = vscode.l10n.t("Overwrite with current bookmarks");
                     const loadOption = vscode.l10n.t("Load bookmarks from project file");
+                    const message = vscode.l10n.t("A local bookmarks file (.vscode/bookmarks.json) was found (last modified at {0}). Do you want to load bookmarks from that file?", lastModifiedLabel);
 
                     const selection = await vscode.window.showInformationMessage(
-                        vscode.l10n.t("A local bookmarks file (.vscode/bookmarks.json) was found. Do you want to overwrite it with your current bookmarks, or load bookmarks from that file?"),
+                        message,
                         { modal: true },
-                        overwriteOption,
                         loadOption
                     );
 
                     if (selection === loadOption) {
                         await loadWorkspaceState();
+                        bookmarkExplorer.updateControllers(controllers);
                         if (vscode.window.activeTextEditor) {
                             getActiveController(vscode.window.activeTextEditor.document);
                             activeController.addFile(vscode.window.activeTextEditor.document.uri);
@@ -119,15 +121,9 @@ export async function activate(context: vscode.ExtensionContext) {
                             updateDecorations();
                             updateLinesWithBookmarkContext(activeController.activeFile);
                         }
-                        bookmarkProvider.refresh();
                         return;
                     }
 
-                    if (selection === overwriteOption) {
-                        splitOrMergeFilesInMultiRootControllers();
-                        saveWorkspaceState();
-                        return;
-                    }
                     // cancelled: fall through to default handling below without changing controllers
                 }
             }

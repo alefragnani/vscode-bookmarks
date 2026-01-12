@@ -159,6 +159,139 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
         }
     }
 
+    public updateControllers(controllers: Controller[]): void {
+        this.controllers = controllers;
+
+        for (const controller of controllers) {
+            controller.onDidClearBookmarks(() => {
+                this._onDidChangeTreeData.fire();
+            });
+        }
+
+        for (const controller of controllers) {
+
+            controller.onDidAddBookmark(bkm => {
+
+                // no bookmark in this file
+                if (this.tree.length === 0) {
+                    this._onDidChangeTreeData.fire();
+                    return;
+                }
+
+                // has bookmarks - find it
+                for (const bn of this.tree) {
+                    if (bn.bookmark === bkm.file) {
+
+                        if (!bkm.label) {
+                            bn.books.push({
+                                file: bn.books[ 0 ].file,
+                                line: bkm.line,
+                                column: bkm.column,
+                                preview: bkm.linePreview,
+                                uri: bkm.uri
+                            });
+                        } else {
+                            bn.books.push({
+                                file: bn.books[ 0 ].file,
+                                line: bkm.line,
+                                column: bkm.column,
+                                preview: "\u270E " + bkm.label,
+                                uri: bkm.uri
+                            });
+                        }
+
+                        bn.books.sort((n1, n2) => {
+                            if (n1.line > n2.line) {
+                                return 1;
+                            }
+
+                            if (n1.line < n2.line) {
+                                return -1;
+                            }
+
+                            return 0;
+                        });
+
+                        this._onDidChangeTreeData.fire(bn);
+                        return;
+                    }
+                }
+
+                // not found - new file
+                this._onDidChangeTreeData.fire();
+            });
+        }
+
+
+        for (const controller of controllers) {
+
+            controller.onDidRemoveBookmark(bkm => {
+
+                // no bookmark in this file
+                if (this.tree.length === 0) {
+                    this._onDidChangeTreeData.fire();
+                    return;
+                }
+
+                // has bookmarks - find it
+                for (const bn of this.tree) {
+                    if (bn.bookmark === bkm.bookmark) {
+
+                        // last one - reset
+                        if (bn.books.length === 1) {
+                            this._onDidChangeTreeData.fire(null);
+                            return;
+                        }
+
+                        // remove just that one
+                        for (let index = 0; index < bn.books.length; index++) {
+                            const element = bn.books[ index ];
+                            if (element.line === bkm.line) {
+                                bn.books.splice(index, 1);
+                                this._onDidChangeTreeData.fire(bn);
+                                return;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        for (const controller of controllers) {
+
+            controller.onDidUpdateBookmark(bkm => {
+
+                // no bookmark in this file
+                if (this.tree.length === 0) {
+                    this._onDidChangeTreeData.fire();
+                    return;
+                }
+
+                // has bookmarks - find it
+                for (const bn of this.tree) {
+                    if (bn.bookmark === bkm.file) {
+
+                        bn.books[ bkm.index ].line = bkm.line;
+                        bn.books[ bkm.index ].column = bkm.column ? bkm.column : bn.books[ bkm.index ].column;
+                        if (bkm.linePreview) {
+                            bn.books[ bkm.index ].preview = bkm.linePreview;
+                        } else {
+                            bn.books[ bkm.index ].preview = "\u270E " + bkm.label;
+                        }
+
+                        this._onDidChangeTreeData.fire(bn);
+                        return;
+                    }
+                }
+
+                // not found - new file
+                this._onDidChangeTreeData.fire();
+            });
+        }
+
+        this.refresh();
+    }
+
     public refresh(): void {
         this._onDidChangeTreeData.fire();
     }
@@ -442,5 +575,24 @@ export class BookmarksExplorer {
 
         this.bookmarksExplorer.badge = { value: total, tooltip: badgeTooltip };
 
+    }
+
+    updateControllers(controllers: Controller[]): void {
+        this.controllers = controllers;
+        this.treeDataProvider.updateControllers(controllers);
+
+        for (const controller of controllers) {
+            controller.onDidClearBookmarks(() => {
+                this.updateBadge();
+            });
+            controller.onDidAddBookmark(() => {
+                this.updateBadge();
+            });
+            controller.onDidRemoveBookmark(() => {
+                this.updateBadge();
+            });
+        }
+
+        this.updateBadge();
     }
 }
