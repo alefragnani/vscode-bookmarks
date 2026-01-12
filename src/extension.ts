@@ -102,12 +102,12 @@ export async function activate(context: vscode.ExtensionContext) {
                 }
 
                 if (hasAnyBookmarksFile) {
-                    const loadOption = vscode.l10n.t("Load bookmarks from project file");
-                    const message = vscode.l10n.t("A local bookmarks file (.vscode/bookmarks.json) was found (last modified at {0}). Do you want to load bookmarks from that file?", lastModifiedLabel);
+                    const loadOption = vscode.l10n.t("Load bookmarks from project");
+                    const message = vscode.l10n.t("A local copy of bookmarks was found in the project. Do you want to load?");
 
                     const selection = await vscode.window.showInformationMessage(
                         message,
-                        { modal: true },
+                        { modal: true, detail: vscode.l10n.t("The project's file were last modified at {0}", lastModifiedLabel) },
                         loadOption
                     );
 
