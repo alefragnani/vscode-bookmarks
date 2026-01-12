@@ -384,6 +384,7 @@ export class BookmarksExplorer {
     private bookmarksExplorer: vscode.TreeView<BookmarkNode | WorkspaceNode | FileNode>;
     private treeDataProvider: BookmarkProvider;
     private controllers: Controller[];
+    private controllerListenerDisposables: vscode.Disposable[] = [];
 
     constructor(controllers: Controller[]) {
         this.controllers = controllers;
@@ -393,16 +394,26 @@ export class BookmarksExplorer {
             showCollapseAll: true
         });
 
+        this.registerControllerListeners(controllers);
+    }
+
+    private registerControllerListeners(controllers: Controller[]): void {
         for (const controller of controllers) {
-            controller.onDidClearBookmarks(() => {
-                this.updateBadge();
-            });
-            controller.onDidAddBookmark(() => {
-                this.updateBadge();
-            });
-            controller.onDidRemoveBookmark(() => {
-                this.updateBadge();
-            });
+            this.controllerListenerDisposables.push(
+                controller.onDidClearBookmarks(() => {
+                    this.updateBadge();
+                })
+            );
+            this.controllerListenerDisposables.push(
+                controller.onDidAddBookmark(() => {
+                    this.updateBadge();
+                })
+            );
+            this.controllerListenerDisposables.push(
+                controller.onDidRemoveBookmark(() => {
+                    this.updateBadge();
+                })
+            );
         }
     }
 
@@ -459,17 +470,12 @@ export class BookmarksExplorer {
         this.controllers = controllers;
         this.treeDataProvider.updateControllers(controllers);
 
-        for (const controller of controllers) {
-            controller.onDidClearBookmarks(() => {
-                this.updateBadge();
-            });
-            controller.onDidAddBookmark(() => {
-                this.updateBadge();
-            });
-            controller.onDidRemoveBookmark(() => {
-                this.updateBadge();
-            });
-        }
+        // Dispose of old listeners to prevent memory leaks
+        this.controllerListenerDisposables.forEach(disposable => disposable.dispose());
+        this.controllerListenerDisposables = [];
+
+        // Register new listeners
+        this.registerControllerListeners(controllers);
 
         this.updateBadge();
     }
