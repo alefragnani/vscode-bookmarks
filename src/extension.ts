@@ -96,8 +96,12 @@ export async function activate(context: vscode.ExtensionContext) {
                         hasAnyBookmarksFile = true;
                         lastModifiedLabel = new Date(stat.mtime).toLocaleString();
                         break;
-                    } catch {
-                        // ignore
+                    } catch (error) {
+                        // It is expected that the bookmarks file might not exist in a workspace;
+                        // ignore "FileNotFound" errors but log any other unexpected errors.
+                        if (!(error instanceof vscode.FileSystemError) || error.code !== "FileNotFound") {
+                            console.error("Error while checking for project bookmarks file:", error);
+                        }
                     }
                 }
 
@@ -112,7 +116,14 @@ export async function activate(context: vscode.ExtensionContext) {
                     );
 
                     if (selection === loadOption) {
+                        const oldControllers = controllers.slice();
                         await loadWorkspaceState();
+                        for (const controller of oldControllers) {
+                            const disposable = controller as unknown as { dispose?: () => void };
+                            if (typeof disposable.dispose === "function") {
+                                disposable.dispose();
+                            }
+                        }
                         bookmarkExplorer.updateControllers(controllers);
                         if (vscode.window.activeTextEditor) {
                             getActiveController(vscode.window.activeTextEditor.document);
