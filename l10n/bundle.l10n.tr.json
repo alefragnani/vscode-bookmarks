@@ -28,6 +28,7 @@
     "Are you sure you want to clear all bookmarks from all files?": "Tüm dosyalardaki tüm yer işaretlerini temizlemek istediğinizden emin misiniz?",
     "Load bookmarks from project": "Yer işaretlerini projeden yükle",
     "A local copy of bookmarks was found in the project. Do you want to load?": "Projede yer işaretlerinin yerel bir kopyası bulundu. Yüklemek istiyor musunuz?",
-    "The project's file were last modified at {0}": "Proje dosyası son olarak {0} tarihinde değiştirildi",
+    "The project's file was last modified at {0}": "Proje dosyası son olarak {0} tarihinde değiştirildi",
+    "One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}": "Çalışma alanındaki projelerden biri yer işaretleri dosyasına sahip. En son {0} tarihinde değiştirildi",
     "Clear": "Temizle"
 }
