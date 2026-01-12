@@ -45,6 +45,8 @@ export async function activate(context: vscode.ExtensionContext) {
     let activeEditorCountLine: number;
     let timeout = null;
 
+    let saveBookmarksInProjectSetting = vscode.workspace.getConfiguration("bookmarks").get<boolean>("saveBookmarksInProject", false);
+
     await registerWhatsNew();
     await registerWalkthrough();
 
@@ -61,7 +63,7 @@ export async function activate(context: vscode.ExtensionContext) {
     registerExport(() => controllers);
     registerHelpAndFeedbackView(context);
 
-    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(cfg => {
+    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(async cfg => {
         // Allow change the gutterIcon without reload
         if (cfg.affectsConfiguration("bookmarks.gutterIconFillColor") ||
             cfg.affectsConfiguration("bookmarks.gutterIconBorderColor") ||
@@ -78,6 +80,58 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         if (cfg.affectsConfiguration("bookmarks.saveBookmarksInProject")) {
+            const newSaveBookmarksInProjectSetting = vscode.workspace.getConfiguration("bookmarks").get<boolean>("saveBookmarksInProject", false);
+
+            const changedFromFalseToTrue = !saveBookmarksInProjectSetting && newSaveBookmarksInProjectSetting;
+            saveBookmarksInProjectSetting = newSaveBookmarksInProjectSetting;
+
+            if (changedFromFalseToTrue && vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
+                let hasAnyBookmarksFile = false;
+
+                for (const workspaceFolder of vscode.workspace.workspaceFolders) {
+                    const bookmarksFileInProject = appendPath(appendPath(workspaceFolder.uri, ".vscode"), "bookmarks.json");
+                    try {
+                        await vscode.workspace.fs.stat(bookmarksFileInProject);
+                        hasAnyBookmarksFile = true;
+                        break;
+                    } catch {
+                        // ignore
+                    }
+                }
+
+                if (hasAnyBookmarksFile) {
+                    const overwriteOption = vscode.l10n.t("Overwrite with current bookmarks");
+                    const loadOption = vscode.l10n.t("Load bookmarks from project file");
+
+                    const selection = await vscode.window.showInformationMessage(
+                        vscode.l10n.t("A local bookmarks file (.vscode/bookmarks.json) was found. Do you want to overwrite it with your current bookmarks, or load bookmarks from that file?"),
+                        { modal: true },
+                        overwriteOption,
+                        loadOption
+                    );
+
+                    if (selection === loadOption) {
+                        await loadWorkspaceState();
+                        if (vscode.window.activeTextEditor) {
+                            getActiveController(vscode.window.activeTextEditor.document);
+                            activeController.addFile(vscode.window.activeTextEditor.document.uri);
+                            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
+                            updateDecorations();
+                            updateLinesWithBookmarkContext(activeController.activeFile);
+                        }
+                        bookmarkProvider.refresh();
+                        return;
+                    }
+
+                    if (selection === overwriteOption) {
+                        splitOrMergeFilesInMultiRootControllers();
+                        saveWorkspaceState();
+                        return;
+                    }
+                    // cancelled: fall through to default handling below without changing controllers
+                }
+            }
+
             splitOrMergeFilesInMultiRootControllers();
             saveWorkspaceState();
         }
