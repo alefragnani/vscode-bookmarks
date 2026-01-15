@@ -42,6 +42,7 @@
     "bookmarks.commands.supportBookmarks.title": "Support Bookmarks",
     "bookmarks.commands.openSideBar.title": "Open Side Bar",
     "bookmarks.commands.export.title": "Export",
+    "bookmarks.commands.sortByName#sideBar.title": "Sort by Name",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code",
     "bookmarks.configuration.gutterIconPath.description": "Path to another image to be presented as Bookmark",

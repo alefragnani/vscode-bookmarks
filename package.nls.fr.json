@@ -40,6 +40,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "Quoi de neuf",
     "bookmarks.commands.openFolderWelcome.title": "Ouvrir un dossier",
     "bookmarks.commands.supportBookmarks.title": "Support des signets",
+    "bookmarks.commands.sortByName#sideBar.title": "Trier par nom",
     "bookmarks.commands.openSideBar.title": "Ouvrir la barre latérale",
     "bookmarks.configuration.title": "Signets",
     "bookmarks.configuration.saveBookmarksInProject.description": "Permet de sauvegarder (ou restaurer) les signets localement dans le projet/dossier ouvert au lieu de VS Code",

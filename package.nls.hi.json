@@ -40,6 +40,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "नया क्या है",
     "bookmarks.commands.openFolderWelcome.title": "फ़ोल्डर खोलें",
     "bookmarks.commands.supportBookmarks.title": "बुकमार्क्स का समर्थन करें",
+    "bookmarks.commands.sortByName#sideBar.title": "नाम से क्रमबद्ध करें",
     "bookmarks.commands.openSideBar.title": "साइड बार खोलें",
     "bookmarks.configuration.title": "बुकमार्क्स",
     "bookmarks.configuration.saveBookmarksInProject.description": "बुकमार्क्स को प्रोजेक्ट/फ़ोल्डर में स्थानीय रूप से सहेजने (और पुनर्स्थापित) की अनुमति दें",

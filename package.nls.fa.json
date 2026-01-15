@@ -40,6 +40,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "قالبیت های جدید چیست؟",
     "bookmarks.commands.openFolderWelcome.title": "باز کردن پوشه",
     "bookmarks.commands.supportBookmarks.title": "پشتیبانی از Bookmarks",
+    "bookmarks.commands.sortByName#sideBar.title": "مرتب‌سازی بر اساس نام",
     "bookmarks.commands.openSideBar.title": "باز کردن ستون فرعی",
     "bookmarks.configuration.title": "بوکمارک",
     "bookmarks.configuration.saveBookmarksInProject.description": "اجازه دهید بوکمارک به صورت محلی در پروژه/پوشه باز شده ذخیره (و بازیابی) شوند به جای VS Code",

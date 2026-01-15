@@ -40,6 +40,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "Neler Yeni",
     "bookmarks.commands.openFolderWelcome.title": "Klasör Aç",
     "bookmarks.commands.supportBookmarks.title": "Yer İşaretlerini Destekle",
+    "bookmarks.commands.sortByName#sideBar.title": "Ada Göre Sırala",
     "bookmarks.commands.openSideBar.title": "Yan Çubuğu Aç",
     "bookmarks.configuration.title": "Yer İşaretleri",
     "bookmarks.configuration.saveBookmarksInProject.description": "Yer işaretlerinin VS Code yerine Proje/Klasör içerisinde saklanmasına izin ver.",

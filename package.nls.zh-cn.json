@@ -40,6 +40,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "更新内容",
     "bookmarks.commands.openFolderWelcome.title": "打开文件夹",
     "bookmarks.commands.supportBookmarks.title": "支持 Bookmarks 的开发工作",
+    "bookmarks.commands.sortByName#sideBar.title": "按名称排序",
     "bookmarks.configuration.title": "书签",
     "bookmarks.configuration.saveBookmarksInProject.description": "允许书签存储在打开的文件夹或工作区中，而不是在 VS Code 内部保存。",
     "bookmarks.configuration.gutterIconPath.description": "自定义书签图标的图片路径。",

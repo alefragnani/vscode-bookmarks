@@ -10,7 +10,7 @@ enum SuggestionMode {
     suggestWhenSelected = "suggestWhenSelected",
     useWhenSelected = "useWhenSelected",
     suggestWhenSelectedOrLineWhenNoSelected = "suggestWhenSelectedOrLineWhenNoSelected"
-}  
+}
 
 export function useSelectionWhenAvailable(): boolean {
     return workspace.getConfiguration("bookmarks")
@@ -23,7 +23,7 @@ export function suggestLabel(selection: Selection): string {
     switch (configSuggestion) {
         case SuggestionMode.dontUse:
             return "";
-    
+
         case SuggestionMode.suggestWhenSelected:
         case SuggestionMode.useWhenSelected:
             if (!selection.isEmpty) {
@@ -31,14 +31,14 @@ export function suggestLabel(selection: Selection): string {
             } else {
                 return "";
             }
-    
+
         case SuggestionMode.suggestWhenSelectedOrLineWhenNoSelected:
             if (!selection.isEmpty) {
                 return window.activeTextEditor.document.getText(selection);
             } else {
                 return window.activeTextEditor.document.lineAt(selection.start.line).text.trim();
             }
-    
+
         default:
             break;
     }

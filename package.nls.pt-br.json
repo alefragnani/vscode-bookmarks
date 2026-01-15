@@ -40,6 +40,7 @@
     "bookmarks.commands.whatsNewContextMenu.title": "Novidades",
     "bookmarks.commands.openFolderWelcome.title": "Abrir Pasta",
     "bookmarks.commands.supportBookmarks.title": "Suporte Bookmarks",
+    "bookmarks.commands.sortByName#sideBar.title": "Ordenar por Nome",
     "bookmarks.commands.openSideBar.title": "Abrir Barra Lateral",
     "bookmarks.configuration.title": "Bookmarks",
     "bookmarks.configuration.saveBookmarksInProject.description": "Permite que os Bookmarks sejam salvos (e restaurados) localmente no Projeto/Pasta aberto ao invés do VS Code",

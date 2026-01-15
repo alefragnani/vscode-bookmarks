@@ -40,6 +40,7 @@
 	"bookmarks.commands.whatsNewContextMenu.title": "Co nowego",
 	"bookmarks.commands.openFolderWelcome.title": "Otwórz folder",
 	"bookmarks.commands.supportBookmarks.title": "Wsparcie dla Zakładek",
+	"bookmarks.commands.sortByName#sideBar.title": "Sortuj według nazwy",
 	"bookmarks.commands.openSideBar.title": "Otwórz pasek boczny",
 	"bookmarks.configuration.title": "Zakładki",
 	"bookmarks.configuration.saveBookmarksInProject.description": "Pozwala na zapisywanie (i przywracanie) zakładek lokalnie w otwartym Projekcie/Folderze zamiast w VS Code",

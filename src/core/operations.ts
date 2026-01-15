@@ -197,3 +197,45 @@ export function sortBookmarks(file: File): void {
         return 0;
     });
 }
+
+// Extract leading number from label (e.g., "11. startup" -> 11, "abc" -> NaN)
+function extractLeadingNumber(label: string): number {
+    const match = label.match(/^(\d+)/);
+    return match ? Number(match[1]) : NaN;
+}
+
+export function sortBookmarksByName(file: File): void {
+    file.bookmarks.sort((n1, n2) => {
+        const label1 = n1.label || "";
+        const label2 = n2.label || "";
+
+        // Both have no label, sort by line number
+        if (!label1 && !label2) {
+            return n1.line - n2.line;
+        }
+        // Labeled bookmarks come first
+        if (!label1) return 1;
+        if (!label2) return -1;
+
+        // Extract leading numbers (supports "1. startup", "11", etc.)
+        const num1 = extractLeadingNumber(label1);
+        const num2 = extractLeadingNumber(label2);
+        const hasNum1 = !isNaN(num1);
+        const hasNum2 = !isNaN(num2);
+
+        // Both have leading numbers, sort by numeric value
+        if (hasNum1 && hasNum2) {
+            if (num1 !== num2) {
+                return num1 - num2;
+            }
+            // Same number prefix, sort by full label alphabetically
+            return label1.localeCompare(label2);
+        }
+        // Labels with numbers come before labels without
+        if (hasNum1) return -1;
+        if (hasNum2) return 1;
+
+        // Both have no leading numbers, sort alphabetically
+        return label1.localeCompare(label2);
+    });
+}

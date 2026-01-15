@@ -245,6 +245,11 @@
                 "command": "bookmarks.export",
                 "title": "%bookmarks.commands.export.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.sortByName#sideBar",
+                "title": "%bookmarks.commands.sortByName#sideBar.title%",
+                "icon": "$(sort-precedence)"
             }
         ],
         "menus": {
@@ -320,6 +325,10 @@
                 {
                     "command": "_bookmarks.openSideBar",
                     "when": "false"
+                },
+                {
+                    "command": "_bookmarks.sortByName#sideBar",
+                    "when": "false"
                 }
             ],
             "editor/context": [
@@ -361,6 +370,11 @@
                     "command": "_bookmarks.search#sideBar",
                     "when": "view == bookmarksExplorer",
                     "group": "navigation@7"
+                },
+                {
+                    "command": "_bookmarks.sortByName#sideBar",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@8"
                 },
                 {
                     "command": "bookmarks.refresh",
@@ -480,6 +494,10 @@
                 {
                     "command": "_bookmarks.viewAsList#sideBar",
                     "group": "bookmarks#sideBar.view@2"
+                },
+                {
+                    "command": "_bookmarks.sortByName#sideBar",
+                    "group": "bookmarks#sideBar.sort@1"
                 }
             ]
         },
