@@ -9,12 +9,7 @@ import { Bookmark, BookmarkQuickPickItem } from "./bookmark";
 import { Directions, NO_BOOKMARKS, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "./constants";
 import { File } from "./file";
 import { uriExists, uriWith } from "../utils/fs";
-
-// Extract leading number from label (e.g., "11. startup" -> 11, "abc" -> NaN)
-function extractLeadingNumber(label: string): number {
-    const match = label.match(/^(\d+)/);
-    return match ? Number(match[1]) : NaN;
-}
+import { extractLeadingNumber } from "../utils/sortHelpers";
 
 // Get sorted bookmarks based on configuration
 function getSortedBookmarks(bookmarks: Bookmark[]): Bookmark[] {

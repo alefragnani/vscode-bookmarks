@@ -15,14 +15,7 @@ import { BookmarkNode, BookmarkPreview } from "./bookmarkNode";
 import { WorkspaceNode } from "./workspaceNode";
 import { BookmarkNodeKind } from "./nodes";
 import { BadgeConfig } from "../core/constants";
-
-// Extract leading number from preview text (e.g., "✎ 11. startup" -> 11, "abc" -> NaN)
-function extractLeadingNumber(preview: string): number {
-    // Remove the pencil icon prefix if present
-    const cleanPreview = preview.replace(/^\u270E\s*/, "");
-    const match = cleanPreview.match(/^(\d+)/);
-    return match ? Number(match[1]) : NaN;
-}
+import { extractLeadingNumber } from "../utils/sortHelpers";
 
 // Sort bookmarks based on configuration
 function sortBookmarksByConfig(books: BookmarkPreview[]): BookmarkPreview[] {
