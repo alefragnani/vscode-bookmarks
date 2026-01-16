@@ -10,6 +10,63 @@ import { Directions, NO_BOOKMARKS, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_M
 import { File } from "./file";
 import { uriExists, uriWith } from "../utils/fs";
 
+// Extract leading number from label (e.g., "11. startup" -> 11, "abc" -> NaN)
+function extractLeadingNumber(label: string): number {
+    const match = label.match(/^(\d+)/);
+    return match ? Number(match[1]) : NaN;
+}
+
+// Get sorted bookmarks based on configuration
+function getSortedBookmarks(bookmarks: Bookmark[]): Bookmark[] {
+    const sortBy = workspace.getConfiguration("bookmarks").get<string>("sortBy", "line");
+
+    // Create a copy to avoid modifying the original array
+    const sorted = [...bookmarks];
+
+    if (sortBy === "label") {
+        sorted.sort((n1, n2) => {
+            const label1 = n1.label || "";
+            const label2 = n2.label || "";
+
+            // Both have no label, sort by line number
+            if (!label1 && !label2) {
+                return n1.line - n2.line;
+            }
+
+            // Labeled bookmarks come first
+            if (!label1) return 1;
+            if (!label2) return -1;
+
+            // Extract leading numbers for smart sorting
+            const num1 = extractLeadingNumber(label1);
+            const num2 = extractLeadingNumber(label2);
+            const hasNum1 = !isNaN(num1);
+            const hasNum2 = !isNaN(num2);
+
+            // Both have leading numbers
+            if (hasNum1 && hasNum2) {
+                if (num1 !== num2) {
+                    return num1 - num2;
+                }
+                // Same number prefix, sort by full label alphabetically
+                return label1.localeCompare(label2);
+            }
+
+            // Labels with numbers come before labels without
+            if (hasNum1) return -1;
+            if (hasNum2) return 1;
+
+            // Both have no leading numbers, sort alphabetically
+            return label1.localeCompare(label2);
+        });
+    } else {
+        // Default: sort by line number
+        sorted.sort((n1, n2) => n1.line - n2.line);
+    }
+
+    return sorted;
+}
+
 export function nextBookmark(file: File, currentPosition: Position, direction: Directions): Promise<number | Position> {
     return new Promise((resolve, reject) => {
 
@@ -32,17 +89,30 @@ export function nextBookmark(file: File, currentPosition: Position, direction: D
 
         const wrapNavigation: boolean = workspace.getConfiguration("bookmarks").get("wrapNavigation", true);
 
-        let nextBookmark: Position;
+        // Get sorted bookmarks based on configuration
+        const sortedBookmarks = getSortedBookmarks(file.bookmarks);
+
+        // Find current bookmark index (if cursor is on a bookmark)
+        let currentIndex = -1;
+        for (let i = 0; i < sortedBookmarks.length; i++) {
+            if (sortedBookmarks[i].line === currentPosition.line) {
+                currentIndex = i;
+                break;
+            }
+        }
+
+        let nextIndex: number;
 
         if (direction === Directions.Forward) {
-            for (const element of file.bookmarks) {
-                if (element.line > currentPosition.line) {
-                    nextBookmark = new Position(element.line, element.column); // .line
-                    break;
-                }
+            if (currentIndex === -1) {
+                // Not on a bookmark, jump to first bookmark in array
+                nextIndex = 0;
+            } else {
+                // On a bookmark, jump to next in array
+                nextIndex = currentIndex + 1;
             }
 
-            if (typeof nextBookmark === "undefined") {
+            if (nextIndex >= sortedBookmarks.length) {
                 if (navigateThroughAllFiles) {
                     resolve(NO_MORE_BOOKMARKS);
                     return;
@@ -50,22 +120,20 @@ export function nextBookmark(file: File, currentPosition: Position, direction: D
                     resolve(NO_BOOKMARKS_AFTER);
                     return;
                 } else {
-                    resolve(new Position(file.bookmarks[ 0 ].line, file.bookmarks[ 0 ].column));
-                    return;
+                    // Wrap to first bookmark
+                    nextIndex = 0;
                 }
-            } else {
-                resolve(nextBookmark);
-                return;
             }
         } else { // JUMP_BACKWARD
-            for (let index = file.bookmarks.length - 1; index >= 0; index--) {
-                const element = file.bookmarks[ index ];
-                if (element.line < currentPosition.line) {
-                    nextBookmark = new Position(element.line, element.column); // .line
-                    break;
-                }
+            if (currentIndex === -1) {
+                // Not on a bookmark, jump to last bookmark in array
+                nextIndex = sortedBookmarks.length - 1;
+            } else {
+                // On a bookmark, jump to previous in array
+                nextIndex = currentIndex - 1;
             }
-            if (typeof nextBookmark === "undefined") {
+
+            if (nextIndex < 0) {
                 if (navigateThroughAllFiles) {
                     resolve(NO_MORE_BOOKMARKS);
                     return;
@@ -73,14 +141,13 @@ export function nextBookmark(file: File, currentPosition: Position, direction: D
                     resolve(NO_BOOKMARKS_BEFORE);
                     return;
                 } else {
-                    resolve(new Position(file.bookmarks[ file.bookmarks.length - 1 ].line, file.bookmarks[ file.bookmarks.length - 1 ].column));
-                    return;
+                    // Wrap to last bookmark
+                    nextIndex = sortedBookmarks.length - 1;
                 }
-            } else {
-                resolve(nextBookmark);
-                return;
             }
         }
+
+        resolve(new Position(sortedBookmarks[nextIndex].line, sortedBookmarks[nextIndex].column));
     });
 }
 
@@ -195,47 +262,5 @@ export function sortBookmarks(file: File): void {
             return -1;
         }
         return 0;
-    });
-}
-
-// Extract leading number from label (e.g., "11. startup" -> 11, "abc" -> NaN)
-function extractLeadingNumber(label: string): number {
-    const match = label.match(/^(\d+)/);
-    return match ? Number(match[1]) : NaN;
-}
-
-export function sortBookmarksByName(file: File): void {
-    file.bookmarks.sort((n1, n2) => {
-        const label1 = n1.label || "";
-        const label2 = n2.label || "";
-
-        // Both have no label, sort by line number
-        if (!label1 && !label2) {
-            return n1.line - n2.line;
-        }
-        // Labeled bookmarks come first
-        if (!label1) return 1;
-        if (!label2) return -1;
-
-        // Extract leading numbers (supports "1. startup", "11", etc.)
-        const num1 = extractLeadingNumber(label1);
-        const num2 = extractLeadingNumber(label2);
-        const hasNum1 = !isNaN(num1);
-        const hasNum2 = !isNaN(num2);
-
-        // Both have leading numbers, sort by numeric value
-        if (hasNum1 && hasNum2) {
-            if (num1 !== num2) {
-                return num1 - num2;
-            }
-            // Same number prefix, sort by full label alphabetically
-            return label1.localeCompare(label2);
-        }
-        // Labels with numbers come before labels without
-        if (hasNum1) return -1;
-        if (hasNum2) return 1;
-
-        // Both have no leading numbers, sort alphabetically
-        return label1.localeCompare(label2);
     });
 }

@@ -247,9 +247,14 @@
                 "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
-                "command": "_bookmarks.sortByName#sideBar",
-                "title": "%bookmarks.commands.sortByName#sideBar.title%",
-                "icon": "$(sort-precedence)"
+                "command": "_bookmarks.sortByLine#sideBar",
+                "title": "%bookmarks.commands.sortByLine#sideBar.title%",
+                "enablement": "bookmarks.sortByLabel"
+            },
+            {
+                "command": "_bookmarks.sortByLabel#sideBar",
+                "title": "%bookmarks.commands.sortByLabel#sideBar.title%",
+                "enablement": "!bookmarks.sortByLabel"
             }
         ],
         "menus": {
@@ -327,7 +332,11 @@
                     "when": "false"
                 },
                 {
-                    "command": "_bookmarks.sortByName#sideBar",
+                    "command": "_bookmarks.sortByLine#sideBar",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.sortByLabel#sideBar",
                     "when": "false"
                 }
             ],
@@ -370,11 +379,6 @@
                     "command": "_bookmarks.search#sideBar",
                     "when": "view == bookmarksExplorer",
                     "group": "navigation@7"
-                },
-                {
-                    "command": "_bookmarks.sortByName#sideBar",
-                    "when": "view == bookmarksExplorer",
-                    "group": "navigation@8"
                 },
                 {
                     "command": "bookmarks.refresh",
@@ -496,8 +500,12 @@
                     "group": "bookmarks#sideBar.view@2"
                 },
                 {
-                    "command": "_bookmarks.sortByName#sideBar",
+                    "command": "_bookmarks.sortByLine#sideBar",
                     "group": "bookmarks#sideBar.sort@1"
+                },
+                {
+                    "command": "_bookmarks.sortByLabel#sideBar",
+                    "group": "bookmarks#sideBar.sort@2"
                 }
             ]
         },
@@ -694,6 +702,19 @@
                         "%bookmarks.configuration.confirmClear.enumDescriptions.always%",
                         "%bookmarks.configuration.confirmClear.enumDescriptions.commandPalette%",
                         "%bookmarks.configuration.confirmClear.enumDescriptions.sideBar%"
+                    ]
+                },
+                "bookmarks.sortBy": {
+                    "type": "string",
+                    "default": "line",
+                    "description": "%bookmarks.configuration.sortBy.description%",
+                    "enum": [
+                        "line",
+                        "label"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.sortBy.enumDescriptions.line%",
+                        "%bookmarks.configuration.sortBy.enumDescriptions.label%"
                     ]
                 }
             }

@@ -13,7 +13,7 @@ import { Container } from "./core/container";
 import { createBookmarkDecorations, updateDecorationsInActiveEditor } from "./decoration/decoration";
 import { File } from "./core/file";
 import { Controller } from "./core/controller";
-import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks, sortBookmarksByName } from "./core/operations";
+import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "./core/operations";
 import { loadBookmarks, saveBookmarks } from "./storage/workspaceState";
 import { pickController } from "./quickpick/controllerPicker";
 import { expandSelectionToNextBookmark, selectBookmarkedLines, shrinkSelection } from "./selections";
@@ -219,13 +219,19 @@ export async function activate(context: vscode.ExtensionContext) {
         bookmarkProvider.refresh();
     }
 
-    vscode.commands.registerCommand("_bookmarks.sortByName#sideBar", () => {
-        for (const controller of controllers) {
-            for (const file of controller.files) {
-                sortBookmarksByName(file);
-            }
-        }
-        saveWorkspaceState();
+    // Initialize sort context
+    const sortBy = vscode.workspace.getConfiguration("bookmarks").get<string>("sortBy", "line");
+    vscode.commands.executeCommand("setContext", "bookmarks.sortByLabel", sortBy === "label");
+
+    vscode.commands.registerCommand("_bookmarks.sortByLine#sideBar", async () => {
+        await vscode.workspace.getConfiguration("bookmarks").update("sortBy", "line", vscode.ConfigurationTarget.Global);
+        vscode.commands.executeCommand("setContext", "bookmarks.sortByLabel", false);
+        bookmarkProvider.refresh();
+    });
+
+    vscode.commands.registerCommand("_bookmarks.sortByLabel#sideBar", async () => {
+        await vscode.workspace.getConfiguration("bookmarks").update("sortBy", "label", vscode.ConfigurationTarget.Global);
+        vscode.commands.executeCommand("setContext", "bookmarks.sortByLabel", true);
         bookmarkProvider.refresh();
     });
 
