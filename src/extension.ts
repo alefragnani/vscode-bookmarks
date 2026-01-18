@@ -15,6 +15,7 @@ import { File } from "./core/file";
 import { Controller } from "./core/controller";
 import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "./core/operations";
 import { loadBookmarks, saveBookmarks } from "./storage/workspaceState";
+import { BookmarkNoteProvider } from "./providers/bookmarkNoteProvider";
 import { pickController } from "./quickpick/controllerPicker";
 import { expandSelectionToNextBookmark, selectBookmarkedLines, shrinkSelection } from "./selections";
 import { BookmarksExplorer } from "./sidebar/bookmarkProvider";
@@ -26,6 +27,7 @@ import { appendPath, getRelativePath } from "./utils/fs";
 import { isInDiffEditor, previewPositionInDocument, revealPosition } from "./utils/reveal";
 import { registerOpenSettings } from "./commands/openSettings";
 import { registerSupportBookmarks } from "./commands/supportBookmarks";
+import { registerEditBookmarkNote } from "./commands/editBookmarkNote";
 import { registerExport } from "./commands/export";
 import { registerHelpAndFeedbackView } from "./sidebar/helpAndFeedbackView";
 import { registerWhatsNew } from "./whats-new/commands";
@@ -47,7 +49,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
     let saveBookmarksInProjectSetting = vscode.workspace.getConfiguration("bookmarks").get<boolean>("saveBookmarksInProject", false);
 
-    await registerWhatsNew();
     await registerWalkthrough();
 
     context.subscriptions.push(vscode.commands.registerCommand("_bookmarks.openFolderWelcome", () => {
@@ -61,7 +62,11 @@ export async function activate(context: vscode.ExtensionContext) {
     registerOpenSettings();
     registerSupportBookmarks();
     registerExport(() => controllers);
+    registerEditBookmarkNote(controllers);
     registerHelpAndFeedbackView(context);
+
+    const noteProvider = new BookmarkNoteProvider(controllers);
+    context.subscriptions.push(vscode.workspace.registerFileSystemProvider('vscode-bookmarks-note', noteProvider, { isCaseSensitive: true }));
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(async cfg => {
         // Allow change the gutterIcon without reload
@@ -380,20 +385,20 @@ export async function activate(context: vscode.ExtensionContext) {
     });
 
     vscode.commands.registerCommand("_bookmarks.deleteBookmark", node => {
-        const book: File = activeController.fromUri(node.command.arguments[ 3 ]);
-        const index = indexOfBookmark(book, node.command.arguments[ 1 ] - 1);
-        activeController.removeBookmark(index, node.command.arguments[ 1 ] - 1, book);
+        const book: File = activeController.fromUri(node.command.arguments[3]);
+        const index = indexOfBookmark(book, node.command.arguments[1] - 1);
+        activeController.removeBookmark(index, node.command.arguments[1] - 1, book);
         saveWorkspaceState();
         updateDecorations();
     });
 
     vscode.commands.registerCommand("_bookmarks.editLabel", node => {
-        const book: File = activeController.fromUri(node.command.arguments[ 3 ]);
-        const index = indexOfBookmark(book, node.command.arguments[ 1 ] - 1);
+        const book: File = activeController.fromUri(node.command.arguments[3]);
+        const index = indexOfBookmark(book, node.command.arguments[1] - 1);
 
-        const position: vscode.Position = new vscode.Position(node.command.arguments[ 1 ] - 1,
-            node.command.arguments[ 2 ] - 1);
-        const suggestedLabel = book.bookmarks[ index ].label || node.label;
+        const position: vscode.Position = new vscode.Position(node.command.arguments[1] - 1,
+            node.command.arguments[2] - 1);
+        const suggestedLabel = book.bookmarks[index].label || node.label;
         askForBookmarkLabel(index, position, suggestedLabel, false, book);
     });
 
@@ -413,7 +418,7 @@ export async function activate(context: vscode.ExtensionContext) {
     function getActiveController(document: TextDocument): void {
         // system files don't have workspace, so use the first one [0]
         if (!vscode.workspace.getWorkspaceFolder(document.uri)) {
-            activeController = controllers[ 0 ];
+            activeController = controllers[0];
             return;
         }
 
@@ -434,7 +439,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         if (saveBookmarksInProject) {
             const validFiles = activeController.files.filter(file => !file.path.startsWith(".."));
-            activeController.files = [ ...validFiles ];
+            activeController.files = [...validFiles];
         }
     }
 
@@ -453,7 +458,7 @@ export async function activate(context: vscode.ExtensionContext) {
             //if (vscode.workspace.workspaceFolders.length > 1) {
             // no matter how many workspaceFolders exists, will always load from [0] because even with 
             // multi-root, there would be no way to load state from different folders
-            const ctrl = await loadBookmarks(vscode.workspace.workspaceFolders[ 0 ]);
+            const ctrl = await loadBookmarks(vscode.workspace.workspaceFolders[0]);
             controllers.push(ctrl);
             activeController = ctrl;
             return;
@@ -468,7 +473,7 @@ export async function activate(context: vscode.ExtensionContext) {
             })
         );
         if (controllers.length === 1) {
-            activeController = controllers[ 0 ];
+            activeController = controllers[0];
         }
     }
 
@@ -517,11 +522,11 @@ export async function activate(context: vscode.ExtensionContext) {
         const items: vscode.QuickPickItem[] = [];
         for (let index = 0; index < activeController.activeFile.bookmarks.length; index++) {
 
-            const bookmarkLine = activeController.activeFile.bookmarks[ index ].line + 1;
-            const bookmarkColumn = activeController.activeFile.bookmarks[ index ].column + 1;
+            const bookmarkLine = activeController.activeFile.bookmarks[index].line + 1;
+            const bookmarkColumn = activeController.activeFile.bookmarks[index].column + 1;
             const lineText = vscode.window.activeTextEditor.document.lineAt(bookmarkLine - 1).text.trim();
 
-            if (activeController.activeFile.bookmarks[ index ].label === "") {
+            if (activeController.activeFile.bookmarks[index].label === "") {
                 items.push({
                     description: "(Ln " + bookmarkLine.toString() + ", Col " +
                         bookmarkColumn.toString() + ")", label: lineText
@@ -530,7 +535,7 @@ export async function activate(context: vscode.ExtensionContext) {
                 items.push({
                     description: "(Ln " + bookmarkLine.toString() + ", Col " +
                         bookmarkColumn.toString() + ")",
-                    label: codicons.tag + " " + activeController.activeFile.bookmarks[ index ].label
+                    label: codicons.tag + " " + activeController.activeFile.bookmarks[index].label
                 });
             }
         }
@@ -565,12 +570,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
     async function shouldConfirmClear(source: "commandPalette" | "sideBar"): Promise<boolean> {
         const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "never");
-        
+
         // Check if confirmation should be shown based on the setting
         if (confirmClearSetting === "never") {
             return true; // No confirmation needed, proceed with clear
         }
-        
+
         if (confirmClearSetting === "always") {
             // Always show confirmation
         } else if (confirmClearSetting === "commandPalette" && source !== "commandPalette") {
@@ -578,17 +583,17 @@ export async function activate(context: vscode.ExtensionContext) {
         } else if (confirmClearSetting === "sideBar" && source !== "sideBar") {
             return true; // Confirmation only for side bar, this is not from side bar
         }
-        
+
         // Show confirmation dialog
         const message = vscode.l10n.t("Are you sure you want to clear all bookmarks from this file?");
         const clearButton = vscode.l10n.t("Clear");
-        
+
         const result = await vscode.window.showWarningMessage(
             message,
             { modal: true },
             clearButton
         );
-        
+
         return result === clearButton;
     }
 
@@ -619,19 +624,19 @@ export async function activate(context: vscode.ExtensionContext) {
 
         // Show confirmation dialog for clearing all files
         const confirmClearSetting = vscode.workspace.getConfiguration("bookmarks").get<string>("confirmClear", "never");
-        
+
         if (confirmClearSetting !== "never") {
             // Show confirmation unless set to "never" (sideBar and commandPalette settings don't apply here since this is always from command palette)
             if (confirmClearSetting === "always" || confirmClearSetting === "commandPalette") {
                 const message = vscode.l10n.t("Are you sure you want to clear all bookmarks from all files?");
                 const clearButton = vscode.l10n.t("Clear");
-                
+
                 const result = await vscode.window.showWarningMessage(
                     message,
                     { modal: true },
                     clearButton
                 );
-                
+
                 if (result !== clearButton) {
                     return;
                 }
@@ -839,8 +844,8 @@ export async function activate(context: vscode.ExtensionContext) {
                             //   if (nextDocument.toString() === activeDocument) {
                             if (uriDocument.fsPath === vscode.window.activeTextEditor.document.uri.fsPath) {
                                 const bookmarkIndex = direction === Directions.Forward ? 0 : activeController.activeFile.bookmarks.length - 1;
-                                revealPosition(activeController.activeFile.bookmarks[ bookmarkIndex ].line,
-                                    activeController.activeFile.bookmarks[ bookmarkIndex ].column);
+                                revealPosition(activeController.activeFile.bookmarks[bookmarkIndex].line,
+                                    activeController.activeFile.bookmarks[bookmarkIndex].column);
                             } else {
                                 // const uriDocument = !activeController.workspaceFolder
                                 //     ? Uri.file(nextDocument.toString())
@@ -850,8 +855,8 @@ export async function activate(context: vscode.ExtensionContext) {
                                 vscode.workspace.openTextDocument(uriDocument).then(doc => {
                                     vscode.window.showTextDocument(doc, tabGroupColumn).then(() => {
                                         const bookmarkIndex = direction === Directions.Forward ? 0 : activeController.activeFile.bookmarks.length - 1;
-                                        revealPosition(activeController.activeFile.bookmarks[ bookmarkIndex ].line,
-                                            activeController.activeFile.bookmarks[ bookmarkIndex ].column);
+                                        revealPosition(activeController.activeFile.bookmarks[bookmarkIndex].line,
+                                            activeController.activeFile.bookmarks[bookmarkIndex].column);
                                     });
                                 });
                             }
@@ -923,9 +928,10 @@ export async function activate(context: vscode.ExtensionContext) {
                 return;
             }
             if (index >= 0) {
-                activeController.removeBookmark(index, position.line, book);
+                activeController.updateLabel(index, position, bookmarkLabel);
+            } else {
+                activeController.addBookmark(position, bookmarkLabel, book);
             }
-            activeController.addBookmark(position, bookmarkLabel, book);
 
             // toggle editing mode
             if (jumpToPosition) {
@@ -1020,8 +1026,8 @@ export async function activate(context: vscode.ExtensionContext) {
         // ask label
         let oldLabel = "";
         if (!params && suggestion === "" && selections.length === 1) {
-            const index = indexOfBookmark(activeController.activeFile, selections[ 0 ].active.line);
-            oldLabel = index > -1 ? activeController.activeFile.bookmarks[ index ].label : "";
+            const index = indexOfBookmark(activeController.activeFile, selections[0].active.line);
+            oldLabel = index > -1 ? activeController.activeFile.bookmarks[index].label : "";
             suggestion = oldLabel;
         }
         // let oldLabel: string = "";

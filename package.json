@@ -198,6 +198,11 @@
                 "icon": "$(edit)"
             },
             {
+                "command": "_bookmarks.editBookmarkNote",
+                "title": "Edit Note",
+                "icon": "$(note)"
+            },
+            {
                 "command": "_bookmarks.addBookmarkAtLine#gutter",
                 "title": "%bookmarks.commands.addBookmarkAtLine#gutter.title%"
             },
@@ -422,6 +427,11 @@
                     "command": "_bookmarks.editLabel",
                     "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
                     "group": "bookmark@1"
+                },
+                {
+                    "command": "_bookmarks.editBookmarkNote",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "bookmark@3"
                 },
                 {
                     "command": "_bookmarks.editLabel",

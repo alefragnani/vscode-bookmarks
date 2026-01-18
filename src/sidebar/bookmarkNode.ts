@@ -3,7 +3,7 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import { Command, TreeItem, TreeItemCollapsibleState, Uri, workspace } from "vscode";
+import { Command, MarkdownString, TreeItem, TreeItemCollapsibleState, Uri, workspace } from "vscode";
 import { DEFAULT_GUTTER_ICON_BORDER_COLOR, DEFAULT_GUTTER_ICON_FILL_COLOR } from "../core/constants";
 import { File } from "../core/file";
 import { BookmarkNodeKind } from "./nodes";
@@ -14,6 +14,7 @@ export interface BookmarkPreview {
     column: number;
     preview: string;
     uri: Uri;
+    note?: string;
 }
 
 export class BookmarkNode extends TreeItem {
@@ -25,11 +26,17 @@ export class BookmarkNode extends TreeItem {
         public readonly kind: BookmarkNodeKind,
         public readonly bookmark: File,
         public readonly books?: BookmarkPreview[],
-        public readonly command?: Command
+        public readonly command?: Command,
+        public readonly note?: string
     ) {
         super(label, collapsibleState);
 
         this.description = relativePath;
+        if (note) {
+            this.tooltip = new MarkdownString(note);
+        } else {
+            this.tooltip = undefined; // Default behavior
+        }
         const iconFillColor = workspace.getConfiguration("bookmarks").get("gutterIconFillColor", DEFAULT_GUTTER_ICON_FILL_COLOR);
         const iconBorderColor = workspace.getConfiguration("bookmarks").get("gutterIconBorderColor", DEFAULT_GUTTER_ICON_BORDER_COLOR);
         const iconPath = Uri.parse(
