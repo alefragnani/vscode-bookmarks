@@ -1,10 +1,9 @@
 /*---------------------------------------------------------------------------------------------
 *  Copyright (c) Alessandro Fragnani. All rights reserved.
-*  Licensed under the MIT License. See License.md in the project root for license information.
+*  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-// tslint:disable-next-line:max-line-length
-import { ChangeLogItem, ChangeLogKind, ContentProvider, Header, Image, Sponsor, IssueKind, SupportChannel, SocialMediaProvider, SponsorProvider } from "../../vscode-whats-new/src/ContentProvider";
+import { ChangeLogItem, ChangeLogKind, ContentProvider, Header, Image, IssueKind, SupportChannel, SocialMediaProvider } from "../../vscode-whats-new/src/ContentProvider";
 
 export class BookmarksContentProvider implements ContentProvider {
 
@@ -21,159 +20,130 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.2", releaseDate: "September 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
-        });        
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.1", releaseDate: "August 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Remove unnecessary files from extension package",
-                id: 465,
-                kind: IssueKind.Issue
-            }
-        });       
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.2.0", releaseDate: "August 2021" } });
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "14.0.0", releaseDate: "November 2025" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "New <b>Sticky Engine</b> with improved support to Formatters, Multi-cursor and Undo operations",
-                id: 463,
-                kind: IssueKind.Issue
+                message: "Fully Open Source again",
+                id: 523,
+                kind: IssueKind.Issue,
             }
         });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "<b>View as Tree</b> and <b>View as List</b> options in Side Bar",
-                id: 453,
-                kind: IssueKind.Issue
+                message: "Update Side Bar: Count Badge description",
+                id: 739,
+                kind: IssueKind.Issue,
             }
         });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "New command to Hide/Show bookmark position in Side Bar",
-                id: 143,
-                kind: IssueKind.Issue
+                message: "Reuse opened file",
+                id: 775,
+                kind: IssueKind.Issue,
             }
         });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "Updated translations",
-                id: 464,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmark positions didn't update after pasting content above",
-                id: 446,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmark positions didn't update after adding empty lines above",
-                id: 457,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmark moving off original line",
-                id: 168,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Undo messes up bookmarks",
-                id: 116,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "<b>Toggle</b> command in Notebook cells causes duplicate editor to be opened",
-                id: 456,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "<b>Toggle</b> command causes exiting diff editor",
-                id: 440,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.1.0", releaseDate: "May 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Support <b>Virtual Workspaces</b>",
-                id: 432,
-                kind: IssueKind.Issue
+                message: "New setting to hide Welcome view",
+                id: 792,
+                kind: IssueKind.Issue,
             }
         });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "Support <b>Workspace Trust</b>",
-                id: 430,
-                kind: IssueKind.Issue
+                message: "New setting to specify the Bookmark's overview ruler lane",
+                id: 357,
+                kind: IssueKind.Issue,
             }
         });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "Return to line/column when cancel List or List from All Files",
-                id: 386,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Update pt-br translation",
-                id: 376,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Latest bookmark could not be removed",
-                id: 422,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Minor grammatical and spelling issue",
-                id: 388,
+                message: "Added color format support for gutter icon color settings",
+                id: 814,
                 kind: IssueKind.PR,
-                kudos: "@derekpock"
+                kudos: "@ajpemok"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Persian translations",
+                id: 813,
+                kind: IssueKind.PR,
+                kudos: "@k1nxx"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "French translations",
+                id: 789,
+                kind: IssueKind.PR,
+                kudos: "@alex-kinokon"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Hindi translations",
+                id: 787,
+                kind: IssueKind.PR,
+                kudos: "@jatinderbhola"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Polish translations",
+                id: 708,
+                kind: IssueKind.PR,
+                kudos: "@Rinnsy"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Update Simplified Chinese translations",
+                id: 707,
+                kind: IssueKind.PR,
+                kudos: "@GreyElaina"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Clear command not updating context menu",
+                id: 758,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Side Bar: Count Badge tooltip error",
+                id: 809,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Incorrect command in documentation",
+                id: 797,
+                kind: IssueKind.Issue,
             }
         });
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
             detail: {
-                message: "Security Alert: lodash",
-                id: 433,
+                message: "Security Alert: braces",
+                id: 728,
                 kind: IssueKind.PR,
                 kudos: "dependabot"
             }
@@ -181,8 +151,8 @@ export class BookmarksContentProvider implements ContentProvider {
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
             detail: {
-                message: "Security Alert: ssri",
-                id: 425,
+                message: "Security Alert: webpack",
+                id: 746,
                 kind: IssueKind.PR,
                 kudos: "dependabot"
             }
@@ -190,158 +160,175 @@ export class BookmarksContentProvider implements ContentProvider {
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
             detail: {
-                message: "Security Alert: y18n",
-                id: 418,
-                kind: IssueKind.PR,
-                kudos: "dependabot"
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Security Alert: elliptic",
-                id: 408,
+                message: "Security Alert: serialize-javascript and mocha",
+                id: 772,
                 kind: IssueKind.PR,
                 kudos: "dependabot"
             }
         });
 
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.4", releaseDate: "March 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Bookmarks on deleted/missing files breaks jumping",
-                id: 390,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Toggling bookmarks on Untitled documents does not work",
-                id: 391,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.3", releaseDate: "March 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.2", releaseDate: "February 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Command `bookmarks.toggle` not found - loading empty workspace with random files",
-                id: 395,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.1", releaseDate: "February 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.FIXED,
-            detail: {
-                message: "Command `bookmarks.toggle` not found - extension was not activated",
-                id: 387,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.0.0", releaseDate: "February 2021" } });
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.5.0", releaseDate: "March 2024" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "Support <b>Remote Development</b>",
-                id: 230,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Improvements on <b>multi-root</b> support",
-                id: 193,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Group bookmarks by folder on multi-root in Side Bar",
-                id: 249,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.NEW,
-            detail: {
-                message: "Cross-platform support",
-                id: 205,
-                kind: IssueKind.Issue
-            }
-        });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Do not show welcome page if installed by Settings Sync",
-                id: 377,
-                kind: IssueKind.Issue
-            }
-        });
-
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.4", releaseDate: "January 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
-        });
-        
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.3", releaseDate: "January 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: {
-                message: "Added new translations",
-                id: 367,
+                message: "Turkish translations",
+                id: 683,
                 kind: IssueKind.PR,
-                kudos: "@loniceras"
+                kudos: "@ksckaan1"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "New setting to choose viewport position on navigation",
+                id: 504,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Simplified Chinese translations",
+                id: 635,
+                kind: IssueKind.PR,
+                kudos: "@huangyxi"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Refine extension settings query",
+                id: 681,
+                kind: IssueKind.PR,
+                kudos: "@aramikuto"
+            }
+        });
+
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.4.2", releaseDate: "September 2023" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Spanish translations",
+                id: 629,
+                kind: IssueKind.PR,
+                kudos: "@JoseDeFreitas"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Toggle bookmark via mouse click (context menu) outdated by Explorer View",
+                id: 627,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Support for <b>vscode-memfs FileSystemProvider</b>",
+                id: 645,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Typos in Portuguese translations",
+                id: 635,
+                kind: IssueKind.Issue
             }
         });
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
-            detail: "Update Tabnine URL"
+            detail: {
+                message: "Security Alert: word-wrap",
+                id: 634,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
         });
-        
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.2", releaseDate: "January 2021" } });
-        changeLog.push({
-            kind: ChangeLogKind.INTERNAL,
-            detail: "Tabnine becomes a Sponsor"
-        });
-        
-        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "12.1.0", releaseDate: "December 2020" } });
+
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "13.4.0", releaseDate: "June 2023" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
             detail: {
-                message: "Support submenu for editor commands",
-                id: 351,
+                message: "Add <b>Getting Started/Walkthrough</b> support",
+                id: 442,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add Toggle bookmark via mouse click (context menu)",
+                id: 615,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add <b>Localization (l10n)</b> support",
+                id: 565,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add Side Bar Badge",
+                id: 153,
                 kind: IssueKind.Issue
             }
         });
         changeLog.push({
             kind: ChangeLogKind.CHANGED,
             detail: {
-                message: "Setting <b>bookmarks.navigateThroughAllFiles</b> is now <b>true</b> by default",
-                id: 102,
+                message: "Avoid What's New when using Gitpod",
+                id: 611,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Avoid What's New when installing lower versions",
+                id: 611,
+                kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Repeated gutter icon on line wrap",
+                id: 552,
                 kind: IssueKind.Issue
             }
         });
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
             detail: {
-                message: "Remove unnecessary files from extension package",
-                id: 355,
+                message: "Support Implicit Activation Event API",
+                id: 573,
                 kind: IssueKind.Issue
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Security Alert: minimatch",
+                id: 566,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Security Alert: terser",
+                id: 546,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
             }
         });
 
@@ -351,8 +338,8 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideSupportChannels(): SupportChannel[] {
         const supportChannels: SupportChannel[] = [];
         supportChannels.push({
-            title: "Become a sponsor on Patreon",
-            link: "https://www.patreon.com/alefragnani",
+            title: "Become a sponsor on GitHub",
+            link: "https://github.com/sponsors/alefragnani",
             message: "Become a Sponsor"
         });
         supportChannels.push({
@@ -361,47 +348,6 @@ export class BookmarksContentProvider implements ContentProvider {
             message: "Donate via PayPal"
         });
         return supportChannels;
-    }
-}
-
-export class BookmarksSponsorProvider implements SponsorProvider {
-    public provideSponsors(): Sponsor[] {
-        const sponsors: Sponsor[] = [];
-        const sponsorCodeStream: Sponsor = <Sponsor>{
-            title: "Learn more about Codestream",
-            link: "https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner",
-            image: {
-                dark: "https://alt-images.codestream.com/codestream_logo_bookmarks.png",
-                light: "https://alt-images.codestream.com/codestream_logo_bookmarks.png"
-            },
-            width: 52,
-            // message: `<p>Eliminate context switching and costly distractions. 
-            //     Create and merge PRs and perform code reviews from inside your 
-            //     IDE while using jump-to-definition, your keybindings, and other IDE favorites.</p>`,
-            // extra:
-            //     `<a title="Learn more about CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=bookmarks&utm_medium=banner">
-            //     Learn more</a>`
-        };
-        sponsors.push(sponsorCodeStream);
-        const sponsorTabnine: Sponsor = <Sponsor>{
-            title: "Learn more about Tabnine",
-            link: "https://bit.ly/2LZsrQ9",
-            image: {
-                dark: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png",
-                light: "https://github.com/alefragnani/oss-resources/raw/master/images/sponsors/tabnine-hi-res.png"
-            },
-            width: 40,
-            // message: `<p>Improve your Bookmarks experience with Tabnine code 
-            //     completions! Tabnine is a free powerful Artificial Intelligence 
-            //     assistant designed to help you code faster, reduce mistakes, 
-            //     and discover best coding practices - without ever leaving the 
-            //     comfort of VSCode.</p>`,
-            // extra:
-            //     `<a title="Learn more about Tabnine" href="https://www.tabnine.com">
-            //     Get it now</a>`
-        };
-        sponsors.push(sponsorTabnine);
-        return sponsors;
     }
 }
 

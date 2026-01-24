@@ -1,20 +1,19 @@
 /*---------------------------------------------------------------------------------------------
 *  Copyright (c) Alessandro Fragnani. All rights reserved.
-*  Licensed under the MIT License. See License.md in the project root for license information.
+*  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
 import { commands } from "vscode";
-import { Container } from "../../vscode-bookmarks-core/src/container";
+import { Container } from "../core/container";
 import { WhatsNewManager } from "../../vscode-whats-new/src/Manager";
-import { BookmarksSocialMediaProvider, BookmarksSponsorProvider, BookmarksContentProvider } from "./contentProvider";
+import { BookmarksSocialMediaProvider, BookmarksContentProvider } from "./contentProvider";
 
-export function registerWhatsNew() {
+export async function registerWhatsNew() {
     const provider = new BookmarksContentProvider();
     const viewer = new WhatsNewManager(Container.context)
         .registerContentProvider("alefragnani", "Bookmarks", provider)
-        .registerSocialMediaProvider(new BookmarksSocialMediaProvider())
-        .registerSponsorProvider(new BookmarksSponsorProvider());
-    viewer.showPageInActivation();
+        .registerSocialMediaProvider(new BookmarksSocialMediaProvider());
+    await viewer.showPageInActivation();
     Container.context.subscriptions.push(commands.registerCommand("bookmarks.whatsNew", () => viewer.showPage()));
     Container.context.subscriptions.push(commands.registerCommand("_bookmarks.whatsNewContextMenu", () => viewer.showPage()));
 }

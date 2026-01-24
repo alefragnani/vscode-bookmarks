@@ -1,3 +1,87 @@
+## [14.0.0] - 2025-12-10
+### Added
+- Fully Open Source again (issue [#523](https://github.com/alefragnani/vscode-bookmarks/issues/523))
+- Update Side Bar: Count Badge description (issue [#739](https://github.com/alefragnani/vscode-bookmarks/issues/739))
+- Reuse opened file (issue [#775](https://github.com/alefragnani/vscode-bookmarks/issues/775))
+- New setting to hide Welcome view (issue [#792](https://github.com/alefragnani/vscode-bookmarks/issues/792))
+- New setting to specify the Bookmark's overview ruler lane (issue [#357](https://github.com/alefragnani/vscode-bookmarks/issues/357))
+- Added color format support for gutter icon color settings (PR [#814](https://github.com/alefragnani/vscode-bookmarks/pull/814) - kudos to @ajpemok)
+- Persian translations (PR [#813](https://github.com/alefragnani/vscode-bookmarks/pull/813) - kudos to @k1nxx)
+- French translations (PR [#789](https://github.com/alefragnani/vscode-bookmarks/pull/789) - kudos to @alex-kinokon)
+- Hindi translations (PR [#787](https://github.com/alefragnani/vscode-bookmarks/pull/787) - kudos to @jatinderbhola)
+- Polish translations (PR [#708](https://github.com/alefragnani/vscode-bookmarks/pull/708) - kudos to @Rinnsy)
+- Update Simplified Chinese translations (PR [#707](https://github.com/alefragnani/vscode-bookmarks/pull/707) - kudos to @GreyElaina)
+
+### Fixed
+- Clear command not updating context menu (issue [#758](https://github.com/alefragnani/vscode-bookmarks/issues/758))
+- Side Bar: Count Badge tooltip error (issue [#809](https://github.com/alefragnani/vscode-bookmarks/issues/809))
+- Incorrect command in documentation (issue [#797](https://github.com/alefragnani/vscode-bookmarks/issues/797))
+
+### Internal
+- Security Alert: braces (dependabot [PR #728](https://github.com/alefragnani/vscode-bookmarks/pull/728))
+- Security Alert: webpack (dependabot [PR #746](https://github.com/alefragnani/vscode-bookmarks/pull/746))
+- Security Alert: serialize-javascript and mocha (dependabot [PR #772](https://github.com/alefragnani/vscode-bookmarks/pull/772))
+
+## [13.5.0] - 2024-04-03
+### Added
+- Turkish translations (PR [#683](https://github.com/alefragnani/vscode-bookmarks/pull/683) - kudos to @ksckaan1)
+- New setting to choose viewport position on navigation (issue [#504](https://github.com/alefragnani/vscode-bookmarks/issues/504))
+
+### Fixed
+- Simplified Chinese translations (PR [#635](https://github.com/alefragnani/vscode-bookmarks/pull/635) - kudos to @huangyxi)
+- Refine extension settings query (PR [#681](https://github.com/alefragnani/vscode-bookmarks/pull/681) - kudos to @aramikuto)
+
+## [13.4.2] - 2023-10-06
+### Added
+- Spanish translations (PR [#629](https://github.com/alefragnani/vscode-bookmarks/pull/629) - kudos to @JoseDeFreitas)
+
+### Fixed
+- Toogle bookmark via mouse click (context menu) outdated by Explorer view (issue [#627](https://github.com/alefragnani/vscode-bookmarks/issues/627))
+- Support for `vscode-memfs` FileSystemProvider (issue [#645](https://github.com/alefragnani/vscode-bookmarks/issues/645))
+- Typos in Portuguese translations (PR [#635](https://github.com/alefragnani/vscode-bookmarks/pull/635))
+
+### Internal
+- Security Alert: word-wrap (dependabot [PR #634](https://github.com/alefragnani/vscode-bookmarks/pull/634))
+
+## [13.4.0] - 2023-07-12
+### Added
+- Getting Started/Walkthrough (issue [#442](https://github.com/alefragnani/vscode-bookmarks/issues/442))
+- Toggle bookmark via mouse click (context menu) (issue [#615](https://github.com/alefragnani/vscode-bookmarks/issues/615))
+- Localization (l10n) support (issue [#565](https://github.com/alefragnani/vscode-bookmarks/issues/565))
+- Side Bar Badge (issue [#153](https://github.com/alefragnani/vscode-bookmarks/issues/153))
+
+### Changed
+- Avoid What's New when using Gitpod (issue [#611](https://github.com/alefragnani/vscode-bookmarks/issues/611))
+- Avoid What's New when installing lower versions (issue [#611](https://github.com/alefragnani/vscode-bookmarks/issues/611))
+
+### Fixed
+- Repeated gutter icon on line wrap (issue [#552](https://github.com/alefragnani/vscode-bookmarks/issues/552))
+
+### Internal
+- Support Implicit Activation Events API (issue [#572](https://github.com/alefragnani/vscode-bookmarks/issues/572))
+- Security Alert: minimatch (dependabot [PR #566](https://github.com/alefragnani/vscode-bookmarks/pull/566))
+- Security Alert: terser (dependabot [PR #546](https://github.com/alefragnani/vscode-bookmarks/pull/546))
+
+## [13.3.1] - 2022-07-18
+### Internal
+- Add GitHub Sponsors support (PR [#544](https://github.com/alefragnani/vscode-bookmarks/pull/544))
+
+## [13.3.0] - 2022-05-08
+### Added
+- New setting to decide if should delete bookmark if associated line is deleted (issue [#503](https://github.com/alefragnani/vscode-bookmarks/issues/503))
+- Allow customization of bookmark icon - border and fill colors (issue [#445](https://github.com/alefragnani/vscode-bookmarks/issues/445))
+
+### Fixed
+- Bookmarks being lost on file renames (issue [#529](https://github.com/alefragnani/vscode-bookmarks/issues/529))
+
+## [13.2.4] - 2022-02-23
+### Internal
+- Update Tabnine URL
+
+## [13.2.3] - 2022-02-08
+### Internal
+- Duckly becomes a Sponsor
+
 ## [13.2.2] - 2021-10-08
 ### Internal
 - Update Tabnine URL
