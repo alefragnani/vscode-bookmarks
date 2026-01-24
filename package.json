@@ -220,6 +220,11 @@
                 "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
+                "command": "_bookmarks.clearFromAllFiles#sideBar",
+                "title": "%bookmarks.commands.clearFromAllFiles#sideBar.title%",
+                "icon": "$(clear-all)"
+            },
+            {
                 "command": "bookmarks.whatsNew",
                 "title": "%bookmarks.commands.whatsNew.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
@@ -263,6 +268,10 @@
                 },
                 {
                     "command": "bookmarks.refresh",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.clearFromAllFiles#sideBar",
                     "when": "false"
                 },
                 {
@@ -366,6 +375,11 @@
                     "command": "bookmarks.refresh",
                     "when": "view == bookmarksExplorer",
                     "group": "navigation@10"
+                },
+                {
+                    "command": "_bookmarks.clearFromAllFiles#sideBar",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@11"
                 },
                 {
                     "command": "_bookmarks.viewAsList#sideBar",

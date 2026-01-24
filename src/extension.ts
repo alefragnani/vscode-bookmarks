@@ -399,6 +399,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("bookmarks.clear", () => clear("commandPalette"));
     vscode.commands.registerCommand("bookmarks.clearFromAllFiles", () => clearFromAllFiles());
+    vscode.commands.registerCommand("_bookmarks.clearFromAllFiles#sideBar", () => clearFromAllFiles());
     vscode.commands.registerCommand("bookmarks.selectLines", () => selectBookmarkedLines(activeController));
     vscode.commands.registerCommand("bookmarks.expandSelectionToNext", () => expandSelectionToNextBookmark(activeController, Directions.Forward));
     vscode.commands.registerCommand("bookmarks.expandSelectionToPrevious", () => expandSelectionToNextBookmark(activeController, Directions.Backward));

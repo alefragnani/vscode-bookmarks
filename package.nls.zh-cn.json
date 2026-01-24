@@ -36,6 +36,7 @@
     "bookmarks.commands.removeBookmarkAtLine#gutter.title": "删除书签",
     "bookmarks.commands.listFromAllFiles.title": "列出所有书签",
     "bookmarks.commands.clearFromAllFiles.title": "全部清空",
+    "bookmarks.commands.clearFromAllFiles#sideBar.title": "全部清空",
     "bookmarks.commands.whatsNew.title": "更新内容",
     "bookmarks.commands.whatsNewContextMenu.title": "更新内容",
     "bookmarks.commands.openFolderWelcome.title": "打开文件夹",
