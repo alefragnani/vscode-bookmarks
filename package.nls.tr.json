@@ -36,6 +36,7 @@
     "bookmarks.commands.removeBookmarkAtLine#gutter.title": "Yer İşaretini Kaldır",
     "bookmarks.commands.listFromAllFiles.title": "Tüm Dosyalardan Listele",
     "bookmarks.commands.clearFromAllFiles.title": "Tüm Dosyalardan Temizle",
+    "bookmarks.commands.clearFromAllFiles#sideBar.title": "Tüm Dosyalardan Temizle",
     "bookmarks.commands.whatsNew.title": "Neler Yeni",
     "bookmarks.commands.whatsNewContextMenu.title": "Neler Yeni",
     "bookmarks.commands.openFolderWelcome.title": "Klasör Aç",

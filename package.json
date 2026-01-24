@@ -220,8 +220,8 @@
                 "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
-                "command": "bookmarks.clearFromAllFilesSide",
-                "title": "%bookmarks.commands.clearFromAllFiles.title%",
+                "command": "_bookmarks.clearFromAllFiles#sideBar",
+                "title": "%bookmarks.commands.clearFromAllFiles#sideBar.title%",
                 "icon": "$(clear-all)"
             },
             {
@@ -271,7 +271,7 @@
                     "when": "false"
                 },
                 {
-                    "command": "bookmarks.clearFromAllFilesSide",
+                    "command": "_bookmarks.clearFromAllFiles#sideBar",
                     "when": "false"
                 },
                 {
@@ -377,7 +377,7 @@
                     "group": "navigation@10"
                 },
                 {
-                    "command": "bookmarks.clearFromAllFilesSide",
+                    "command": "_bookmarks.clearFromAllFiles#sideBar",
                     "when": "view == bookmarksExplorer",
                     "group": "navigation@11"
                 },

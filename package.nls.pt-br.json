@@ -36,6 +36,7 @@
     "bookmarks.commands.removeBookmarkAtLine#gutter.title": "Remover Bookmark",
     "bookmarks.commands.listFromAllFiles.title": "Listar de Todos os Arquivos",
     "bookmarks.commands.clearFromAllFiles.title": "Limpar de Todos os Arquivos",
+    "bookmarks.commands.clearFromAllFiles#sideBar.title": "Limpar de Todos os Arquivos",
     "bookmarks.commands.whatsNew.title": "Novidades",
     "bookmarks.commands.whatsNewContextMenu.title": "Novidades",
     "bookmarks.commands.openFolderWelcome.title": "Abrir Pasta",

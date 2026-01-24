@@ -36,6 +36,7 @@
     "bookmarks.commands.removeBookmarkAtLine#gutter.title": "Удалить закладку",
     "bookmarks.commands.listFromAllFiles.title": "Список из всех файлов",
     "bookmarks.commands.clearFromAllFiles.title": "Очистить из всех файлов",
+    "bookmarks.commands.clearFromAllFiles#sideBar.title": "Очистить из всех файлов",
     "bookmarks.commands.whatsNew.title": "Что нового",
     "bookmarks.commands.whatsNewContextMenu.title": "Что нового",
     "bookmarks.commands.openFolderWelcome.title": "Открыть папку",
