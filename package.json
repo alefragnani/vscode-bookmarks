@@ -250,6 +250,16 @@
                 "command": "bookmarks.export",
                 "title": "%bookmarks.commands.export.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.sortByLine#sideBar",
+                "title": "%bookmarks.commands.sortByLine#sideBar.title%",
+                "enablement": "bookmarks.sortByLabel"
+            },
+            {
+                "command": "_bookmarks.sortByLabel#sideBar",
+                "title": "%bookmarks.commands.sortByLabel#sideBar.title%",
+                "enablement": "!bookmarks.sortByLabel"
             }
         ],
         "menus": {
@@ -328,6 +338,14 @@
                 },
                 {
                     "command": "_bookmarks.openSideBar",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.sortByLine#sideBar",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.sortByLabel#sideBar",
                     "when": "false"
                 }
             ],
@@ -494,6 +512,14 @@
                 {
                     "command": "_bookmarks.viewAsList#sideBar",
                     "group": "bookmarks#sideBar.view@2"
+                },
+                {
+                    "command": "_bookmarks.sortByLine#sideBar",
+                    "group": "bookmarks#sideBar.sort@1"
+                },
+                {
+                    "command": "_bookmarks.sortByLabel#sideBar",
+                    "group": "bookmarks#sideBar.sort@2"
                 }
             ]
         },
@@ -690,6 +716,19 @@
                         "%bookmarks.configuration.confirmClear.enumDescriptions.always%",
                         "%bookmarks.configuration.confirmClear.enumDescriptions.commandPalette%",
                         "%bookmarks.configuration.confirmClear.enumDescriptions.sideBar%"
+                    ]
+                },
+                "bookmarks.sortBy": {
+                    "type": "string",
+                    "default": "line",
+                    "description": "%bookmarks.configuration.sortBy.description%",
+                    "enum": [
+                        "line",
+                        "label"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.sortBy.enumDescriptions.line%",
+                        "%bookmarks.configuration.sortBy.enumDescriptions.label%"
                     ]
                 }
             }

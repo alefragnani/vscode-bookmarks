@@ -15,6 +15,58 @@ import { BookmarkNode, BookmarkPreview } from "./bookmarkNode";
 import { WorkspaceNode } from "./workspaceNode";
 import { BookmarkNodeKind } from "./nodes";
 import { BadgeConfig } from "../core/constants";
+import { extractLeadingNumber } from "../utils/sortHelpers";
+
+// Sort bookmarks based on configuration
+function sortBookmarksByConfig(books: BookmarkPreview[]): BookmarkPreview[] {
+    const sortBy = vscode.workspace.getConfiguration("bookmarks").get<string>("sortBy", "line");
+
+    // Create a copy to avoid modifying the original array
+    const sorted = [...books];
+
+    if (sortBy === "label") {
+        sorted.sort((n1, n2) => {
+            const label1 = n1.preview || "";
+            const label2 = n2.preview || "";
+
+            // Both have no label, sort by line number
+            if (!label1 && !label2) {
+                return n1.line - n2.line;
+            }
+
+            // Labeled bookmarks come first
+            if (!label1) return 1;
+            if (!label2) return -1;
+
+            // Extract leading numbers for smart sorting
+            const num1 = extractLeadingNumber(label1);
+            const num2 = extractLeadingNumber(label2);
+            const hasNum1 = !isNaN(num1);
+            const hasNum2 = !isNaN(num2);
+
+            // Both have leading numbers
+            if (hasNum1 && hasNum2) {
+                if (num1 !== num2) {
+                    return num1 - num2;
+                }
+                // Same number prefix, sort by full label alphabetically
+                return label1.localeCompare(label2);
+            }
+
+            // Labels with numbers come before labels without
+            if (hasNum1) return -1;
+            if (hasNum2) return 1;
+
+            // Both have no leading numbers, sort alphabetically
+            return label1.localeCompare(label2);
+        });
+    } else {
+        // Default: sort by line number
+        sorted.sort((n1, n2) => n1.line - n2.line);
+    }
+
+    return sorted;
+}
 
 export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | WorkspaceNode | FileNode> {
 
@@ -263,7 +315,10 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
 
                     const hidePosition = Container.context.globalState.get<boolean>("bookmarks.sidebar.hidePosition", false);
 
-                    for (const bbb of ne.books) {
+                    // Sort bookmarks based on configuration before displaying
+                    const sortedBooks = sortBookmarksByConfig(ne.books);
+
+                    for (const bbb of sortedBooks) {
                         ll.push(new BookmarkNode(bbb.preview, !hidePosition ? `(Ln ${bbb.line}, Col ${bbb.column})` : undefined, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, null, [], {
                             command: "_bookmarks.jumpTo",
                             title: "",
@@ -352,7 +407,9 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                             const hidePosition = Container.context.globalState.get<boolean>("bookmarks.sidebar.hidePosition", false);
                             const bookmarkNodes: BookmarkNode[] = [];
                             lll.forEach(FileNode => {
-                                for (const bbb of FileNode.books) {
+                                // Sort bookmarks based on configuration before displaying
+                                const sortedBooks = sortBookmarksByConfig(FileNode.books);
+                                for (const bbb of sortedBooks) {
                                     bookmarkNodes.push(new BookmarkNode(bbb.preview, !hidePosition ? `(Ln ${bbb.line}, Col ${bbb.column})` : undefined, vscode.TreeItemCollapsibleState.None, BookmarkNodeKind.NODE_BOOKMARK, null, [], {
                                         command: "_bookmarks.jumpTo",
                                         title: "",
