@@ -36,6 +36,7 @@
     "bookmarks.commands.removeBookmarkAtLine#gutter.title": "बुकमार्क हटाएँ",
     "bookmarks.commands.listFromAllFiles.title": "सभी फ़ाइलों से सूची",
     "bookmarks.commands.clearFromAllFiles.title": "सभी फ़ाइलों से साफ़ करें",
+    "bookmarks.commands.clearFromAllFiles#sideBar.title": "सभी फ़ाइलों से साफ़ करें",
     "bookmarks.commands.whatsNew.title": "नया क्या है",
     "bookmarks.commands.whatsNewContextMenu.title": "नया क्या है",
     "bookmarks.commands.openFolderWelcome.title": "फ़ोल्डर खोलें",
