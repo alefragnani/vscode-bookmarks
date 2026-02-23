@@ -19,3 +19,16 @@ Vous avez plusieurs alternatives à choisir :
     </td>
   </tr>
 </table>
+
+## Le texte de l’étiquette s’affiche en ligne
+
+![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+
+Par défaut, le texte de l’étiquette du signet apparaît à côté de la ligne où le signet étiqueté est placé. Par défaut, il ressemble à un indice intégré (inlay hint). Vous pouvez personnaliser l’apparence de ce texte (ou le désactiver) avec les paramètres suivants :
+
+  * `bookmarks.enableLabelInlineMessage` : Active l’affichage du texte de l’étiquette du signet à côté de la ligne réelle avec un signet étiqueté _(`true` par défaut)_
+  * `bookmarks.labelInlineMessageMargin` : Marge entre la fin de la ligne et le texte en ligne de l’étiquette du signet. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé _(`2` par défaut)_
+  * `bookmarks.labelInlineMessageItalic` : Rend le texte en ligne de l’étiquette du signet en italique. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé _(`false` par défaut)_
+  * `bookmarks.labelInlineMessageTextColor` : Couleur du texte pour le texte en ligne de l’étiquette du signet. Si non spécifiée, la même couleur que pour les indices intégrés (inlay hints) est utilisée. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé
+  * `bookmarks.labelInlineMessageBackgroundColor` : Couleur d’arrière-plan pour le texte en ligne de l’étiquette du signet. Si non spécifiée, la même couleur que pour les indices intégrés (inlay hints) est utilisée. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé
+  * `bookmarks.labelInlineMessageFontWeight` : Épaisseur de police pour le texte en ligne de l’étiquette du signet. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé _(`450` par défaut)_

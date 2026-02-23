@@ -19,3 +19,16 @@ You have a handlfull of alternatives to choose:
     </td>
   </tr>
 </table>
+
+## Label text is displayed inline
+
+![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+
+By default bookmark label text appears next to the line where labeled bookmark is placed. By default it looks just like inlay hint. You can customize this text appearance (or turn it off) by the following settings:
+
+  * `bookmarks.enableLabelInlineMessage`: Enable showing bookmark label text next to actual line with labeled bookmark _(`true` by default)_
+  * `bookmarks.labelInlineMessageMargin`: Margin between end of the line and bookmark label inline text. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`2` by default)_
+  * `bookmarks.labelInlineMessageItalic`: Make bookmark label inline text italic. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`false` by default)_
+  * `bookmarks.labelInlineMessageTextColor`: Text color for bookmark label inline text. If not specified same color as for inlay hints is used. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled
+  * `bookmarks.labelInlineMessageBackgroundColor`: Background color for bookmark label inline text. If not specified same color as for inlay hints is used. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled
+  * `bookmarks.labelInlineMessageFontWeight`: Font thickness for bookmark label inline text. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`450` by default)_

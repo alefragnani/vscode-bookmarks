@@ -78,6 +78,12 @@
     "bookmarks.configuration.confirmClear.enumDescriptions.always": "Всегда показывать сообщение подтверждения",
     "bookmarks.configuration.confirmClear.enumDescriptions.commandPalette": "Показывать сообщение подтверждения только при выполнении из палитры команд",
     "bookmarks.configuration.confirmClear.enumDescriptions.sideBar": "Показывать сообщение подтверждения только при выполнении из боковой панели",
+    "bookmarks.configuration.enableLabelInlineMessage.description": "Включает отображение текста метки закладки рядом с соответствующей строкой с помеченной закладкой",
+    "bookmarks.configuration.labelInlineMessageMargin.description": "Отступ между концом строки и встроенным текстом метки закладки. Имеет смысл только если включена настройка bookmarks.enableLabelInlineMessage",
+    "bookmarks.configuration.labelInlineMessageItalic.description": "Делает встроенный текст метки закладки курсивным. Имеет смысл только если включена настройка bookmarks.enableLabelInlineMessage",
+    "bookmarks.configuration.labelInlineMessageTextColor.description": "Цвет текста для встроенного текста метки закладки. Если не указан, используется тот же цвет, что и для встроенных подсказок (inlay hints). Имеет смысл только если включена настройка bookmarks.enableLabelInlineMessage",
+    "bookmarks.configuration.labelInlineMessageBackgroundColor.description": "Цвет фона для встроенного текста метки закладки. Если не указан, используется тот же цвет, что и для встроенных подсказок (inlay hints). Имеет смысл только если включена настройка bookmarks.enableLabelInlineMessage",
+    "bookmarks.configuration.labelInlineMessageFontWeight.description": "Толщина шрифта для встроенного текста метки закладки. Имеет смысл только если включена настройка bookmarks.enableLabelInlineMessage",
     "bookmarks.colors.lineBackground.description": "Цвет фона для отмеченной строки",
     "bookmarks.colors.lineBorder.description": "Цвет фона для границы вокруг линии с закладкой",
     "bookmarks.colors.overviewRuler.description": "Обзор цвета маркера линейки для закладок"

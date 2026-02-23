@@ -19,3 +19,16 @@ Masz do wyboru kilka alternatyw:
     </td>
   </tr>
 </table>
+
+## Tekst etykiety jest wyświetlany w linii
+
+![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+
+Domyślnie tekst etykiety zakładki pojawia się obok linii, w której znajduje się oznaczona zakładka. Domyślnie wygląda tak samo jak wskazówka osadzona (inlay hint). Możesz dostosować wygląd tego tekstu (albo go wyłączyć) za pomocą następujących ustawień:
+
+  * `bookmarks.enableLabelInlineMessage`: Włącza wyświetlanie tekstu etykiety zakładki obok właściwej linii z oznaczoną zakładką _(`true` domyślnie)_
+  * `bookmarks.labelInlineMessageMargin`: Margines między końcem linii a tekstem etykiety zakładki wyświetlanym w linii. Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone _(`2` domyślnie)_
+  * `bookmarks.labelInlineMessageItalic`: Ustawia kursywę dla tekstu etykiety zakładki wyświetlanego w linii. Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone _(`false` domyślnie)_
+  * `bookmarks.labelInlineMessageTextColor`: Kolor tekstu dla tekstu etykiety zakładki wyświetlanego w linii. Jeśli nie zostanie określony, użyty zostanie ten sam kolor co dla wskazówek osadzonych (inlay hints). Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone
+  * `bookmarks.labelInlineMessageBackgroundColor`: Kolor tła dla tekstu etykiety zakładki wyświetlanego w linii. Jeśli nie zostanie określony, użyty zostanie ten sam kolor co dla wskazówek osadzonych (inlay hints). Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone
+  * `bookmarks.labelInlineMessageFontWeight`: Grubość czcionki dla tekstu etykiety zakładki wyświetlanego w linii. Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone _(`450` domyślnie)_
