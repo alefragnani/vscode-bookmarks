@@ -3,16 +3,18 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 10
+# What's new in Bookmarks 14
 
-* Adds an all-new Bookmarks **Side Bar**
-* Adds **Column Position** and **Label** support
-* Adds `Edit Label` command in the **Side Bar**
-* Adds **Localization** support
-* Adds `Jump to Next` and `Jump to Previous` commands to Context Menu
-* Adds **background color** for bookmarked lines
+* Fully Open Source again
+* Adds **Persian**, **French**, **Hindi** and **Polish** translations
+* Setting to customize overview ruler lane
+* Published to **Open VSX**
+* Adds **Getting Started / Walkthrough**
+* Adds **Side Bar** badge
+* Adds Toggle bookmark via mouse click
+* Adds **Icon** customization
 
-## Support
+# Support
 
 **Bookmarks** is an extension created for **Visual Studio Code**. If you find it useful, please consider supporting it.
 
@@ -22,7 +24,7 @@
       <a title="Paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=US&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"/></a>
     </td>
     <td>
-      <a title="Paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=EP57F3B6FXKTU&lc=BR&item_name=Alessandro%20Fragnani&item_number=vscode%20extensions&currency_code=BRL&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"><img src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_SM.gif"/></a>
+      <a title="GitHub Sponsors" href="https://github.com/sponsors/alefragnani"><img src="https://raw.githubusercontent.com/alefragnani/oss-resources/master/images/button-become-a-sponsor-rounded-small.png"/></a>
     </td>
     <td>
       <a title="Patreon" href="https://www.patreon.com/alefragnani"><img src="https://raw.githubusercontent.com/alefragnani/oss-resources/master/images/button-become-a-patron-rounded-small.png"/></a>
@@ -30,18 +32,9 @@
   </tr>
 </table>
 
-## Sponsors
-
-<a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks"><img src="https://alt-images.codestream.com/codestream_logo_bookmarks.png" width="35%"/></a></br>
-Discuss, review, and share code with your team in VS Code. Links discussions about code to your code. Integrates w/ Slack, Jira, Trello, and Live Share.<br> <a title="Try CodeStream" href="https://codestream.com/?utm_source=vscmarket&utm_medium=banner&utm_campaign=bookmarks">Try it free</a>
-
-<br>
-
 # Bookmarks
 
 It helps you to navigate in your code, moving between important positions easily and quickly. _No more need to search for code._ It also supports a set of **selection** commands, which allows you to select bookmarked lines and regions between bookmarked lines. It's really useful for log file analysis.
-
-Since version 9 you can also define **Labels** for you bookmarks!
 
 Here are some of the features that **Bookmarks** provides:
 
@@ -49,11 +42,9 @@ Here are some of the features that **Bookmarks** provides:
 * Mark positions in your code and **give it name**
 * **Jump** forward and backward between bookmarks
 * Icons in **gutter** and **overview ruler**
-* See a list of all Bookmarks in one **file**
-* See a list of all Bookmarks in your **project**
+* See a list of all Bookmarks in one **file** and **project**
+* **Select lines** and **regions** with bookmarks
 * A dedicated **Side Bar**
-* **Select lines** with bookmarks
-* **Select regions** between bookmarks
 
 # Features
 
@@ -67,6 +58,7 @@ Here are some of the features that **Bookmarks** provides:
 * `Bookmarks: List from All Files` List all bookmarks from all files
 * `Bookmarks: Clear` remove all bookmarks in the current file
 * `Bookmarks: Clear from All Files` remove all bookmarks from all files
+* `Bookmarks: Export` Export all bookmarks to a Markdown document with customizable format
 * `Bookmarks (Selection): Select Lines` Select all lines that contains bookmarks
 * `Bookmarks (Selection): Expand Selection to Next` Expand the selected text to the next bookmark
 * `Bookmarks (Selection): Expand Selection to Previous` Expand the selected text to the previous bookmark
@@ -74,17 +66,11 @@ Here are some of the features that **Bookmarks** provides:
 
 ## Manage your bookmarks
 
-### Toggle
+### Toggle / Toggle Labeled
 
-You can easily Mark/Unmark bookmarks on any position.
+You can easily Mark/Unmark bookmarks on any position. You can even define **Labels** for each bookmark.
 
-![Toggle](images/bookmarks-toggle.png)
-
-### Toggle Labeled
-
-You can even mark _labeled_ bookmarks on any position.
-
-![Toggle](images/bookmarks-toggle-labeled.gif)
+![Toggle](images/printscreen-toggle.png)
 
 ## Navigation
 
@@ -99,8 +85,33 @@ List all bookmarks from the current file/project and easily navigate to any of t
 ![List](images/bookmarks-list-from-all-files.gif)
 
 * Bookmarks from the active file only shows the line number and its contents
-* Bookmarks from other files in the project also shows the relative path and filename
-* Bookmarks from files outside the project are denoted with ![Folder](images/bookmarks-folder-icon.png)
+* Bookmarks from other files in the project also shows the relative path
+
+## Side Bar
+
+The **Bookmarks** extension has its own **Side Bar**, with a variety of commands to improve you productivity. 
+
+| Single Folder | Multi-root Workspace |
+|---------------|------------|
+| ![Side Bar](images/printscreen-activity-bar.png) | ![Side Bar](images/printscreen-activity-bar-multi-root.png) |
+
+## Improved Multi-root support
+
+When you work with **multi-root** workspaces, the extension can manage the bookmarks individually for each folder. 
+
+Simply define `saveBookmarksInProject` as `true` on your **User Settings** or in the **Workspace Settings**, and when you run the `Bookmarks: List from All Files` command, you will be able to select from which folder the bookmarks will be shown.
+
+![List](images/bookmarks-list-from-all-files-multi-root.gif)
+
+### Remote Development support
+
+The extension now fully supports **Remote Development** scenarios. 
+
+It means that when you connect to a _remote_ location, like a Docker Container, SSH or WSL, the extension will be available, ready to be used. 
+
+> You don't need to install the extension on the remote anymore.
+
+Better yet, if you use `bookmarks.saveBookmarksInProject` setting defined as `true`, the bookmarks saved locally _will be available_ remotely, and you will be able to navigate and update the bookmarks. Just like it was a resource from folder you opened remotely.
 
 ## Selection
 
@@ -110,22 +121,50 @@ You can use **Bookmarks** to easily select lines or text blocks. Simply toggle b
 
 Select all bookmarked lines. Specially useful while working with log files.
 
-![Select Lines](images/bookmarks-selection-select-line.gif)
+![Select Lines](images/bookmarks-select-lines.gif)
 
 #### Expand Selection to the Next/Previous Bookmark or Shrink the Selection
 
 Manipulate the selection of lines _between_ bookmarks, up and down.
 
-![Expand/Shrink](images/bookmarks-selection-expand-shrink.gif)
+## Export
+
+Export all bookmarks to a new Markdown document with a customizable format. This is especially useful for documentation and sharing bookmarks with others.
+
+The default format exports bookmarks as a Markdown table, grouped by file and sorted by line number:
+
+| File | Line | Column | Label | Content |
+|------|------|--------|-------|---------|
+| src/example.ts | 10 | 5 | Important | function calculateTotal() { |
+| src/utils.ts | 25 | 1 | TODO | // TODO: Implement error handling |
+
+You can customize the export format using the `bookmarks.export.pattern` setting with the following variables:
+* `$file` - File path (relative to workspace)
+* `$line` - Line number
+* `$column` - Column number
+* `$label` - Bookmark label
+* `$content` - Line content
+
+**Example custom formats:**
+
+CSV format:
+```
+$file,$line,$column,"$label","$content"
+```
+
+Simple list:
+```
+$file:$line - $label
+```
 
 ## Available Settings
 
-* Allow navigation through all files that contains bookmarks (`false` by default)
+* Allow navigation through all files that contains bookmarks _(`true` by default)_
 ```json
-    "bookmarks.navigateThroughAllFiles": true
+    "bookmarks.navigateThroughAllFiles": false
 ```
 
-* Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files) (`true` by default)
+* Allow navigation to wrap around at the first and last bookmarks in scope (current file or all files) _(`true` by default)_
 ```json
     "bookmarks.wrapNavigation": true
 ```
@@ -139,36 +178,153 @@ Manipulate the selection of lines _between_ bookmarks, up and down.
 ```json
     "bookmarks.gutterIconPath": "c:\\temp\\othericon.png"
 ```
+> Deprecated in 13.3: Use `bookmarks.gutterIconFillColor` and `bookmarks.gutterIconBorderColor` instead
+
+* Specifies the fill color of the bookmark icon
+```json
+    "bookmarks.gutterIconFillColor"
+```
+
+* Specifies the border color of the bookmark icon
+```json
+    "bookmarks.gutterIconBorderColor"
+```
 
 * Choose the background color to use on a bookmarked line
 
 ```json
     "bookmarks.backgroundLineColor"
 ```
+> Deprecated in 10.7: Use `workbench.colorCustomizations` instead. More info in [Available Colors](#available-colors)
 
-* Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu (`true` by default)
+* Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu _(`true` by default)_
 ```json
     "bookmarks.showCommandsInContextMenu": true
 ```
+
+* **Experimental**. Enables the new **Sticky engine** with support for Formatters, improved source change detections and undo operations _(`true` by default)_
+
+```json
+    "bookmarks.experimental.enableNewStickyEngine": false
+```
+
+* "Specifies whether bookmarks on deleted line should be kept on file, moving it down to the next line, instead of deleting it with the line where it was toggled." _(`false` by default)_
+
+```json
+    "bookmarks.keepBookmarksOnLineDelete": true
+```
+
+> **Limitation:** It does not support `Undo` operations. It means that, once you delete a line and the bookmark is moved to the next available line, the `Undo` operation won't move the bookmark back to the previous line. The next line is now the new location of the bookmark.
 
 * Use a **workaround** for formatters, like Prettier, which does not notify on document changes and messes Bookmark's _Sticky_ behavior _(`false` by default)_
 
 ```json
     "bookmarks.useWorkaroundForFormatters": true
 ```
-> This workaround should be temporary, until a proper research and suggested APIs are available  
+> This workaround can be turned off if you are using the new Sticky Engine (setting above)  
 
-## Side Bar
+* Choose if the Side Bar should start expanded _(`false` by default)_
+```json
+    "bookmarks.sideBar.expanded": true
+```
 
-The **Bookmarks** are now presented in its own **Side Bar**, giving you more free space in your Explorer view. You will have a few extra commands available:
+* Controls the count badge on the Bookmark icon on the Activity Bar _(`all` by default)_
 
-* Jump to a bookmark, simply clicking in the bookmark item
-* Remove a bookmark, right clicking in the bookmark item
-* Clear the bookmark's file, right-clickin in the file item
+  * `all`: Show the sum of bookmarks from all files
+  * `files`: Show the sum of files that contains at least one bookmark
+  * `off`: Disable the Bookmarks count badge
 
-![Treeview](images/bookmarks-activity-bar.gif)
+```json
+    "bookmarks.sideBar.countBadge": "files"
+```
 
-> The `bookmarks.treeview.visible` setting was deprecated. If you don't want to see the **Bookmarks** icon in the Activity Bar, right-click and uncheck it from the context menu. 
+* Controls the visibility of the Welcome Views in the Side Bar _(`false` by default)_
+
+```json
+    "bookmarks.sideBar.hideWelcome": true
+```
+
+* Choose how multi cursor handles already bookmarked lines _(`allLinesAtOnce` by default)_
+
+  * `allLinesAtOnce`: Creates bookmarks in all selected lines at once, if at least one of the lines don't have a bookmark
+  * `eachLineIndependently`: Literally toggles a bookmark in each line, instead of making all lines equal
+
+```json
+    "bookmarks.multicursor.toggleMode": "eachLineIndependently"
+```
+
+* Choose how labels are suggested when creating bookmarks _(`dontUse` by default)_
+
+  * `dontUse`: Don't use the selection (original behavior)
+  * `useWhenSelected`: Use the selected text _(if available)_ directly, no confirmation required
+  * `suggestWhenSelected`: Suggests the selected text _(if available)_. You still need to confirm.
+  * `suggestWhenSelectedOrLineWhenNoSelected`: Suggests the selected text _(if available)_ or the entire line (when has no selection). You still need to confirm
+
+```json
+    "bookmarks.label.suggestion": "useWhenSelected"
+```
+
+* Choose the location where the bookmarked line will be revealed _(`center` by default)_
+
+  * `top`: Reveals the bookmarked line at the top of the editor
+  * `center`: Reveals the bookmarked line in the center of the editor
+
+```json
+    "bookmarks.revealLocation": "center"
+```
+
+* Specifies the lane in the overview ruler where the bookmarked line will be shown _(`full` by default)_
+
+  * `none`: Don't show the bookmarked line in the overview ruler
+  * `left`: Show the bookmarked line in the left lane of the overview ruler
+  * `center`: Show the bookmarked line in the center lane of the overview ruler
+  * `right`: Show the bookmarked line in the right lane of the overview ruler
+  * `full`: Show the bookmarked line in the full height of the overview ruler
+
+```json
+    "bookmarks.overviewRulerLane": "left"
+```
+
+* Specifies the export pattern for bookmarks. Use variables like `$file`, `$line`, `$column`, `$label`, and `$content` to customize the output format _(table format by default)_
+
+```json
+    "bookmarks.export.pattern": "| $file | $line | $column | $label | $content |"
+```
+
+**Example patterns:**
+
+CSV format:
+```json
+    "bookmarks.export.pattern": "$file,$line,$column,\"$label\",\"$content\""
+```
+
+Simple list:
+```json
+    "bookmarks.export.pattern": "$file:$line - $label"
+```
+
+## Available Colors
+
+* Choose the background color to use on a bookmarked line
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.lineBackground": "#157EFB22"  
+    }
+```
+
+* Choose the border color to use on a bookmarked line
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.lineBorder": "#FF0000"  
+    }
+```
+
+* Choose marker color to use in the overview ruler
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.overviewRuler": "#157EFB88"  
+    }
+```
 
 ## Project and Session Based
 
@@ -178,4 +334,4 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 
 # License
 
-[MIT](LICENSE.md) &copy; Alessandro Fragnani
+[GPL-3.0](LICENSE.md) &copy; Alessandro Fragnani

@@ -2,14 +2,10 @@
     "name": "Bookmarks",
     "displayName": "Bookmarks",
     "description": "Mark lines and jump to them",
-    "version": "10.4.4",
+    "version": "14.0.0",
     "publisher": "alefragnani",
-    "galleryBanner": {
-        "color": "#000000",
-        "theme": "dark"
-    },
     "engines": {
-        "vscode": "^1.32.0"
+        "vscode": "^1.78.0"
     },
     "categories": [
         "Other"
@@ -23,8 +19,18 @@
         "navigation",
         "multi-root ready"
     ],
+    "extensionKind": [
+        "ui",
+        "workspace"
+    ],
+    "capabilities": {
+        "virtualWorkspaces": true,
+        "untrustedWorkspaces": {
+            "supported": true
+        }
+    },
     "icon": "images/icon.png",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "license": "GPL-3.0",
     "homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
     "repository": {
         "type": "git",
@@ -33,18 +39,21 @@
     "bugs": {
         "url": "https://github.com/alefragnani/vscode-bookmarks/issues"
     },
+    "sponsor": {
+        "url": "https://github.com/sponsors/alefragnani"
+    },
     "activationEvents": [
-        "*",
-        "onView:bookmarksExplorer"
+        "onStartupFinished"
     ],
-    "main": "./dist/extension",
+    "main": "./dist/extension-node.js",
+    "l10n": "./l10n",
     "contributes": {
         "viewsContainers": {
             "activitybar": [
                 {
                     "id": "bookmarks",
                     "title": "%bookmarks.activitybar.title%",
-                    "icon": "images/bookmark-activity-bar.svg"
+                    "icon": "$(bookmark)"
                 }
             ]
         },
@@ -53,91 +62,208 @@
                 {
                     "id": "bookmarksExplorer",
                     "name": "%bookmarks.views.Explorer.name%"
+                },
+                {
+                    "id": "bookmarksHelpAndFeedback",
+                    "name": "%bookmarks.views.HelpAndFeedback.name%",
+                    "visibility": "collapsed"
                 }
             ]
         },
+        "viewsWelcome": [
+            {
+                "view": "bookmarksExplorer",
+                "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.whenEmpty%",
+                "when": "workbenchState == empty && !bookmarks.isHidingWelcome"
+            },
+            {
+                "view": "bookmarksExplorer",
+                "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.whenNoFileOpen%",
+                "when": "workbenchState != empty && !editorIsOpen && !bookmarks.isHidingWelcome"
+            },
+            {
+                "view": "bookmarksExplorer",
+                "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.whenHasFileOpen%",
+                "when": "workbenchState != empty && editorIsOpen && !bookmarks.isHidingWelcome"
+            }
+        ],
         "commands": [
             {
                 "command": "bookmarks.toggle",
-                "title": "%bookmarks.commands.toggle.title%"
+                "title": "%bookmarks.commands.toggle.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
                 "command": "bookmarks.jumpToNext",
-                "title": "%bookmarks.commands.jumpToNext.title%"
+                "title": "%bookmarks.commands.jumpToNext.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
                 "command": "bookmarks.jumpToPrevious",
-                "title": "%bookmarks.commands.jumpToPrevious.title%"
+                "title": "%bookmarks.commands.jumpToPrevious.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
-                "command": "bookmarks.jumpTo",
-                "title": "%bookmarks.commands.jumpTo.title%"
+                "command": "_bookmarks.jumpTo",
+                "title": "%bookmarks.commands.jumpTo.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
                 "command": "bookmarks.selectLines",
-                "title": "%bookmarks.commands.selectLines.title%"
+                "title": "%bookmarks.commands.selectLines.title%",
+                "category": "%bookmarks.commands.category.bookmarks.selection%"
             },
             {
                 "command": "bookmarks.expandSelectionToNext",
-                "title": "%bookmarks.commands.expandSelectionToNext.title%"
+                "title": "%bookmarks.commands.expandSelectionToNext.title%",
+                "category": "%bookmarks.commands.category.bookmarks.selection%"
             },
             {
                 "command": "bookmarks.expandSelectionToPrevious",
-                "title": "%bookmarks.commands.expandSelectionToPrevious.title%"
+                "title": "%bookmarks.commands.expandSelectionToPrevious.title%",
+                "category": "%bookmarks.commands.category.bookmarks.selection%"
             },
             {
                 "command": "bookmarks.shrinkSelection",
-                "title": "%bookmarks.commands.shrinkSelection.title%"
+                "title": "%bookmarks.commands.shrinkSelection.title%",
+                "category": "%bookmarks.commands.category.bookmarks.selection%"
             },
             {
                 "command": "bookmarks.list",
-                "title": "%bookmarks.commands.list.title%"
+                "title": "%bookmarks.commands.list.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
                 "command": "bookmarks.toggleLabeled",
-                "title": "%bookmarks.commands.toggleLabeled.title%"
+                "title": "%bookmarks.commands.toggleLabeled.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.addBookmark#sideBar",
+                "title": "%bookmarks.commands.addBookmark#sideBar.title%",
+                "icon": "$(add)"
+            },
+            {
+                "command": "_bookmarks.search#sideBar",
+                "title": "%bookmarks.commands.search#sideBar.title%",
+                "icon": "$(search)"
             },
             {
                 "command": "bookmarks.refresh",
                 "title": "%bookmarks.commands.refresh.title%",
-                "icon": {
-                    "light": "images/refresh-light.svg",
-                    "dark": "images/refresh-dark.svg"
-                }
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "_bookmarks.viewAsTree#sideBar",
+                "title": "%bookmarks.commands.viewAsTree#sideBar.title%",
+                "icon": "$(list-tree)",
+                "enablement": "bookmarks.viewAsList"
+            },
+            {
+                "command": "_bookmarks.viewAsList#sideBar",
+                "title": "%bookmarks.commands.viewAsList#sideBar.title%",
+                "icon": "$(list-flat)",
+                "enablement": "!bookmarks.viewAsList"
+            },
+            {
+                "command": "bookmarks.openSettings",
+                "title": "%bookmarks.commands.openSettings.title%"
+            },
+            {
+                "command": "_bookmarks.sidebar.hidePosition",
+                "title": "%bookmarks.commands.hidePosition.title%"
+            },
+            {
+                "command": "_bookmarks.sidebar.showPosition",
+                "title": "%bookmarks.commands.showPosition.title%"
             },
             {
                 "command": "bookmarks.clear",
-                "title": "%bookmarks.commands.clear.title%"
+                "title": "%bookmarks.commands.clear.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
-                "command": "bookmarks.clearFromFile",
-                "title": "%bookmarks.commands.clearFromFile.title%"
+                "command": "_bookmarks.clearFromFile",
+                "title": "%bookmarks.commands.clearFromFile.title%",
+                "icon": "$(clear-all)"
             },
             {
-                "command": "bookmarks.deleteBookmark",
-                "title": "%bookmarks.commands.deleteBookmark.title%"
+                "command": "_bookmarks.deleteBookmark",
+                "title": "%bookmarks.commands.deleteBookmark.title%",
+                "icon": "$(close)"
             },
             {
-                "command": "bookmarks.editLabel",
-                "title": "%bookmarks.commands.editLabel.title%"
+                "command": "_bookmarks.editLabel",
+                "title": "%bookmarks.commands.editLabel.title%",
+                "icon": "$(edit)"
+            },
+            {
+                "command": "_bookmarks.addBookmarkAtLine#gutter",
+                "title": "%bookmarks.commands.addBookmarkAtLine#gutter.title%"
+            },
+            {
+                "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                "title": "%bookmarks.commands.addLabeledBookmarkAtLine#gutter.title%"
+            },
+            {
+                "command": "_bookmarks.removeBookmarkAtLine#gutter",
+                "title": "%bookmarks.commands.removeBookmarkAtLine#gutter.title%"
             },
             {
                 "command": "bookmarks.listFromAllFiles",
-                "title": "%bookmarks.commands.listFromAllFiles.title%"
+                "title": "%bookmarks.commands.listFromAllFiles.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             },
             {
                 "command": "bookmarks.clearFromAllFiles",
-                "title": "%bookmarks.commands.clearFromAllFiles.title%"
+                "title": "%bookmarks.commands.clearFromAllFiles.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.clearFromAllFiles#sideBar",
+                "title": "%bookmarks.commands.clearFromAllFiles#sideBar.title%",
+                "icon": "$(clear-all)"
             },
             {
                 "command": "bookmarks.whatsNew",
-                "title": "%bookmarks.commands.whatsNew.title%"
+                "title": "%bookmarks.commands.whatsNew.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.whatsNewContextMenu",
+                "title": "%bookmarks.commands.whatsNewContextMenu.title%"
+            },
+            {
+                "command": "_bookmarks.openFolderWelcome",
+                "title": "%bookmarks.commands.openFolderWelcome.title%"
+            },
+            {
+                "command": "bookmarks.supportBookmarks",
+                "title": "%bookmarks.commands.supportBookmarks.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "_bookmarks.openSideBar",
+                "title": "%bookmarks.commands.openSideBar.title%"
+            },
+            {
+                "command": "bookmarks.export",
+                "title": "%bookmarks.commands.export.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             }
         ],
         "menus": {
             "commandPalette": [
                 {
-                    "command": "bookmarks.jumpTo",
+                    "command": "_bookmarks.jumpTo",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.addBookmark#sideBar",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.search#sideBar",
                     "when": "false"
                 },
                 {
@@ -145,21 +271,193 @@
                     "when": "false"
                 },
                 {
-                    "command": "bookmarks.clearFromFile",
+                    "command": "_bookmarks.clearFromAllFiles#sideBar",
                     "when": "false"
                 },
                 {
-                    "command": "bookmarks.deleteBookmark",
+                    "command": "_bookmarks.viewAsTree#sideBar",
                     "when": "false"
                 },
                 {
-                    "command": "bookmarks.editLabel",
+                    "command": "_bookmarks.viewAsList#sideBar",
+                    "when": "false"
+                },
+                {
+                    "command": "bookmarks.openSettings",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.sidebar.hidePosition",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.sidebar.showPosition",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.clearFromFile",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.deleteBookmark",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.editLabel",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.addBookmarkAtLine#gutter",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.removeBookmarkAtLine#gutter",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.whatsNewContextMenu",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.openFolderWelcome",
+                    "when": "false"
+                },
+                {
+                    "command": "_bookmarks.openSideBar",
                     "when": "false"
                 }
             ],
             "editor/context": [
                 {
+                    "submenu": "bookmarks.editor.context",
+                    "group": "bookmarks"
+                }
+            ],
+            "editor/title": [
+                {
+                    "submenu": "bookmarks.editor.title",
+                    "group": "bookmarks"
+                }
+            ],
+            "editor/lineNumber/context": [
+                {
+                    "command": "_bookmarks.addBookmarkAtLine#gutter",
+                    "when": "editorLineNumber not in bookmarks.linesWithBookmarks",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "_bookmarks.addLabeledBookmarkAtLine#gutter",
+                    "when": "editorLineNumber not in bookmarks.linesWithBookmarks",
+                    "group": "bookmarks"
+                },
+                {
+                    "command": "_bookmarks.removeBookmarkAtLine#gutter",
+                    "when": "editorLineNumber in bookmarks.linesWithBookmarks",
+                    "group": "bookmarks"
+                }
+            ],
+            "view/title": [
+                {
+                    "command": "_bookmarks.addBookmark#sideBar",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@5"
+                },
+                {
+                    "command": "_bookmarks.search#sideBar",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@7"
+                },
+                {
+                    "command": "bookmarks.refresh",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "_bookmarks.clearFromAllFiles#sideBar",
+                    "when": "view == bookmarksExplorer",
+                    "group": "navigation@11"
+                },
+                {
+                    "command": "_bookmarks.viewAsList#sideBar",
+                    "when": "view == bookmarksExplorer && !bookmarks.viewAsList",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "_bookmarks.viewAsTree#sideBar",
+                    "when": "view == bookmarksExplorer && bookmarks.viewAsList",
+                    "group": "navigation@10"
+                },
+                {
+                    "submenu": "bookmarks.sideBar.title",
+                    "when": "view == bookmarksExplorer",
+                    "group": "1_bookmarks"
+                },
+                {
+                    "command": "_bookmarks.sidebar.hidePosition",
+                    "when": "view == bookmarksExplorer && !bookmarks.isHidingPosition",
+                    "group": "2_bookmarks"
+                },
+                {
+                    "command": "_bookmarks.sidebar.showPosition",
+                    "when": "view == bookmarksExplorer && bookmarks.isHidingPosition",
+                    "group": "2_bookmarks"
+                },
+                {
+                    "command": "bookmarks.openSettings",
+                    "when": "view == bookmarksExplorer",
+                    "group": "3_bookmarks"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "_bookmarks.clearFromFile",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile"
+                },
+                {
+                    "command": "_bookmarks.clearFromFile",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile",
+                    "group": "inline"
+                },
+                {
+                    "command": "_bookmarks.deleteBookmark",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "bookmark@2"
+                },
+                {
+                    "command": "_bookmarks.deleteBookmark",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "inline@2"
+                },
+                {
+                    "command": "_bookmarks.editLabel",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "bookmark@1"
+                },
+                {
+                    "command": "_bookmarks.editLabel",
+                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
+                    "group": "inline@1"
+                }
+            ],
+            "extension/context": [
+                {
+                    "command": "_bookmarks.whatsNewContextMenu",
+                    "group": "bookmarks",
+                    "when": "extension == alefragnani.bookmarks && extensionStatus == installed"
+                }
+            ],
+            "bookmarks.editor.context": [
+                {
                     "command": "bookmarks.toggle",
+                    "group": "bookmarks",
+                    "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
+                },
+                {
+                    "command": "bookmarks.toggleLabeled",
                     "group": "bookmarks",
                     "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 },
@@ -174,7 +472,7 @@
                     "when": "editorTextFocus && config.bookmarks.showCommandsInContextMenu"
                 }
             ],
-            "editor/title": [
+            "bookmarks.editor.title": [
                 {
                     "command": "bookmarks.list",
                     "group": "bookmarks"
@@ -188,28 +486,31 @@
                     "group": "bookmarks"
                 }
             ],
-            "view/title": [
+            "bookmarks.sideBar.title": [
                 {
-                    "command": "bookmarks.refresh",
-                    "when": "view == bookmarksExplorer",
-                    "group": "navigation@10"
-                }
-            ],
-            "view/item/context": [
-                {
-                    "command": "bookmarks.clearFromFile",
-                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeFile"
+                    "command": "_bookmarks.viewAsTree#sideBar",
+                    "group": "bookmarks#sideBar.view@1"
                 },
                 {
-                    "command": "bookmarks.deleteBookmark",
-                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
-                },
-                {
-                    "command": "bookmarks.editLabel",
-                    "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark"
+                    "command": "_bookmarks.viewAsList#sideBar",
+                    "group": "bookmarks#sideBar.view@2"
                 }
             ]
         },
+        "submenus": [
+            {
+                "id": "bookmarks.editor.context",
+                "label": "%bookmarks.editor.context.label%"
+            },
+            {
+                "id": "bookmarks.editor.title",
+                "label": "%bookmarks.editor.title.label%"
+            },
+            {
+                "id": "bookmarks.sideBar.title",
+                "label": "View & Sort"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "%bookmarks.configuration.title%",
@@ -223,16 +524,32 @@
                     "type": "string",
                     "default": "",
                     "description": "%bookmarks.configuration.gutterIconPath.description%",
-                    "scope": "machine"
+                    "scope": "machine",
+                    "deprecationMessage": "%bookmarks.configuration.gutterIconPath.deprecation%"
+                },
+                "bookmarks.gutterIconFillColor": {
+                    "type": "string",
+                    "format": "color",
+                    "default": "#157EFB",
+                    "description": "%bookmarks.configuration.gutterIconFillColor.description%",
+                    "scope": "application"
+                },
+                "bookmarks.gutterIconBorderColor": {
+                    "type": "string",
+                    "format": "color",
+                    "default": "#157EFB",
+                    "description": "%bookmarks.configuration.gutterIconBorderColor.description%",
+                    "scope": "application"
                 },
                 "bookmarks.backgroundLineColor": {
                     "type": "string",
                     "default": "",
-                    "description": "%bookmarks.configuration.backgroundLineColor.description%"
+                    "description": "%bookmarks.configuration.backgroundLineColor.description%",
+                    "deprecationMessage": "%bookmarks.configuration.backgroundLineColor.deprecation%"
                 },
                 "bookmarks.navigateThroughAllFiles": {
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "%bookmarks.configuration.navigateThroughAllFiles.description%"
                 },
                 "bookmarks.wrapNavigation": {
@@ -245,10 +562,135 @@
                     "default": false,
                     "description": "%bookmarks.configuration.useWorkaroundForFormatters.description%"
                 },
+                "bookmarks.experimental.enableNewStickyEngine": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%bookmarks.configuration.experimental.enableNewStickyEngine.description%"
+                },
+                "bookmarks.keepBookmarksOnLineDelete": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.keepBookmarksOnLineDelete.description%"
+                },
+                "bookmarks.showNoMoreBookmarksWarning": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%bookmarks.configuration.showNoMoreBookmarksWarning.description%"
+                },
                 "bookmarks.showCommandsInContextMenu": {
                     "type": "boolean",
                     "default": true,
                     "description": "%bookmarks.configuration.showCommandsInContextMenu.description%"
+                },
+                "bookmarks.sideBar.expanded": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.sidebar.expanded.description%"
+                },
+                "bookmarks.sideBar.countBadge": {
+                    "type": "string",
+                    "default": "all",
+                    "enum": [
+                        "all",
+                        "files",
+                        "off"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.all%",
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.files%",
+                        "%bookmarks.configuration.sideBar.countBadge.enumDescriptions.off%"
+                    ],
+                    "description": "%bookmarks.configuration.sideBar.countBadge.description%"
+                },
+                "bookmarks.sideBar.hideWelcome": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.sidebar.hideWelcome.description%"
+                },
+                "bookmarks.multicursor.toggleMode": {
+                    "type": "string",
+                    "default": "allLinesAtOnce",
+                    "enum": [
+                        "allLinesAtOnce",
+                        "eachLineIndependently"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.multicursor.toggleMode.enumDescriptions.allLinesAtOnce%",
+                        "%bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently%"
+                    ],
+                    "description": "%bookmarks.configuration.multicursor.toggleMode.description%"
+                },
+                "bookmarks.label.suggestion": {
+                    "type": "string",
+                    "default": "dontUse",
+                    "description": "%bookmarks.configuration.label.suggestion.description%",
+                    "enum": [
+                        "dontUse",
+                        "useWhenSelected",
+                        "suggestWhenSelected",
+                        "suggestWhenSelectedOrLineWhenNoSelected"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.label.suggestion.enumDescriptions.dontUse%",
+                        "%bookmarks.configuration.label.suggestion.enumDescriptions.useWhenSelected%",
+                        "%bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelected%",
+                        "%bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelectedOrLineWhenNoSelected%"
+                    ]
+                },
+                "bookmarks.revealLocation": {
+                    "type": "string",
+                    "default": "center",
+                    "description": "%bookmarks.configuration.revealLocation.description%",
+                    "enum": [
+                        "top",
+                        "center"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.revealLocation.enumDescriptions.top%",
+                        "%bookmarks.configuration.revealLocation.enumDescriptions.center%"
+                    ]
+                },
+                "bookmarks.overviewRulerLane": {
+                    "type": "string",
+                    "default": "full",
+                    "description": "%bookmarks.configuration.overviewRulerLane.description%",
+                    "enum": [
+                        "none",
+                        "left",
+                        "center",
+                        "right",
+                        "full"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.none%",
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.left%",
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.center%",
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.right%",
+                        "%bookmarks.configuration.overviewRulerLane.enumDescriptions.full%"
+                    ]
+                },
+                "bookmarks.export.pattern": {
+                    "type": "string",
+                    "default": "| $file | $line | $column | $label | $content |",
+                    "description": "%bookmarks.configuration.export.pattern.description%",
+                    "markdownDescription": "%bookmarks.configuration.export.pattern.markdownDescription%"
+                },
+                "bookmarks.confirmClear": {
+                    "type": "string",
+                    "default": "never",
+                    "description": "%bookmarks.configuration.confirmClear.description%",
+                    "enum": [
+                        "never",
+                        "always",
+                        "commandPalette",
+                        "sideBar"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.confirmClear.enumDescriptions.never%",
+                        "%bookmarks.configuration.confirmClear.enumDescriptions.always%",
+                        "%bookmarks.configuration.confirmClear.enumDescriptions.commandPalette%",
+                        "%bookmarks.configuration.confirmClear.enumDescriptions.sideBar%"
+                    ]
                 }
             }
         },
@@ -289,24 +731,141 @@
                 "mac": "shift+alt+j",
                 "when": "editorTextFocus"
             }
+        ],
+        "colors": [
+            {
+                "id": "bookmarks.lineBackground",
+                "description": "%bookmarks.colors.lineBackground.description%",
+                "defaults": {
+                    "dark": "#00000000",
+                    "light": "#00000000",
+                    "highContrast": "#00000000"
+                }
+            },
+            {
+                "id": "bookmarks.lineBorder",
+                "description": "%bookmarks.colors.lineBorder.description%",
+                "defaults": {
+                    "dark": "#00000000",
+                    "light": "#00000000",
+                    "highContrast": "#00000000"
+                }
+            },
+            {
+                "id": "bookmarks.overviewRuler",
+                "description": "%bookmarks.colors.overviewRuler.description%",
+                "defaults": {
+                    "dark": "#157EFB88",
+                    "light": "#157EFB88",
+                    "highContrast": "#157EFB88"
+                }
+            }
+        ],
+        "walkthroughs": [
+            {
+                "id": "bookmarksWelcome",
+                "title": "%bookmarks.walkthroughs.title%",
+                "description": "%bookmarks.walkthroughs.description%",
+                "steps": [
+                    {
+                        "id": "toggle",
+                        "title": "%bookmarks.walkthroughs.toggle.title%",
+                        "description": "%bookmarks.walkthroughs.toggle.description%",
+                        "media": {
+                            "markdown": "walkthrough/toggle.md"
+                        }
+                    },
+                    {
+                        "id": "navigateToBookmarks",
+                        "title": "%bookmarks.walkthroughs.navigateToBookmarks.title%",
+                        "description": "%bookmarks.walkthroughs.navigateToBookmarks.description%",
+                        "media": {
+                            "markdown": "walkthrough/navigateToBookmarks.md"
+                        }
+                    },
+                    {
+                        "id": "defineLabelsForYourBookmarks",
+                        "title": "%bookmarks.walkthroughs.defineLabelsForYourBookmarks.title%",
+                        "description": "%bookmarks.walkthroughs.defineLabelsForYourBookmarks.description%",
+                        "media": {
+                            "markdown": "walkthrough/defineLabelsForYourBookmarks.md"
+                        }
+                    },
+                    {
+                        "id": "exclusiveSideBar",
+                        "title": "%bookmarks.walkthroughs.exclusiveSideBar.title%",
+                        "description": "%bookmarks.walkthroughs.exclusiveSideBar.description%",
+                        "media": {
+                            "markdown": "walkthrough/exclusiveSideBar.md"
+                        }
+                    },
+                    {
+                        "id": "workingWithRemotes",
+                        "title": "%bookmarks.walkthroughs.workingWithRemotes.title%",
+                        "description": "%bookmarks.walkthroughs.workingWithRemotes.description%",
+                        "media": {
+                            "markdown": "walkthrough/workingWithRemotes.md"
+                        }
+                    },
+                    {
+                        "id": "customizingAppearance",
+                        "title": "%bookmarks.walkthroughs.customizingAppearance.title%",
+                        "description": "%bookmarks.walkthroughs.customizingAppearance.description%",
+                        "media": {
+                            "markdown": "walkthrough/customizingAppearance.md"
+                        }
+                    }
+                ]
+            }
         ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "vscode-ext"
+        ],
+        "rules": {
+            "indent": ["error", 4, { "SwitchCase": 1 }],
+            "no-tabs": "error",
+            "semi": ["error", "always"],
+            "no-unexpected-multiline": "error"
+        }
     },
     "scripts": {
         "build": "webpack --mode development",
-        "watch": "webpack --watch --mode development --info-verbosity verbose",
+        "watch": "webpack --watch --mode development",
         "vscode:prepublish": "webpack --mode production",
         "webpack": "webpack --mode development",
         "webpack-dev": "webpack --mode development --watch",
-        "compile": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
+        "compile": "tsc -p ./",
+        "lint": "eslint -c package.json --ext .ts src vscode-whats-new",
+        "pretest": "npm run compile && npm run lint",
+        "test-compile": "tsc -p ./ && npm run webpack",
+        "just-test": "node ./out/src/test/runTest.js",
+        "test": "npm run test-compile && npm run just-test"
+    },
+    "dependencies": {
+        "os-browserify": "^0.3.0",
+        "path-browserify": "^1.0.1",
+        "vscode-ext-codicons": "^1.0.0",
+        "vscode-ext-decoration": "1.1.0",
+        "vscode-ext-help-and-feedback-view": "^1.0.1",
+        "vscode-ext-selection": "1.0.0"
     },
     "devDependencies": {
-        "@types/node": "^6.0.40",
-        "typescript": "^3.1.6",
-        "vscode": "^1.1.28",
-        "webpack": "^4.19.1",
-        "webpack-cli": "^3.1.0",
-        "ts-loader": "^4.4.2",
-        "terser-webpack-plugin": "^1.2.1"
+        "@types/glob": "^8.1.0",
+        "@types/mocha": "^10.0.0",
+        "@types/node": "^18.17.0",
+        "@types/vscode": "^1.78.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "@vscode/test-electron": "^2.5.2",
+        "eslint": "^8.1.0",
+        "eslint-config-vscode-ext": "^1.1.0",
+        "mocha": "^11.1.0",
+        "terser-webpack-plugin": "^5.2.4",
+        "ts-loader": "^9.2.5",
+        "typescript": "^5.3.3",
+        "webpack": "^5.105.2",
+        "webpack-cli": "^4.8.0"
     }
 }
