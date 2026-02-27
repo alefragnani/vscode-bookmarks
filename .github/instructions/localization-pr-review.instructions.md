@@ -253,6 +253,6 @@ Provide a structured review:
 
 ## Resources
 
-- [VS Code Extension Localization Guide](https://code.visualstudio.com/api/language-extensions/language-configuration)
+- [VS Code Extension Localization Guide](https://code.visualstudio.com/api/extension-guides/localization)
 - [BCP 47 Language Codes](https://tools.ietf.org/html/bcp47)
 - Project localization skill: `.github/skills/vscode-ext-localization/SKILL.md`
