@@ -4,7 +4,7 @@ Bladwijzers zijn posities in je code, zodat je gemakkelijk en snel terug kunt ga
 
 De extensie heeft commando's om snel heen en weer te navigeren tussen bladwijzers, zoals `Bladwijzers: Ga naar volgende` en `Bladwijzers: Ga naar vorige`.
 
-Maar dat zijn niet de enige. Het heeft ook commando's om alle bladwijzers binnen een bestand of de gehele werkruimte te bekijken en er gemakkelijk naartoe te navigeren. Gebruik in plaats daarvan de commando's `Bladwijzers: Lijst` en `Bladwijzers: Lijst van alle bestanden`, en de extensie zal een voorbeeld van de regel met de bladwijzer (of het label) en de positie weergeven.
+Maar dat zijn niet de enige. Het heeft ook commando's om alle bladwijzers binnen een bestand of de gehele workspace te bekijken en er gemakkelijk naartoe te navigeren. Gebruik in plaats daarvan de commando's `Bladwijzers: Lijst` en `Bladwijzers: Lijst van alle bestanden`, en de extensie zal een voorbeeld van de regel met de bladwijzer (of het label) en de positie weergeven.
 
 ![Lijst](../images/bookmarks-list-from-all-files.gif)
 

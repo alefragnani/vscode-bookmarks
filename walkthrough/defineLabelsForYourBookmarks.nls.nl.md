@@ -8,7 +8,7 @@ Je kunt eenvoudig je eigen **Label** opgeven wanneer je een bladwijzer aan-/uitz
 
 Je hebt een aantal opties om uit te kiezen:
 
-- `useWhenSelected`: Direct de de geselecteerde tekst gebruiken _(indien beschikbaar)_, geen bevestiging vereist
+- `useWhenSelected`: Direct de geselecteerde tekst gebruiken _(indien beschikbaar)_, geen bevestiging vereist
 - `suggestWhenSelected`: Stelt de geselecteerde tekst voor _(indien beschikbaar)_. Je moet nog steeds bevestigen.
 - `suggestWhenSelectedOrLineWhenNoSelected`: Stelt de geselecteerde tekst voor _(indien beschikbaar)_ of de gehele regel _(wanneer er geen selectie is)_. Je moet nog steeds bevestigen.
 
