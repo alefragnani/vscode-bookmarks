@@ -691,6 +691,39 @@
                         "%bookmarks.configuration.confirmClear.enumDescriptions.commandPalette%",
                         "%bookmarks.configuration.confirmClear.enumDescriptions.sideBar%"
                     ]
+                },
+                "bookmarks.enableLabelInlineMessage": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%bookmarks.configuration.enableLabelInlineMessage.description%"
+                },
+                "bookmarks.labelInlineMessageMargin": {
+					"type": "integer",
+					"minimum": 0,
+					"default": 2,
+                    "description": "%bookmarks.configuration.labelInlineMessageMargin.description%"
+                },
+                "bookmarks.labelInlineMessageItalic": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.labelInlineMessageItalic.description%"
+                },
+                "bookmarks.labelInlineMessageTextColor": {
+					"type": "string",
+					"format": "color",
+                    "description": "%bookmarks.configuration.labelInlineMessageTextColor.description%"
+                },
+                "bookmarks.labelInlineMessageBackgroundColor": {
+					"type": "string",
+					"format": "color",
+                    "description": "%bookmarks.configuration.labelInlineMessageBackgroundColor.description%"
+                },
+                "bookmarks.labelInlineMessageFontWeight": {
+					"type": "integer",
+					"minimum": 100,
+                    "maximum": 900,
+                    "default": 450,
+                    "description": "%bookmarks.configuration.labelInlineMessageFontWeight.description%"
                 }
             }
         },
