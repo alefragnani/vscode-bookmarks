@@ -76,7 +76,8 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                                 line: bkm.line,
                                 column: bkm.column,
                                 preview: "\u270E " + bkm.label,
-                                uri: bkm.uri
+                                uri: bkm.uri,
+                                note: bkm.note
                             });
                         }
 
@@ -158,6 +159,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                         } else {
                             bn.books[ bkm.index ].preview = "\u270E " + bkm.label;
                         }
+                        bn.books[ bkm.index ].note = bkm.note;
 
                         this._onDidChangeTreeData.fire(bn);
                         return;
@@ -235,7 +237,8 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                                                             line: point.line,
                                                             column: point.column,
                                                             preview: elementInside.label.replace(codicons.tag, "\u270E"),
-                                                            uri: elementInside.uri
+                                                            uri: elementInside.uri,
+                                                            note: elementInside.note
                                                         }
                                                     );
                                                 }
@@ -268,7 +271,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                             command: "_bookmarks.jumpTo",
                             title: "",
                             arguments: [ bbb.file, bbb.line, bbb.column, bbb.uri ],
-                        }));
+                        }, bbb.note));
                     }
 
                     resolve(ll);
@@ -331,7 +334,8 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                                                             line: point.line,
                                                             column: point.column,
                                                             preview: elementInside.label.replace(codicons.tag, "\u270E"),
-                                                            uri: elementInside.uri
+                                                            uri: elementInside.uri,
+                                                            note: elementInside.note
                                                         }
                                                     );
                                                 }
@@ -357,7 +361,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                                         command: "_bookmarks.jumpTo",
                                         title: "",
                                         arguments: [ bbb.file, bbb.line, bbb.column, bbb.uri ],
-                                    }));
+                                    }, bbb.note));
                                 }
                             });
                             resolve(bookmarkNodes);
