@@ -19,3 +19,16 @@ Seçebileceğiniz bir sürü alternatifiniz var:
     </td>
   </tr>
 </table>
+
+## Etiket metni satır içinde görüntülenir
+
+![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+
+Varsayılan olarak, yer imi etiket metni etiketli yer iminin bulunduğu satırın yanında görünür. Varsayılan olarak bir satır içi ipucuya (inlay hint) benzer. Bu metnin görünümünü (veya kapatmayı) aşağıdaki ayarlarla özelleştirebilirsiniz:
+
+  * `bookmarks.enableLabelInlineMessage`: Etiketli yer imi bulunan gerçek satırın yanında yer imi etiket metninin gösterilmesini etkinleştirir _(`true` varsayılan)_
+  * `bookmarks.labelInlineMessageMargin`: Satırın sonu ile yer imi etiketinin satır içi metni arasındaki boşluk. Yalnızca bookmarks.enableLabelInlineMessage ayarı etkinse anlamlıdır _(`2` varsayılan)_
+  * `bookmarks.labelInlineMessageItalic`: Yer imi etiketinin satır içi metnini italik yapar. Yalnızca bookmarks.enableLabelInlineMessage ayarı etkinse anlamlıdır _(`false` varsayılan)_
+  * `bookmarks.labelInlineMessageTextColor`: Yer imi etiketinin satır içi metni için metin rengi. Belirtilmezse satır içi ipuçları (inlay hints) ile aynı renk kullanılır. Yalnızca bookmarks.enableLabelInlineMessage ayarı etkinse anlamlıdır
+  * `bookmarks.labelInlineMessageBackgroundColor`: Yer imi etiketinin satır içi metni için arka plan rengi. Belirtilmezse satır içi ipuçları (inlay hints) ile aynı renk kullanılır. Yalnızca bookmarks.enableLabelInlineMessage ayarı etkinse anlamlıdır
+  * `bookmarks.labelInlineMessageFontWeight`: Yer imi etiketinin satır içi metni için yazı kalınlığı. Yalnızca bookmarks.enableLabelInlineMessage ayarı etkinse anlamlıdır _(`450` varsayılan)_

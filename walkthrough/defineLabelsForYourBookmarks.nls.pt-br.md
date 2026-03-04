@@ -19,3 +19,16 @@ Você tem algumas alternativas para escolher:
     </td>
   </tr>
 </table>
+
+## O texto do rótulo é exibido em linha
+
+![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+
+Por padrão, o texto do rótulo do favorito aparece ao lado da linha onde o favorito rotulado está colocado. Por padrão, ele se parece com uma dica embutida (inlay hint). Você pode personalizar a aparência desse texto (ou desativá-lo) com as seguintes configurações:
+
+  * `bookmarks.enableLabelInlineMessage`: Habilita a exibição do texto do rótulo do favorito ao lado da linha real com favorito rotulado _(`true` por padrão)_
+  * `bookmarks.labelInlineMessageMargin`: Margem entre o fim da linha e o texto em linha do rótulo do favorito. Só faz sentido se a configuração bookmarks.enableLabelInlineMessage estiver habilitada _(`2` por padrão)_
+  * `bookmarks.labelInlineMessageItalic`: Deixa o texto em linha do rótulo do favorito em itálico. Só faz sentido se a configuração bookmarks.enableLabelInlineMessage estiver habilitada _(`false` por padrão)_
+  * `bookmarks.labelInlineMessageTextColor`: Cor do texto para o texto em linha do rótulo do favorito. Se não for especificada, é usada a mesma cor das dicas embutidas (inlay hints). Só faz sentido se a configuração bookmarks.enableLabelInlineMessage estiver habilitada
+  * `bookmarks.labelInlineMessageBackgroundColor`: Cor de fundo para o texto em linha do rótulo do favorito. Se não for especificada, é usada a mesma cor das dicas embutidas (inlay hints). Só faz sentido se a configuração bookmarks.enableLabelInlineMessage estiver habilitada
+  * `bookmarks.labelInlineMessageFontWeight`: Espessura da fonte para o texto em linha do rótulo do favorito. Só faz sentido se a configuração bookmarks.enableLabelInlineMessage estiver habilitada _(`450` por padrão)_

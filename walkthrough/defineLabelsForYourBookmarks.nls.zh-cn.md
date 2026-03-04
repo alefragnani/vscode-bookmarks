@@ -19,3 +19,16 @@
     </td>
   </tr>
 </table>
+
+## 标签文本以内联方式显示
+
+![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+
+默认情况下，书签标签文本会显示在带标签书签所在行的旁边。默认样式看起来类似于内联提示（inlay hint）。你可以通过以下设置自定义该文本的显示效果（或将其关闭）：
+
+  * `bookmarks.enableLabelInlineMessage`: 启用在带标签书签所在的实际行旁显示书签标签文本 _(`true`，默认值)_
+  * `bookmarks.labelInlineMessageMargin`: 行尾与书签标签内联文本之间的间距。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义 _(`2`，默认值)_
+  * `bookmarks.labelInlineMessageItalic`: 将书签标签内联文本显示为斜体。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义 _(`false`，默认值)_
+  * `bookmarks.labelInlineMessageTextColor`: 书签标签内联文本的文字颜色。如果未指定，则使用与内联提示（inlay hints）相同的颜色。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义
+  * `bookmarks.labelInlineMessageBackgroundColor`: 书签标签内联文本的背景颜色。如果未指定，则使用与内联提示（inlay hints）相同的颜色。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义
+  * `bookmarks.labelInlineMessageFontWeight`: 书签标签内联文本的字体粗细。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义 _(`450`，默认值)_
