@@ -73,7 +73,7 @@ export function nextBookmark(file: File, currentPosition: Position, direction: D
                     resolve(NO_BOOKMARKS_BEFORE);
                     return;
                 } else {
-                    resolve(new Position(file.bookmarks[ file.bookmarks.length - 1 ].line, file.bookmarks[ file.bookmarks.length - 1 ].column));
+                    resolve(new Position(file.bookmarks[file.bookmarks.length - 1 ].line, file.bookmarks[ file.bookmarks.length - 1 ].column));
                     return;
                 }
             } else {
@@ -136,15 +136,17 @@ export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
                                 bookmarkColumn.toString() + ")",
                             label: lineText,
                             detail: file.path,
-                            uri: uriDocBookmark
+                            uri: uriDocBookmark,
+                            note: file.bookmarks[index].note
                         });
                     } else {
                         items.push({
                             description: "(Ln " + bookmarkLine.toString() + ", Col " +
                                 bookmarkColumn.toString() + ")",
-                            label: codicons.tag + " " + file.bookmarks[ index ].label,
+                            label: codicons.tag + " " + file.bookmarks[index].label,
                             detail: file.path,
-                            uri: uriDocBookmark
+                            uri: uriDocBookmark,
+                            note: file.bookmarks[index].note
                         });
                     }
                 } else {
@@ -154,7 +156,7 @@ export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
             if (invalids.length > 0) {
                 let idxInvalid: number;
                 for (let indexI = 0; indexI < invalids.length; indexI++) {
-                    idxInvalid = file.bookmarks.indexOf(<Bookmark>{ line: invalids[ indexI ] - 1 });
+                    idxInvalid = file.bookmarks.indexOf(<Bookmark>{ line: invalids[ indexI ]- 1 });
                     file.bookmarks.splice(idxInvalid, 1);
                 }
             }
