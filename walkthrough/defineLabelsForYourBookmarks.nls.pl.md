@@ -20,15 +20,25 @@ Masz do wyboru kilka alternatyw:
   </tr>
 </table>
 
-## Tekst etykiety jest wyświetlany w linii
+## Tekst etykiety jest wyświetlany w wierszu
 
 ![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
 
-Domyślnie tekst etykiety zakładki pojawia się obok linii, w której znajduje się oznaczona zakładka. Domyślnie wygląda tak samo jak wskazówka osadzona (inlay hint). Możesz dostosować wygląd tego tekstu (albo go wyłączyć) za pomocą następujących ustawień:
+Możesz włączyć widoczność tekstu etykiety zakładki w wierszu, w którym umieszczona jest zakładka z etykietą, włączając `bookmarks.label.inline.enabled`.
 
-  * `bookmarks.enableLabelInlineMessage`: Włącza wyświetlanie tekstu etykiety zakładki obok właściwej linii z oznaczoną zakładką _(`true` domyślnie)_
-  * `bookmarks.labelInlineMessageMargin`: Margines między końcem linii a tekstem etykiety zakładki wyświetlanym w linii. Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone _(`2` domyślnie)_
-  * `bookmarks.labelInlineMessageItalic`: Ustawia kursywę dla tekstu etykiety zakładki wyświetlanego w linii. Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone _(`false` domyślnie)_
-  * `bookmarks.labelInlineMessageTextColor`: Kolor tekstu dla tekstu etykiety zakładki wyświetlanego w linii. Jeśli nie zostanie określony, użyty zostanie ten sam kolor co dla wskazówek osadzonych (inlay hints). Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone
-  * `bookmarks.labelInlineMessageBackgroundColor`: Kolor tła dla tekstu etykiety zakładki wyświetlanego w linii. Jeśli nie zostanie określony, użyty zostanie ten sam kolor co dla wskazówek osadzonych (inlay hints). Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone
-  * `bookmarks.labelInlineMessageFontWeight`: Grubość czcionki dla tekstu etykiety zakładki wyświetlanego w linii. Ma sens tylko wtedy, gdy ustawienie bookmarks.enableLabelInlineMessage jest włączone _(`450` domyślnie)_
+Tekst etykiety zakładki pojawia się obok wiersza, w którym umieszczona jest zakładka z etykietą. Domyślnie wygląda jak dekoracja tekstu git blame. Możesz włączyć tę funkcję i dostosować jej wygląd za pomocą następujących ustawień:
+
+  * `bookmarks.label.inline.enabled`: Włącz pokazywanie tekstu etykiety zakładki obok rzeczywistego wiersza z etykietowaną zakładką _(`false` domyślnie)_
+  * `bookmarks.label.inline.margin`: Margines między końcem linii a tekstem etykiety zakładki w wierszu. Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone _(`2` domyślnie)_
+  * `bookmarks.label.inline.fontStyle`: Styl czcionki tekstu etykiety w wierszu (np. `"italic"`). Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone _(`"normal"` domyślnie)_
+  * `bookmarks.labelInlineMessageTextColor`: Kolor tekstu etykiety zakładki w wierszu. Jeśli nie jest określony, używany jest ten sam kolor co dla inlay hints. Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone
+  * `bookmarks.label.inline.fontWeight`: Grubość czcionki tekstu etykiety w wierszu. Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone _(`450` domyślnie)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Kolor tła tekstu etykiety zakładki w wierszu. Jeśli nie jest określony, używany jest ten sam kolor co dla inlay hints. Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone
+
+Aby zmienić kolor tekstu/koloru tła tekstu etykiety zakładki w wierszu:
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```
