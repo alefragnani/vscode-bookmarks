@@ -28,21 +28,17 @@ function createGutterRulerDecoration(
 }
 
 export function createBookmarkLabelInlineDecoration(): TextEditorDecorationType {
-    const labelInlineMessageMargin = workspace.getConfiguration("bookmarks").get("labelInlineMessageMargin", 2);
-    const labelInlineMessageItalic = workspace.getConfiguration("bookmarks").get("labelInlineMessageItalic", false);
-    const labelInlineMessageTextColor : string | undefined = workspace.getConfiguration("bookmarks").get("labelInlineMessageTextColor");
-    const labelInlineMessageBackgroundColor : string | undefined = workspace.getConfiguration("bookmarks").get("labelInlineMessageBackgroundColor");
-    const labelInlineMessageFontWeight = workspace.getConfiguration("bookmarks").get("labelInlineMessageFontWeight", 450);
+    const bookmarksLabelInlineMargin = workspace.getConfiguration("bookmarks").get("label.inline.margin", 2);
+    const labelInlineFontStyle = workspace.getConfiguration("bookmarks").get("label.inline.fontStyle", "normal");
+    const bookmarksLabelInlineFontWeight = workspace.getConfiguration("bookmarks").get("label.inline.fontWeight", 450);
 
     const decorationOptions: DecorationRenderOptions = {
         after: {
-            fontStyle: labelInlineMessageItalic ? "italic" : undefined,
-            color: labelInlineMessageTextColor === undefined || labelInlineMessageTextColor === "" ? new ThemeColor("editorInlayHint.foreground") : undefined,
-            backgroundColor: labelInlineMessageBackgroundColor === undefined || labelInlineMessageBackgroundColor === "" ? new ThemeColor("editorInlayHint.background") : undefined,
-            textDecoration: `none;margin:0 0 0 ${labelInlineMessageMargin}ch;` +
-                            `font-weight:${labelInlineMessageFontWeight}` + 
-                            `${labelInlineMessageTextColor === undefined || labelInlineMessageTextColor === "" ? "" : ";color:" + labelInlineMessageTextColor}` +
-                            `${labelInlineMessageBackgroundColor === undefined || labelInlineMessageBackgroundColor === "" ? "" : ";background-color:" + labelInlineMessageBackgroundColor}`,
+            fontStyle: labelInlineFontStyle,
+            color: new ThemeColor("bookmarks.labelInlineMessageTextColor"),
+            backgroundColor: new ThemeColor("bookmarks.labelInlineMessageBackgroundColor"),
+            textDecoration: `none;margin:0 0 0 ${bookmarksLabelInlineMargin}ch;` +
+                            `font-weight:${bookmarksLabelInlineFontWeight}`
         }
     };
     return window.createTextEditorDecorationType(decorationOptions);
@@ -114,7 +110,7 @@ export function updateDecorationsInActiveEditor(
     const decorationRanges: Range[] = [];
     const decorationOptionsForLabels: DecorationOptions[] = [];
 
-    const enableLabelInlineMessage = workspace.getConfiguration("bookmarks").get("enableLabelInlineMessage", false);
+    const bookmarksLabelInlineEnabled = workspace.getConfiguration("bookmarks").get("label.inline.enabled", false);
 
     // Remove all bookmarks if active file is empty
     if (activeEditor.document.lineCount === 1 && activeEditor.document.lineAt(0).text === "") {
@@ -127,7 +123,7 @@ export function updateDecorationsInActiveEditor(
                 const decorationRange = new Range(bookmark.line, 0, bookmark.line, 0);
                 decorationRanges.push(decorationRange);
 
-                if (enableLabelInlineMessage && bookmark.label !== undefined && bookmark.label.length > 0) {
+                if (bookmarksLabelInlineEnabled && bookmark.label !== undefined && bookmark.label.length > 0) {
                     decorationOptionsForLabels.push(buildDecorationOptionsForInlineBookmarkLabel(
                         activeEditor,
                         bookmark,

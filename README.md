@@ -74,7 +74,7 @@ You can easily Mark/Unmark bookmarks on any position. You can even define **Labe
 
 ### Bookmark labels visible inline
 
-By default bookmark labels are visible inline in the same line where labeled bookmark is placed:
+You can turn on bookmark labels text visibility inline in the same line where labeled bookmark is placed:
 
 ![Bookmarks with labels](images/bookmarks-with-lables-arrrowed.png)
 
@@ -209,34 +209,24 @@ $file:$line - $label
 ```
 > Deprecated in 10.7: Use `workbench.colorCustomizations` instead. More info in [Available Colors](#available-colors)
 
-* Enable showing bookmark label text next to actual line with labeled bookmark _(`true` by default)_
+* Enable showing bookmark label text next to actual line with labeled bookmark _(`false` by default)_
 ```json
-    "bookmarks.enableLabelInlineMessage": true
+    "bookmarks.label.inline.enabled": true
 ```
 
-* Margin between end of the line and bookmark label inline text. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`2` by default)_
+* Margin between end of the line and bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`2` by default)_
 ```json
-    "bookmarks.labelInlineMessageMargin": 2
+    "bookmarks.label.inline.margin": 2
 ```
 
-* Make bookmark label inline text italic. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`false` by default)_
+* Change bookmark label inline text font style. For example: `"italic"`. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`"normal"` by default)_
 ```json
-    "bookmarks.labelInlineMessageItalic": false
+    "bookmarks.label.inline.fontStyle": "normal"
 ```
 
-* Text color for bookmark label inline text. If not specified same color as for inlay hints is used. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled
+* Font thickness for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`450` by default)_
 ```json
-    "bookmarks.labelInlineMessageTextColor": "#cacacaff"
-```
-
-* Background color for bookmark label inline text. If not specified same color as for inlay hints is used. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled
-```json
-    "bookmarks.labelInlineMessageBackgroundColor": "#232323ff"
-```
-
-* Font thickness for bookmark label inline text. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`450` by default)_
-```json
-    "bookmarks.labelInlineMessageFontWeight": 450
+    "bookmarks.label.inline.fontWeight": 450
 ```
 
 * Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu _(`true` by default)_
@@ -367,6 +357,21 @@ Simple list:
       "bookmarks.overviewRuler": "#157EFB88"  
     }
 ```
+
+* Choose text color for bookmark label inline text. Makes sense only if `bookmarks.label.inline.enabled` setting enabled
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+    }
+```
+
+* Choose background color for bookmark label inline text. Makes sense only if `bookmarks.label.inline.enabled ` setting enabled
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a"
+   }
+```
+
 
 ## Project and Session Based
 

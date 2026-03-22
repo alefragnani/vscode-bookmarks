@@ -24,11 +24,21 @@ Tienes un montón de alternativas entre las que elegir:
 
 ![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
 
-De forma predeterminada, el texto de la etiqueta del marcador aparece junto a la línea donde se coloca el marcador etiquetado. Por defecto, se ve igual que una sugerencia en línea (inlay hint). Puedes personalizar la apariencia de este texto (o desactivarlo) con las siguientes configuraciones:
+Puedes activar la visibilidad del texto de las etiquetas en línea en la misma línea donde se coloca el marcador etiquetado habilitando `bookmarks.label.inline.enabled`.
 
-  * `bookmarks.enableLabelInlineMessage`: Habilita mostrar el texto de la etiqueta del marcador junto a la línea real con marcador etiquetado _(`true` por defecto)_
-  * `bookmarks.labelInlineMessageMargin`: Margen entre el final de la línea y el texto en línea de la etiqueta del marcador. Solo tiene sentido si la configuración bookmarks.enableLabelInlineMessage está habilitada _(`2` por defecto)_
-  * `bookmarks.labelInlineMessageItalic`: Hace que el texto en línea de la etiqueta del marcador esté en cursiva. Solo tiene sentido si la configuración bookmarks.enableLabelInlineMessage está habilitada _(`false` por defecto)_
-  * `bookmarks.labelInlineMessageTextColor`: Color del texto para el texto en línea de la etiqueta del marcador. Si no se especifica, se usa el mismo color que para las sugerencias en línea (inlay hints). Solo tiene sentido si la configuración bookmarks.enableLabelInlineMessage está habilitada
-  * `bookmarks.labelInlineMessageBackgroundColor`: Color de fondo para el texto en línea de la etiqueta del marcador. Si no se especifica, se usa el mismo color que para las sugerencias en línea (inlay hints). Solo tiene sentido si la configuración bookmarks.enableLabelInlineMessage está habilitada
-  * `bookmarks.labelInlineMessageFontWeight`: Grosor de fuente para el texto en línea de la etiqueta del marcador. Solo tiene sentido si la configuración bookmarks.enableLabelInlineMessage está habilitada _(`450` por defecto)_
+El texto de la etiqueta de marcador aparece junto a la línea donde se coloca el marcador etiquetado. Por defecto, se ve como la decoración de texto de git blame. Puedes activar esta función y personalizar su apariencia mediante las siguientes configuraciones:
+
+  * `bookmarks.label.inline.enabled`: Habilita mostrar el texto de la etiqueta junto a la línea real del marcador etiquetado _(`false` por defecto)_
+  * `bookmarks.label.inline.margin`: Margen entre el final de la línea y el texto en línea de la etiqueta. Solo tiene sentido si la configuración bookmarks.label.inline.enabled está habilitada _(`2` por defecto)_
+  * `bookmarks.label.inline.fontStyle`: Estilo de fuente del texto en línea de la etiqueta (p. ej. `"italic"`). Solo tiene sentido si la configuración bookmarks.label.inline.enabled está habilitada _(`"normal"` por defecto)_
+  * `bookmarks.labelInlineMessageTextColor`: Color de texto para el texto en línea de la etiqueta. Si no se especifica, se utiliza el mismo color que para los inlay hints. Solo tiene sentido si la configuración bookmarks.label.inline.enabled está habilitada
+  * `bookmarks.label.inline.fontWeight`: Grosor de fuente para el texto en línea de la etiqueta. Solo tiene sentido si la configuración bookmarks.label.inline.enabled está habilitada _(`450` por defecto)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Color de fondo para el texto en línea de la etiqueta. Si no se especifica, se utiliza el mismo color que para los inlay hints. Solo tiene sentido si la configuración bookmarks.label.inline.enabled está habilitada
+
+Para cambiar el color del texto/fondo del texto en línea de la etiqueta del marcador:
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```

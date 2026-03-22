@@ -24,11 +24,21 @@ You have a handlfull of alternatives to choose:
 
 ![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
 
-By default bookmark label text appears next to the line where labeled bookmark is placed. By default it looks just like inlay hint. You can customize this text appearance (or turn it off) by the following settings:
+You can turn on bookmark labels text visibility inline in the same line where labeled bookmark is placed by enabling `bookmarks.label.inline.enabled`.
 
-  * `bookmarks.enableLabelInlineMessage`: Enable showing bookmark label text next to actual line with labeled bookmark _(`true` by default)_
-  * `bookmarks.labelInlineMessageMargin`: Margin between end of the line and bookmark label inline text. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`2` by default)_
-  * `bookmarks.labelInlineMessageItalic`: Make bookmark label inline text italic. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`false` by default)_
-  * `bookmarks.labelInlineMessageTextColor`: Text color for bookmark label inline text. If not specified same color as for inlay hints is used. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled
-  * `bookmarks.labelInlineMessageBackgroundColor`: Background color for bookmark label inline text. If not specified same color as for inlay hints is used. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled
-  * `bookmarks.labelInlineMessageFontWeight`: Font thickness for bookmark label inline text. Makes sense only if bookmarks.enableLabelInlineMessage setting enabled _(`450` by default)_
+Bookmark label text appears next to the line where labeled bookmark is placed. By default it looks just like git blame text decoration. You can turn this feature on and customize its appearance by the following settings:
+
+  * `bookmarks.label.inline.enabled`: Enable showing bookmark label text next to actual line with labeled bookmark _(`false` by default)_
+  * `bookmarks.label.inline.margin`: Margin between end of the line and bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`2` by default)_
+  * `bookmarks.label.inline.fontStyle`: Label inline text font style (e.g. `"italic"`). Makes sense only if bookmarks.label.inline.enabled setting enabled _(`"normal"` by default)_
+  * `bookmarks.labelInlineMessageTextColor`: Text color for bookmark label inline text. If not specified same color as for inlay hints is used. Makes sense only if bookmarks.label.inline.enabled setting enabled
+  * `bookmarks.label.inline.fontWeight`: Font thickness for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`450` by default)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Background color for bookmark label inline text. If not specified same color as for inlay hints is used. Makes sense only if bookmarks.label.inline.enabled setting enabled
+
+To change text color/background color of bookmark label inline text:
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```

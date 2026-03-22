@@ -20,15 +20,25 @@
   </tr>
 </table>
 
-## लेबल टेक्स्ट इनलाइन प्रदर्शित होता है
+## बुकमार्क लेबल पाठ इनलाइन प्रदर्शित होता है
 
 ![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
 
-डिफ़ॉल्ट रूप से, बुकमार्क लेबल टेक्स्ट उस लाइन के पास दिखाई देता है जहाँ लेबल वाला बुकमार्क रखा गया है। डिफ़ॉल्ट रूप से यह inlay hint जैसा दिखता है। आप निम्न सेटिंग्स के माध्यम से इस टेक्स्ट की उपस्थिति को कस्टमाइज़ कर सकते हैं (या इसे बंद कर सकते हैं):
+आप `bookmarks.label.inline.enabled` को सक्षम करके बुकमार्क लेबल पाठ की दृश्यता को उसी पंक्ति में इनलाइन चालू कर सकते हैं जहां लेबल वाला बुकमार्क रखा जाता है।
 
-  * `bookmarks.enableLabelInlineMessage`: लेबल वाले बुकमार्क की वास्तविक लाइन के पास बुकमार्क लेबल टेक्स्ट दिखाना सक्षम करता है _(`true` डिफ़ॉल्ट रूप से)_
-  * `bookmarks.labelInlineMessageMargin`: लाइन के अंत और बुकमार्क लेबल के इनलाइन टेक्स्ट के बीच का मार्जिन। यह केवल तब अर्थपूर्ण है जब bookmarks.enableLabelInlineMessage सेटिंग सक्षम हो _(`2` डिफ़ॉल्ट रूप से)_
-  * `bookmarks.labelInlineMessageItalic`: बुकमार्क लेबल के इनलाइन टेक्स्ट को इटैलिक बनाता है। यह केवल तब अर्थपूर्ण है जब bookmarks.enableLabelInlineMessage सेटिंग सक्षम हो _(`false` डिफ़ॉल्ट रूप से)_
-  * `bookmarks.labelInlineMessageTextColor`: बुकमार्क लेबल के इनलाइन टेक्स्ट का टेक्स्ट रंग। यदि निर्दिष्ट नहीं है, तो inlay hints वाला वही रंग उपयोग होगा। यह केवल तब अर्थपूर्ण है जब bookmarks.enableLabelInlineMessage सेटिंग सक्षम हो
-  * `bookmarks.labelInlineMessageBackgroundColor`: बुकमार्क लेबल के इनलाइन टेक्स्ट का बैकग्राउंड रंग। यदि निर्दिष्ट नहीं है, तो inlay hints वाला वही रंग उपयोग होगा। यह केवल तब अर्थपूर्ण है जब bookmarks.enableLabelInlineMessage सेटिंग सक्षम हो
-  * `bookmarks.labelInlineMessageFontWeight`: बुकमार्क लेबल के इनलाइन टेक्स्ट का फ़ॉन्ट मोटाई (thickness)। यह केवल तब अर्थपूर्ण है जब bookmarks.enableLabelInlineMessage सेटिंग सक्षम हो _(`450` डिफ़ॉल्ट रूप से)_
+बुकमार्क लेबल पाठ उस पंक्ति के आगे दिखाई देता है जहां लेबल वाला बुकमार्क रखा जाता है। डिफ़ॉल्ट रूप से यह git blame पाठ सजावट की तरह दिखता है। आप इस सुविधा को चालू कर सकते हैं और निम्नलिखित सेटिंग्स द्वारा इसकी उपस्थिति को अनुकूलित कर सकते हैं:
+
+  * `bookmarks.label.inline.enabled`: लेबल वाले बुकमार्क की वास्तविक पंक्ति के आगे बुकमार्क लेबल पाठ दिखाना सक्षम करें _(`false` डिफ़ॉल्ट रूप से)_
+  * `bookmarks.label.inline.margin`: पंक्ति के अंत और बुकमार्क लेबल इनलाइन पाठ के बीच मार्जिन। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो _(`2` डिफ़ॉल्ट रूप से)_
+  * `bookmarks.label.inline.fontStyle`: लेबल इनलाइन पाठ फॉन्ट शैली (जैसे `"italic"`). केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो _(`"normal"` डिफ़ॉल्ट रूप से)_
+  * `bookmarks.labelInlineMessageTextColor`: बुकमार्क लेबल इनलाइन पाठ के लिए पाठ रंग। यदि निर्दिष्ट नहीं किया जाता है तो inlay hints के समान रंग का उपयोग किया जाता है। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो
+  * `bookmarks.label.inline.fontWeight`: बुकमार्क लेबल इनलाइन पाठ के लिए फॉन्ट मोटाई। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो _(`450` डिफ़ॉल्ट रूप से)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: बुकमार्क लेबल इनलाइन पाठ के लिए पृष्ठभूमि रंग। यदि निर्दिष्ट नहीं किया जाता है तो inlay hints के समान रंग का उपयोग किया जाता है। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो
+
+बुकमार्क लेबल इनलाइन पाठ के पाठ रंग/पृष्ठभूमि रंग को बदलने के लिए:
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```
