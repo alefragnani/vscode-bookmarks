@@ -20,15 +20,25 @@ Vous avez plusieurs alternatives à choisir :
   </tr>
 </table>
 
-## Le texte de l’étiquette s’affiche en ligne
+## Le texte du label s'affiche en ligne
 
 ![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
 
-Par défaut, le texte de l’étiquette du signet apparaît à côté de la ligne où le signet étiqueté est placé. Par défaut, il ressemble à un indice intégré (inlay hint). Vous pouvez personnaliser l’apparence de ce texte (ou le désactiver) avec les paramètres suivants :
+Vous pouvez activer la visibilité du texte des étiquettes en ligne sur la même ligne où se trouve le signet étiqueté en activant `bookmarks.label.inline.enabled`.
 
-  * `bookmarks.enableLabelInlineMessage` : Active l’affichage du texte de l’étiquette du signet à côté de la ligne réelle avec un signet étiqueté _(`true` par défaut)_
-  * `bookmarks.labelInlineMessageMargin` : Marge entre la fin de la ligne et le texte en ligne de l’étiquette du signet. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé _(`2` par défaut)_
-  * `bookmarks.labelInlineMessageItalic` : Rend le texte en ligne de l’étiquette du signet en italique. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé _(`false` par défaut)_
-  * `bookmarks.labelInlineMessageTextColor` : Couleur du texte pour le texte en ligne de l’étiquette du signet. Si non spécifiée, la même couleur que pour les indices intégrés (inlay hints) est utilisée. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé
-  * `bookmarks.labelInlineMessageBackgroundColor` : Couleur d’arrière-plan pour le texte en ligne de l’étiquette du signet. Si non spécifiée, la même couleur que pour les indices intégrés (inlay hints) est utilisée. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé
-  * `bookmarks.labelInlineMessageFontWeight` : Épaisseur de police pour le texte en ligne de l’étiquette du signet. Cela n’a de sens que si le paramètre bookmarks.enableLabelInlineMessage est activé _(`450` par défaut)_
+Le texte du label du signet apparaît à côté de la ligne où se trouve le signet étiqueté. Par défaut, cela ressemble à la décoration du texte de git blame. Vous pouvez activer cette fonction et personnaliser son apparence avec les paramètres suivants :
+
+  * `bookmarks.label.inline.enabled`: Activer l'affichage du texte du label à côté de la ligne réelle du signet étiqueté _(`false` par défaut)_
+  * `bookmarks.label.inline.margin`: Marge entre la fin de la ligne et le texte du label en ligne. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé _(`2` par défaut)_
+  * `bookmarks.label.inline.fontStyle`: Style de police du texte du label en ligne (p. ex. `"italic"`). N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé _(`"normal"` par défaut)_
+  * `bookmarks.labelInlineMessageTextColor`: Couleur du texte du label en ligne du signet. Si non spécifié, la même couleur que celle des inlay hints est utilisée. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé
+  * `bookmarks.label.inline.fontWeight`: Épaisseur de la police du texte du label en ligne. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé _(`450` par défaut)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Couleur de fond du texte du label en ligne. Si non spécifié, la même couleur que celle des inlay hints est utilisée. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé
+
+Pour modifier la couleur du texte/fond du label en ligne du signet :
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```

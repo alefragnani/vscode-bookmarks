@@ -20,15 +20,26 @@
   </tr>
 </table>
 
-## 标签文本以内联方式显示
+
+## 标签文本在行中显示
 
 ![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
 
-默认情况下，书签标签文本会显示在带标签书签所在行的旁边。默认样式看起来类似于内联提示（inlay hint）。你可以通过以下设置自定义该文本的显示效果（或将其关闭）：
+你可以通过启用 `bookmarks.label.inline.enabled` 来在标记书签所在的同一行中打开书签标签文本的可见性。
 
-  * `bookmarks.enableLabelInlineMessage`: 启用在带标签书签所在的实际行旁显示书签标签文本 _(`true`，默认值)_
-  * `bookmarks.labelInlineMessageMargin`: 行尾与书签标签内联文本之间的间距。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义 _(`2`，默认值)_
-  * `bookmarks.labelInlineMessageItalic`: 将书签标签内联文本显示为斜体。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义 _(`false`，默认值)_
-  * `bookmarks.labelInlineMessageTextColor`: 书签标签内联文本的文字颜色。如果未指定，则使用与内联提示（inlay hints）相同的颜色。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义
-  * `bookmarks.labelInlineMessageBackgroundColor`: 书签标签内联文本的背景颜色。如果未指定，则使用与内联提示（inlay hints）相同的颜色。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义
-  * `bookmarks.labelInlineMessageFontWeight`: 书签标签内联文本的字体粗细。仅在启用 bookmarks.enableLabelInlineMessage 设置时有意义 _(`450`，默认值)_
+书签标签文本出现在标记书签所在行的旁边。默认情况下，它看起来就像 git blame 文本装饰。你可以启用此功能并通过以下设置自定义其外观：
+
+  * `bookmarks.label.inline.enabled`: 启用在标记书签的实际行旁边显示书签标签文本 _（默认为 `false`）_
+  * `bookmarks.label.inline.margin`: 行末与书签标签内联文本之间的边距。仅当启用 bookmarks.label.inline.enabled 设置时才有意义 _（默认为 `2`）_
+  * `bookmarks.label.inline.fontStyle`: 标签内联文本的字体样式（例如 `"italic"`）。仅当启用 bookmarks.label.inline.enabled 设置时才有意义 _（默认为 `"normal"`）_
+  * `bookmarks.labelInlineMessageTextColor`: 书签标签内联文本的文本颜色。如果未指定，则使用与 inlay hints 相同的颜色。仅当启用 bookmarks.label.inline.enabled 设置时才有意义
+  * `bookmarks.label.inline.fontWeight`: 书签标签内联文本的字体粗细。仅当启用 bookmarks.label.inline.enabled 设置时才有意义 _（默认为 `450`）_
+  * `bookmarks.labelInlineMessageBackgroundColor`: 书签标签内联文本的背景颜色。如果未指定，则使用与 inlay hints 相同的颜色。仅当启用 bookmarks.label.inline.enabled 设置时才有意义
+
+要改变书签标签内联文本的文本颜色/背景颜色：
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```

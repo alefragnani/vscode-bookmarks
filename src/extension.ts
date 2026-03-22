@@ -68,12 +68,10 @@ export async function activate(context: vscode.ExtensionContext) {
         if (cfg.affectsConfiguration("bookmarks.gutterIconFillColor") ||
             cfg.affectsConfiguration("bookmarks.gutterIconBorderColor") ||
             cfg.affectsConfiguration("bookmarks.overviewRulerLane") ||
-            cfg.affectsConfiguration("bookmarks.enableLabelInlineMessage") ||
-            cfg.affectsConfiguration("bookmarks.labelInlineMessageMargin") ||
-            cfg.affectsConfiguration("bookmarks.labelInlineMessageItalic") ||
-            cfg.affectsConfiguration("bookmarks.labelInlineMessageTextColor") ||
-            cfg.affectsConfiguration("bookmarks.labelInlineMessageBackgroundColor") ||
-            cfg.affectsConfiguration("bookmarks.labelInlineMessageFontWeight")
+            cfg.affectsConfiguration("bookmarks.label.inline.enabled") ||
+            cfg.affectsConfiguration("bookmarks.label.inline.margin") ||
+            cfg.affectsConfiguration("bookmarks.label.inline.fontStyle") ||
+            cfg.affectsConfiguration("bookmarks.label.inline.fontWeight")
         ) {
             if (bookmarkDecorationType.length > 0) {
                 bookmarkDecorationType.forEach(b => b.dispose());
