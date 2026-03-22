@@ -10,7 +10,7 @@ import { BookmarkQuickPickItem } from "./core/bookmark";
 import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "./core/constants";
 import { Directions, isWindows, SEARCH_EDITOR_SCHEME } from "./core/constants";
 import { Container } from "./core/container";
-import { createBookmarkDecorations, updateDecorationsInActiveEditor } from "./decoration/decoration";
+import { createBookmarkDecorations, createBookmarkLabelInlineDecoration, updateDecorationsInActiveEditor } from "./decoration/decoration";
 import { File } from "./core/file";
 import { Controller } from "./core/controller";
 import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "./core/operations";
@@ -64,16 +64,24 @@ export async function activate(context: vscode.ExtensionContext) {
     registerHelpAndFeedbackView(context);
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(async cfg => {
-        // Allow change the gutterIcon without reload
+        // Allow change the gutterIcon and inline label decoration without reload
         if (cfg.affectsConfiguration("bookmarks.gutterIconFillColor") ||
             cfg.affectsConfiguration("bookmarks.gutterIconBorderColor") ||
-            cfg.affectsConfiguration("bookmarks.overviewRulerLane")) {
+            cfg.affectsConfiguration("bookmarks.overviewRulerLane") ||
+            cfg.affectsConfiguration("bookmarks.label.inline.enabled") ||
+            cfg.affectsConfiguration("bookmarks.label.inline.margin") ||
+            cfg.affectsConfiguration("bookmarks.label.inline.fontStyle") ||
+            cfg.affectsConfiguration("bookmarks.label.inline.fontWeight")
+        ) {
             if (bookmarkDecorationType.length > 0) {
                 bookmarkDecorationType.forEach(b => b.dispose());
             }
+            bookmarkLabelInlineDecoration.dispose();
 
             bookmarkDecorationType = createBookmarkDecorations();
+            bookmarkLabelInlineDecoration = createBookmarkLabelInlineDecoration();
             context.subscriptions.push(...bookmarkDecorationType);
+            context.subscriptions.push(bookmarkLabelInlineDecoration);
 
             updateDecorations();
             bookmarkProvider.refresh();
@@ -167,7 +175,9 @@ export async function activate(context: vscode.ExtensionContext) {
     }));
 
     let bookmarkDecorationType = createBookmarkDecorations();
+    let bookmarkLabelInlineDecoration = createBookmarkLabelInlineDecoration();
     context.subscriptions.push(...bookmarkDecorationType);
+    context.subscriptions.push(bookmarkLabelInlineDecoration);
 
     // Connect it to the Editors Events
     let activeEditor = vscode.window.activeTextEditor;
@@ -301,7 +311,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Evaluate (prepare the list) and DRAW
     function updateDecorations() {
-        updateDecorationsInActiveEditor(activeEditor, activeController, bookmarkDecorationType);
+        updateDecorationsInActiveEditor(
+            activeEditor,
+            activeController,
+            bookmarkDecorationType,
+            bookmarkLabelInlineDecoration,
+        );
     }
 
     updateDecorations();

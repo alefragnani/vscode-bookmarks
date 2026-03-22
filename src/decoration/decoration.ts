@@ -4,11 +4,12 @@
 *--------------------------------------------------------------------------------------------*/
 
 import { createLineDecoration } from "vscode-ext-decoration";
-import { workspace, ThemeColor, OverviewRulerLane, TextEditor, Range, TextEditorDecorationType, Uri, DecorationRenderOptions, window } from "vscode";
+import { workspace, ThemeColor, OverviewRulerLane, TextEditor, Range, TextEditorDecorationType, Uri, DecorationRenderOptions, window, DecorationOptions } from "vscode";
 import { Controller } from "../core/controller";
 import { indexOfBookmark } from "../core/operations";
 import { DEFAULT_GUTTER_ICON_BORDER_COLOR, DEFAULT_GUTTER_ICON_FILL_COLOR } from "../core/constants";
 import { getOverviewRulerLaneConfig } from "../utils/overviewRulerLane";
+import { Bookmark } from "../core/bookmark";
 
 function createGutterRulerDecoration(
     overviewRulerLane?: OverviewRulerLane,
@@ -23,6 +24,23 @@ function createGutterRulerDecoration(
 
     decorationOptions.isWholeLine = false;
 
+    return window.createTextEditorDecorationType(decorationOptions);
+}
+
+export function createBookmarkLabelInlineDecoration(): TextEditorDecorationType {
+    const bookmarksLabelInlineMargin = workspace.getConfiguration("bookmarks").get("label.inline.margin", 2);
+    const labelInlineFontStyle = workspace.getConfiguration("bookmarks").get("label.inline.fontStyle", "normal");
+    const bookmarksLabelInlineFontWeight = workspace.getConfiguration("bookmarks").get("label.inline.fontWeight", 450);
+
+    const decorationOptions: DecorationRenderOptions = {
+        after: {
+            fontStyle: labelInlineFontStyle,
+            color: new ThemeColor("bookmarks.labelInlineMessageTextColor"),
+            backgroundColor: new ThemeColor("bookmarks.labelInlineMessageBackgroundColor"),
+            textDecoration: `none;margin:0 0 0 ${bookmarksLabelInlineMargin}ch;` +
+                            `font-weight:${bookmarksLabelInlineFontWeight}`
+        }
+    };
     return window.createTextEditorDecorationType(decorationOptions);
 }
 
@@ -46,8 +64,34 @@ export function createBookmarkDecorations(): TextEditorDecorationType[] {
     return [gutterDecoration, lineDecoration];
 }
 
-export function updateDecorationsInActiveEditor(activeEditor: TextEditor, bookmarks: Controller,
-    bookmarkDecorationType: TextEditorDecorationType[]) {
+function buildDecorationOptionsForInlineBookmarkLabel(
+    activeEditor: TextEditor,
+    bookmark: Bookmark,
+): DecorationOptions {
+    const elementLineRange = activeEditor.document.lineAt(bookmark.line).range;
+    const decorationOptionsForLabel : DecorationOptions = {
+        range : new Range(
+            elementLineRange.start.line,
+            elementLineRange.end.character,
+            elementLineRange.start.line,
+            elementLineRange.end.character,
+        ),
+        renderOptions: {
+            after: {
+                contentText: bookmark.label,
+            }
+        },
+    };
+
+    return decorationOptionsForLabel;
+}
+
+export function updateDecorationsInActiveEditor(
+    activeEditor: TextEditor,
+    bookmarks: Controller,
+    bookmarkDecorationType: TextEditorDecorationType[],
+    bookmarkLabelInlineDecoration: TextEditorDecorationType,
+) {
     if (!activeEditor) {
         return;
     }
@@ -63,20 +107,30 @@ export function updateDecorationsInActiveEditor(activeEditor: TextEditor, bookma
         return;
     }
 
-    const books: Range[] = [];
+    const decorationRanges: Range[] = [];
+    const decorationOptionsForLabels: DecorationOptions[] = [];
+
+    const bookmarksLabelInlineEnabled = workspace.getConfiguration("bookmarks").get("label.inline.enabled", false);
 
     // Remove all bookmarks if active file is empty
     if (activeEditor.document.lineCount === 1 && activeEditor.document.lineAt(0).text === "") {
         bookmarks.activeFile.bookmarks = [];
     } else {
         const invalids = [];
-        for (const element of bookmarks.activeFile.bookmarks) {
+        for (const bookmark of bookmarks.activeFile.bookmarks) {
 
-            if (element.line <= activeEditor.document.lineCount) { 
-                const decoration = new Range(element.line, 0, element.line, 0);
-                books.push(decoration);
+            if (bookmark.line <= activeEditor.document.lineCount) { 
+                const decorationRange = new Range(bookmark.line, 0, bookmark.line, 0);
+                decorationRanges.push(decorationRange);
+
+                if (bookmarksLabelInlineEnabled && bookmark.label !== undefined && bookmark.label.length > 0) {
+                    decorationOptionsForLabels.push(buildDecorationOptionsForInlineBookmarkLabel(
+                        activeEditor,
+                        bookmark,
+                    ));
+                }
             } else {
-                invalids.push(element);
+                invalids.push(bookmark);
             }
         }
 
@@ -88,5 +142,8 @@ export function updateDecorationsInActiveEditor(activeEditor: TextEditor, bookma
             }
         }
     }
-    bookmarkDecorationType.forEach(d => activeEditor.setDecorations(d, books));
+    // Add common decorations (gutter icons/line highlights)
+    bookmarkDecorationType.forEach(d => activeEditor.setDecorations(d, decorationRanges));
+    // Add label inline text decorations
+    activeEditor.setDecorations(bookmarkLabelInlineDecoration, decorationOptionsForLabels);
 }

@@ -691,6 +691,34 @@
                         "%bookmarks.configuration.confirmClear.enumDescriptions.commandPalette%",
                         "%bookmarks.configuration.confirmClear.enumDescriptions.sideBar%"
                     ]
+                },
+                "bookmarks.label.inline.enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.bookmarks.label.inline.enabled.description%"
+                },
+                "bookmarks.label.inline.margin": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "default": 2,
+                    "description": "%bookmarks.configuration.bookmarks.label.inline.margin.description%"
+                },
+                "bookmarks.label.inline.fontStyle": {
+                    "type": "string",
+                    "default": "normal",
+                    "enum": [
+                        "normal",
+                        "italic",
+                        "oblique"
+                    ],
+                    "description": "%bookmarks.configuration.label.inline.fontStyle.description%"
+                },
+                "bookmarks.label.inline.fontWeight": {
+                    "type": "integer",
+                    "minimum": 100,
+                    "maximum": 900,
+                    "default": 450,
+                    "description": "%bookmarks.configuration.bookmarks.label.inline.fontWeight.description%"
                 }
             }
         },
@@ -758,6 +786,24 @@
                     "dark": "#157EFB88",
                     "light": "#157EFB88",
                     "highContrast": "#157EFB88"
+                }
+            },
+            {
+                "id": "bookmarks.labelInlineMessageTextColor",
+                "description": "%bookmarks.colors.labelInlineMessageTextColor.description%",
+                "defaults": {
+                    "dark": "git.blame.editorDecorationForeground",
+                    "light": "git.blame.editorDecorationForeground",
+                    "highContrast": "git.blame.editorDecorationForeground"
+                }
+            },
+            {
+                "id": "bookmarks.labelInlineMessageBackgroundColor",
+                "description": "%bookmarks.colors.labelInlineMessageBackgroundColor.description%",
+                "defaults": {
+                    "dark": "#00000000",
+                    "light": "#00000000",
+                    "highContrast": "#00000000"
                 }
             }
         ],
