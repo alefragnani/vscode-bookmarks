@@ -15,7 +15,7 @@
     "Type a label for your bookmark":"Geben Sie eine Bezeichnung für das Lesezeichen ein",
     "You must define a label for the bookmark.":"Sie müssen dem Lesezeichen eine Bezeichnung geben.",
     "Open a file first to toggle bookmarks":"Öffnen Sie zuerst eine Datei, um alle Lesezeichen an- oder abzuwählen",
-    "You can't toggle bookmarks in Search Editor":"Sie können über die Suche keine Lesezeichen an- oder abzuwählen",
+    "You can't toggle bookmarks in Search Editor":"Sie können über die Suche keine Lesezeichen an- oder abwählen",
     "Support":"Support",
     "Open a file first to shrink bookmark selection":"Öffnen Sie zuerst eine Datei, um die Auswahl der Lesezeichen einzuschränken",
     "Command not supported with more than one selection":"Befehl kann nur auf einzelne Elemente ausgeführt werden",
