@@ -1,19 +1,63 @@
 # Copilot Instructions for Bookmarks
 
+Always reference these instructions first and fall back to additional search or terminal commands only when project files do not provide enough context.
+
 ## Project Overview
 
 This is a Visual Studio Code extension called **Bookmarks** that helps users navigate their code by marking and jumping between important positions. The extension supports labeling bookmarks, selection commands, and provides a dedicated sidebar view.
 
 ## Technology Stack
 
-- **Language**: TypeScript
-- **Build Tool**: Webpack 5
-- **Target Environment**: VS Code Extension (Node.js runtime)
-- **TypeScript Config**: Target ES2020, CommonJS modules
-- **Linting**: ESLint with `eslint-config-vscode-ext`
-- **Testing**: Mocha (test infrastructure exists in devDependencies)
+- Language: TypeScript
+- Runtime: VS Code Extension API (Node.js)
+- Bundler: Webpack 5
+- Linting: ESLint (`eslint-config-vscode-ext`)
+- Testing: Mocha + `@vscode/test-electron`
 
-## Project Structure
+## Working Effectively
+
+Bootstrap and local setup:
+
+```bash
+git submodule init
+git submodule update
+npm install
+```
+
+Build and development quickstart:
+
+```bash
+npm run build
+npm run lint
+```
+
+- Use `npm run watch` during active development.
+- Use VS Code "Launch Extension" (F5) to validate behavior in Extension Development Host.
+- Expected command timings are usually under 10 seconds.
+- Never cancel `npm install`, `npm run watch`, or `npm test` once started.
+
+## Build and Development Commands
+
+- `npm run compile` - TypeScript compilation to `out/`
+- `npm run build` - Webpack development build to `dist/`
+- `npm run watch` - Continuous webpack build
+- `npm run lint` - ESLint validation
+- `npm run test` - Full test suite
+- `npm run vscode:prepublish` - Production build
+
+## Testing and Validation
+
+Automated tests use the VS Code test runner and may fail in restricted environments due to VS Code download/network constraints.
+
+Manual validation checklist:
+
+1. Run `npm run build` successfully.
+2. Press F5 to launch Extension Development Host.
+3. Toggle bookmarks, add labeled bookmarks, and verify navigation commands.
+4. Test with single and multi-root workspaces.
+5. Verify bookmark persistence and sticky behavior after file edits.
+
+## Project Structure and Key Files
 
 ```
 src/
@@ -31,128 +75,113 @@ src/
 
 dist/                     # Webpack output (extension-node.js)
 l10n/                     # Localization files
+out/                      # TypeScript output for tests
+vscode-whats-new/         # Git submodule for What's New
 walkthrough/              # Getting Started walkthrough content
 ```
 
-## Build & Development Commands
+## Coding Conventions and Patterns
 
-```bash
-npm run build             # Build for development
-npm run watch             # Watch mode for development
-npm run webpack           # Development webpack build
-npm run webpack-dev       # Webpack watch mode
-npm run lint              # Run ESLint
-npm run vscode:prepublish # Production build (runs before publishing)
-```
+### Indentation
 
-## Coding Standards & Conventions
+- We spaces, not tabs.
+- Use 4 spaces for indentation.
 
-### File Headers
-All source files should include the GPL-3.0 license header:
-```typescript
-/*---------------------------------------------------------------------------------------------
-*  Copyright (c) Alessandro Fragnani. All rights reserved.
-*  Licensed under the GPLv3 License. See License.md in the project root for license information.
-*--------------------------------------------------------------------------------------------*/
-```
+### Naming Conventions
+
+- Use PascalCase for `type` names
+- Use PascalCase for `enum` values
+- Use camelCase for `function` and `method` names
+- Use camelCase for `property` names and `local variables`
+- Use whole words in names when possible
+
+### Types
+
+- Do not export `types` or `functions` unless you need to share it across multiple components
+- Do not introduce new `types` or `values` to the global namespace
+- Prefer `const` over `let` when possible.
+
+### Strings
+
+- Use "double quotes"
+- All strings visible to the user need to be externalized using the `l10n` API
+- Externalized strings must not use string concatenation. Use placeholders instead (`{0}`).
+
+### Code Quality
+
+- All files must include copyright header
+- Prefer `async` and `await` over `Promise` and `then` calls
+- All user facing messages must be localized using the applicable localization framework (for example `l10n.t` method)
+- Keep imports organized: VS Code first, then internal modules.
+- Use semicolons at the end of statements.
+- Keep changes minimal and aligned with existing style.
 
 ### Import Organization
+
 - Import VS Code API first: `import * as vscode from "vscode"`
 - Group related imports together
 - Use named imports for specific VS Code types
 - Import from local modules using relative paths
 
-### Indentation & Formatting
-- We use spaces, not tabs   
-- Use **4 spaces** for indentation
-- We use **semicolons** at the end of statements
-
-### Code Style
-- Use double quotes for strings
-- Use camelCase for variables and functions
-- Use PascalCase for classes and interfaces
-- Prefer `const` over `let` where possible
-- Enable strict mode with `"alwaysStrict": true` in TypeScript
-
-### Extension Architecture Patterns
+### Architecture Patterns
 - **Container Pattern**: The `Container` class stores global state like `Container.context`
 - **Controllers**: Multiple controllers manage bookmarks for different workspaces/files
-- **Decorations**: Bookmark decorations are managed centrally and updated when configuration changes
+- **File Pattern**: `File` class represents a document with its bookmarks
+- **Bookmark Pattern**: `Bookmark` interface with line and column positions
+- **Sticky Engine**: Two implementations (legacy and new) for maintaining bookmark positions during edits
+- **Decoration Pattern**: Separate decoration types for gutter icons and line backgrounds
 - **Event-Driven**: Heavy use of VS Code events (`onDidChangeConfiguration`, `onDidChangeTextDocument`, etc.)
 
-## Key Extension Features
+## Extension Features and Configuration
 
-1. **Bookmark Management**: Toggle, add labeled, delete bookmarks
-2. **Navigation**: Jump to next/previous bookmarks, with wrap-around support
-3. **Selection**: Select lines between bookmarks, expand/shrink selections
-4. **Sidebar**: Tree view showing all bookmarks organized by file
+### Key Features
+1. **Bookmark management**: toggle, label support
+2. **Navigation**: jump to next/previous bookmarks with wrap-around support
+3. **Selection**: select lines between bookmarks, expand/shrink selections
+4. **Sidebar**: tree view showing all bookmarks organized by file
 5. **Persistence**: Save bookmarks in workspace state or project files
-6. **Sticky Bookmarks**: Bookmarks follow code when lines are added/removed
-7. **Multi-root Support**: Works with multi-root workspaces
-8. **Internationalization**: Support for multiple languages (l10n)
+6. **Sticky bookmarks**: Maintain bookmark positions during edits
+7. **Multi-root workspace**: Manage bookmarks per workspace folder
+8. **Remote Development**: Support for remote development scenarios
+9. **Internationalization support**: Localization of all user-facing strings
+10. **Customizable Appearance**: Gutter icons, line backgrounds, colors
+11. **Walkthrough**: Getting Started guide for new users
 
-## Configuration & Settings
+### Important Settings
+- `bookmarks.saveBookmarksInProject`: Save in `.vscode/bookmarks.json`
+- `bookmarks.navigateThroughAllFiles`: How to navigate across files
+- `bookmarks.gutterIconFillColor`: Gutter icon background color
+- `bookmarks.experimental.enableNewStickyEngine`: Use new sticky engine (default: true)
 
-Important settings (see `package.json` contributes.configuration):
-- `bookmarks.saveBookmarksInProject`: Save bookmarks in project vs workspace state
-- `bookmarks.gutterIconFillColor`: Customize gutter icon color
-- `bookmarks.navigateThroughAllFiles`: Navigate across all files
-- `bookmarks.experimental.enableNewStickyEngine`: Use new sticky bookmark engine
-- `bookmarks.sideBar.expanded`: Default sidebar expansion state
+## Dependencies and External Tools
 
-## Dependencies
+- Requires `vscode-whats-new` submodule initialization.
+- No external runtime tools are required beyond standard extension toolchain.
 
-Key dependencies:
-- `vscode-ext-*`: Shared VS Code extension utilities
-- `path-browserify`, `os-browserify`: Browser polyfills for path/os modules
+## Troubleshooting and Known Limitations
 
-## Development Guidelines
+- If lint references `vscode-whats-new`, ensure submodules were initialized.
+- If command/menu changes do not appear, rebuild and reload Extension Development Host.
+- Test runner may fail in restricted environments due to VS Code download/network constraints.
 
-1. **Before Making Changes**:
-   - Run `npm run lint` to check for existing issues
-   - Build with `npm run build` to ensure compilation works
-   - Test the extension by pressing F5 in VS Code to launch Extension Development Host
+## CI and Pre-Commit Validation
 
-2. **When Adding Features**:
-   - Register commands in `package.json` under `contributes.commands`
-   - Add command handlers in `src/extension.ts` or dedicated files in `src/commands/`
-   - Update decorations if visual changes are needed
-   - Consider multi-root workspace scenarios
-   - Add localization strings to `package.nls.json`
+Before committing:
 
-3. **When Modifying Configuration**:
-   - Update `package.json` contributes.configuration
-   - Handle configuration changes in the `onDidChangeConfiguration` listener
-   - Add localization keys for new settings
-
-4. **Testing Considerations**:
-   - Manual testing in Extension Development Host is primary method
-   - Test with single and multi-root workspaces
-   - Test bookmark persistence across VS Code restarts
-   - Verify sticky bookmarks work with code edits
+1. Run `npm run lint`.
+2. Run `npm run build`.
+3. Launch Extension Development Host and validate key bookmark flows.
 
 ## Common Tasks
 
 ### Adding a New Command
-1. Add command to `package.json` contributes.commands
-2. Register command handler in `src/extension.ts` using `vscode.commands.registerCommand`
-3. Add localization string to `package.nls.json`
-4. Update menus if command should appear in context menus or editor title
+1. Add command to `package.json` under `contributes.commands`.
+2. Register command handler in `src/extension.ts`.
+3. Add localization string to `package.nls.json`.
+4. Update menus/keybindings if needed.
 
 ### Modifying Bookmark Behavior
-- Core bookmark logic is in `src/core/`
-- Operations like next/previous are in `src/core/operations.ts`
-- Sticky behavior is in `src/sticky/`
+- Core logic: `src/core/operations.ts`
+- Sticky behavior: `src/sticky/`
+- UI updates: `src/decoration/` and `src/sidebar/`
 
-### Updating UI
-- Sidebar tree view: `src/sidebar/bookmarkProvider.ts`
-- Decorations: `src/decoration/decoration.ts`
-- Quick pick: `src/quickpick/`
-
-## Important Notes
-
-- Extension activates on `onStartupFinished` event
-- Main entry point is `dist/extension-node.js` (built from `src/extension.ts`)
-- GPL-3.0 licensed - maintain license headers
-- Supports virtual workspaces and untrusted workspaces
-- Published to both VS Code Marketplace and Open VSX

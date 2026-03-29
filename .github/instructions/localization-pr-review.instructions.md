@@ -96,6 +96,13 @@ While you cannot verify translation accuracy, watch for:
 - ✅ Image references preserved
 - ✅ Code blocks and formatting maintained
 
+### 5. Full Localization Pack Validation
+
+When a new language is added, ensure that all three types of localization files are included:
+- `package.nls.{LANGID}.json`
+- `l10n/bundle.l10n.{LANGID}.json`
+- Walkthrough `.nls.{LANGID}.md` files for all steps
+
 ## Common Issues to Flag
 
 ### High Priority Issues ❌
@@ -120,6 +127,14 @@ While you cannot verify translation accuracy, watch for:
    ```
    ❌ src/l10n/bundle.l10n.es.json  (wrong location)
    ✅ l10n/bundle.l10n.es.json      (correct location)
+   ```
+
+5. **Incomplete localization pack** - Missing files for a new language
+   ```
+   ❌ Missing files for language 'es':
+   - `package.nls.es.json`
+   - `l10n/bundle.l10n.es.json`
+   - Walkthrough `.nls.es.md` files
    ```
 
 ### Medium Priority Issues ⚠️
