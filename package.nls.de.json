@@ -104,5 +104,5 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "Arbeiten mit Remotes",
     "bookmarks.walkthroughs.workingWithRemotes.description": "Die Erweiterung unterstützt [Remote-Entwicklung](https://code.visualstudio.com/docs/remote/remote-overview)-Szenarien. Auch wenn sie lokal installiert ist, können Sie Lesezeichen in WSL, Containern, SSH und Codespaces verwenden.",
     "bookmarks.walkthroughs.customizingAppearance.title": "Anpassung des Erscheinungsbilds",
-    "bookmarks.walkthroughs.customizingAppearance.description": "Passen Sie an, wie Lesezeichen dargestellt werden, ihr Symbol, ihre Zeile und das Übersichtslineal\n[Settings öffnen - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Settings öffnen - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "Passen Sie an, wie Lesezeichen dargestellt werden, ihr Symbol, ihre Zeile und das Übersichtslineal\n[Einstellungen öffnen – Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Einstellungen öffnen – Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
 }
