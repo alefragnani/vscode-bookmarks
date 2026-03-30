@@ -99,7 +99,7 @@
     "bookmarks.walkthroughs.navigateToBookmarks.description": "Schnelles Springen zwischen markierten Zeilen.\nSuche nach Lesezeichen unter Verwendung des Inhalts der Zeile und/oder der Bezeichnungen.",
     "bookmarks.walkthroughs.defineLabelsForYourBookmarks.title": "Bezeichnungen für Ihre Lesezeichen definieren",
     "bookmarks.walkthroughs.defineLabelsForYourBookmarks.description": "Sie können Bezeichnungen für jedes Lesezeichen definieren und ihnen eine besondere Bedeutung verleihen, die sich von ihrer Position unterscheidet.",
-    "bookmarks.walkthroughs.exclusiveSideBar.title": "Exclusive Side Bar",
+    "bookmarks.walkthroughs.exclusiveSideBar.title": "Exklusive Seitenleiste",
     "bookmarks.walkthroughs.exclusiveSideBar.description": "Eine exklusive Seitenleiste mit allem, was Sie brauchen, um Ihre Produktivität zu steigern.\n[Seitenleiste öffnen](command:_bookmarks.openSideBar)",
     "bookmarks.walkthroughs.workingWithRemotes.title": "Arbeiten mit Remotes",
     "bookmarks.walkthroughs.workingWithRemotes.description": "Die Erweiterung unterstützt [Remote-Entwicklung](https://code.visualstudio.com/docs/remote/remote-overview)-Szenarien. Auch wenn sie lokal installiert ist, können Sie Lesezeichen in WSL, Containern, SSH und Codespaces verwenden.",
