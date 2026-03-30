@@ -1,9 +1,9 @@
-{
+ {
     "Become a Sponsor":"Unterstützen Sie das Projekt",
     "Donate via PayPal":"Spende via PayPal",
     "While Bookmarks is offered for free, if you find it useful, \n        please consider supporting it. Thank you!":"Die Bookmarks-Erweiterung wird kostenfrei angeboten, wenn Sie diese nützlich finden, \n        unterstützen Sie uns bitte.",
     "Open a file first to add bookmarks":"Öffnen Sie zuerst eine Datei, um ein Lesezeichen hinzuzufügen",
-    "You can't add bookmarks in Search Editor":"Sie können über die Suche keine Lesezeichen hinzuzufügen",
+    "You can't add bookmarks in Search Editor":"Sie können im Such-Editor keine Lesezeichen hinzufügen",
     "There is already a bookmark at this line":"Sie haben bereits für diese Zeile ein Lesezeichen angelegt",
     "Open a file first to list bookmarks":"Öffnen Sie zuerst eine Datei, um alle Lesezeichen anzuzeigen",
     "Type a line number or a piece of code to navigate to":"Geben Sie zum Navigieren eine Zeilen-Nummer oder einen Code-Abschnitt ein",
@@ -15,7 +15,7 @@
     "Type a label for your bookmark":"Geben Sie eine Bezeichnung für das Lesezeichen ein",
     "You must define a label for the bookmark.":"Sie müssen dem Lesezeichen eine Bezeichnung geben.",
     "Open a file first to toggle bookmarks":"Öffnen Sie zuerst eine Datei, um alle Lesezeichen an- oder abzuwählen",
-    "You can't toggle bookmarks in Search Editor":"Sie können über die Suche keine Lesezeichen an- oder abwählen",
+    "You can't toggle bookmarks in Search Editor":"Sie können im Such-Editor keine Lesezeichen an- oder abwählen",
     "Support":"Support",
     "Open a file first to shrink bookmark selection":"Öffnen Sie zuerst eine Datei, um die Auswahl der Lesezeichen einzuschränken",
     "Command not supported with more than one selection":"Befehl kann nur auf einzelne Elemente ausgeführt werden",
@@ -28,7 +28,7 @@
     "Are you sure you want to clear all bookmarks from all files?":"Sind Sie sicher, dass Sie aus allen Dateien alle Lesezeichen löschen wollen?",
     "Load bookmarks from project":"Lade Lesezeichen für das Projekt",
     "A local copy of bookmarks was found in the project. Do you want to load?":"Eine lokale Kopie mit Lesezeichen wurde im Projekt gefunden. Wollen Sie diese laden?",
-    "The project's file was last modified at {0}":"Das Projekt wurde zuletzt am: {0} - modifiziert.",
-    "One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}":"Ein Projekt im Arbeitsbereich enthält eine Lesezeichen-Datei. Diese wurde zuletzt am {0} - modifiziert",
+    "The project's file was last modified at {0}":"Die Projektdatei wurde zuletzt am {0} geändert.",
+    "One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}":"Ein Projekt im Arbeitsbereich enthält eine Lesezeichen-Datei. Diese wurde zuletzt am {0} geändert.",
     "Clear":"Löschen"
 }
