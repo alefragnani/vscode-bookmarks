@@ -69,7 +69,7 @@
     "bookmarks.configuration.multicursor.toggleMode.enumDescriptions.eachLineIndependently": "Schaltet die Lesezeichen in jeder Zeile um, anstatt alle Zeilen gleich zu machen",
     "bookmarks.configuration.label.suggestion.description": "Gibt an, wie Beschriftungen vorgeschlagen werden, wenn Lesezeichen erstellt werden",
     "bookmarks.configuration.label.suggestion.enumDescriptions.dontUse": "Die Auswahl nicht verwenden (original Verhalten)",
-    "bookmarks.configuration.label.suggestion.enumDescriptions.useWhenSelected": "Die ausgewählte Text (falls verfügbar) direkt verwenden, keine Bestätigung erforderlich",
+    "bookmarks.configuration.label.suggestion.enumDescriptions.useWhenSelected": "Den ausgewählten Text (falls verfügbar) direkt verwenden, keine Bestätigung erforderlich",
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelected": "Schlägt den ausgewählten Text vor (falls verfügbar). Sie müssen noch bestätigen.",
     "bookmarks.configuration.label.suggestion.enumDescriptions.suggestWhenSelectedOrLineWhenNoSelected": "Schlägt den ausgewählten Text vor (falls verfügbar) oder die ganze Zeile, wenn kein Text ausgewählt ist. Sie müssen noch bestätigen.",
     "bookmarks.configuration.revealLocation.description": "Steuert die Position, an der die Zeile mit dem Lesezeichen angezeigt wird, wenn sie aufgerufen wird",
