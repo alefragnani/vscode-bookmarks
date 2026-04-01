@@ -17,4 +17,4 @@ So könnte das in Ihren Einstellungen aussehen:
 
 Das Ergebnis könnte dann so aussehen:
 
-![Angepasstes Lesezeichen](customizedBookmark.png)
+![Lesezeichen anpassen](customizedBookmark.png)
