@@ -308,10 +308,17 @@ export class Controller {
 
     public async addBookmark(position: vscode.Position, label?: string, book?: File): Promise<void> {
         const b: File = book ? book : this.activeFile;
+        let doc: vscode.TextDocument | undefined;
+        try {
+            doc = await vscode.workspace.openTextDocument(this.getFileUri(b));
+        } catch {
+            // If document can't be opened, resolveColumn will use activeTextEditor as fallback
+        }
+
         if (!label) {
             b.bookmarks.push({
                 line: position.line,
-                column: this.resolveColumn(position),
+                column: this.resolveColumn(position, doc),
                 label: ""
             });
             let linePreview: string;
@@ -331,7 +338,7 @@ export class Controller {
         } else {
             b.bookmarks.push({
                 line: position.line,
-                column: this.resolveColumn(position),
+                column: this.resolveColumn(position, doc),
                 label
             });
             this.onDidAddBookmarkEmitter.fire({
@@ -555,7 +562,7 @@ export class Controller {
         return getFileUri(file, this.workspaceFolder);
     }
 
-    private resolveColumn(position: vscode.Position): number {
+    private resolveColumn(position: vscode.Position, document?: vscode.TextDocument): number {
         const cursorPosition = vscode.workspace.getConfiguration("bookmarks").get<string>("cursorPosition", "currentPosition");
         if (cursorPosition === "lineStart") {
             return 0;
@@ -563,7 +570,8 @@ export class Controller {
         if (cursorPosition === "currentPosition") {
             return position.character;
         }
-        const lineText = vscode.window.activeTextEditor?.document.lineAt(position.line).text ?? "";
+        const doc = document ?? vscode.window.activeTextEditor?.document;
+        const lineText = doc?.lineAt(position.line).text ?? "";
         if (cursorPosition === "contentStart") {
             const firstNonWhitespace = lineText.search(/\S/);
             return firstNonWhitespace === -1 ? 0 : firstNonWhitespace;
