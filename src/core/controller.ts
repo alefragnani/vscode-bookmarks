@@ -311,7 +311,7 @@ export class Controller {
         if (!label) {
             b.bookmarks.push({
                 line: position.line,
-                column: position.character,
+                column: this.resolveColumn(position),
                 label: ""
             });
             let linePreview: string;
@@ -331,7 +331,7 @@ export class Controller {
         } else {
             b.bookmarks.push({
                 line: position.line,
-                column: position.character,
+                column: this.resolveColumn(position),
                 label
             });
             this.onDidAddBookmarkEmitter.fire({
@@ -553,5 +553,24 @@ export class Controller {
 
     public getFileUri(file: File): Uri {
         return getFileUri(file, this.workspaceFolder);
+    }
+
+    private resolveColumn(position: vscode.Position): number {
+        const cursorPosition = vscode.workspace.getConfiguration("bookmarks").get<string>("cursorPosition", "currentPosition");
+        if (cursorPosition === "lineStart") {
+            return 0;
+        }
+        if (cursorPosition === "currentPosition") {
+            return position.character;
+        }
+        const lineText = vscode.window.activeTextEditor?.document.lineAt(position.line).text ?? "";
+        if (cursorPosition === "contentStart") {
+            const firstNonWhitespace = lineText.search(/\S/);
+            return firstNonWhitespace === -1 ? 0 : firstNonWhitespace;
+        }
+        if (cursorPosition === "contentEnd") {
+            return lineText.trimEnd().length;
+        }
+        return position.character;
     }
 }
