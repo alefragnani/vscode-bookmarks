@@ -9,8 +9,10 @@ export interface Bookmark {
     line: number;
     column: number;
     label?: string;
+    note?: string;
 }
 
 export interface BookmarkQuickPickItem extends QuickPickItem {
     uri: Uri;
+    note?: string;
 }
