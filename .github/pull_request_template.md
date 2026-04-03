@@ -3,7 +3,7 @@
 
 --- 
 
-## Pre-requisites Checklist
+## Prerequisites Checklist
 - [ ] The code is **up-to-date with the `master` branch**
 - [ ] I have reviewed the [CONTRIBUTING.md](../CONTRIBUTING.md) guidelines
 - [ ] The code **follows the repository's coding style** (TypeScript conventions, formatting, naming)
@@ -27,13 +27,13 @@ If your PR is a regular PR, to fix an issue, provide a new feature or change a b
 
 If your PR is related to localization, follow this additional checklist:
 
-- [ ] Identify the language code, like "pt-br" _(There is no deed to identify the language name)_
+- [ ] Identify the language code, like "pt-br" _(There is no need to identify the language name)_
 - [ ] All UI strings have been added/updated to `package.nls.json`
-- [ ] All translations where added/updated to the corresponding `package.nls.<language>.json` file(s)
+- [ ] All translations were added/updated to the corresponding `package.nls.<language>.json` file(s)
 - [ ] All new messages and strings located in extension source code have been added/updated to `l10n/bundle.l10n.json`
-- [ ] All translations where added/updated to the corresponding `l10n/bundle.l10n.<language>.json` file(s)
-- [ ] All walkthrough content have been added/updated to their `Markdown` files
-- [ ] All translations where added/updated to the corresponding `walkthrough/someStep.pt-br.md` file(s)
+- [ ] All translations were added/updated to the corresponding `l10n/bundle.l10n.<language>.json` file(s)
+- [ ] All walkthrough content has been added/updated to their `Markdown` files
+- [ ] All translations were added/updated to the corresponding `walkthrough/someStep.pt-br.md` file(s)
 
 --- 
 
@@ -43,7 +43,7 @@ If your PR is related to localization, follow this additional checklist:
 - [ ] Tested on Windows (if applicable)
 - [ ] Tested on macOS (if applicable)
 - [ ] Tested on Linux (if applicable)
-- [ ] Tested on Remotes (Containers, WSL, etc...)
+- [ ] Tested on Remotes (Containers, WSL, etc.)
 - [ ] Verified existing functionality still works (no regressions)
 
 ## Documentation
