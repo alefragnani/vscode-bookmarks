@@ -691,6 +691,23 @@
                         "%bookmarks.configuration.confirmClear.enumDescriptions.commandPalette%",
                         "%bookmarks.configuration.confirmClear.enumDescriptions.sideBar%"
                     ]
+                },
+                "bookmarks.cursorPosition": {
+                    "type": "string",
+                    "default": "currentPosition",
+                    "description": "%bookmarks.configuration.cursorPosition.description%",
+                    "enum": [
+                        "currentPosition",
+                        "lineStart",
+                        "contentStart",
+                        "contentEnd"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.cursorPosition.enumDescriptions.currentPosition%",
+                        "%bookmarks.configuration.cursorPosition.enumDescriptions.lineStart%",
+                        "%bookmarks.configuration.cursorPosition.enumDescriptions.contentStart%",
+                        "%bookmarks.configuration.cursorPosition.enumDescriptions.contentEnd%"
+                    ]
                 }
             }
         },

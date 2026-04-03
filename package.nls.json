@@ -104,5 +104,10 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "Working with Remotes",
     "bookmarks.walkthroughs.workingWithRemotes.description": "The extension support [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview) scenarios. Even installed locally, you can use Bookmarks in WSL, Containers, SSH and Codespaces.",
     "bookmarks.walkthroughs.customizingAppearance.title": "Customizing Appearance",
-    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruler\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruler\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+    "bookmarks.configuration.cursorPosition.description": "Specifies the column position stored when a bookmark is created",
+    "bookmarks.configuration.cursorPosition.enumDescriptions.currentPosition": "Store the cursor's current column position (default behavior)",
+    "bookmarks.configuration.cursorPosition.enumDescriptions.lineStart": "Always store column 0 (the very start of the line)",
+    "bookmarks.configuration.cursorPosition.enumDescriptions.contentStart": "Store the column of the first non-whitespace character on the line",
+    "bookmarks.configuration.cursorPosition.enumDescriptions.contentEnd": "Store the column just after the last non-whitespace character on the line"
 }
