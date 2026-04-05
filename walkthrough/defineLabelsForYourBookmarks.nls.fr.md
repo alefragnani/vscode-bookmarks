@@ -22,7 +22,7 @@ Vous avez plusieurs alternatives à choisir :
 
 ## Le texte du label s'affiche en ligne
 
-![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+![Bookmarks with labels](../images/bookmarks-with-labels-arrowed.png)
 
 Vous pouvez activer la visibilité du texte des étiquettes en ligne sur la même ligne où se trouve le signet étiqueté en activant `bookmarks.label.inline.enabled`.
 
@@ -31,9 +31,9 @@ Le texte du label du signet apparaît à côté de la ligne où se trouve le sig
   * `bookmarks.label.inline.enabled`: Activer l'affichage du texte du label à côté de la ligne réelle du signet étiqueté _(`false` par défaut)_
   * `bookmarks.label.inline.margin`: Marge entre la fin de la ligne et le texte du label en ligne. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé _(`2` par défaut)_
   * `bookmarks.label.inline.fontStyle`: Style de police du texte du label en ligne (p. ex. `"italic"`). N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé _(`"normal"` par défaut)_
-  * `bookmarks.labelInlineMessageTextColor`: Couleur du texte du label en ligne du signet. Si non spécifié, la même couleur que celle des inlay hints est utilisée. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé
-  * `bookmarks.label.inline.fontWeight`: Épaisseur de la police du texte du label en ligne. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé _(`450` par défaut)_
-  * `bookmarks.labelInlineMessageBackgroundColor`: Couleur de fond du texte du label en ligne. Si non spécifié, la même couleur que celle des inlay hints est utilisée. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé
+  * `bookmarks.labelInlineMessageTextColor`: Couleur du texte du label en ligne du signet. Si non spécifié, la même couleur que celle des git blame décoration de texte est utilisée. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé
+  * `bookmarks.label.inline.fontWeight`: Épaisseur de la police du texte du label en ligne. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé _(`400` par défaut)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Couleur de fond du texte du label en ligne. Si non spécifié, la même couleur que celle des git blame décoration de texte est utilisée. N'a de sens que si le paramètre bookmarks.label.inline.enabled est activé
 
 Pour modifier la couleur du texte/fond du label en ligne du signet :
 ```json

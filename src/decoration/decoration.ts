@@ -30,7 +30,7 @@ function createGutterRulerDecoration(
 export function createBookmarkLabelInlineDecoration(): TextEditorDecorationType {
     const bookmarksLabelInlineMargin = workspace.getConfiguration("bookmarks").get("label.inline.margin", 2);
     const labelInlineFontStyle = workspace.getConfiguration("bookmarks").get("label.inline.fontStyle", "normal");
-    const bookmarksLabelInlineFontWeight = workspace.getConfiguration("bookmarks").get("label.inline.fontWeight", 450);
+    const bookmarksLabelInlineFontWeight = workspace.getConfiguration("bookmarks").get("label.inline.fontWeight", 400);
 
     const decorationOptions: DecorationRenderOptions = {
         after: {

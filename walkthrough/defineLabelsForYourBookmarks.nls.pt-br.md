@@ -22,7 +22,7 @@ Você tem algumas alternativas para escolher:
 
 ## O texto do rótulo é exibido em linha
 
-![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+![Bookmarks with labels](../images/bookmarks-with-labels-arrowed.png)
 
 Você pode ativar a visibilidade do texto dos rótulos dos bookmarks em linha na mesma linha onde o bookmark etiquetado é colocado, habilitando `bookmarks.label.inline.enabled`.
 
@@ -31,9 +31,9 @@ O texto do rótulo do bookmark aparece ao lado da linha onde o bookmark etiqueta
   * `bookmarks.label.inline.enabled`: Habilite mostrar o texto do rótulo do bookmark ao lado da linha real com o bookmark etiquetado _(`false` por padrão)_
   * `bookmarks.label.inline.margin`: Margem entre o final da linha e o texto do rótulo em linha do bookmark. Faz sentido apenas se a configuração bookmarks.label.inline.enabled estiver habilitada _(`2` por padrão)_
   * `bookmarks.label.inline.fontStyle`: Estilo de fonte do texto do rótulo em linha (por exemplo `"italic"`). Faz sentido apenas se a configuração bookmarks.label.inline.enabled estiver habilitada _(`"normal"` por padrão)_
-  * `bookmarks.labelInlineMessageTextColor`: Cor do texto para o texto do rótulo em linha do bookmark. Se não especificado, a mesma cor usada para inlay hints é utilizada. Faz sentido apenas se a configuração bookmarks.label.inline.enabled estiver habilitada
-  * `bookmarks.label.inline.fontWeight`: Espessura da fonte para o texto do rótulo em linha do bookmark. Faz sentido apenas se a configuração bookmarks.label.inline.enabled estiver habilitada _(`450` por padrão)_
-  * `bookmarks.labelInlineMessageBackgroundColor`: Cor de fundo para o texto do rótulo em linha do bookmark. Se não especificado, a mesma cor usada para inlay hints é utilizada. Faz sentido apenas se a configuração bookmarks.label.inline.enabled estiver habilitada
+  * `bookmarks.labelInlineMessageTextColor`: Cor do texto para o texto do rótulo em linha do bookmark. Se não especificado, a mesma cor usada para git blame decoração de texto é utilizada. Faz sentido apenas se a configuração bookmarks.label.inline.enabled estiver habilitada
+  * `bookmarks.label.inline.fontWeight`: Espessura da fonte para o texto do rótulo em linha do bookmark. Faz sentido apenas se a configuração bookmarks.label.inline.enabled estiver habilitada _(`400` por padrão)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Cor de fundo para o texto do rótulo em linha do bookmark. Se não especificado, a mesma cor usada para git blame decoração de texto é utilizada. Faz sentido apenas se a configuração bookmarks.label.inline.enabled estiver habilitada
 
 Para alterar a cor do texto/fundo do texto do rótulo em linha do bookmark:
 ```json

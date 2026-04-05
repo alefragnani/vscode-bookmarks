@@ -22,7 +22,7 @@ Seçebileceğiniz bir sürü alternatifiniz var:
 
 ## Etiket metni satır içinde görüntüleniyor
 
-![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+![Bookmarks with labels](../images/bookmarks-with-labels-arrowed.png)
 
 `bookmarks.label.inline.enabled` öğesini etkinleştirerek, etiketli yer işaretinin yerleştirildiği aynı satırda yer işareti etiketleri metninin görünürlüğünü satır içinde açabilirsiniz.
 
@@ -32,7 +32,7 @@ Yer işareti etiketi metni, etiketli yer işaretinin yerleştirildiği satırın
   * `bookmarks.label.inline.margin`: Satırın sonu ile yer işareti etiketi satır içi metni arasındaki kenar boşluğu. Yalnızca bookmarks.label.inline.enabled ayarı etkinse anlam ifade eder _(`2` varsayılan)_
   * `bookmarks.label.inline.fontStyle`: Etiket satır içi metin yazı tipi stili (örn. `"italic"`). Yalnızca bookmarks.label.inline.enabled ayarı etkinse anlam ifade eder _(`"normal"` varsayılan)_
   * `bookmarks.labelInlineMessageTextColor`: Yer işareti etiketi satır içi metni için metin rengi. Belirtilmezse, satır içi ipuçları ile aynı renk kullanılır. Yalnızca bookmarks.label.inline.enabled ayarı etkinse anlam ifade eder
-  * `bookmarks.label.inline.fontWeight`: Yer işareti etiketi satır içi metni için yazı tipi kalınlığı. Yalnızca bookmarks.label.inline.enabled ayarı etkinse anlam ifade eder _(`450` varsayılan)_
+  * `bookmarks.label.inline.fontWeight`: Yer işareti etiketi satır içi metni için yazı tipi kalınlığı. Yalnızca bookmarks.label.inline.enabled ayarı etkinse anlam ifade eder _(`400` varsayılan)_
   * `bookmarks.labelInlineMessageBackgroundColor`: Yer işareti etiketi satır içi metni için arka plan rengi. Belirtilmezse, satır içi ipuçları ile aynı renk kullanılır. Yalnızca bookmarks.label.inline.enabled ayarı etkinse anlam ifade eder
 
 Yer işareti etiketi satır içi metni metin rengini/arka plan rengini değiştirmek için:
