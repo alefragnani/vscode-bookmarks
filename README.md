@@ -76,7 +76,7 @@ You can easily Mark/Unmark bookmarks on any position. You can even define **Labe
 
 You can turn on bookmark labels text visibility inline in the same line where labeled bookmark is placed:
 
-![Bookmarks with labels](images/bookmarks-with-lables-arrrowed.png)
+![Bookmarks with labels](images/bookmarks-with-labels-arrowed.png)
 
 This can help you store notes about code without needing to remove these comments later (because bookmarks are not stored in source code and won't be accidentally committed to version control system).
 
@@ -224,9 +224,9 @@ $file:$line - $label
     "bookmarks.label.inline.fontStyle": "normal"
 ```
 
-* Font thickness for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`450` by default)_
+* Font thickness for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`400` by default)_
 ```json
-    "bookmarks.label.inline.fontWeight": 450
+    "bookmarks.label.inline.fontWeight": 400
 ```
 
 * Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu _(`true` by default)_

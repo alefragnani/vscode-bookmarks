@@ -23,7 +23,7 @@
 
 ## 标签文本在行中显示
 
-![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+![Bookmarks with labels](../images/bookmarks-with-labels-arrowed.png)
 
 你可以通过启用 `bookmarks.label.inline.enabled` 来在标记书签所在的同一行中打开书签标签文本的可见性。
 
@@ -32,9 +32,9 @@
   * `bookmarks.label.inline.enabled`: 启用在标记书签的实际行旁边显示书签标签文本 _（默认为 `false`）_
   * `bookmarks.label.inline.margin`: 行末与书签标签内联文本之间的边距。仅当启用 bookmarks.label.inline.enabled 设置时才有意义 _（默认为 `2`）_
   * `bookmarks.label.inline.fontStyle`: 标签内联文本的字体样式（例如 `"italic"`）。仅当启用 bookmarks.label.inline.enabled 设置时才有意义 _（默认为 `"normal"`）_
-  * `bookmarks.labelInlineMessageTextColor`: 书签标签内联文本的文本颜色。如果未指定，则使用与 inlay hints 相同的颜色。仅当启用 bookmarks.label.inline.enabled 设置时才有意义
-  * `bookmarks.label.inline.fontWeight`: 书签标签内联文本的字体粗细。仅当启用 bookmarks.label.inline.enabled 设置时才有意义 _（默认为 `450`）_
-  * `bookmarks.labelInlineMessageBackgroundColor`: 书签标签内联文本的背景颜色。如果未指定，则使用与 inlay hints 相同的颜色。仅当启用 bookmarks.label.inline.enabled 设置时才有意义
+  * `bookmarks.labelInlineMessageTextColor`: 书签标签内联文本的文本颜色。如果未指定，则使用与 git blame 文本装饰 相同的颜色。仅当启用 bookmarks.label.inline.enabled 设置时才有意义
+  * `bookmarks.label.inline.fontWeight`: 书签标签内联文本的字体粗细。仅当启用 bookmarks.label.inline.enabled 设置时才有意义 _（默认为 `400`）_
+  * `bookmarks.labelInlineMessageBackgroundColor`: 书签标签内联文本的背景颜色。如果未指定，则使用与 git blame 文本装饰 相同的颜色。仅当启用 bookmarks.label.inline.enabled 设置时才有意义
 
 要改变书签标签内联文本的文本颜色/背景颜色：
 ```json

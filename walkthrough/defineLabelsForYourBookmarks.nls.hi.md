@@ -22,7 +22,7 @@
 
 ## बुकमार्क लेबल पाठ इनलाइन प्रदर्शित होता है
 
-![Bookmarks with labels](../images/bookmarks-with-lables-arrrowed.png)
+![Bookmarks with labels](../images/bookmarks-with-labels-arrowed.png)
 
 आप `bookmarks.label.inline.enabled` को सक्षम करके बुकमार्क लेबल पाठ की दृश्यता को उसी पंक्ति में इनलाइन चालू कर सकते हैं जहां लेबल वाला बुकमार्क रखा जाता है।
 
@@ -31,9 +31,9 @@
   * `bookmarks.label.inline.enabled`: लेबल वाले बुकमार्क की वास्तविक पंक्ति के आगे बुकमार्क लेबल पाठ दिखाना सक्षम करें _(`false` डिफ़ॉल्ट रूप से)_
   * `bookmarks.label.inline.margin`: पंक्ति के अंत और बुकमार्क लेबल इनलाइन पाठ के बीच मार्जिन। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो _(`2` डिफ़ॉल्ट रूप से)_
   * `bookmarks.label.inline.fontStyle`: लेबल इनलाइन पाठ फॉन्ट शैली (जैसे `"italic"`). केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो _(`"normal"` डिफ़ॉल्ट रूप से)_
-  * `bookmarks.labelInlineMessageTextColor`: बुकमार्क लेबल इनलाइन पाठ के लिए पाठ रंग। यदि निर्दिष्ट नहीं किया जाता है तो inlay hints के समान रंग का उपयोग किया जाता है। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो
-  * `bookmarks.label.inline.fontWeight`: बुकमार्क लेबल इनलाइन पाठ के लिए फॉन्ट मोटाई। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो _(`450` डिफ़ॉल्ट रूप से)_
-  * `bookmarks.labelInlineMessageBackgroundColor`: बुकमार्क लेबल इनलाइन पाठ के लिए पृष्ठभूमि रंग। यदि निर्दिष्ट नहीं किया जाता है तो inlay hints के समान रंग का उपयोग किया जाता है। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो
+  * `bookmarks.labelInlineMessageTextColor`: बुकमार्क लेबल इनलाइन पाठ के लिए पाठ रंग। यदि निर्दिष्ट नहीं किया जाता है तो git blame पाठ सजावट के समान रंग का उपयोग किया जाता है। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो
+  * `bookmarks.label.inline.fontWeight`: बुकमार्क लेबल इनलाइन पाठ के लिए फॉन्ट मोटाई। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो _(`400` डिफ़ॉल्ट रूप से)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: बुकमार्क लेबल इनलाइन पाठ के लिए पृष्ठभूमि रंग। यदि निर्दिष्ट नहीं किया जाता है तो git blame पाठ सजावट के समान रंग का उपयोग किया जाता है। केवल तभी समझ में आता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो
 
 बुकमार्क लेबल इनलाइन पाठ के पाठ रंग/पृष्ठभूमि रंग को बदलने के लिए:
 ```json

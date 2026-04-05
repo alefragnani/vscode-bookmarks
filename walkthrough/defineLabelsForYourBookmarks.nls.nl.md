@@ -19,3 +19,26 @@ Je hebt een aantal opties om uit te kiezen:
     </td>
   </tr>
 </table>
+
+## Labeltekst wordt inline weergegeven
+
+![Bladwijzers met labels](../images/bookmarks-with-labels-arrowed.png)
+
+Je kunt de zichtbaarheid van bladwijzerlabeltekst inline inschakelen op dezelfde regel waar de gelabelde bladwijzer zich bevindt via `bookmarks.label.inline.enabled`.
+
+De bladwijzerlabeltekst verschijnt naast de regel waar de gelabelde bladwijzer is geplaatst. Standaard ziet het er uit als de tekstdecoratie van git blame. Je kunt deze functie inschakelen en de weergave aanpassen via de volgende instellingen:
+
+  * `bookmarks.label.inline.enabled`: Schakel het weergeven van bladwijzerlabeltekst naast de werkelijke regel met gelabelde bladwijzer in _(`false` standaard)_
+  * `bookmarks.label.inline.margin`: Marge tussen het einde van de regel en de inline bladwijzerlabeltekst. Alleen zinvol als de instelling bookmarks.label.inline.enabled is ingeschakeld _(`2` standaard)_
+  * `bookmarks.label.inline.fontStyle`: Lettertypestijl van inline labeltekst (bijv. `"italic"`). Alleen zinvol als de instelling bookmarks.label.inline.enabled is ingeschakeld _(`"normal"` standaard)_
+  * `bookmarks.labelInlineMessageTextColor`: Tekstkleur voor inline bladwijzerlabeltekst. Als niet opgegeven, wordt dezelfde kleur als voor de git blame tekstdecoratie gebruikt. Alleen zinvol als de instelling bookmarks.label.inline.enabled is ingeschakeld
+  * `bookmarks.label.inline.fontWeight`: Letterdikte voor inline bladwijzerlabeltekst. Alleen zinvol als de instelling bookmarks.label.inline.enabled is ingeschakeld _(`400` standaard)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Achtergrondkleur voor inline bladwijzerlabeltekst. Als niet opgegeven, wordt dezelfde kleur als voor de git blame tekstdecoratie gebruikt. Alleen zinvol als de instelling bookmarks.label.inline.enabled is ingeschakeld
+
+Om de tekstkleur/achtergrondkleur van inline bladwijzerlabeltekst te wijzigen:
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```
