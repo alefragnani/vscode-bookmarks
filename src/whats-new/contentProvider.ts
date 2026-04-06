@@ -20,6 +20,128 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "14.1.0", releaseDate: "March 2026" } });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Ability to export bookmarks",
+                id: 172,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add bookmarks via Side Bar (+ button/icon)",
+                id: 319,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add Clear from All Files command in the Side Bar",
+                id: 512,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Add Search button to the Side Bar",
+                id: 558,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "New setting to confirm before clearing bookmarks",
+                id: 755,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Use current label as a starting point when editing labels",
+                id: 812,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.NEW,
+            detail: {
+                message: "Dutch translations",
+                id: 854,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Replace hardcoded icons with product icons",
+                id: 719,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.CHANGED,
+            detail: {
+                message: "Verify existing bookmarks.json when enabling Save Bookmarks In Project",
+                id: 690,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Spanish localization missing keys",
+                id: 856,
+                kind: IssueKind.PR,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Add basic test support",
+                id: 828,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Add CONTRIBUTING documentation",
+                id: 833,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Update vscode-whats-new submodule to March 2026 release",
+                id: 867,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Bump Node.js dependency to v22",
+                id: 869,
+                kind: IssueKind.Issue,
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Dependency updates for webpack, minimatch/typescript-eslint, and flatted",
+                id: 866,
+                kind: IssueKind.PR,
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "14.0.0", releaseDate: "November 2025" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
