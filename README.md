@@ -3,16 +3,15 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 14
+# What's new in Bookmarks 14.1
 
+* Adds **Export** support
+* Improved **Side Bar**
+* Improved **Labeled Bookmark**
 * Fully Open Source again
 * Adds **Persian**, **French**, **Hindi** and **Polish** translations
 * Setting to customize overview ruler lane
 * Published to **Open VSX**
-* Adds **Getting Started / Walkthrough**
-* Adds **Side Bar** badge
-* Adds Toggle bookmark via mouse click
-* Adds **Icon** customization
 
 # Support
 
@@ -251,6 +250,17 @@ $file:$line - $label
 
 ```json
     "bookmarks.multicursor.toggleMode": "eachLineIndependently"
+```
+
+* Specify when a confirmation message should be displayed before clearing bookmarks _(`never` by default)_
+
+* `never` - No confirmation (current behavior)
+* `always` - Confirm all clear operations
+* `commandPalette` - Confirm only when invoked from Command Palette
+* `sideBar` - Confirm only when invoked from Side Bar
+
+```json
+    "bookmarks.confirmClear": "always"
 ```
 
 * Choose how labels are suggested when creating bookmarks _(`dontUse` by default)_

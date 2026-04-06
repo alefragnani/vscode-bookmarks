@@ -1,3 +1,27 @@
+## [14.1.0] - 2026-04-06
+### Added
+- Ability to export bookmarks (issue [#172](https://github.com/alefragnani/vscode-bookmarks/issues/172))
+- Add bookmarks via Side Bar (+ button/icon) (issue [#319](https://github.com/alefragnani/vscode-bookmarks/issues/319))
+- Add Clear from All Files command in the Side Bar (issue [#512](https://github.com/alefragnani/vscode-bookmarks/issues/512))
+- Add Search button to the Side Bar (issue [#558](https://github.com/alefragnani/vscode-bookmarks/issues/558))
+- New setting to confirm before clearing bookmarks (issue [#755](https://github.com/alefragnani/vscode-bookmarks/issues/755))
+- Use current label as a starting point when editing labels (issue [#812](https://github.com/alefragnani/vscode-bookmarks/issues/812))
+- Dutch translations (issue [#854](https://github.com/alefragnani/vscode-bookmarks/issues/854))
+
+### Changed
+- Replace hardcoded icons with product icons (issue [#719](https://github.com/alefragnani/vscode-bookmarks/issues/719))
+- Verify existing bookmarks.json when enabling Save Bookmarks In Project (issue [#690](https://github.com/alefragnani/vscode-bookmarks/issues/690))
+
+### Fixed
+- Spanish localization missing keys (PR [#856](https://github.com/alefragnani/vscode-bookmarks/pull/856))
+
+### Internal
+- Add basic test support (issue [#828](https://github.com/alefragnani/vscode-bookmarks/issues/828))
+- Add CONTRIBUTING documentation (issue [#833](https://github.com/alefragnani/vscode-bookmarks/issues/833))
+- Update vscode-whats-new submodule to March 2026 release (issue [#867](https://github.com/alefragnani/vscode-bookmarks/issues/867))
+- Bump Node.js dependency to v22 (issue [#869](https://github.com/alefragnani/vscode-bookmarks/issues/869))
+- Dependency updates for webpack, minimatch/typescript-eslint, and flatted (PR [#857](https://github.com/alefragnani/vscode-bookmarks/pull/857), PR [#861](https://github.com/alefragnani/vscode-bookmarks/pull/861), PR [#866](https://github.com/alefragnani/vscode-bookmarks/pull/866))
+
 ## [14.0.0] - 2025-12-10
 ### Added
 - Fully Open Source again (issue [#523](https://github.com/alefragnani/vscode-bookmarks/issues/523))
