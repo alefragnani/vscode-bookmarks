@@ -41,8 +41,9 @@ export class BookmarksContentProvider implements ContentProvider {
             kind: ChangeLogKind.NEW,
             detail: {
                 message: "Add Clear from All Files command in the Side Bar",
-                id: 512,
-                kind: IssueKind.Issue,
+                id: 508,
+                kind: IssueKind.PR,
+                kudos: "@imyuanx"
             }
         });
         changeLog.push({
@@ -73,8 +74,9 @@ export class BookmarksContentProvider implements ContentProvider {
             kind: ChangeLogKind.NEW,
             detail: {
                 message: "Dutch translations",
-                id: 854,
-                kind: IssueKind.Issue,
+                id: 859,
+                kind: IssueKind.PR,
+                kudos: "@DionPotkamp"
             }
         });
         changeLog.push({
@@ -99,6 +101,7 @@ export class BookmarksContentProvider implements ContentProvider {
                 message: "Spanish localization missing keys",
                 id: 856,
                 kind: IssueKind.PR,
+                kudos: "@slegarraga"
             }
         });
         changeLog.push({
@@ -136,9 +139,28 @@ export class BookmarksContentProvider implements ContentProvider {
         changeLog.push({
             kind: ChangeLogKind.INTERNAL,
             detail: {
-                message: "Dependency updates for webpack, minimatch/typescript-eslint, and flatted",
+                message: "Bump webpack",
+                id: 857,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Bump minimatch, @typescript-eslint/eslint-plugin and @typescript-eslint/parser",
+                id: 861,
+                kind: IssueKind.PR,
+                kudos: "dependabot"
+            }
+        });
+        changeLog.push({
+            kind: ChangeLogKind.INTERNAL,
+            detail: {
+                message: "Bump flatted",
                 id: 866,
                 kind: IssueKind.PR,
+                kudos: "dependabot"
             }
         });
 
