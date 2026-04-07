@@ -20,6 +20,16 @@ export class BookmarksContentProvider implements ContentProvider {
     public provideChangeLog(): ChangeLogItem[] {
         const changeLog: ChangeLogItem[] = [];
 
+        changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "14.1.1", releaseDate: "March 2026 - Recovery 1" } });
+        changeLog.push({
+            kind: ChangeLogKind.FIXED,
+            detail: {
+                message: "Fix kudos attribution in v14.1.0 release notes",
+                id: 882,
+                kind: IssueKind.Issue,
+            }
+        });
+
         changeLog.push({ kind: ChangeLogKind.VERSION, detail: { releaseNumber: "14.1.0", releaseDate: "March 2026" } });
         changeLog.push({
             kind: ChangeLogKind.NEW,
