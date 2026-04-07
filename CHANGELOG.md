@@ -1,3 +1,7 @@
+## [14.1.1] - 2026-04-07
+### Fixed
+- Fix kudos attribution in v14.1.0 release notes (issue [#882](https://github.com/alefragnani/vscode-bookmarks/issues/882))
+
 ## [14.1.0] - 2026-04-06
 ### Added
 - Ability to export bookmarks (issue [#172](https://github.com/alefragnani/vscode-bookmarks/issues/172))
