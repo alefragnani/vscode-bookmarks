@@ -19,6 +19,7 @@ interface BookmarkAdded {
     column: number;
     linePreview?: string;
     label?: string;
+    note?: string;
     uri: Uri;
 }
 
@@ -33,7 +34,8 @@ interface BookmarkUpdated {
     line: number;
     column?: number;
     linePreview?: string;
-    label?: string
+    label?: string;
+    note?: string;
 }
 
 enum ToggleMode {
@@ -394,6 +396,18 @@ export class Controller {
                 label: b.bookmarks[ index ].label
             });
         }
+    }
+
+    public updateBookmarkNote(book: File, index: number, note: string): void {
+        book.bookmarks[index].note = note;
+        // Re-use update event or create a new one? Reuse seems fine as it triggers refresh
+        this.onDidUpdateBookmarkEmitter.fire({
+            file: book,
+            index,
+            line: book.bookmarks[index].line + 1,
+            label: book.bookmarks[index].label,
+            note: note
+        });
     }
 
     public hasAnyBookmark(): boolean {
