@@ -695,13 +695,13 @@
                 "bookmarks.label.inline.enabled": {
                     "type": "boolean",
                     "default": false,
-                    "description": "%bookmarks.configuration.bookmarks.label.inline.enabled.description%"
+                    "description": "%bookmarks.configuration.label.inline.enabled.description%"
                 },
                 "bookmarks.label.inline.margin": {
                     "type": "integer",
                     "minimum": 0,
                     "default": 2,
-                    "description": "%bookmarks.configuration.bookmarks.label.inline.margin.description%"
+                    "description": "%bookmarks.configuration.label.inline.margin.description%"
                 },
                 "bookmarks.label.inline.fontStyle": {
                     "type": "string",
@@ -718,7 +718,7 @@
                     "minimum": 100,
                     "maximum": 900,
                     "default": 400,
-                    "description": "%bookmarks.configuration.bookmarks.label.inline.fontWeight.description%"
+                    "description": "%bookmarks.configuration.label.inline.fontWeight.description%"
                 }
             }
         },
