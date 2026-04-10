@@ -19,3 +19,26 @@ Masz do wyboru kilka alternatyw:
     </td>
   </tr>
 </table>
+
+## Tekst etykiety jest wyświetlany w wierszu
+
+![Bookmarks with labels](../images/bookmarks-with-labels-arrowed.png)
+
+Możesz włączyć widoczność tekstu etykiety zakładki w wierszu, w którym umieszczona jest zakładka z etykietą, włączając `bookmarks.label.inline.enabled`.
+
+Tekst etykiety zakładki pojawia się obok wiersza, w którym umieszczona jest zakładka z etykietą. Domyślnie wygląda jak dekoracja tekstu git blame. Możesz włączyć tę funkcję i dostosować jej wygląd za pomocą następujących ustawień:
+
+  * `bookmarks.label.inline.enabled`: Włącz pokazywanie tekstu etykiety zakładki obok rzeczywistego wiersza z etykietowaną zakładką _(`false` domyślnie)_
+  * `bookmarks.label.inline.margin`: Margines między końcem linii a tekstem etykiety zakładki w wierszu. Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone _(`2` domyślnie)_
+  * `bookmarks.label.inline.fontStyle`: Styl czcionki tekstu etykiety w wierszu (np. `"italic"`). Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone _(`"normal"` domyślnie)_
+  * `bookmarks.labelInlineMessageTextColor`: Kolor tekstu etykiety zakładki w wierszu. Jeśli nie jest określony, używany jest ten sam kolor co dla git blame dekoracja tekstu. Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone
+  * `bookmarks.label.inline.fontWeight`: Grubość czcionki tekstu etykiety w wierszu. Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone _(`400` domyślnie)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Kolor tła tekstu etykiety zakładki w wierszu. Jeśli nie jest określony, używany jest ten sam kolor co dla git blame dekoracja tekstu. Ma sens tylko jeśli ustawienie bookmarks.label.inline.enabled jest włączone
+
+Aby zmienić kolor tekstu/koloru tła tekstu etykiety zakładki w wierszu:
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```
