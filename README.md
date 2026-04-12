@@ -335,5 +335,3 @@ It also works even if you only _preview_ a file (simple click in TreeView). You 
 # License
 
 [GPL-3.0](LICENSE.md) &copy; Alessandro Fragnani
-
-initial commit for cursor-placement-setting

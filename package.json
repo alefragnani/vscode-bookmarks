@@ -692,21 +692,21 @@
                         "%bookmarks.configuration.confirmClear.enumDescriptions.sideBar%"
                     ]
                 },
-                "bookmarks.cursorPosition": {
+                "bookmarks.navigation.columnMode": {
                     "type": "string",
-                    "default": "currentPosition",
-                    "description": "%bookmarks.configuration.cursorPosition.description%",
+                    "default": "stored",
+                    "description": "%bookmarks.configuration.navigation.columnMode.description%",
                     "enum": [
-                        "currentPosition",
+                        "stored",
                         "lineStart",
-                        "contentStart",
-                        "contentEnd"
+                        "firstNonWhitespace",
+                        "lineEnd"
                     ],
                     "enumDescriptions": [
-                        "%bookmarks.configuration.cursorPosition.enumDescriptions.currentPosition%",
-                        "%bookmarks.configuration.cursorPosition.enumDescriptions.lineStart%",
-                        "%bookmarks.configuration.cursorPosition.enumDescriptions.contentStart%",
-                        "%bookmarks.configuration.cursorPosition.enumDescriptions.contentEnd%"
+                        "%bookmarks.configuration.navigation.columnMode.enumDescriptions.stored%",
+                        "%bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart%",
+                        "%bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace%",
+                        "%bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd%"
                     ]
                 }
             }
@@ -841,9 +841,18 @@
             "vscode-ext"
         ],
         "rules": {
-            "indent": ["error", 4, { "SwitchCase": 1 }],
+            "indent": [
+                "error",
+                4,
+                {
+                    "SwitchCase": 1
+                }
+            ],
             "no-tabs": "error",
-            "semi": ["error", "always"],
+            "semi": [
+                "error",
+                "always"
+            ],
             "no-unexpected-multiline": "error"
         }
     },

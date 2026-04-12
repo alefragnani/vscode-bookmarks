@@ -1,13 +1,19 @@
 {
-	"files": [
+	"bookmarks": [
 		{
-			"path": "package.json",
+			"fsPath": "$ROOTPATH$\\Bookmarks.ts",
 			"bookmarks": [
-				{
-					"line": 849,
-					"column": 15,
-					"label": ""
-				}
+				41
+			]
+		},
+		{
+			"fsPath": "$ROOTPATH$\\extension.ts",
+			"bookmarks": [
+				112,
+				675,
+				701,
+				795,
+				800
 			]
 		}
 	]
