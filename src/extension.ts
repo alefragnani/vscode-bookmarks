@@ -10,7 +10,7 @@ import { BookmarkQuickPickItem } from "./core/bookmark";
 import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "./core/constants";
 import { Directions, isWindows, SEARCH_EDITOR_SCHEME } from "./core/constants";
 import { Container } from "./core/container";
-import { createBookmarkDecorations, createBookmarkLabelInlineDecoration, updateDecorationsInActiveEditor } from "./decoration/decoration";
+import { disposeDecorations, initializeDecorations, updateDecorationsInActiveEditor } from "./decoration/decoration";
 import { File } from "./core/file";
 import { Controller } from "./core/controller";
 import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "./core/operations";
@@ -73,15 +73,8 @@ export async function activate(context: vscode.ExtensionContext) {
             cfg.affectsConfiguration("bookmarks.label.inline.fontStyle") ||
             cfg.affectsConfiguration("bookmarks.label.inline.fontWeight")
         ) {
-            if (bookmarkDecorationType.length > 0) {
-                bookmarkDecorationType.forEach(b => b.dispose());
-            }
-            bookmarkLabelInlineDecoration.dispose();
-
-            bookmarkDecorationType = createBookmarkDecorations();
-            bookmarkLabelInlineDecoration = createBookmarkLabelInlineDecoration();
-            context.subscriptions.push(...bookmarkDecorationType);
-            context.subscriptions.push(bookmarkLabelInlineDecoration);
+            disposeDecorations();
+            initializeDecorations();
 
             updateDecorations();
             bookmarkProvider.refresh();
@@ -174,10 +167,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }));
 
-    let bookmarkDecorationType = createBookmarkDecorations();
-    let bookmarkLabelInlineDecoration = createBookmarkLabelInlineDecoration();
-    context.subscriptions.push(...bookmarkDecorationType);
-    context.subscriptions.push(bookmarkLabelInlineDecoration);
+    initializeDecorations();
 
     // Connect it to the Editors Events
     let activeEditor = vscode.window.activeTextEditor;
@@ -313,9 +303,7 @@ export async function activate(context: vscode.ExtensionContext) {
     function updateDecorations() {
         updateDecorationsInActiveEditor(
             activeEditor,
-            activeController,
-            bookmarkDecorationType,
-            bookmarkLabelInlineDecoration,
+            activeController
         );
     }
 

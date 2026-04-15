@@ -10,6 +10,22 @@ import { indexOfBookmark } from "../core/operations";
 import { DEFAULT_GUTTER_ICON_BORDER_COLOR, DEFAULT_GUTTER_ICON_FILL_COLOR } from "../core/constants";
 import { getOverviewRulerLaneConfig } from "../utils/overviewRulerLane";
 import { Bookmark } from "../core/bookmark";
+import { Container } from "../core/container";
+
+let bookmarkDecorationType: TextEditorDecorationType[] = [];
+let bookmarkLabelInlineDecoration: TextEditorDecorationType | undefined;
+
+export function initializeDecorations() {
+    bookmarkDecorationType = createBookmarkDecorations();
+    bookmarkLabelInlineDecoration = createBookmarkLabelInlineDecoration();
+    Container.context.subscriptions.push(...bookmarkDecorationType);
+    Container.context.subscriptions.push(bookmarkLabelInlineDecoration);
+}
+
+export function disposeDecorations() {
+    bookmarkDecorationType.forEach(d => d.dispose());
+    bookmarkLabelInlineDecoration?.dispose();
+}
 
 function createGutterRulerDecoration(
     overviewRulerLane?: OverviewRulerLane,
@@ -89,8 +105,6 @@ function buildDecorationOptionsForInlineBookmarkLabel(
 export function updateDecorationsInActiveEditor(
     activeEditor: TextEditor,
     bookmarks: Controller,
-    bookmarkDecorationType: TextEditorDecorationType[],
-    bookmarkLabelInlineDecoration: TextEditorDecorationType,
 ) {
     if (!activeEditor) {
         return;
