@@ -7,6 +7,19 @@ import { Selection, Uri, window, workspace } from "vscode";
 import { Bookmark } from "../core/bookmark";
 import { getRevealLocationConfig } from "./revealLocation";
 
+function resolveNavigationColumn(line: number, storedColumn: number): number {
+    const columnMode = workspace.getConfiguration("bookmarks").get<string>("navigation.columnMode", "stored");
+    if (columnMode === "lineStart") return 0;
+    if (columnMode === "stored") return storedColumn;
+    const lineText = window.activeTextEditor?.document.lineAt(line).text ?? "";
+    if (columnMode === "firstNonWhitespace") {
+        const firstNonWhitespace = lineText.search(/\S/);
+        return firstNonWhitespace === -1 ? 0 : firstNonWhitespace;
+    }
+    if (columnMode === "lineEnd") return lineText.trimEnd().length;
+    return storedColumn;
+}
+
 export function revealLine(line: number, directJump?: boolean) {
     const newSe = new Selection(line, 0, line, 0);
     window.activeTextEditor.selection = newSe;
@@ -17,8 +30,9 @@ export function revealPosition(line: number, column: number): void {
     if (isNaN(column)) {
         revealLine(line);
     } else {
+        const resolvedColumn = resolveNavigationColumn(line, column);
         const revealType = getRevealLocationConfig(line === window.activeTextEditor.selection.active.line);
-        const newPosition = new Selection(line, column, line, column);
+        const newPosition = new Selection(line, resolvedColumn, line, resolvedColumn);
         window.activeTextEditor.selection = newPosition;
         window.activeTextEditor.revealRange(newPosition, revealType);
     }

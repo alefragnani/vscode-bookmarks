@@ -719,6 +719,23 @@
                     "maximum": 900,
                     "default": 400,
                     "description": "%bookmarks.configuration.label.inline.fontWeight.description%"
+                },
+                "bookmarks.navigation.columnMode": {
+                    "type": "string",
+                    "default": "stored",
+                    "description": "%bookmarks.configuration.navigation.columnMode.description%",
+                    "enum": [
+                        "stored",
+                        "lineStart",
+                        "firstNonWhitespace",
+                        "lineEnd"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.navigation.columnMode.enumDescriptions.stored%",
+                        "%bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart%",
+                        "%bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace%",
+                        "%bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd%"
+                    ]
                 }
             }
         },
