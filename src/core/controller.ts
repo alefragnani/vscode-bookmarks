@@ -554,5 +554,4 @@ export class Controller {
     public getFileUri(file: File): Uri {
         return getFileUri(file, this.workspaceFolder);
     }
-
 }
