@@ -1,7 +1,7 @@
 /*---------------------------------------------------------------------------------------------
- *  Copyright (c) Alessandro Fragnani. All rights reserved.
- *  Licensed under the GPLv3 License. See License.md in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
+*  Copyright (c) Alessandro Fragnani. All rights reserved.
+*  Licensed under the GPLv3 License. See License.md in the project root for license information.
+*--------------------------------------------------------------------------------------------*/
 
 import { Selection, Uri, window, workspace } from "vscode";
 import { Bookmark } from "../core/bookmark";
@@ -9,20 +9,14 @@ import { getRevealLocationConfig } from "./revealLocation";
 
 function resolveNavigationColumn(line: number, storedColumn: number): number {
     const columnMode = workspace.getConfiguration("bookmarks").get<string>("navigation.columnMode", "stored");
-    if (columnMode === "lineStart") {
-        return 0;
-    }
-    if (columnMode === "stored") {
-        return storedColumn;
-    }
+    if (columnMode === "lineStart") return 0;
+    if (columnMode === "stored") return storedColumn;
     const lineText = window.activeTextEditor?.document.lineAt(line).text ?? "";
     if (columnMode === "firstNonWhitespace") {
         const firstNonWhitespace = lineText.search(/\S/);
         return firstNonWhitespace === -1 ? 0 : firstNonWhitespace;
     }
-    if (columnMode === "lineEnd") {
-        return lineText.trimEnd().length;
-    }
+    if (columnMode === "lineEnd") return lineText.trimEnd().length;
     return storedColumn;
 }
 
