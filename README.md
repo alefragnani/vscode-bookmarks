@@ -3,16 +3,15 @@
   <a title="Learn more about Bookmarks" href="http://github.com/alefragnani/vscode-bookmarks"><img src="https://raw.githubusercontent.com/alefragnani/vscode-bookmarks/master/images/vscode-bookmarks-logo-readme.png" alt="Bookmarks Logo" width="50%" /></a>
 </p>
 
-# What's new in Bookmarks 14
+# What's new in Bookmarks 14.1
 
+* Adds **Export** support
+* Improved **Side Bar**
+* Improved **Labeled Bookmark**
 * Fully Open Source again
 * Adds **Persian**, **French**, **Hindi** and **Polish** translations
 * Setting to customize overview ruler lane
 * Published to **Open VSX**
-* Adds **Getting Started / Walkthrough**
-* Adds **Side Bar** badge
-* Adds Toggle bookmark via mouse click
-* Adds **Icon** customization
 
 # Support
 
@@ -71,6 +70,18 @@ Here are some of the features that **Bookmarks** provides:
 You can easily Mark/Unmark bookmarks on any position. You can even define **Labels** for each bookmark.
 
 ![Toggle](images/printscreen-toggle.png)
+
+### Bookmark labels visible inline
+
+You can turn on bookmark labels text visibility inline in the same line where labeled bookmark is placed:
+
+![Bookmarks with labels](images/bookmarks-with-labels-arrowed.png)
+
+This can help you store notes about code without needing to remove these comments later (because bookmarks are not stored in source code and won't be accidentally committed to version control system).
+
+This feature also helps organize TODOs that you want to keep in memory while writing a pull request. 
+
+The appearance of inline bookmark labels can be fine-tuned using various settings provided by extension.
 
 ## Navigation
 
@@ -197,6 +208,26 @@ $file:$line - $label
 ```
 > Deprecated in 10.7: Use `workbench.colorCustomizations` instead. More info in [Available Colors](#available-colors)
 
+* Enable showing bookmark label text next to actual line with labeled bookmark _(`false` by default)_
+```json
+    "bookmarks.label.inline.enabled": true
+```
+
+* Margin between end of the line and bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`2` by default)_
+```json
+    "bookmarks.label.inline.margin": 2
+```
+
+* Change bookmark label inline text font style. For example: `"italic"`. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`"normal"` by default)_
+```json
+    "bookmarks.label.inline.fontStyle": "normal"
+```
+
+* Font thickness for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`400` by default)_
+```json
+    "bookmarks.label.inline.fontWeight": 400
+```
+
 * Allow bookmarks commands, (Toggle, Jump to Next/Previous), to be displayed on the editor contex menu _(`true` by default)_
 ```json
     "bookmarks.showCommandsInContextMenu": true
@@ -251,6 +282,17 @@ $file:$line - $label
 
 ```json
     "bookmarks.multicursor.toggleMode": "eachLineIndependently"
+```
+
+* Specify when a confirmation message should be displayed before clearing bookmarks _(`never` by default)_
+
+* `never` - No confirmation (current behavior)
+* `always` - Confirm all clear operations
+* `commandPalette` - Confirm only when invoked from Command Palette
+* `sideBar` - Confirm only when invoked from Side Bar
+
+```json
+    "bookmarks.confirmClear": "always"
 ```
 
 * Choose how labels are suggested when creating bookmarks _(`dontUse` by default)_
@@ -325,6 +367,21 @@ Simple list:
       "bookmarks.overviewRuler": "#157EFB88"  
     }
 ```
+
+* Choose text color for bookmark label inline text. Makes sense only if `bookmarks.label.inline.enabled` setting enabled
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+    }
+```
+
+* Choose background color for bookmark label inline text. Makes sense only if `bookmarks.label.inline.enabled ` setting enabled
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a"
+   }
+```
+
 
 ## Project and Session Based
 

@@ -19,3 +19,26 @@ You have a handlfull of alternatives to choose:
     </td>
   </tr>
 </table>
+
+## Label text is displayed inline
+
+![Bookmarks with labels](../images/bookmarks-with-labels-arrowed.png)
+
+You can turn on bookmark labels text visibility inline in the same line where labeled bookmark is placed by enabling `bookmarks.label.inline.enabled`.
+
+Bookmark label text appears next to the line where labeled bookmark is placed. By default it looks just like git blame text decoration. You can turn this feature on and customize its appearance by the following settings:
+
+  * `bookmarks.label.inline.enabled`: Enable showing bookmark label text next to actual line with labeled bookmark _(`false` by default)_
+  * `bookmarks.label.inline.margin`: Margin between end of the line and bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`2` by default)_
+  * `bookmarks.label.inline.fontStyle`: Label inline text font style (e.g. `"italic"`). Makes sense only if bookmarks.label.inline.enabled setting enabled _(`"normal"` by default)_
+  * `bookmarks.labelInlineMessageTextColor`: Text color for bookmark label inline text. If not specified same color as for git blame text decoration is used. Makes sense only if bookmarks.label.inline.enabled setting enabled
+  * `bookmarks.label.inline.fontWeight`: Font thickness for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled _(`400` by default)_
+  * `bookmarks.labelInlineMessageBackgroundColor`: Background color for bookmark label inline text. If not specified same color as for git blame text decoration is used. Makes sense only if bookmarks.label.inline.enabled setting enabled
+
+To change text color/background color of bookmark label inline text:
+```json
+    "workbench.colorCustomizations": {
+      "bookmarks.labelInlineMessageTextColor": "#23ca11f3",
+      "bookmarks.labelInlineMessageBackgroundColor": "#6161611a",
+    }
+```
