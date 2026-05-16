@@ -23,7 +23,7 @@ function canSaveBookmarksInProject(): boolean {
     return saveBookmarksInProject;
 }
 
-export async function loadBookmarks(workspaceFolder: WorkspaceFolder): Promise<Controller> {
+export async function loadBookmarks(workspaceFolder: WorkspaceFolder | undefined): Promise<Controller> {
     const saveBookmarksInProject: boolean = canSaveBookmarksInProject();
 
     const newController = new Controller(workspaceFolder);
@@ -51,24 +51,29 @@ export async function loadBookmarks(workspaceFolder: WorkspaceFolder): Promise<C
 }
 
 export function saveBookmarks(controller: Controller): void {
+    void saveBookmarksInternal(controller);
+}
+
+async function saveBookmarksInternal(controller: Controller): Promise<void> {
     const saveBookmarksInProject: boolean = canSaveBookmarksInProject();
     
-    if (saveBookmarksInProject) {
+    if (saveBookmarksInProject && controller.workspaceFolder) {
         const bookmarksFileInProject = appendPath(appendPath(controller.workspaceFolder.uri, ".vscode"), "bookmarks.json");
 
         // avoid empty bookmarks.json file
         if (!controller.hasAnyBookmark()) {
-            if (uriExists(bookmarksFileInProject)) {
-                deleteFileUri(bookmarksFileInProject);
+            if (await uriExists(bookmarksFileInProject)) {
+                await deleteFileUri(bookmarksFileInProject);
             }
             return;
         }
 
-        if (!uriExists(appendPath(controller.workspaceFolder.uri, ".vscode"))) {
-            createDirectoryUri(appendPath(controller.workspaceFolder.uri, ".vscode"));
+        const vscodeFolderUri = appendPath(controller.workspaceFolder.uri, ".vscode");
+        if (!await uriExists(vscodeFolderUri)) {
+            await createDirectoryUri(vscodeFolderUri);
         }
-        writeFileUri(bookmarksFileInProject, JSON.stringify(controller.zip(), null, "\t"));   
+        await writeFileUri(bookmarksFileInProject, JSON.stringify(controller.zip(), null, "\t"));
     } else {
-        Container.context.workspaceState.update("bookmarks", JSON.stringify(controller.zip()));
+        await Container.context.workspaceState.update("bookmarks", JSON.stringify(controller.zip()));
     }
 }

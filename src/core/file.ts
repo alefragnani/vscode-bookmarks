@@ -11,6 +11,7 @@ export interface File {
     path: string;
     bookmarks: Bookmark[];
     uri?: Uri;
+    uriString?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -26,7 +27,8 @@ export function createFile(filePath: string, uri?: Uri): File {
     const newFile: File = {
         path: filePath,
         bookmarks: [],
-        uri//: newUri
+        uri,//: newUri
+        uriString: uri?.toString(true)
     };
     return newFile;
 }

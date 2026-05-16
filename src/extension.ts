@@ -22,7 +22,8 @@ import { parsePosition, Point } from "./sidebar/parser";
 import { Sticky } from "./sticky/stickyLegacy";
 import { updateStickyBookmarks } from "./sticky/sticky";
 import { suggestLabel, useSelectionWhenAvailable } from "./suggestion";
-import { appendPath, getRelativePath } from "./utils/fs";
+import { appendPath } from "./utils/fs";
+import { areUrisEqual } from "./utils/uri";
 import { isInDiffEditor, previewPositionInDocument, revealPosition } from "./utils/reveal";
 import { registerOpenSettings } from "./commands/openSettings";
 import { registerSupportBookmarks } from "./commands/supportBookmarks";
@@ -277,19 +278,22 @@ export async function activate(context: vscode.ExtensionContext) {
         if (rename.files.length === 0) { return; }
 
         for (const file of rename.files) {
-            const files = activeController.files.map(file => file.path);
+            const workspaceFolder = vscode.workspace.getWorkspaceFolder(file.oldUri);
+            const controller = workspaceFolder
+                ? controllers.find(ctrl => ctrl.workspaceFolder && areUrisEqual(ctrl.workspaceFolder.uri, workspaceFolder.uri))
+                : activeController ?? controllers[ 0 ];
+
+            if (!controller) {
+                continue;
+            }
+
             const stat = await vscode.workspace.fs.stat(file.newUri);
 
-            const fileRelativeOldPath = getRelativePath(activeController.workspaceFolder.uri.path, file.oldUri.path);
-            const fileRelativeNewPath = getRelativePath(activeController.workspaceFolder.uri.path, file.newUri.path);
-
             if (stat.type === vscode.FileType.File) {
-                if (files.includes(fileRelativeOldPath)) {
-                    activeController.updateFilePath(fileRelativeOldPath, fileRelativeNewPath);
-                }
+                controller.updateFileUri(file.oldUri, file.newUri);
             }
             if (stat.type === vscode.FileType.Directory) {
-                activeController.updateDirectoryPath(fileRelativeOldPath, fileRelativeNewPath);
+                controller.updateDirectoryUri(file.oldUri, file.newUri);
             }
         }
 
@@ -427,15 +431,17 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("bookmarks.listFromAllFiles", () => listFromAllFiles());
 
     function getActiveController(document: TextDocument): void {
+        const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+
         // system files don't have workspace, so use the first one [0]
-        if (!vscode.workspace.getWorkspaceFolder(document.uri)) {
+        if (!workspaceFolder) {
             activeController = controllers[ 0 ];
             return;
         }
 
         if (controllers.length > 1) {
             activeController = controllers.find(ctrl =>
-                ctrl.workspaceFolder.uri.path === vscode.workspace.getWorkspaceFolder(document.uri).uri.path);
+                ctrl.workspaceFolder && areUrisEqual(ctrl.workspaceFolder.uri, workspaceFolder.uri));
         }
     }
 
@@ -445,13 +451,7 @@ export async function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        //?? needs work
-        const saveBookmarksInProject = vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
-
-        if (saveBookmarksInProject) {
-            const validFiles = activeController.files.filter(file => !file.path.startsWith(".."));
-            activeController.files = [ ...validFiles ];
-        }
+        // Keep bookmarks for any opened file, including files outside workspace folders.
     }
 
     async function loadWorkspaceState(): Promise<void> {
@@ -691,7 +691,7 @@ export async function activate(context: vscode.ExtensionContext) {
                     if (element) {
                         for (const elementInside of element) {
                             if (activeTextEditor &&
-                                elementInside.detail.toString().toLocaleLowerCase() === getRelativePath(controller.workspaceFolder?.uri?.path, activeTextEditor.document.uri.path).toLocaleLowerCase()) {
+                                areUrisEqual(elementInside.uri, activeTextEditor.document.uri)) {
                                 items.push(
                                     {
                                         label: elementInside.label,
@@ -775,7 +775,7 @@ export async function activate(context: vscode.ExtensionContext) {
                         }
 
                         const point: Point = parsePosition(itemT.description);
-                        if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri.fsPath.toLowerCase() === fileUri.fsPath.toLowerCase()) {
+                        if (vscode.window.activeTextEditor && areUrisEqual(vscode.window.activeTextEditor.document.uri, fileUri)) {
                             if (point) {
                                 revealPosition(point.line - 1, point.column - 1);
                             }
@@ -841,19 +841,12 @@ export async function activate(context: vscode.ExtensionContext) {
                                 return;
                             }
 
-                            let uriDocument: Uri;
-                            if (typeof nextDocument === "string") {
-                                uriDocument = !activeController.workspaceFolder
-                                    ? Uri.file(nextDocument.toString())
-                                    : appendPath(activeController.workspaceFolder.uri, nextDocument.toString());
-                            } else {
-                                uriDocument = <Uri>nextDocument;
-                            }
+                            const uriDocument = <Uri>nextDocument;
 
                             // same document?
                             //   const activeDocument = getRelativePath(activeController.workspaceFolder?.uri?.path, vscode.window.activeTextEditor.document.uri.fsPath);
                             //   if (nextDocument.toString() === activeDocument) {
-                            if (uriDocument.fsPath === vscode.window.activeTextEditor.document.uri.fsPath) {
+                            if (areUrisEqual(uriDocument, vscode.window.activeTextEditor.document.uri)) {
                                 const bookmarkIndex = direction === Directions.Forward ? 0 : activeController.activeFile.bookmarks.length - 1;
                                 revealPosition(activeController.activeFile.bookmarks[ bookmarkIndex ].line,
                                     activeController.activeFile.bookmarks[ bookmarkIndex ].column);
@@ -909,7 +902,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     function isTabOfUri(tab: Tab, uri: Uri): boolean {
         return tab.input instanceof TabInputText &&
-            tab.input.uri.fsPath.toLocaleLowerCase() === uri.fsPath.toLocaleLowerCase();
+            areUrisEqual(tab.input.uri, uri);
     }
 
     function checkBookmarks(result: number | vscode.Position): boolean {

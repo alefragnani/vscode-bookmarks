@@ -8,7 +8,7 @@ import { codicons } from "vscode-ext-codicons";
 import { Bookmark, BookmarkQuickPickItem } from "./bookmark";
 import { Directions, NO_BOOKMARKS, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "./constants";
 import { File } from "./file";
-import { uriExists, uriWith } from "../utils/fs";
+import { getFileUri, uriExists } from "../utils/fs";
 
 export function nextBookmark(file: File, currentPosition: Position, direction: Directions): Promise<number | Position> {
     return new Promise((resolve, reject) => {
@@ -84,7 +84,7 @@ export function nextBookmark(file: File, currentPosition: Position, direction: D
     });
 }
 
-export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
+export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder | undefined) {
 
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
@@ -95,19 +95,7 @@ export function listBookmarks(file: File, workspaceFolder: WorkspaceFolder) {
             return;
         }
 
-        let uriDocBookmark: Uri;
-        if (file.uri) {
-            uriDocBookmark = file.uri;
-        } else {
-            if (!workspaceFolder) {
-                uriDocBookmark = Uri.file(file.path);
-            } else {
-                const prefix = workspaceFolder.uri.path.endsWith("/")
-                    ? workspaceFolder.uri.path
-                    : `${workspaceFolder.uri.path}/`;
-                uriDocBookmark = uriWith(workspaceFolder.uri, prefix, file.path);
-            }
-        }
+        const uriDocBookmark = getFileUri(file, workspaceFolder);
 
         // file does not exist, returns empty
         if (! await uriExists(uriDocBookmark)) {

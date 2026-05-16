@@ -3,10 +3,10 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import { commands, l10n, Uri, window, workspace } from "vscode";
+import { commands, l10n, window, workspace } from "vscode";
 import { Container } from "../core/container";
 import { Controller } from "../core/controller";
-import { getRelativePath, uriExists, uriWith } from "../utils/fs";
+import { getFileUri, uriExists } from "../utils/fs";
 import { getLinePreview } from "../core/operations";
 
 interface BookmarkExportItem {
@@ -33,19 +33,7 @@ async function collectBookmarks(controllers: Controller[]): Promise<BookmarkExpo
             }
 
             // Determine the file URI using the same logic as listBookmarks
-            let uriDocBookmark: Uri;
-            if (file.uri) {
-                uriDocBookmark = file.uri;
-            } else {
-                if (!controller.workspaceFolder) {
-                    uriDocBookmark = Uri.file(file.path);
-                } else {
-                    const prefix = controller.workspaceFolder.uri.path.endsWith("/")
-                        ? controller.workspaceFolder.uri.path
-                        : `${controller.workspaceFolder.uri.path}/`;
-                    uriDocBookmark = uriWith(controller.workspaceFolder.uri, prefix, file.path);
-                }
-            }
+            const uriDocBookmark = getFileUri(file, controller.workspaceFolder);
 
             // Skip if file doesn't exist
             if (! await uriExists(uriDocBookmark)) {
@@ -64,14 +52,8 @@ async function collectBookmarks(controllers: Controller[]): Promise<BookmarkExpo
                     content = "";
                 }
                 
-                // Get relative path for display
-                let displayPath = file.path;
-                if (controller.workspaceFolder) {
-                    displayPath = getRelativePath(controller.workspaceFolder.uri.fsPath, file.path);
-                }
-
                 bookmarkItems.push({
-                    file: displayPath,
+                    file: file.path,
                     line: bookmark.line + 1, // Convert to 1-based line numbers
                     column: bookmark.column + 1, // Convert to 1-based column numbers
                     label: bookmark.label || "",

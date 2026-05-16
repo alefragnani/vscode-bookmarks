@@ -16,12 +16,13 @@ export class FileNode extends TreeItem {
         public readonly collapsibleState: TreeItemCollapsibleState,
         public readonly kind: BookmarkNodeKind,
         public readonly bookmark: File,
+        resource: Uri,
         public readonly books?: BookmarkPreview[],
         public readonly command?: Command
     ) {
         super(label, collapsibleState);
 
-        this.resourceUri = Uri.file(bookmark.path);
+        this.resourceUri = resource;
         this.description = relativePath;
         this.iconPath = ThemeIcon.File;
         this.contextValue = "BookmarkNodeFile";

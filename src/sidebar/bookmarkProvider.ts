@@ -15,11 +15,12 @@ import { BookmarkNode, BookmarkPreview } from "./bookmarkNode";
 import { WorkspaceNode } from "./workspaceNode";
 import { BookmarkNodeKind } from "./nodes";
 import { BadgeConfig } from "../core/constants";
+import { areUrisEqual } from "../utils/uri";
 
 export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | WorkspaceNode | FileNode> {
 
-    private _onDidChangeTreeData: vscode.EventEmitter<BookmarkNode | void> = new vscode.EventEmitter<BookmarkNode | void>();
-    public readonly onDidChangeTreeData: vscode.Event<BookmarkNode | void> = this._onDidChangeTreeData.event;
+    private _onDidChangeTreeData: vscode.EventEmitter<BookmarkNode | WorkspaceNode | FileNode | void> = new vscode.EventEmitter<BookmarkNode | WorkspaceNode | FileNode | void>();
+    public readonly onDidChangeTreeData: vscode.Event<BookmarkNode | WorkspaceNode | FileNode | void> = this._onDidChangeTreeData.event;
 
     private tree: BookmarkNode[] = [];
 
@@ -174,12 +175,12 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
         this._onDidChangeTreeData.fire();
     }
 
-    public getTreeItem(element: BookmarkNode): vscode.TreeItem {
+    public getTreeItem(element: BookmarkNode | WorkspaceNode | FileNode): vscode.TreeItem {
         return element;
     }
 
     // very much based in `listFromAllFiles` command
-    public getChildren(element?: FileNode | WorkspaceNode): Thenable<BookmarkNode[] | WorkspaceNode[] | FileNode[]> {
+    public getChildren(element?: BookmarkNode | FileNode | WorkspaceNode): Thenable<BookmarkNode[] | WorkspaceNode[] | FileNode[]> {
 
         // no bookmark
         // let totalBookmarkCount = 0;
@@ -226,7 +227,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                                         if (elm) {
                                             for (const elementInside of elm) {
 
-                                                if (bb.path === elementInside.detail) {
+                                                if (areUrisEqual(ne.controller.getFileUri(bb), elementInside.uri)) {
 
                                                     const point: Point = parsePosition(elementInside.description);
                                                     books.push(
@@ -244,7 +245,15 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                                     }
 
                                     const itemPath = path.basename(bb.path);
-                                    const bn: FileNode = new FileNode(itemPath, removeRelativePathFromFile(bb.path), this.collapsibleState, BookmarkNodeKind.NODE_FILE, bb, books);
+                                    const bn: FileNode = new FileNode(
+                                        itemPath,
+                                        removeRelativePathFromFile(bb.path),
+                                        this.collapsibleState,
+                                        BookmarkNodeKind.NODE_FILE,
+                                        bb,
+                                        ne.controller.getFileUri(bb),
+                                        books
+                                    );
                                     lll.push(bn);
                                     // this.tree.push(bn);
                                 }
@@ -259,7 +268,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                 if (element.kind === BookmarkNodeKind.NODE_FILE) {
                     const ll: BookmarkNode[] = [];
 
-                    const ne = <BookmarkNode>element;
+                    const ne = <FileNode>element;
 
                     const hidePosition = Container.context.globalState.get<boolean>("bookmarks.sidebar.hidePosition", false);
 
@@ -322,7 +331,7 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                                         if (elm) {
                                             for (const elementInside of elm) {
 
-                                                if (bb.path === elementInside.detail) {
+                                                if (areUrisEqual(controller.getFileUri(bb), elementInside.uri)) {
 
                                                     const point: Point = parsePosition(elementInside.description);
                                                     books.push(
@@ -340,7 +349,15 @@ export class BookmarkProvider implements vscode.TreeDataProvider<BookmarkNode | 
                                     }
 
                                     const itemPath = path.basename(bb.path);
-                                    const bn: FileNode = new FileNode(itemPath, removeRelativePathFromFile(bb.path), this.collapsibleState, BookmarkNodeKind.NODE_FILE, bb, books);
+                                    const bn: FileNode = new FileNode(
+                                        itemPath,
+                                        removeRelativePathFromFile(bb.path),
+                                        this.collapsibleState,
+                                        BookmarkNodeKind.NODE_FILE,
+                                        bb,
+                                        controller.getFileUri(bb),
+                                        books
+                                    );
                                     lll.push(bn);
                                     // this.tree.push(bn);
                                 }

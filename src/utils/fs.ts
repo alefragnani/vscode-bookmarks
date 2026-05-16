@@ -9,6 +9,7 @@ import { Uri, workspace, WorkspaceFolder } from "vscode";
 import { Bookmark } from "../core/bookmark";
 import { UNTITLED_SCHEME } from "../core/constants";
 import { File } from "../core/file";
+import { parseUri } from "./uri";
 
 export function getRelativePath(folder: string, filePath: string) {
     if (!folder) {
@@ -26,26 +27,15 @@ export function getRelativePath(folder: string, filePath: string) {
 }
 
 export function appendPath(uri: Uri, pathSuffix: string): Uri {
-    const pathPrefix = uri.path.endsWith("/") ? uri.path : `${uri.path}/`;
-    const filePath = `${pathPrefix}${pathSuffix}`;
-
-    return uri.with({
-        path: filePath
-    });
+    return Uri.joinPath(uri, pathSuffix);
 }
 
 export function uriJoin(uri: Uri, ...paths: string[]): string {
     return path.join(uri.fsPath, ...paths);
 }
 
-export function uriWith(uri: Uri, prefix: string, filePath: string): Uri {
-    const newPrefix = prefix === "/" 
-        ? ""
-        : prefix;
-
-    return uri.with({
-        path: `${newPrefix}/${filePath}`
-    });
+export function uriWith(uri: Uri, filePath: string): Uri {
+    return Uri.joinPath(uri, filePath);
 }
 
 export async function uriExists(uri: Uri): Promise<boolean> {
@@ -120,17 +110,31 @@ export function parsePosition(position: string): Bookmark | undefined {
     return undefined;
 }
 
-export function getFileUri(file: File, workspaceFolder: WorkspaceFolder): Uri {
+export function getFileUri(file: File, workspaceFolder: WorkspaceFolder | undefined): Uri {
     if (file.uri) {
+        file.uriString = file.uri.toString(true);
         return file.uri;
     }
 
-    if (!workspaceFolder) {
-        return Uri.file(file.path);
+    const isWindowsDrivePath = /^[a-zA-Z]:[\\/]/.test(file.path);
+    const fileUriFromString = parseUri(file.uriString) ?? parseUri(isWindowsDrivePath ? undefined : file.path);
+    if (fileUriFromString) {
+        file.uri = fileUriFromString;
+        file.uriString = fileUriFromString.toString(true);
+        return fileUriFromString;
     }
 
-    const prefix = workspaceFolder.uri.path.endsWith("/")
-        ? workspaceFolder.uri.path
-        : `${workspaceFolder.uri.path}/`;
-    return uriWith(workspaceFolder.uri, prefix, file.path);
+    const isRelativePath = !isWindowsDrivePath && !path.isAbsolute(file.path);
+
+    if (workspaceFolder && isRelativePath) {
+        const relativeUri = Uri.joinPath(workspaceFolder.uri, file.path);
+        file.uri = relativeUri;
+        file.uriString = relativeUri.toString(true);
+        return relativeUri;
+    }
+
+    const localUri = Uri.file(file.path);
+    file.uri = localUri;
+    file.uriString = localUri.toString(true);
+    return localUri;
 }

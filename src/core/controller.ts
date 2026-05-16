@@ -3,15 +3,15 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import os = require("os");
 import path = require("path");
 import * as vscode from "vscode";
 import { Uri, WorkspaceFolder } from "vscode";
-import { Directions, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS, UNTITLED_SCHEME } from "./constants";
+import { Directions, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "./constants";
 import { createFile, File } from "./file";
 import { getFileUri, getRelativePath, uriExists } from "../utils/fs";
 import { clear, getLinePreview, indexOfBookmark } from "./operations";
 import { updateLinesWithBookmarkContext } from "../gutter/editorLineNumberContext";
+import { areUrisEqual, getUriDisplayPath, isUntitledUri, parseUri } from "../utils/uri";
 
 interface BookmarkAdded {
     file: File;
@@ -93,62 +93,34 @@ export class Controller {
         this.zip();
     }
 
-    public fromUri(uri: Uri) {
+    private updateFileIdentity(file: File, uri: Uri): void {
+        file.uri = uri;
+        file.uriString = uri.toString(true);
+        file.path = getUriDisplayPath(uri, this.workspaceFolder);
+    }
 
-        if (uri.scheme === UNTITLED_SCHEME) {
-            for (const file of this.files) {
-                if (file.uri?.toString() === uri.toString()) {
-                    return file;
-                }
-            }
+    private hydrateLoadedFile(file: File): void {
+        const parsedUri = parseUri(file.uriString) ?? parseUri(file.uri);
+        if (parsedUri) {
+            this.updateFileIdentity(file, parsedUri);
             return;
         }
 
-        const uriPath = !this.workspaceFolder
-            ? uri.path
-            : getRelativePath(this.workspaceFolder.uri.path, uri.path);
+        const resolvedUri = this.getFileUri(file);
+        this.updateFileIdentity(file, resolvedUri);
+    }
 
+    public fromUri(uri: Uri) {
         for (const file of this.files) {
-            if (file.path === uriPath) {
+            if (areUrisEqual(this.getFileUri(file), uri)) {
                 return file;
             }
         }
     }
 
     public addFile(uri: Uri) {
-
-        if (uri.scheme === UNTITLED_SCHEME) {
-
-            // const untitleds = this.files.filter((file) => {
-            //     return file.uri;
-            // })?.map(file => file.path);
-
-            // if (untitleds?.indexOf(uri.path) < 0) {
-            //     const file = createFile(uri.path, uri);
-            //     this.files.push(file);
-            // }
-
-            let found: File;
-            for (const file of this.files) {
-                if (file.uri?.path === uri.path) {
-                    found = file;
-                }
-            }
-
-            if (!found) {
-                const file = createFile(uri.path, uri);
-                this.files.push(file);
-            }
-            return;
-        }
-
-        const uriPath = !this.workspaceFolder
-            ? uri.path
-            : getRelativePath(this.workspaceFolder.uri.path, uri.path);
-
-        const paths = this.files.map(file => file.path);
-        if (paths.indexOf(uriPath) < 0) {
-            const bookmark = createFile(uriPath);
+        if (!this.fromUri(uri)) {
+            const bookmark = createFile(getUriDisplayPath(uri, this.workspaceFolder), uri);
             this.files.push(bookmark);
         }
     }
@@ -209,7 +181,7 @@ export class Controller {
                 }
             } else {
                 if (await uriExists(this.getFileUri(currentBookmark))) {
-                    resolve(currentBookmark.uri ? currentBookmark.uri : currentBookmark.path);
+                    resolve(this.getFileUri(currentBookmark));
                     return;
                 } else {
                     this.nextDocumentWithBookmarks(currentBookmark, direction)
@@ -439,18 +411,15 @@ export class Controller {
                 //     file.fsPath = file.fsPath.replace(WORKSPACE_ROOTPATH, vscode.workspace.workspaceFolders[0].uri.fsPath);
                 // }
                 // const fi = createFile(file.fsPath);
-                const bookmark = relativePath
-                    ? createFile(file.path.replace(`$ROOTPATH$${path.sep}`, ""))
-                    : createFile(getRelativePath(this.workspaceFolder?.uri?.fsPath, file.path));
-
-                // Win32 uses `\\` but uris always uses `/`
-                if (os.platform() === "win32") {
-                    bookmark.path = bookmark.path.replace(/\\/g, "/");
-                }
+                const oldPath = relativePath
+                    ? file.path.replace(`$ROOTPATH$${path.sep}`, "")
+                    : getRelativePath(this.workspaceFolder?.uri?.fsPath, file.path);
+                const bookmark = createFile(oldPath);
 
                 for (const bkm of file.bookmarks) {
                     bookmark.bookmarks.push(bkm);
                 }
+                this.hydrateLoadedFile(bookmark);
                 this.files.push(bookmark);
             }
             return;
@@ -474,11 +443,6 @@ export class Controller {
                     ? createFile(file.path.replace(`$ROOTPATH$${path.sep}`, ""))
                     : createFile(getRelativePath(this.workspaceFolder?.uri?.fsPath, file.path));
 
-                // Win32 uses `\\` but uris always uses `/`
-                if (os.platform() === "win32") {
-                    bookmark.path = bookmark.path.replace(/\\/g, "/");
-                }
-
                 for (const bkm of file.bookmarks) {
                     bookmark.bookmarks.push({
                         line: bkm.line,
@@ -486,6 +450,7 @@ export class Controller {
                         label: bkm.label
                     });
                 }
+                this.hydrateLoadedFile(bookmark);
                 this.files.push(bookmark);
             }
             return;
@@ -493,30 +458,34 @@ export class Controller {
 
         // NEWER v3 format
         for (const file of jsonObject.files) {
-            const bookmark = createFile(file.path);//??, file.uri ? <Uri>file.uri : undefined);
+            const bookmark = createFile(file.path, parseUri(file.uriString) ?? parseUri(file.uri));
+            bookmark.uriString = file.uriString;
             bookmark.bookmarks = [
                 ...file.bookmarks
             ];
+            this.hydrateLoadedFile(bookmark);
             this.files.push(bookmark);
         }
     }
 
     public zip(): Controller {
-        // return this.storage.save(relativePath, this.updateRelativePath);
-        function isNotEmpty(file: File): boolean {
-            return file.bookmarks.length > 0;
-        }
-
-        function isValid(file: File): boolean {
-            return !file.uri; // Untitled files
-        }
-
-        function canBeSaved(file: File): boolean {
-            return isValid(file) && isNotEmpty(file);
-        }
-
         const newController: Controller = new Controller(this.workspaceFolder);
-        newController.files = JSON.parse(JSON.stringify(this.files)).filter(canBeSaved);
+        newController.files = this.files
+            .filter(file => file.bookmarks.length > 0)
+            .map(file => {
+                const fileUri = this.getFileUri(file);
+
+                return <File>{
+                    path: file.path,
+                    uriString: file.uriString ?? fileUri.toString(true),
+                    bookmarks: file.bookmarks.map(bkm => ({
+                        line: bkm.line,
+                        column: bkm.column,
+                        label: bkm.label
+                    }))
+                };
+            })
+            .filter(file => !isUntitledUri(parseUri(file.uriString)));
 
         delete newController.workspaceFolder;
         delete newController.onDidClearBookmarksEmitter;
@@ -538,6 +507,8 @@ export class Controller {
         for (const file of this.files) {
             if (file.path === oldFilePath) {
                 file.path = newFilePath;
+                file.uri = undefined;
+                file.uriString = undefined;
                 break;
             }
         }
@@ -547,11 +518,50 @@ export class Controller {
         for (const file of this.files) {
             if (file.path.startsWith(oldDirectoryPath)) {
                 file.path = file.path.replace(oldDirectoryPath, newDirectoryPath);
+                file.uri = undefined;
+                file.uriString = undefined;
             }
         }
     }
 
+    public updateFileUri(oldFileUri: Uri, newFileUri: Uri): void {
+        for (const file of this.files) {
+            if (areUrisEqual(this.getFileUri(file), oldFileUri)) {
+                this.updateFileIdentity(file, newFileUri);
+                break;
+            }
+        }
+    }
+
+    public updateDirectoryUri(oldDirectoryUri: Uri, newDirectoryUri: Uri): void {
+        const normalizedOldDirectoryPath = oldDirectoryUri.path.endsWith("/")
+            ? oldDirectoryUri.path
+            : `${oldDirectoryUri.path}/`;
+
+        for (const file of this.files) {
+            const fileUri = this.getFileUri(file);
+
+            if (fileUri.scheme !== oldDirectoryUri.scheme || fileUri.authority !== oldDirectoryUri.authority) {
+                continue;
+            }
+
+            if (fileUri.path !== oldDirectoryUri.path && !fileUri.path.startsWith(normalizedOldDirectoryPath)) {
+                continue;
+            }
+
+            const pathSuffix = fileUri.path.slice(oldDirectoryUri.path.length);
+            const newUriPath = `${newDirectoryUri.path}${pathSuffix}`;
+            const updatedUri = fileUri.with({ path: newUriPath });
+            this.updateFileIdentity(file, updatedUri);
+        }
+    }
+
     public getFileUri(file: File): Uri {
-        return getFileUri(file, this.workspaceFolder);
+        const fileUri = getFileUri(file, this.workspaceFolder);
+        if (!file.uri || !areUrisEqual(file.uri, fileUri)) {
+            file.uri = fileUri;
+        }
+        file.uriString = fileUri.toString(true);
+        return fileUri;
     }
 }
