@@ -11,7 +11,6 @@ import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "./co
 import { Directions, isWindows, SEARCH_EDITOR_SCHEME } from "./core/constants";
 import { Container } from "./core/container";
 import { createBookmarkDecorationsForGroups, createBookmarkLabelInlineDecoration, disposeGroupDecorations, GroupDecorationMap, updateDecorationsInActiveEditor } from "./decoration/decoration";
-import { MAX_GROUPS } from "./core/constants";
 import { getGroup, getGroups, groupsConfigChanged } from "./core/groups";
 import { getActiveGroupId, setActiveGroupId } from "./core/groupState";
 import { registerActiveGroupStatusBar } from "./statusBar/activeGroup";
@@ -445,61 +444,7 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.window.setStatusBarMessage(vscode.l10n.t("Active bookmark group set to {0}", chosen.name), 2000);
     });
 
-    for (let n = 0; n < MAX_GROUPS; n++) {
-        const groupId = n;
-        vscode.commands.registerCommand(`bookmarks.toggleGroup${n}`, async () => {
-            await toggleOrSetGroup(groupId);
-        });
-    }
-
     registerActiveGroupStatusBar(() => activeController?.workspaceFolder);
-
-    async function toggleOrSetGroup(groupId: number) {
-        if (!vscode.window.activeTextEditor) {
-            const wsf = activeController?.workspaceFolder;
-            await setActiveGroupId(wsf, groupId);
-            const chosen = getGroup(groupId);
-            vscode.window.setStatusBarMessage(vscode.l10n.t("Active bookmark group set to {0}", chosen.name), 2000);
-            return;
-        }
-
-        if (!activeController.activeFile) {
-            activeController.addFile(vscode.window.activeTextEditor.document.uri);
-            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
-        }
-
-        const file = activeController.activeFile;
-        const selections = vscode.window.activeTextEditor.selections;
-
-        const changedLines = new Set<number>();
-        let anyChanged = false;
-        for (const sel of selections) {
-            const line = sel.active.line;
-            if (changedLines.has(line)) {
-                continue;
-            }
-            const idx = indexOfBookmark(file, line);
-            if (idx > -1) {
-                activeController.changeGroup(idx, groupId);
-                changedLines.add(line);
-                anyChanged = true;
-            }
-        }
-
-        if (anyChanged) {
-            saveWorkspaceState();
-            updateDecorations();
-            const chosen = getGroup(groupId);
-            vscode.window.setStatusBarMessage(vscode.l10n.t("Bookmark moved to group {0}", chosen.name), 2000);
-            return;
-        }
-
-        // No selections had a bookmark — set active group instead
-        const wsf = activeController.workspaceFolder;
-        await setActiveGroupId(wsf, groupId);
-        const chosen = getGroup(groupId);
-        vscode.window.setStatusBarMessage(vscode.l10n.t("Active bookmark group set to {0}", chosen.name), 2000);
-    }
 
     function getActiveController(document: TextDocument): void {
         // system files don't have workspace, so use the first one [0]

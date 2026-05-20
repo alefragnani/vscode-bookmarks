@@ -47,7 +47,6 @@ interface BookmarkUpdated {
     column?: number;
     linePreview?: string;
     label?: string;
-    groupId?: number;
 }
 
 enum ToggleMode {
@@ -359,24 +358,6 @@ export class Controller {
                 uri: this.getFileUri(b)
             });
         }
-    }
-
-    public changeGroup(index: number, newGroupId: number, book?: File): void {
-        const b: File = book ? book : this.activeFile;
-        const target = b.bookmarks[ index ];
-        if (!target) {
-            return;
-        }
-        const normalized = normalizeGroupId(newGroupId);
-        target.groupId = normalized;
-        this.onDidUpdateBookmarkEmitter.fire({
-            file: b,
-            index,
-            line: target.line + 1,
-            column: target.column + 1,
-            label: target.label,
-            groupId: normalized
-        });
     }
 
     public removeBookmark(index: number, aline: number, book?: File): void {

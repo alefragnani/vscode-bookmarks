@@ -255,56 +255,6 @@
                 "command": "bookmarks.switchActiveGroup",
                 "title": "%bookmarks.commands.switchActiveGroup.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup0",
-                "title": "%bookmarks.commands.toggleGroup0.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup1",
-                "title": "%bookmarks.commands.toggleGroup1.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup2",
-                "title": "%bookmarks.commands.toggleGroup2.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup3",
-                "title": "%bookmarks.commands.toggleGroup3.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup4",
-                "title": "%bookmarks.commands.toggleGroup4.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup5",
-                "title": "%bookmarks.commands.toggleGroup5.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup6",
-                "title": "%bookmarks.commands.toggleGroup6.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup7",
-                "title": "%bookmarks.commands.toggleGroup7.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup8",
-                "title": "%bookmarks.commands.toggleGroup8.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
-            },
-            {
-                "command": "bookmarks.toggleGroup9",
-                "title": "%bookmarks.commands.toggleGroup9.title%",
-                "category": "%bookmarks.commands.category.bookmarks%"
             }
         ],
         "menus": {
@@ -845,66 +795,6 @@
                 "command": "bookmarks.expandSelectionToPrevious",
                 "key": "shift+alt+j",
                 "mac": "shift+alt+j",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup0",
-                "key": "ctrl+alt+0",
-                "mac": "cmd+alt+0",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup1",
-                "key": "ctrl+alt+1",
-                "mac": "cmd+alt+1",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup2",
-                "key": "ctrl+alt+2",
-                "mac": "cmd+alt+2",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup3",
-                "key": "ctrl+alt+3",
-                "mac": "cmd+alt+3",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup4",
-                "key": "ctrl+alt+4",
-                "mac": "cmd+alt+4",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup5",
-                "key": "ctrl+alt+5",
-                "mac": "cmd+alt+5",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup6",
-                "key": "ctrl+alt+6",
-                "mac": "cmd+alt+6",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup7",
-                "key": "ctrl+alt+7",
-                "mac": "cmd+alt+7",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup8",
-                "key": "ctrl+alt+8",
-                "mac": "cmd+alt+8",
-                "when": "editorTextFocus"
-            },
-            {
-                "command": "bookmarks.toggleGroup9",
-                "key": "ctrl+alt+9",
-                "mac": "cmd+alt+9",
                 "when": "editorTextFocus"
             }
         ],
