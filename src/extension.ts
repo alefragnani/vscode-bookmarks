@@ -10,7 +10,11 @@ import { BookmarkQuickPickItem } from "./core/bookmark";
 import { NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS } from "./core/constants";
 import { Directions, isWindows, SEARCH_EDITOR_SCHEME } from "./core/constants";
 import { Container } from "./core/container";
-import { createBookmarkDecorations, createBookmarkLabelInlineDecoration, updateDecorationsInActiveEditor } from "./decoration/decoration";
+import { createBookmarkDecorationsForGroups, createBookmarkLabelInlineDecoration, disposeGroupDecorations, GroupDecorationMap, updateDecorationsInActiveEditor } from "./decoration/decoration";
+import { MAX_GROUPS } from "./core/constants";
+import { getGroup, getGroups, groupsConfigChanged } from "./core/groups";
+import { getActiveGroupId, setActiveGroupId } from "./core/groupState";
+import { registerActiveGroupStatusBar } from "./statusBar/activeGroup";
 import { File } from "./core/file";
 import { Controller } from "./core/controller";
 import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "./core/operations";
@@ -65,22 +69,18 @@ export async function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(async cfg => {
         // Allow change the gutterIcon and inline label decoration without reload
-        if (cfg.affectsConfiguration("bookmarks.gutterIconFillColor") ||
-            cfg.affectsConfiguration("bookmarks.gutterIconBorderColor") ||
+        if (groupsConfigChanged(cfg) ||
             cfg.affectsConfiguration("bookmarks.overviewRulerLane") ||
             cfg.affectsConfiguration("bookmarks.label.inline.enabled") ||
             cfg.affectsConfiguration("bookmarks.label.inline.margin") ||
             cfg.affectsConfiguration("bookmarks.label.inline.fontStyle") ||
             cfg.affectsConfiguration("bookmarks.label.inline.fontWeight")
         ) {
-            if (bookmarkDecorationType.length > 0) {
-                bookmarkDecorationType.forEach(b => b.dispose());
-            }
+            disposeGroupDecorations(bookmarkDecorationType);
             bookmarkLabelInlineDecoration.dispose();
 
-            bookmarkDecorationType = createBookmarkDecorations();
+            bookmarkDecorationType = createBookmarkDecorationsForGroups();
             bookmarkLabelInlineDecoration = createBookmarkLabelInlineDecoration();
-            context.subscriptions.push(...bookmarkDecorationType);
             context.subscriptions.push(bookmarkLabelInlineDecoration);
 
             updateDecorations();
@@ -174,9 +174,8 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }));
 
-    let bookmarkDecorationType = createBookmarkDecorations();
+    let bookmarkDecorationType: GroupDecorationMap = createBookmarkDecorationsForGroups();
     let bookmarkLabelInlineDecoration = createBookmarkLabelInlineDecoration();
-    context.subscriptions.push(...bookmarkDecorationType);
     context.subscriptions.push(bookmarkLabelInlineDecoration);
 
     // Connect it to the Editors Events
@@ -425,6 +424,82 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("bookmarks.jumpToPrevious", () => jumpToNext(Directions.Backward));
     vscode.commands.registerCommand("bookmarks.list", () => list());
     vscode.commands.registerCommand("bookmarks.listFromAllFiles", () => listFromAllFiles());
+
+    vscode.commands.registerCommand("bookmarks.switchActiveGroup", async () => {
+        const wsf = activeController?.workspaceFolder;
+        const currentId = getActiveGroupId(wsf);
+        const items = getGroups().map(group => ({
+            label: `$(bookmark) ${group.name}`,
+            description: group.id === currentId ? vscode.l10n.t("(active)") : undefined,
+            detail: group.color,
+            groupId: group.id
+        }));
+        const selection = await vscode.window.showQuickPick(items, {
+            placeHolder: vscode.l10n.t("Select active bookmark group")
+        });
+        if (!selection) {
+            return;
+        }
+        await setActiveGroupId(wsf, selection.groupId);
+        const chosen = getGroup(selection.groupId);
+        vscode.window.setStatusBarMessage(vscode.l10n.t("Active bookmark group set to {0}", chosen.name), 2000);
+    });
+
+    for (let n = 0; n < MAX_GROUPS; n++) {
+        const groupId = n;
+        vscode.commands.registerCommand(`bookmarks.toggleGroup${n}`, async () => {
+            await toggleOrSetGroup(groupId);
+        });
+    }
+
+    registerActiveGroupStatusBar(() => activeController?.workspaceFolder);
+
+    async function toggleOrSetGroup(groupId: number) {
+        if (!vscode.window.activeTextEditor) {
+            const wsf = activeController?.workspaceFolder;
+            await setActiveGroupId(wsf, groupId);
+            const chosen = getGroup(groupId);
+            vscode.window.setStatusBarMessage(vscode.l10n.t("Active bookmark group set to {0}", chosen.name), 2000);
+            return;
+        }
+
+        if (!activeController.activeFile) {
+            activeController.addFile(vscode.window.activeTextEditor.document.uri);
+            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
+        }
+
+        const file = activeController.activeFile;
+        const selections = vscode.window.activeTextEditor.selections;
+
+        const changedLines = new Set<number>();
+        let anyChanged = false;
+        for (const sel of selections) {
+            const line = sel.active.line;
+            if (changedLines.has(line)) {
+                continue;
+            }
+            const idx = indexOfBookmark(file, line);
+            if (idx > -1) {
+                activeController.changeGroup(idx, groupId);
+                changedLines.add(line);
+                anyChanged = true;
+            }
+        }
+
+        if (anyChanged) {
+            saveWorkspaceState();
+            updateDecorations();
+            const chosen = getGroup(groupId);
+            vscode.window.setStatusBarMessage(vscode.l10n.t("Bookmark moved to group {0}", chosen.name), 2000);
+            return;
+        }
+
+        // No selections had a bookmark — set active group instead
+        const wsf = activeController.workspaceFolder;
+        await setActiveGroupId(wsf, groupId);
+        const chosen = getGroup(groupId);
+        vscode.window.setStatusBarMessage(vscode.l10n.t("Active bookmark group set to {0}", chosen.name), 2000);
+    }
 
     function getActiveController(document: TextDocument): void {
         // system files don't have workspace, so use the first one [0]
@@ -938,10 +1013,13 @@ export async function activate(context: vscode.ExtensionContext) {
                 vscode.window.showWarningMessage(vscode.l10n.t("You must define a label for the bookmark."));
                 return;
             }
+            let preservedGroupId: number | undefined;
             if (index >= 0) {
+                const existing = (book ?? activeController.activeFile).bookmarks[ index ];
+                preservedGroupId = existing?.groupId;
                 activeController.removeBookmark(index, position.line, book);
             }
-            activeController.addBookmark(position, bookmarkLabel, book);
+            activeController.addBookmark(position, bookmarkLabel, book, preservedGroupId ?? getActiveGroupId(activeController.workspaceFolder));
 
             // toggle editing mode
             if (jumpToPosition) {
@@ -985,7 +1063,7 @@ export async function activate(context: vscode.ExtensionContext) {
             activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
         }
 
-        if (await activeController.toggle(selections)) {
+        if (await activeController.toggle(selections, undefined, undefined, getActiveGroupId(activeController.workspaceFolder))) {
             if (!isInDiffEditor()) {
                 vscode.window.showTextDocument(vscode.window.activeTextEditor.document, { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
             }
@@ -1023,7 +1101,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         let suggestion = suggestLabel(vscode.window.activeTextEditor.selection);
         if (!params && suggestion !== "" && useSelectionWhenAvailable()) {
-            if (await activeController.toggle(selections, suggestion)) {
+            if (await activeController.toggle(selections, suggestion, undefined, getActiveGroupId(activeController.workspaceFolder))) {
                 vscode.window.showTextDocument(vscode.window.activeTextEditor.document, { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
             }
             sortBookmarks(activeController.activeFile);
@@ -1057,7 +1135,7 @@ export async function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        if (await activeController.toggle(selections, newLabel)) {
+        if (await activeController.toggle(selections, newLabel, undefined, getActiveGroupId(activeController.workspaceFolder))) {
             vscode.window.showTextDocument(vscode.window.activeTextEditor.document, { preview: false, viewColumn: vscode.window.activeTextEditor.viewColumn });
         }
 

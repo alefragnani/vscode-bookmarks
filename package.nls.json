@@ -110,5 +110,18 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "Working with Remotes",
     "bookmarks.walkthroughs.workingWithRemotes.description": "The extension support [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview) scenarios. Even installed locally, you can use Bookmarks in WSL, Containers, SSH and Codespaces.",
     "bookmarks.walkthroughs.customizingAppearance.title": "Customizing Appearance",
-    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruler\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "Customize how Bookmarks are presented, its icon, line and overview ruler\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+    "bookmarks.commands.switchActiveGroup.title": "Switch Active Group",
+    "bookmarks.commands.toggleGroup0.title": "Toggle Default Group / Set Active Group 0",
+    "bookmarks.commands.toggleGroup1.title": "Toggle Group 1 / Set Active Group 1",
+    "bookmarks.commands.toggleGroup2.title": "Toggle Group 2 / Set Active Group 2",
+    "bookmarks.commands.toggleGroup3.title": "Toggle Group 3 / Set Active Group 3",
+    "bookmarks.commands.toggleGroup4.title": "Toggle Group 4 / Set Active Group 4",
+    "bookmarks.commands.toggleGroup5.title": "Toggle Group 5 / Set Active Group 5",
+    "bookmarks.commands.toggleGroup6.title": "Toggle Group 6 / Set Active Group 6",
+    "bookmarks.commands.toggleGroup7.title": "Toggle Group 7 / Set Active Group 7",
+    "bookmarks.commands.toggleGroup8.title": "Toggle Group 8 / Set Active Group 8",
+    "bookmarks.commands.toggleGroup9.title": "Toggle Group 9 / Set Active Group 9",
+    "bookmarks.configuration.groups.description": "Define the 10 bookmark groups with name and color. Each entry's `id` must be 0-9 (0 is the default group); missing entries fall back to defaults.",
+    "bookmarks.configuration.groups.hideEmpty.description": "Hide empty groups in the side bar."
 }
