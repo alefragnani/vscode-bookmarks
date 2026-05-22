@@ -94,6 +94,7 @@
     "bookmarks.colors.overviewRuler.description": "बुकमार्क्स के लिए ओवरव्यू रूलर मार्कर का रंग",
     "bookmarks.colors.labelInlineMessageTextColor.description": "बुकमार्क लेबल इनलाइन टेक्स्ट के लिए टेक्स्ट रंग। यदि निर्दिष्ट नहीं है तो git blame टेक्स्ट सजावट के समान रंग का उपयोग किया जाता है। केवल तभी अर्थ रखता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो",
     "bookmarks.colors.labelInlineMessageBackgroundColor.description": "बुकमार्क लेबल इनलाइन टेक्स्ट के लिए पृष्ठभूमि रंग। यदि निर्दिष्ट नहीं है तो कोई पृष्ठभूमि रंग उपयोग नहीं किया जाता है। केवल तभी अर्थ रखता है जब bookmarks.label.inline.enabled सेटिंग सक्षम हो",
+    "bookmarks.colors.labelInlineMessageBorderColor.description": "Border color for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled",
     "bookmarks.walkthroughs.title": "बुकमार्क्स के साथ शुरुआत करें",
     "bookmarks.walkthroughs.description": "अपने कार्यप्रवाह को बेहतर बनाने के लिए बुकमार्क्स के बारे में जानें",
     "bookmarks.walkthroughs.toggle.title": "बुकमार्क्स टॉगल करें",

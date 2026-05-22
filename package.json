@@ -1,9 +1,9 @@
 {
-    "name": "Bookmarks",
-    "displayName": "Bookmarks",
-    "description": "Mark lines and jump to them",
-    "version": "14.1.1",
-    "publisher": "alefragnani",
+    "name": "agent-bookmarks",
+    "displayName": "Agent Bookmarks",
+    "description": "Mark lines, jump to them, and keep project bookmarks in sync with agent edits",
+    "version": "14.1.1-agent.4",
+    "publisher": "realtyxxx",
     "engines": {
         "vscode": "^1.78.0"
     },
@@ -31,19 +31,53 @@
     },
     "icon": "images/icon.png",
     "license": "GPL-3.0",
-    "homepage": "https://github.com/alefragnani/vscode-bookmarks/blob/master/README.md",
+    "homepage": "https://github.com/realtyxxx/agent-bookmarks",
     "repository": {
         "type": "git",
-        "url": "https://github.com/alefragnani/vscode-bookmarks.git"
+        "url": "https://github.com/realtyxxx/agent-bookmarks.git"
     },
     "bugs": {
-        "url": "https://github.com/alefragnani/vscode-bookmarks/issues"
+        "url": "https://github.com/realtyxxx/agent-bookmarks/issues"
     },
     "sponsor": {
         "url": "https://github.com/sponsors/alefragnani"
     },
     "activationEvents": [
-        "onStartupFinished"
+        "onStartupFinished",
+        "onCommand:bookmarks.toggle",
+        "onCommand:bookmarks.jumpToNext",
+        "onCommand:bookmarks.jumpToPrevious",
+        "onCommand:_bookmarks.jumpTo",
+        "onCommand:bookmarks.selectLines",
+        "onCommand:bookmarks.expandSelectionToNext",
+        "onCommand:bookmarks.expandSelectionToPrevious",
+        "onCommand:bookmarks.shrinkSelection",
+        "onCommand:bookmarks.list",
+        "onCommand:bookmarks.toggleLabeled",
+        "onCommand:_bookmarks.addBookmark#sideBar",
+        "onCommand:_bookmarks.search#sideBar",
+        "onCommand:bookmarks.refresh",
+        "onCommand:_bookmarks.viewAsTree#sideBar",
+        "onCommand:_bookmarks.viewAsList#sideBar",
+        "onCommand:bookmarks.openSettings",
+        "onCommand:_bookmarks.sidebar.hidePosition",
+        "onCommand:_bookmarks.sidebar.showPosition",
+        "onCommand:bookmarks.clear",
+        "onCommand:_bookmarks.clearFromFile",
+        "onCommand:_bookmarks.deleteBookmark",
+        "onCommand:_bookmarks.editLabel",
+        "onCommand:_bookmarks.addBookmarkAtLine#gutter",
+        "onCommand:_bookmarks.addLabeledBookmarkAtLine#gutter",
+        "onCommand:_bookmarks.removeBookmarkAtLine#gutter",
+        "onCommand:bookmarks.listFromAllFiles",
+        "onCommand:bookmarks.clearFromAllFiles",
+        "onCommand:_bookmarks.clearFromAllFiles#sideBar",
+        "onCommand:bookmarks.whatsNew",
+        "onCommand:_bookmarks.whatsNewContextMenu",
+        "onCommand:_bookmarks.openFolderWelcome",
+        "onCommand:bookmarks.supportBookmarks",
+        "onCommand:_bookmarks.openSideBar",
+        "onCommand:bookmarks.export"
     ],
     "main": "./dist/extension-node.js",
     "l10n": "./l10n",
@@ -694,7 +728,7 @@
                 },
                 "bookmarks.label.inline.enabled": {
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "%bookmarks.configuration.label.inline.enabled.description%"
                 },
                 "bookmarks.label.inline.margin": {
@@ -719,6 +753,21 @@
                     "maximum": 900,
                     "default": 400,
                     "description": "%bookmarks.configuration.label.inline.fontWeight.description%"
+                },
+                "bookmarks.label.inline.type": {
+                    "type": "string",
+                    "default": "bordered",
+                    "enum": [
+                        "bordered",
+                        "inverse",
+                        "none"
+                    ],
+                    "enumDescriptions": [
+                        "%bookmarks.configuration.label.inline.type.enumDescriptions.bordered%",
+                        "%bookmarks.configuration.label.inline.type.enumDescriptions.inverse%",
+                        "%bookmarks.configuration.label.inline.type.enumDescriptions.none%"
+                    ],
+                    "description": "%bookmarks.configuration.label.inline.type.description%"
                 }
             }
         },
@@ -792,18 +841,27 @@
                 "id": "bookmarks.labelInlineMessageTextColor",
                 "description": "%bookmarks.colors.labelInlineMessageTextColor.description%",
                 "defaults": {
-                    "dark": "git.blame.editorDecorationForeground",
-                    "light": "git.blame.editorDecorationForeground",
-                    "highContrast": "git.blame.editorDecorationForeground"
+                    "dark": "#157EFB",
+                    "light": "#0969DA",
+                    "highContrast": "#3794FF"
                 }
             },
             {
                 "id": "bookmarks.labelInlineMessageBackgroundColor",
                 "description": "%bookmarks.colors.labelInlineMessageBackgroundColor.description%",
                 "defaults": {
-                    "dark": "#00000000",
-                    "light": "#00000000",
+                    "dark": "#157EFB1F",
+                    "light": "#0969DA1A",
                     "highContrast": "#00000000"
+                }
+            },
+            {
+                "id": "bookmarks.labelInlineMessageBorderColor",
+                "description": "%bookmarks.colors.labelInlineMessageBorderColor.description%",
+                "defaults": {
+                    "dark": "#157EFB99",
+                    "light": "#0969DA80",
+                    "highContrast": "#3794FF"
                 }
             }
         ],
@@ -870,9 +928,18 @@
             "vscode-ext"
         ],
         "rules": {
-            "indent": ["error", 4, { "SwitchCase": 1 }],
+            "indent": [
+                "error",
+                4,
+                {
+                    "SwitchCase": 1
+                }
+            ],
             "no-tabs": "error",
-            "semi": ["error", "always"],
+            "semi": [
+                "error",
+                "always"
+            ],
             "no-unexpected-multiline": "error"
         }
     },

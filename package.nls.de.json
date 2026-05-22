@@ -91,6 +91,7 @@
     "bookmarks.colors.lineBackground.description": "Hintergrundfarbe für die markierte Zeile",
     "bookmarks.colors.lineBorder.description": "Hintergrundfarbe für den Rand um die markierte Zeile",
     "bookmarks.colors.overviewRuler.description": "Farbe des Übersichtslineals für Lesezeichen",
+    "bookmarks.colors.labelInlineMessageBorderColor.description": "Border color for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled",
     "bookmarks.walkthroughs.title": "Erste Schritte mit Lesezeichen",
     "bookmarks.walkthroughs.description": "Erfahren Sie mehr über Lesezeichen, um Ihren Workflow zu optimieren",
     "bookmarks.walkthroughs.toggle.title": "Lesezeichen umschalten",

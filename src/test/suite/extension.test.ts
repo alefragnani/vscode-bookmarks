@@ -16,7 +16,7 @@ suite('Extension Test Suite', () => {
     vscode.window.showInformationMessage('Start all tests.');
 
     suiteSetup(() => {
-        extension = vscode.extensions.getExtension('alefragnani.Bookmarks') as vscode.Extension<any>;
+        extension = vscode.extensions.getExtension('realtyxxx.agent-bookmarks') as vscode.Extension<any>;
     });
 
     test('Sample test', () => {
