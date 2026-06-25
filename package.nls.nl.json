@@ -110,5 +110,10 @@
   "bookmarks.walkthroughs.workingWithRemotes.title": "Werken met Remotes",
   "bookmarks.walkthroughs.workingWithRemotes.description": "De extensie ondersteunt [Remote Development](https://code.visualstudio.com/docs/remote/remote-overview). Zelfs lokaal geïnstalleerd kun je Bladwijzers gebruiken in WSL, Containers, SSH en Codespaces.",
   "bookmarks.walkthroughs.customizingAppearance.title": "Aanpassen van uiterlijk",
-  "bookmarks.walkthroughs.customizingAppearance.description": "Pas de weergave aan van de Bladwijzers, het pictogram, de regel en de overzichtslijn\n[Open instellingen - Gutter Symbool](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open instellingen - Regel](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+  "bookmarks.walkthroughs.customizingAppearance.description": "Pas de weergave aan van de Bladwijzers, het pictogram, de regel en de overzichtslijn\n[Open instellingen - Gutter Symbool](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open instellingen - Regel](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+  "bookmarks.configuration.navigation.columnMode.description": "Bepaalt op welke kolom de cursor terechtkomt bij het navigeren naar een bladwijzer",
+  "bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "Spring naar de exacte kolom waar de bladwijzer is geplaatst (standaardgedrag)",
+  "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "Spring altijd naar kolom 0 (het allereerste begin van de regel)",
+  "bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "Spring naar het eerste niet-witruimteteken op de regel",
+  "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "Spring naar het einde van de regelinhoud (na het laatste niet-witruimteteken)"
 }

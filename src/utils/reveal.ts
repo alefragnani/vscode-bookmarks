@@ -26,11 +26,11 @@ export function revealLine(line: number, directJump?: boolean) {
     window.activeTextEditor.revealRange(newSe, getRevealLocationConfig(directJump));
 }
 
-export function revealPosition(line: number, column: number): void {
+export function revealPosition(line: number, column: number, directJump?: boolean): void {
     if (isNaN(column)) {
         revealLine(line);
     } else {
-        const resolvedColumn = resolveNavigationColumn(line, column);
+        const resolvedColumn = directJump ? column : resolveNavigationColumn(line, column);
         const revealType = getRevealLocationConfig(line === window.activeTextEditor.selection.active.line);
         const newPosition = new Selection(line, resolvedColumn, line, resolvedColumn);
         window.activeTextEditor.selection = newPosition;

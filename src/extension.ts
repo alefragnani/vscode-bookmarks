@@ -568,7 +568,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         vscode.window.showQuickPick(items, options).then(selection => {
             if (typeof selection === "undefined") {
-                revealPosition(currentPosition.line, currentPosition.character);
+                revealPosition(currentPosition.line, currentPosition.character, true);
                 return;
             }
             const itemT = <vscode.QuickPickItem>selection;
@@ -792,7 +792,7 @@ export async function activate(context: vscode.ExtensionContext) {
                         } else {
                             vscode.workspace.openTextDocument(activeTextEditor.document.uri).then(doc => {
                                 vscode.window.showTextDocument(doc).then(() => {
-                                    revealPosition(currentPosition.line, currentPosition.character);
+                                    revealPosition(currentPosition.line, currentPosition.character, true);
                                     return;
                                 });
                             });
