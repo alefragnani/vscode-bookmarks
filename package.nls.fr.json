@@ -107,5 +107,10 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "Travailler avec des distants",
     "bookmarks.walkthroughs.workingWithRemotes.description": "L’extension prend en charge les scénarios de [développement à distance](https://code.visualstudio.com/docs/remote/remote-overview). Même installée localement, vous pouvez utiliser les signets dans WSL, Containers, SSH et Codespaces.",
     "bookmarks.walkthroughs.customizingAppearance.title": "Personnaliser l’apparence",
-    "bookmarks.walkthroughs.customizingAppearance.description": "Personnalisez la présentation des signets, leur icône, ligne et règle d’aperçu\n[Ouvrir les paramètres - Icône de gouttière](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Ouvrir les paramètres - Ligne](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "Personnalisez la présentation des signets, leur icône, ligne et règle d’aperçu\n[Ouvrir les paramètres - Icône de gouttière](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Ouvrir les paramètres - Ligne](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+    "bookmarks.configuration.navigation.columnMode.description": "Contrôle la colonne sur laquelle le curseur se positionne lors de la navigation vers un signet",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "Aller à la colonne exacte où le signet a été placé (comportement par défaut)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "Toujours aller à la colonne 0 (le tout début de la ligne)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "Aller au premier caractère non blanc de la ligne",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "Aller à la fin du contenu de la ligne (après le dernier caractère non blanc)"
 }

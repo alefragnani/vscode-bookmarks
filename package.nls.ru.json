@@ -86,5 +86,10 @@
     "bookmarks.colors.lineBorder.description": "Цвет фона для границы вокруг линии с закладкой",
     "bookmarks.colors.overviewRuler.description": "Обзор цвета маркера линейки для закладок",
     "bookmarks.colors.labelInlineMessageTextColor.description": "Цвет текста для встроенного текста метки закладки. Если не указан, используется тот же цвет, что и для аннотаций git. Имеет смысл только если параметр bookmarks.label.inline.enabled включен",
-    "bookmarks.colors.labelInlineMessageBackgroundColor.description": "Цвет фона для встроенного текста метки закладки. Если не указан, цвет фона не используется. Имеет смысл только если параметр bookmarks.label.inline.enabled включен"
+    "bookmarks.colors.labelInlineMessageBackgroundColor.description": "Цвет фона для встроенного текста метки закладки. Если не указан, цвет фона не используется. Имеет смысл только если параметр bookmarks.label.inline.enabled включен",
+    "bookmarks.configuration.navigation.columnMode.description": "Определяет, в какой столбец попадает курсор при переходе к закладке",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "Переходить к точному столбцу, в котором была размещена закладка (поведение по умолчанию)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "Всегда переходить к столбцу 0 (в самое начало строки)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "Переходить к первому непробельному символу в строке",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "Переходить в конец содержимого строки (после последнего непробельного символа)"
 }

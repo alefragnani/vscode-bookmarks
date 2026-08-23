@@ -106,5 +106,10 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "کار با محیط ریموت",
     "bookmarks.walkthroughs.workingWithRemotes.description": "این افزونه از سناریوهای [توسعه راه‌دور](https://code.visualstudio.com/docs/remote/remote-overview) پشتیبانی می‌کند. حتی اگر محلی نصب شده باشد، می‌توانید بوکمارک را در WSL، کانتینرها، SSH و فضا برنامه نویسی استفاده کنید.",
     "bookmarks.walkthroughs.customizingAppearance.title": "شخصی سازی ظاهر",
-    "bookmarks.walkthroughs.customizingAppearance.description": "شخصی سازی کنید که بوکمارک چگونه نمایش داده شوند: آیکون، خط و خط‌کش نمای کلی\n[باز کردن تنظیمات - آیکون کناری](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[باز کردن تنظیمات - خط](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "شخصی سازی کنید که بوکمارک چگونه نمایش داده شوند: آیکون، خط و خط‌کش نمای کلی\n[باز کردن تنظیمات - آیکون کناری](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[باز کردن تنظیمات - خط](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+    "bookmarks.configuration.navigation.columnMode.description": "تعیین می‌کند که هنگام پیمایش به یک نشانک، مکان‌نما در کدام ستون قرار گیرد",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "پرش به ستون دقیقی که نشانک در آن قرار گرفته است (رفتار پیش‌فرض)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "همیشه به ستون ۰ (ابتدای خط) پرش کن",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "پرش به اولین نویسهٔ غیر فاصله در خط",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "پرش به انتهای محتوای خط (پس از آخرین نویسهٔ غیر فاصله)"
 }
