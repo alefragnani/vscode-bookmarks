@@ -101,5 +101,10 @@
 	"bookmarks.walkthroughs.workingWithRemotes.title": "Praca z Zdalnymi",
 	"bookmarks.walkthroughs.workingWithRemotes.description": "Rozszerzenie obsługuje scenariusze [Zdalnego Rozwoju](https://code.visualstudio.com/docs/remote/remote-overview). Nawet zainstalowane lokalnie, możesz używać Zakładek w WSL, Kontenerach, SSH i Codespaces.",
 	"bookmarks.walkthroughs.customizingAppearance.title": "Dostosowywanie Wyglądu",
-	"bookmarks.walkthroughs.customizingAppearance.description": "Dostosuj sposób prezentacji Zakładek, ich ikonę, linię i linijkę przeglądu\n[Otwórz Ustawienia - Ikona Marginesu](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Otwórz Ustawienia - Linia](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+	"bookmarks.walkthroughs.customizingAppearance.description": "Dostosuj sposób prezentacji Zakładek, ich ikonę, linię i linijkę przeglądu\n[Otwórz Ustawienia - Ikona Marginesu](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Otwórz Ustawienia - Linia](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+	"bookmarks.configuration.navigation.columnMode.description": "Określa, na której kolumnie znajdzie się kursor podczas przechodzenia do zakładki",
+	"bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "Przejdź do dokładnej kolumny, w której umieszczono zakładkę (zachowanie domyślne)",
+	"bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "Zawsze przechodź do kolumny 0 (samego początku wiersza)",
+	"bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "Przejdź do pierwszego znaku niebędącego białym znakiem w wierszu",
+	"bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "Przejdź do końca zawartości wiersza (po ostatnim znaku niebędącym białym znakiem)"
 }

@@ -101,5 +101,10 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "Uzaktan Çalışma",
     "bookmarks.walkthroughs.workingWithRemotes.description": "Bu eklenti [Uzaktan Geliştirme](https://code.visualstudio.com/docs/remote/remote-overview) senaryolarını destekler. Yerel olarak yüklense bile Yer İşaretlerini WSL, Konteynerler, SSH ve Kod Alanlarında (Codespaces) kullanabilirsiniz.",
     "bookmarks.walkthroughs.customizingAppearance.title": "Görünümü Özelleştirme",
-    "bookmarks.walkthroughs.customizingAppearance.description": "Yer İşaretlerinin nasıl sunulacağını, simgesini, çizgisini ve genel bakış cetvelini özelleştirin\n[Ayarları Açın - Gutter İkonu](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Ayarları Açın - Satır](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "Yer İşaretlerinin nasıl sunulacağını, simgesini, çizgisini ve genel bakış cetvelini özelleştirin\n[Ayarları Açın - Gutter İkonu](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Ayarları Açın - Satır](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+    "bookmarks.configuration.navigation.columnMode.description": "Bir yer imine giderken imlecin hangi sütuna geleceğini denetler",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "Yer iminin yerleştirildiği tam sütuna git (varsayılan davranış)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "Her zaman 0. sütuna git (satırın en başı)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "Satırdaki ilk boşluk olmayan karaktere git",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "Satır içeriğinin sonuna git (son boşluk olmayan karakterden sonra)"
 }

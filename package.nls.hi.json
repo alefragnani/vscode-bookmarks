@@ -107,5 +107,10 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "रिमोट्स के साथ कार्य करना",
     "bookmarks.walkthroughs.workingWithRemotes.description": "यह एक्सटेंशन रिमोट डेवलपमेंट के साथ काम करता है जैसे WSL, कंटेनर, SSH और कोडस्पेस।",
     "bookmarks.walkthroughs.customizingAppearance.title": "रूप-रंग अनुकूलित करें",
-    "bookmarks.walkthroughs.customizingAppearance.description": "बुकमार्क्स के आइकन, लाइन और ओवरव्यू रूलर को अनुकूलित करें।\n[सेटिंग्स खोलें - गटर आइकन](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[सेटिंग्स खोलें - लाइन](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
-  }
+    "bookmarks.walkthroughs.customizingAppearance.description": "बुकमार्क्स के आइकन, लाइन और ओवरव्यू रूलर को अनुकूलित करें।\n[सेटिंग्स खोलें - गटर आइकन](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[सेटिंग्स खोलें - लाइन](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+    "bookmarks.configuration.navigation.columnMode.description": "नियंत्रित करता है कि बुकमार्क पर नेविगेट करते समय कर्सर किस कॉलम पर पहुँचे",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "उस सटीक कॉलम पर जाएँ जहाँ बुकमार्क रखा गया था (डिफ़ॉल्ट व्यवहार)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "हमेशा कॉलम 0 पर जाएँ (पंक्ति की बिल्कुल शुरुआत)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "पंक्ति के पहले गैर-रिक्त वर्ण पर जाएँ",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "पंक्ति की सामग्री के अंत पर जाएँ (अंतिम गैर-रिक्त वर्ण के बाद)"
+}

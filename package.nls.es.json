@@ -110,5 +110,10 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "Trabajando con remotos",
     "bookmarks.walkthroughs.workingWithRemotes.description": "La extensión acepta escenarios de [Desarrollo remoto](https://code.visualstudio.com/docs/remote/remote-overview). Además de poder usar Bookmarks localmente, también puedes usarla en WSL, Contenedores, SSH y Codespaces.",
     "bookmarks.walkthroughs.customizingAppearance.title": "Personalizando la apariencia",
-    "bookmarks.walkthroughs.customizingAppearance.description": "Personaliza cómo se ven los marcadores, sus iconos, sus líneas y la regla general.\n[Abrir la configuración - Icono del canal](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Abrir la configuración - Línea](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "Personaliza cómo se ven los marcadores, sus iconos, sus líneas y la regla general.\n[Abrir la configuración - Icono del canal](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Abrir la configuración - Línea](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+    "bookmarks.configuration.navigation.columnMode.description": "Controla en qué columna se posiciona el cursor al navegar a un marcador",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "Saltar a la columna exacta donde se colocó el marcador (comportamiento predeterminado)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "Saltar siempre a la columna 0 (el inicio de la línea)",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "Saltar al primer carácter que no sea un espacio en blanco de la línea",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "Saltar al final del contenido de la línea (después del último carácter que no sea un espacio en blanco)"
 }
