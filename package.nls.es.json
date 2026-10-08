@@ -97,6 +97,7 @@
     "bookmarks.colors.overviewRuler.description": "Color general de fondo para todos los Marcadores",
     "bookmarks.colors.labelInlineMessageTextColor.description": "Color de texto para el texto de etiqueta de marcador. Si no se especifica, se utiliza el mismo color que la decoración de git blame. Solo tiene sentido si la configuración de bookmarks.label.inline.enabled está habilitada",
     "bookmarks.colors.labelInlineMessageBackgroundColor.description": "Color de fondo para el texto de etiqueta de marcador. Si no se especifica, no se utiliza ningún color de fondo. Solo tiene sentido si la configuración de bookmarks.label.inline.enabled está habilitada",
+    "bookmarks.colors.labelInlineMessageBorderColor.description": "Border color for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled",
     "bookmarks.walkthroughs.title": "Empieza a usar Bookmarks",
     "bookmarks.walkthroughs.description": "Aprende más sobre Bookmarks para optimizar tu trabajo",
     "bookmarks.walkthroughs.toggle.title": "Alternar marcadores",

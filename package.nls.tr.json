@@ -88,6 +88,7 @@
     "bookmarks.colors.overviewRuler.description": "Yer işaretleri için cetvel işaretleyici rengine genel bakış",
     "bookmarks.colors.labelInlineMessageTextColor.description": "Yer işareti etiketi satır içi metni için metin rengi. Belirtilmemişse git blame metin dekorasyonu ile aynı renk kullanılır. Yalnızca bookmarks.label.inline.enabled ayarı etkinse anlam taşır",
     "bookmarks.colors.labelInlineMessageBackgroundColor.description": "Yer işareti etiketi satır içi metni için arka plan rengi. Belirtilmemişse arka plan rengi kullanılmaz. Yalnızca bookmarks.label.inline.enabled ayarı etkinse anlam taşır",
+    "bookmarks.colors.labelInlineMessageBorderColor.description": "Border color for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled",
     "bookmarks.walkthroughs.title": "Yer İşaretlerini Kullanmaya Başlayın",
     "bookmarks.walkthroughs.description": "İş akışınızı optimize etmek için Yer İşaretleri hakkında daha fazla bilgi edinin",
     "bookmarks.walkthroughs.toggle.title": "Yer Imlerinde Geçiş Yap",

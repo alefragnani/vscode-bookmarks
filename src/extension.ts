@@ -14,7 +14,7 @@ import { createBookmarkDecorations, createBookmarkLabelInlineDecoration, updateD
 import { File } from "./core/file";
 import { Controller } from "./core/controller";
 import { indexOfBookmark, listBookmarks, nextBookmark, sortBookmarks } from "./core/operations";
-import { loadBookmarks, saveBookmarks } from "./storage/workspaceState";
+import { getProjectBookmarksUri, isProjectBookmarksInternalWrite, loadBookmarks, reloadBookmarks, saveBookmarks } from "./storage/workspaceState";
 import { pickController } from "./quickpick/controllerPicker";
 import { expandSelectionToNextBookmark, selectBookmarkedLines, shrinkSelection } from "./selections";
 import { BookmarksExplorer } from "./sidebar/bookmarkProvider";
@@ -44,10 +44,18 @@ export async function activate(context: vscode.ExtensionContext) {
     let controllers: Controller[] = [];
     let activeEditorCountLine: number;
     let timeout = null;
+    let projectBookmarksWatchers: vscode.Disposable[] = [];
+    context.subscriptions.push({
+        dispose: () => projectBookmarksWatchers.forEach(watcher => watcher.dispose())
+    });
 
     let saveBookmarksInProjectSetting = vscode.workspace.getConfiguration("bookmarks").get<boolean>("saveBookmarksInProject", false);
 
-    await registerWhatsNew();
+    try {
+        await registerWhatsNew();
+    } catch (error) {
+        console.error("Error registering Bookmarks whats-new:", error);
+    }
     await registerWalkthrough();
 
     context.subscriptions.push(vscode.commands.registerCommand("_bookmarks.openFolderWelcome", () => {
@@ -61,7 +69,11 @@ export async function activate(context: vscode.ExtensionContext) {
     registerOpenSettings();
     registerSupportBookmarks();
     registerExport(() => controllers);
-    registerHelpAndFeedbackView(context);
+    try {
+        registerHelpAndFeedbackView(context);
+    } catch (error) {
+        console.error("Error registering Bookmarks help and feedback view:", error);
+    }
 
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(async cfg => {
         // Allow change the gutterIcon and inline label decoration without reload
@@ -71,7 +83,8 @@ export async function activate(context: vscode.ExtensionContext) {
             cfg.affectsConfiguration("bookmarks.label.inline.enabled") ||
             cfg.affectsConfiguration("bookmarks.label.inline.margin") ||
             cfg.affectsConfiguration("bookmarks.label.inline.fontStyle") ||
-            cfg.affectsConfiguration("bookmarks.label.inline.fontWeight")
+            cfg.affectsConfiguration("bookmarks.label.inline.fontWeight") ||
+            cfg.affectsConfiguration("bookmarks.label.inline.type")
         ) {
             if (bookmarkDecorationType.length > 0) {
                 bookmarkDecorationType.forEach(b => b.dispose());
@@ -84,7 +97,7 @@ export async function activate(context: vscode.ExtensionContext) {
             context.subscriptions.push(bookmarkLabelInlineDecoration);
 
             updateDecorations();
-            bookmarkProvider.refresh();
+            debouncedRefresh();
         }
 
         if (cfg.affectsConfiguration("bookmarks.saveBookmarksInProject")) {
@@ -163,6 +176,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
             splitOrMergeFilesInMultiRootControllers();
             saveWorkspaceState();
+            setupProjectBookmarksWatchers();
         }
 
         if (cfg.affectsConfiguration("bookmarks.sideBar.countBadge")) {
@@ -194,9 +208,88 @@ export async function activate(context: vscode.ExtensionContext) {
     const bookmarkExplorer = new BookmarksExplorer(controllers);
     const bookmarkProvider = bookmarkExplorer.getProvider();
 
+    interface DebouncedFunction<T extends (...args: unknown[]) => unknown> {
+        (...args: Parameters<T>): void;
+        cancel(): void;
+    }
+
+    function debounce<T extends (...args: unknown[]) => unknown>(func: T, wait: number): DebouncedFunction<T> {
+        let timeoutId: NodeJS.Timeout | null = null;
+        const debounced = function(...args: Parameters<T>) {
+            if (timeoutId) clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => func(...args), wait);
+        };
+        debounced.cancel = () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+                timeoutId = null;
+            }
+        };
+        return debounced;
+    }
+
+    const statusBarItem = vscode.window.createStatusBarItem("realtyxxx.agentBookmarks.count", vscode.StatusBarAlignment.Right, 100);
+    statusBarItem.name = vscode.l10n.t("Agent Bookmarks Count");
+    statusBarItem.command = "bookmarks.listFromAllFiles";
+    statusBarItem.tooltip = vscode.l10n.t("Click to list all bookmarks in workspace");
+    context.subscriptions.push(statusBarItem);
+
+    function updateStatusBar() {
+        if (!statusBarItem) {
+            return;
+        }
+        let totalBookmarks = 0;
+        for (const controller of controllers) {
+            for (const file of controller.files) {
+                totalBookmarks += file.bookmarks.length;
+            }
+        }
+        if (totalBookmarks === 0) {
+            statusBarItem.hide();
+        } else {
+            statusBarItem.text = `🔖 ${totalBookmarks}`;
+            statusBarItem.show();
+        }
+    }
+
+    const debouncedUpdateStatusBar = debounce(updateStatusBar, 100);
+
+    const debouncedRefresh = debounce(() => {
+        bookmarkProvider.refresh();
+    }, 100);
+
+    context.subscriptions.push({
+        dispose: () => {
+            debouncedRefresh.cancel();
+            debouncedUpdateStatusBar.cancel();
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+        }
+    });
+
+    debouncedUpdateStatusBar();
+
     bookmarkExplorer.updateBadge();
+    setupProjectBookmarksWatchers();
 
     toggleSideBarWelcomeVisibility();
+
+    context.subscriptions.push(vscode.workspace.onDidChangeWorkspaceFolders(async () => {
+        await loadWorkspaceState();
+        bookmarkExplorer.updateControllers(controllers);
+        setupProjectBookmarksWatchers();
+        if (vscode.window.activeTextEditor) {
+            getActiveController(vscode.window.activeTextEditor.document);
+            activeController.addFile(vscode.window.activeTextEditor.document.uri);
+            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
+            updateDecorations();
+            updateLinesWithBookmarkContext(activeController.activeFile);
+        }
+        debouncedRefresh();
+        bookmarkExplorer.updateBadge();
+        debouncedUpdateStatusBar();
+    }));
 
     vscode.commands.registerCommand("_bookmarks.sidebar.hidePosition", () => toggleSidebarPositionVisibility(false));
     vscode.commands.registerCommand("_bookmarks.sidebar.showPosition", () => toggleSidebarPositionVisibility(true));
@@ -212,7 +305,7 @@ export async function activate(context: vscode.ExtensionContext) {
     function toggleSidebarPositionVisibility(visible: boolean) {
         vscode.commands.executeCommand("setContext", "bookmarks.isHidingPosition", !visible);
         Container.context.globalState.update("bookmarks.sidebar.hidePosition", !visible);
-        bookmarkProvider.refresh();
+        debouncedRefresh();
     }
 
     const viewAsList = Container.context.globalState.get<boolean>("viewAsList", false);
@@ -226,7 +319,7 @@ export async function activate(context: vscode.ExtensionContext) {
             vscode.commands.executeCommand("setContext", "bookmarks.viewAsList", false);
         }
         Container.context.globalState.update("viewAsList", view === ViewAs.VIEW_AS_LIST);
-        bookmarkProvider.refresh();
+        debouncedRefresh();
     }
 
     vscode.window.onDidChangeActiveTextEditor(editor => {
@@ -293,7 +386,7 @@ export async function activate(context: vscode.ExtensionContext) {
             }
         }
 
-        bookmarkProvider.refresh();
+        debouncedRefresh();
         saveWorkspaceState();
         if (activeEditor) {
             activeController.activeFile = activeController.fromUri(activeEditor.document.uri);
@@ -334,7 +427,7 @@ export async function activate(context: vscode.ExtensionContext) {
     registerGutterCommands(toggle, toggleLabeled);
 
     vscode.commands.registerCommand("bookmarks.refresh", () => {
-        bookmarkProvider.refresh();
+        debouncedRefresh();
     });
 
     vscode.commands.registerCommand("_bookmarks.search#sideBar", () => {
@@ -455,6 +548,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
 
     async function loadWorkspaceState(): Promise<void> {
+        controllers = [];
 
         // no workspace, load as `undefined` and will always be from `workspaceState`
         if (!vscode.workspace.workspaceFolders) {
@@ -492,22 +586,76 @@ export async function activate(context: vscode.ExtensionContext) {
         // no workspace, there is only one `controller`, and will always be from `workspaceState`
         if (!vscode.workspace.workspaceFolders) {
             saveBookmarks(activeController);
-            return;
-        }
-
-        // NOT `saveBookmarksInProject`, will load from `workspaceFolders[0]` - as before
-        if (!vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false)) {
+        } else if (!vscode.workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false)) {
+            // NOT `saveBookmarksInProject`, will load from `workspaceFolders[0]` - as before
             // no matter how many workspaceFolders exists, will always save to [0] because even with
             // multi-root, there would be no way to save state to different folders
             saveBookmarks(activeController);
+        } else {
+            // `saveBookmarksInProject` TRUE
+            // single or multi-root, will save to each `workspaceFolder` 
+            controllers.forEach(controller => {
+                saveBookmarks(controller);
+            });
+        }
+        debouncedUpdateStatusBar();
+    }
+
+    function setupProjectBookmarksWatchers(): void {
+        projectBookmarksWatchers.forEach(watcher => watcher.dispose());
+        projectBookmarksWatchers = [];
+
+        const saveBookmarksInProject = vscode.workspace.getConfiguration("bookmarks").get<boolean>("saveBookmarksInProject", false);
+        if (!saveBookmarksInProject || !vscode.workspace.workspaceFolders) {
             return;
         }
 
-        // `saveBookmarksInProject` TRUE
-        // single or multi-root, will save to each `workspaceFolder` 
-        controllers.forEach(controller => {
-            saveBookmarks(controller);
-        });
+        for (const workspaceFolder of vscode.workspace.workspaceFolders) {
+            const pattern = new vscode.RelativePattern(workspaceFolder, ".vscode/bookmarks.json");
+            const watcher = vscode.workspace.createFileSystemWatcher(pattern);
+            const reload = debounce(async (uri: Uri) => {
+                if (isProjectBookmarksInternalWrite(uri)) {
+                    return;
+                }
+                await reloadProjectBookmarks(workspaceFolder, uri);
+            }, 100);
+
+            const reloadDisposable = {
+                dispose: () => reload.cancel()
+            };
+
+            projectBookmarksWatchers.push(
+                watcher,
+                reloadDisposable,
+                watcher.onDidCreate(reload),
+                watcher.onDidChange(reload),
+                watcher.onDidDelete(reload)
+            );
+        }
+    }
+
+    async function reloadProjectBookmarks(workspaceFolder: vscode.WorkspaceFolder, uri: Uri): Promise<void> {
+        const expectedUri = getProjectBookmarksUri(workspaceFolder);
+        if (uri.toString() !== expectedUri.toString()) {
+            return;
+        }
+
+        const controller = controllers.find(ctrl => ctrl.workspaceFolder?.uri.toString() === workspaceFolder.uri.toString());
+        if (!controller) {
+            return;
+        }
+
+        await reloadBookmarks(controller);
+        if (vscode.window.activeTextEditor && vscode.workspace.getWorkspaceFolder(vscode.window.activeTextEditor.document.uri)?.uri.toString() === workspaceFolder.uri.toString()) {
+            getActiveController(vscode.window.activeTextEditor.document);
+            activeController.addFile(vscode.window.activeTextEditor.document.uri);
+            activeController.activeFile = activeController.fromUri(vscode.window.activeTextEditor.document.uri);
+            updateDecorations();
+            updateLinesWithBookmarkContext(activeController.activeFile);
+        }
+        debouncedRefresh();
+        bookmarkExplorer.updateBadge();
+        debouncedUpdateStatusBar();
     }
 
     function list() {

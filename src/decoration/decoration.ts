@@ -31,15 +31,31 @@ export function createBookmarkLabelInlineDecoration(): TextEditorDecorationType 
     const bookmarksLabelInlineMargin = workspace.getConfiguration("bookmarks").get("label.inline.margin", 2);
     const labelInlineFontStyle = workspace.getConfiguration("bookmarks").get("label.inline.fontStyle", "normal");
     const bookmarksLabelInlineFontWeight = workspace.getConfiguration("bookmarks").get("label.inline.fontWeight", 400);
+    const bookmarksLabelInlineType = workspace.getConfiguration("bookmarks").get<string>("label.inline.type", "bordered");
+
+    const afterOptions: any = {
+        fontStyle: labelInlineFontStyle,
+        textDecoration: `none;margin:0 0 0 ${bookmarksLabelInlineMargin}ch;` +
+                        `font-weight:${bookmarksLabelInlineFontWeight}`
+    };
+
+    if (bookmarksLabelInlineType === "bordered") {
+        afterOptions.color = new ThemeColor("bookmarks.labelInlineMessageTextColor");
+        afterOptions.backgroundColor = new ThemeColor("bookmarks.labelInlineMessageBackgroundColor");
+        afterOptions.border = "1px solid";
+        afterOptions.borderColor = new ThemeColor("bookmarks.labelInlineMessageBorderColor");
+    } else if (bookmarksLabelInlineType === "inverse") {
+        afterOptions.color = new ThemeColor("editor.background");
+        afterOptions.backgroundColor = new ThemeColor("bookmarks.labelInlineMessageTextColor");
+        afterOptions.border = "none";
+    } else {
+        afterOptions.color = new ThemeColor("bookmarks.labelInlineMessageTextColor");
+        afterOptions.backgroundColor = "transparent";
+        afterOptions.border = "none";
+    }
 
     const decorationOptions: DecorationRenderOptions = {
-        after: {
-            fontStyle: labelInlineFontStyle,
-            color: new ThemeColor("bookmarks.labelInlineMessageTextColor"),
-            backgroundColor: new ThemeColor("bookmarks.labelInlineMessageBackgroundColor"),
-            textDecoration: `none;margin:0 0 0 ${bookmarksLabelInlineMargin}ch;` +
-                            `font-weight:${bookmarksLabelInlineFontWeight}`
-        }
+        after: afterOptions
     };
     return window.createTextEditorDecorationType(decorationOptions);
 }
@@ -78,7 +94,7 @@ function buildDecorationOptionsForInlineBookmarkLabel(
         ),
         renderOptions: {
             after: {
-                contentText: bookmark.label,
+                contentText: `\u2002${bookmark.label}\u2002`,
             }
         },
     };
@@ -104,6 +120,7 @@ export function updateDecorationsInActiveEditor(
         const bks: Range[] = [];
       
         bookmarkDecorationType.forEach(d => activeEditor.setDecorations(d, bks));
+        activeEditor.setDecorations(bookmarkLabelInlineDecoration, bks);
         return;
     }
 

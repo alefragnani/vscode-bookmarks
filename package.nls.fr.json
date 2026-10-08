@@ -94,6 +94,7 @@
     "bookmarks.colors.overviewRuler.description": "Couleur du marqueur dans la règle d’aperçu pour les signets",
     "bookmarks.colors.labelInlineMessageTextColor.description": "Couleur du texte pour le texte de l'étiquette de signet. Si non spécifié, la même couleur que la décoration d'annotation git est utilisée. Cela n'a de sens que si le paramètre bookmarks.label.inline.enabled est activé",
     "bookmarks.colors.labelInlineMessageBackgroundColor.description": "Couleur de fond pour le texte de l'étiquette de signet. Si non spécifié, aucune couleur de fond n'est utilisée. Cela n'a de sens que si le paramètre bookmarks.label.inline.enabled est activé",
+    "bookmarks.colors.labelInlineMessageBorderColor.description": "Border color for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled",
     "bookmarks.walkthroughs.title": "Commencer avec les signets",
     "bookmarks.walkthroughs.description": "En savoir plus sur les signets pour optimiser votre flux de travail",
     "bookmarks.walkthroughs.toggle.title": "Basculer les signets",
