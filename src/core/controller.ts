@@ -7,11 +7,24 @@ import os = require("os");
 import path = require("path");
 import * as vscode from "vscode";
 import { Uri, WorkspaceFolder } from "vscode";
-import { Directions, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS, UNTITLED_SCHEME } from "./constants";
+import { Bookmark } from "./bookmark";
+import { DEFAULT_GROUP_ID, Directions, MAX_GROUPS, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS, UNTITLED_SCHEME } from "./constants";
 import { createFile, File } from "./file";
 import { getFileUri, getRelativePath, uriExists } from "../utils/fs";
 import { clear, getLinePreview, indexOfBookmark } from "./operations";
 import { updateLinesWithBookmarkContext } from "../gutter/editorLineNumberContext";
+import { getActiveGroupId } from "./groupState";
+
+function normalizeGroupId(value: unknown): number {
+    if (typeof value !== "number" || !Number.isFinite(value)) {
+        return DEFAULT_GROUP_ID;
+    }
+    const id = Math.floor(value);
+    if (id < 0 || id >= MAX_GROUPS) {
+        return DEFAULT_GROUP_ID;
+    }
+    return id;
+}
 
 interface BookmarkAdded {
     file: File;
@@ -33,7 +46,7 @@ interface BookmarkUpdated {
     line: number;
     column?: number;
     linePreview?: string;
-    label?: string
+    label?: string;
 }
 
 enum ToggleMode {
@@ -256,7 +269,7 @@ export class Controller {
         }
     }
 
-    public async toggle(selections: readonly vscode.Selection[], label?: string, book?: File): Promise<boolean> {
+    public async toggle(selections: readonly vscode.Selection[], label?: string, book?: File, groupId?: number): Promise<boolean> {
         const b: File = book ? book : this.activeFile;
         const toggleMode = vscode.workspace.getConfiguration("bookmarks").get<string>("multicursor.toggleMode", "allLinesAtOnce");
         let toggleState: ToggleState | undefined;
@@ -284,7 +297,7 @@ export class Controller {
                     if (index > -1) {
                         this.removeBookmark(index, selection.active.line, b);
                     } else { // toggle on -> add
-                        await this.addBookmark(selection.active, label, b);
+                        await this.addBookmark(selection.active, label, b, groupId);
                         added = true;
                     }
                 } else {
@@ -295,7 +308,7 @@ export class Controller {
                         this.removeBookmark(index, selection.active.line, b);
                     } else {
                         if (index === -1) {
-                            await this.addBookmark(selection.active, label, b);
+                            await this.addBookmark(selection.active, label, b, groupId);
                         }
                         added = true;
                     }
@@ -306,13 +319,15 @@ export class Controller {
     }
 
 
-    public async addBookmark(position: vscode.Position, label?: string, book?: File): Promise<void> {
+    public async addBookmark(position: vscode.Position, label?: string, book?: File, groupId?: number): Promise<void> {
         const b: File = book ? book : this.activeFile;
+        const resolvedGroupId = normalizeGroupId(groupId ?? getActiveGroupId(this.workspaceFolder));
         if (!label) {
             b.bookmarks.push({
                 line: position.line,
                 column: position.character,
-                label: ""
+                label: "",
+                groupId: resolvedGroupId
             });
             let linePreview: string;
             if (book) {
@@ -332,7 +347,8 @@ export class Controller {
             b.bookmarks.push({
                 line: position.line,
                 column: position.character,
-                label
+                label,
+                groupId: resolvedGroupId
             });
             this.onDidAddBookmarkEmitter.fire({
                 file: b,
@@ -449,7 +465,12 @@ export class Controller {
                 }
 
                 for (const bkm of file.bookmarks) {
-                    bookmark.bookmarks.push(bkm);
+                    bookmark.bookmarks.push({
+                        line: bkm.line,
+                        column: bkm.column,
+                        label: bkm.label,
+                        groupId: normalizeGroupId(bkm.groupId)
+                    });
                 }
                 this.files.push(bookmark);
             }
@@ -483,7 +504,8 @@ export class Controller {
                     bookmark.bookmarks.push({
                         line: bkm.line,
                         column: bkm.column,
-                        label: bkm.label
+                        label: bkm.label,
+                        groupId: normalizeGroupId(bkm.groupId)
                     });
                 }
                 this.files.push(bookmark);
@@ -493,10 +515,13 @@ export class Controller {
 
         // NEWER v3 format
         for (const file of jsonObject.files) {
-            const bookmark = createFile(file.path);//??, file.uri ? <Uri>file.uri : undefined);
-            bookmark.bookmarks = [
-                ...file.bookmarks
-            ];
+            const bookmark = createFile(file.path);
+            bookmark.bookmarks = (file.bookmarks ?? []).map((bkm: Bookmark) => ({
+                line: bkm.line,
+                column: bkm.column,
+                label: bkm.label,
+                groupId: normalizeGroupId(bkm.groupId)
+            }));
             this.files.push(bookmark);
         }
     }

@@ -6,7 +6,6 @@
 import os = require("os");
 import path = require("path");
 import { Uri, workspace, WorkspaceFolder } from "vscode";
-import { Bookmark } from "../core/bookmark";
 import { UNTITLED_SCHEME } from "../core/constants";
 import { File } from "../core/file";
 
@@ -106,18 +105,6 @@ export async function writeFileUri(uri: Uri, contents: string): Promise<void> {
 
 export async function deleteFileUri(uri: Uri): Promise<void> {
     await workspace.fs.delete(uri, { recursive: false, useTrash: false});
-}
-
-export function parsePosition(position: string): Bookmark | undefined {
-    const re = new RegExp(/\(Ln\s(\d+),\sCol\s(\d+)\)/);
-    const matches = re.exec(position);
-    if (matches) {
-        return {
-            line: parseInt(matches[ 1 ], 10),
-            column: parseInt(matches[ 2 ], 10)
-        };
-    }
-    return undefined;
 }
 
 export function getFileUri(file: File, workspaceFolder: WorkspaceFolder): Uri {
