@@ -3,8 +3,8 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import os = require("os");
-import path = require("path");
+import * as os from "os";
+import * as path from "path";
 import * as vscode from "vscode";
 import { Uri, WorkspaceFolder } from "vscode";
 import { Directions, NO_BOOKMARKS_AFTER, NO_BOOKMARKS_BEFORE, NO_MORE_BOOKMARKS, UNTITLED_SCHEME } from "./constants";
