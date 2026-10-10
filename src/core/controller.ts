@@ -161,6 +161,7 @@ export class Controller {
             const element = this.files[ index ];
             if (element === active) {
                 currentBookmarkId = index;
+                break;
             }
         }
 
