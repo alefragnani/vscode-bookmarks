@@ -250,6 +250,11 @@
                 "command": "bookmarks.export",
                 "title": "%bookmarks.commands.export.title%",
                 "category": "%bookmarks.commands.category.bookmarks%"
+            },
+            {
+                "command": "bookmarks.switchActiveGroup",
+                "title": "%bookmarks.commands.switchActiveGroup.title%",
+                "category": "%bookmarks.commands.category.bookmarks%"
             }
         ],
         "menus": {
@@ -719,6 +724,39 @@
                     "maximum": 900,
                     "default": 400,
                     "description": "%bookmarks.configuration.label.inline.fontWeight.description%"
+                },
+                "bookmarks.groups": {
+                    "type": "array",
+                    "description": "%bookmarks.configuration.groups.description%",
+                    "maxItems": 10,
+                    "default": [
+                        { "id": 0, "name": "Default", "color": "#157EFB", "borderColor": "#157EFB" },
+                        { "id": 1, "name": "Group 1", "color": "#FF6B6B", "borderColor": "#FF6B6B" },
+                        { "id": 2, "name": "Group 2", "color": "#51CF66", "borderColor": "#51CF66" },
+                        { "id": 3, "name": "Group 3", "color": "#FCC419", "borderColor": "#FCC419" },
+                        { "id": 4, "name": "Group 4", "color": "#CC5DE8", "borderColor": "#CC5DE8" },
+                        { "id": 5, "name": "Group 5", "color": "#22B8CF", "borderColor": "#22B8CF" },
+                        { "id": 6, "name": "Group 6", "color": "#FF922B", "borderColor": "#FF922B" },
+                        { "id": 7, "name": "Group 7", "color": "#845EF7", "borderColor": "#845EF7" },
+                        { "id": 8, "name": "Group 8", "color": "#868E96", "borderColor": "#868E96" },
+                        { "id": 9, "name": "Group 9", "color": "#20C997", "borderColor": "#20C997" }
+                    ],
+                    "items": {
+                        "type": "object",
+                        "required": ["id", "name", "color"],
+                        "properties": {
+                            "id": { "type": "integer", "minimum": 0, "maximum": 9 },
+                            "name": { "type": "string", "minLength": 1 },
+                            "color": { "type": "string", "format": "color" },
+                            "borderColor": { "type": "string", "format": "color" }
+                        }
+                    },
+                    "scope": "application"
+                },
+                "bookmarks.groups.hideEmpty": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%bookmarks.configuration.groups.hideEmpty.description%"
                 }
             }
         },

@@ -8,6 +8,8 @@ import { Container } from "../core/container";
 import { Controller } from "../core/controller";
 import { getRelativePath, uriExists, uriWith } from "../utils/fs";
 import { getLinePreview } from "../core/operations";
+import { DEFAULT_GROUP_ID } from "../core/constants";
+import { getGroup } from "../core/groups";
 
 interface BookmarkExportItem {
     file: string;
@@ -15,6 +17,8 @@ interface BookmarkExportItem {
     column: number;
     label: string;
     content: string;
+    group: string;
+    groupColor: string;
 }
 
 function escapeForMarkdown(text: string): string {
@@ -70,12 +74,15 @@ async function collectBookmarks(controllers: Controller[]): Promise<BookmarkExpo
                     displayPath = getRelativePath(controller.workspaceFolder.uri.fsPath, file.path);
                 }
 
+                const group = getGroup(bookmark.groupId ?? DEFAULT_GROUP_ID);
                 bookmarkItems.push({
                     file: displayPath,
                     line: bookmark.line + 1, // Convert to 1-based line numbers
                     column: bookmark.column + 1, // Convert to 1-based column numbers
                     label: bookmark.label || "",
-                    content: content
+                    content: content,
+                    group: group.name,
+                    groupColor: group.color
                 });
             }
         }
@@ -115,7 +122,9 @@ function formatBookmarks(bookmarks: BookmarkExportItem[], pattern: string): stri
             "$line": bookmark.line.toString(),
             "$column": bookmark.column.toString(),
             "$label": isDefaultTableFormat ? escapeForMarkdown(bookmark.label) : bookmark.label,
-            "$content": isDefaultTableFormat ? escapeForMarkdown(bookmark.content) : bookmark.content
+            "$content": isDefaultTableFormat ? escapeForMarkdown(bookmark.content) : bookmark.content,
+            "$group": isDefaultTableFormat ? escapeForMarkdown(bookmark.group) : bookmark.group,
+            "$groupColor": bookmark.groupColor
         };
 
         let line = pattern;

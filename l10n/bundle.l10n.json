@@ -30,5 +30,10 @@
     "A local copy of bookmarks was found in the project. Do you want to load?":"A local copy of bookmarks was found in the project. Do you want to load?",
     "The project's file was last modified at {0}":"The project's file was last modified at {0}",
     "One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}":"One of the projects in the workspace has a bookmarks file. The most recent was modified at {0}",
-    "Clear":"Clear"
+    "Clear":"Clear",
+    "Active Bookmark Group: {0}. Click to switch.":"Active Bookmark Group: {0}. Click to switch.",
+    "Active bookmark group set to {0}":"Active bookmark group set to {0}",
+    "Select active bookmark group":"Select active bookmark group",
+    "(active)":"(active)",
+    "(empty)":"(empty)"
 }
