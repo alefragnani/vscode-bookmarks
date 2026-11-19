@@ -234,10 +234,13 @@ export async function activate(context: vscode.ExtensionContext) {
         if (editor) {
             activeEditorCountLine = editor.document.lineCount;
             getActiveController(editor.document);
-            activeController.addFile(editor.document.uri);
-            activeController.activeFile = activeController.fromUri(editor.document.uri);
-            triggerUpdateDecorations();
-            updateLinesWithBookmarkContext(activeController.activeFile);
+            // Ensure we add the file to the controller if it doesn't exist
+            if (activeController) {
+                activeController.addFile(editor.document.uri);
+                activeController.activeFile = activeController.fromUri(editor.document.uri);
+                triggerUpdateDecorations();
+                updateLinesWithBookmarkContext(activeController.activeFile);
+            }
         }
     }, null, context.subscriptions);
 
@@ -427,15 +430,30 @@ export async function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("bookmarks.listFromAllFiles", () => listFromAllFiles());
 
     function getActiveController(document: TextDocument): void {
-        // system files don't have workspace, so use the first one [0]
-        if (!vscode.workspace.getWorkspaceFolder(document.uri)) {
-            activeController = controllers[ 0 ];
+        // Handle undefined or untitled documents
+        if (!document || !document.uri) {
+            if (controllers.length > 0) {
+                activeController = controllers[0];
+            }
             return;
         }
 
-        if (controllers.length > 1) {
-            activeController = controllers.find(ctrl =>
-                ctrl.workspaceFolder.uri.path === vscode.workspace.getWorkspaceFolder(document.uri).uri.path);
+        // system files don't have workspace, so use the first one [0]
+        const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+        if (!workspaceFolder) {
+            activeController = controllers[0];
+            return;
+        }
+
+        // Try to find the controller for this workspace folder
+        const foundController = controllers.find(ctrl =>
+            ctrl.workspaceFolder && ctrl.workspaceFolder.uri.path === workspaceFolder.uri.path);
+        
+        if (foundController) {
+            activeController = foundController;
+        } else if (controllers.length > 0) {
+            // Fallback to first controller if not found
+            activeController = controllers[0];
         }
     }
 
@@ -483,7 +501,22 @@ export async function activate(context: vscode.ExtensionContext) {
                 return ctrl;
             })
         );
-        if (controllers.length === 1) {
+        
+        // Ensure activeController is always set
+        if (controllers.length > 0) {
+            // If there's an active text editor, try to find the right controller
+            if (vscode.window.activeTextEditor) {
+                const workspaceFolder = vscode.workspace.getWorkspaceFolder(vscode.window.activeTextEditor.document.uri);
+                if (workspaceFolder) {
+                    const matchingController = controllers.find(ctrl => 
+                        ctrl.workspaceFolder && ctrl.workspaceFolder.uri.path === workspaceFolder.uri.path);
+                    if (matchingController) {
+                        activeController = matchingController;
+                        return;
+                    }
+                }
+            }
+            // Fallback to first controller
             activeController = controllers[ 0 ];
         }
     }
