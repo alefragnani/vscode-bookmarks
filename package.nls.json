@@ -1,10 +1,13 @@
 {
     "bookmarks.activitybar.title": "Bookmarks",
     "bookmarks.views.Explorer.name": "Explorer",
+    "bookmarks.views.ExplorerPanel.name": "Bookmarks",
     "bookmarks.views.HelpAndFeedback.name": "Help and Feedback",
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.whenEmpty": "In order to use Bookmarks, you have to open a folder or workspace first.\n[Open a Folder](command:_bookmarks.openFolderWelcome)\n[Open a Workspace](command:workbench.action.openWorkspace)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.whenNoFileOpen": "No bookmarks yet.\nIn order to use Bookmarks, you have to open a file in the editor.\n[Open a File](command:workbench.action.quickOpen)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
     "bookmarks.viewsWelcome.bookmarksExplorer.contents.whenHasFileOpen": "No bookmarks yet.\nIn order to use Bookmarks, place the cursor in any location in the file and run the command:\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
+    "bookmarks.viewsWelcome.bookmarksExplorerPanel.contents.whenNoFileOpen": "No file open.\nOpen a file in the editor to see its bookmarks.\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
+    "bookmarks.viewsWelcome.bookmarksExplorerPanel.contents.whenHasFileOpen": "No bookmarks in the active file.\nIn order to use Bookmarks, place the cursor in any location in the file and run the command:\n[Bookmarks: Toggle](command:bookmarks.toggle)\nTo learn more about how to use Bookmarks in VS Code [read the docs](http://github.com/alefragnani/vscode-bookmarks/#bookmarks).",
     "bookmarks.editor.context.label": "Bookmarks",
     "bookmarks.editor.title.label": "Bookmarks",
     "bookmarks.commands.category.bookmarks": "Bookmarks",

@@ -68,6 +68,13 @@
                     "name": "%bookmarks.views.HelpAndFeedback.name%",
                     "visibility": "collapsed"
                 }
+            ],
+            "explorer": [
+                {
+                    "id": "bookmarksExplorerPanel",
+                    "name": "%bookmarks.views.ExplorerPanel.name%",
+                    "visibility": "collapsed"
+                }
             ]
         },
         "viewsWelcome": [
@@ -85,6 +92,16 @@
                 "view": "bookmarksExplorer",
                 "contents": "%bookmarks.viewsWelcome.bookmarksExplorer.contents.whenHasFileOpen%",
                 "when": "workbenchState != empty && editorIsOpen && !bookmarks.isHidingWelcome"
+            },
+            {
+                "view": "bookmarksExplorerPanel",
+                "contents": "%bookmarks.viewsWelcome.bookmarksExplorerPanel.contents.whenNoFileOpen%",
+                "when": "!editorIsOpen"
+            },
+            {
+                "view": "bookmarksExplorerPanel",
+                "contents": "%bookmarks.viewsWelcome.bookmarksExplorerPanel.contents.whenHasFileOpen%",
+                "when": "editorIsOpen"
             }
         ],
         "commands": [
@@ -410,6 +427,16 @@
                     "command": "bookmarks.openSettings",
                     "when": "view == bookmarksExplorer",
                     "group": "3_bookmarks"
+                },
+                {
+                    "command": "_bookmarks.addBookmark#sideBar",
+                    "when": "view == bookmarksExplorerPanel",
+                    "group": "navigation@5"
+                },
+                {
+                    "command": "bookmarks.refresh",
+                    "when": "view == bookmarksExplorerPanel",
+                    "group": "navigation@10"
                 }
             ],
             "view/item/context": [
@@ -441,6 +468,26 @@
                     "command": "_bookmarks.editLabel",
                     "when": "view == bookmarksExplorer && viewItem == BookmarkNodeBookmark",
                     "group": "inline@1"
+                },
+                {
+                    "command": "_bookmarks.editLabel",
+                    "when": "view == bookmarksExplorerPanel && viewItem == BookmarkNodeBookmark",
+                    "group": "bookmark@1"
+                },
+                {
+                    "command": "_bookmarks.editLabel",
+                    "when": "view == bookmarksExplorerPanel && viewItem == BookmarkNodeBookmark",
+                    "group": "inline@1"
+                },
+                {
+                    "command": "_bookmarks.deleteBookmark",
+                    "when": "view == bookmarksExplorerPanel && viewItem == BookmarkNodeBookmark",
+                    "group": "bookmark@2"
+                },
+                {
+                    "command": "_bookmarks.deleteBookmark",
+                    "when": "view == bookmarksExplorerPanel && viewItem == BookmarkNodeBookmark",
+                    "group": "inline@2"
                 }
             ],
             "extension/context": [

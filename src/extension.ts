@@ -18,6 +18,7 @@ import { loadBookmarks, saveBookmarks } from "./storage/workspaceState";
 import { pickController } from "./quickpick/controllerPicker";
 import { expandSelectionToNextBookmark, selectBookmarkedLines, shrinkSelection } from "./selections";
 import { BookmarksExplorer } from "./sidebar/bookmarkProvider";
+import { ActiveFileBookmarksPanel } from "./explorer/activeFileBookmarksPanel";
 import { parsePosition, Point } from "./sidebar/parser";
 import { Sticky } from "./sticky/stickyLegacy";
 import { updateStickyBookmarks } from "./sticky/sticky";
@@ -85,6 +86,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
             updateDecorations();
             bookmarkProvider.refresh();
+            activeFileBookmarksPanel.refresh();
         }
 
         if (cfg.affectsConfiguration("bookmarks.saveBookmarksInProject")) {
@@ -147,6 +149,7 @@ export async function activate(context: vscode.ExtensionContext) {
                             }
                         }
                         bookmarkExplorer.updateControllers(controllers);
+                        activeFileBookmarksPanel.updateControllers(controllers);
                         if (vscode.window.activeTextEditor) {
                             getActiveController(vscode.window.activeTextEditor.document);
                             activeController.addFile(vscode.window.activeTextEditor.document.uri);
@@ -194,6 +197,9 @@ export async function activate(context: vscode.ExtensionContext) {
     const bookmarkExplorer = new BookmarksExplorer(controllers);
     const bookmarkProvider = bookmarkExplorer.getProvider();
 
+    const activeFileBookmarksPanel = new ActiveFileBookmarksPanel(controllers, () => activeController?.activeFile);
+    context.subscriptions.push(activeFileBookmarksPanel);
+
     bookmarkExplorer.updateBadge();
 
     toggleSideBarWelcomeVisibility();
@@ -239,6 +245,7 @@ export async function activate(context: vscode.ExtensionContext) {
             triggerUpdateDecorations();
             updateLinesWithBookmarkContext(activeController.activeFile);
         }
+        activeFileBookmarksPanel.refresh();
     }, null, context.subscriptions);
 
     vscode.workspace.onDidChangeTextDocument(event => {
@@ -294,6 +301,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
 
         bookmarkProvider.refresh();
+        activeFileBookmarksPanel.refresh();
         saveWorkspaceState();
         if (activeEditor) {
             activeController.activeFile = activeController.fromUri(activeEditor.document.uri);
@@ -335,6 +343,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     vscode.commands.registerCommand("bookmarks.refresh", () => {
         bookmarkProvider.refresh();
+        activeFileBookmarksPanel.refresh();
     });
 
     vscode.commands.registerCommand("_bookmarks.search#sideBar", () => {
