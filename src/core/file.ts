@@ -13,8 +13,7 @@ export interface File {
     uri?: Uri;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface FileList extends Array<File> { }
+export type FileList = File[];
 
 export function createFile(filePath: string, uri?: Uri): File {
 

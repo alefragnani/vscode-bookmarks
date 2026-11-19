@@ -3,7 +3,7 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import path = require("path");
+import * as path from "path";
 import * as vscode from "vscode";
 import { Controller } from "../core/controller";
 import { parsePosition, Point } from "./parser";
