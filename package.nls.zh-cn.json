@@ -100,5 +100,10 @@
     "bookmarks.walkthroughs.workingWithRemotes.title": "兼容 VS Code 远程开发",
     "bookmarks.walkthroughs.workingWithRemotes.description": "本扩展完全兼容 [远程开发](https://code.visualstudio.com/docs/remote/remote-overview)。只需要在本地编辑器中安装，便能够在 WSL、Containers、SSH 或是 Codespaces 中正常使用书签功能。",
     "bookmarks.walkthroughs.customizingAppearance.title": "自定义外观",
-    "bookmarks.walkthroughs.customizingAppearance.description": "你可以自定义书签在编辑器中的呈现方式，例如书签标记使用的图标，或是概览标尺（Overview Ruler）中书签标记的颜色。\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)"
+    "bookmarks.walkthroughs.customizingAppearance.description": "你可以自定义书签在编辑器中的呈现方式，例如书签标记使用的图标，或是概览标尺（Overview Ruler）中书签标记的颜色。\n[Open Settings - Gutter Icon](command:workbench.action.openSettings?%5B%22bookmarks.gutterIcon%22%5D)\n[Open Settings - Line](command:workbench.action.openSettingsJson?%5B%22workbench.colorCustomizations%22%5D)",
+    "bookmarks.configuration.navigation.columnMode.description": "控制导航到书签时光标所在的列",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.stored": "跳转到放置书签的确切列（默认行为）",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineStart": "始终跳转到第 0 列（行的最开始）",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.firstNonWhitespace": "跳转到行中第一个非空白字符",
+    "bookmarks.configuration.navigation.columnMode.enumDescriptions.lineEnd": "跳转到行内容的末尾（最后一个非空白字符之后）"
 }
