@@ -8,7 +8,7 @@ import { HelpAndFeedbackView, Link, StandardLinksProvider, ProvideFeedbackLink, 
 
 export function registerHelpAndFeedbackView(context: ExtensionContext) {
     const items = new Array<Link | Command>();
-    const predefinedProvider = new StandardLinksProvider('alefragnani.Bookmarks');
+    const predefinedProvider = new StandardLinksProvider('realtyxxx.agent-bookmarks');
     items.push(predefinedProvider.getGetStartedLink());
     items.push(new ProvideFeedbackLink('bookmarks'));
     items.push(predefinedProvider.getReviewIssuesLink());

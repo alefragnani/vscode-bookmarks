@@ -88,6 +88,7 @@
 	"bookmarks.colors.overviewRuler.description": "Kolor znacznika na linijce przeglądu dla zakładek",
     "bookmarks.colors.labelInlineMessageTextColor.description": "Kolor tekstu dla tekstu etykiety zakładki. Jeśli nie jest określony, używany jest ten sam kolor co dla dekoracji git blame. Ma sens tylko wtedy, gdy ustawienie bookmarks.label.inline.enabled jest włączone",
     "bookmarks.colors.labelInlineMessageBackgroundColor.description": "Kolor tła dla tekstu etykiety zakładki. Jeśli nie jest określony, kolor tła nie jest używany. Ma sens tylko wtedy, gdy ustawienie bookmarks.label.inline.enabled jest włączone",
+    "bookmarks.colors.labelInlineMessageBorderColor.description": "Border color for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled",
 	"bookmarks.walkthroughs.title": "Rozpocznij pracę z Zakładkami",
 	"bookmarks.walkthroughs.description": "Dowiedz się więcej o Zakładkach, aby zoptymalizować swój przepływ pracy",
 	"bookmarks.walkthroughs.toggle.title": "Przełączanie Zakładek",

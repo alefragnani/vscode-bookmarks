@@ -3,10 +3,12 @@
 *  Licensed under the GPLv3 License. See License.md in the project root for license information.
 *--------------------------------------------------------------------------------------------*/
 
-import { workspace, window, WorkspaceFolder, l10n } from "vscode";
+import { workspace, window, WorkspaceFolder, l10n, Uri } from "vscode";
 import { Container } from "../core/container";
 import { appendPath, createDirectoryUri, deleteFileUri, readFileUri, uriExists, writeFileUri } from "../utils/fs";
 import { Controller } from "../core/controller";
+
+const projectBookmarksInternalWrites = new Set<string>();
 
 function canSaveBookmarksInProject(): boolean {
     let saveBookmarksInProject: boolean = workspace.getConfiguration("bookmarks").get("saveBookmarksInProject", false);
@@ -23,13 +25,40 @@ function canSaveBookmarksInProject(): boolean {
     return saveBookmarksInProject;
 }
 
+export function getProjectBookmarksUri(workspaceFolder: WorkspaceFolder): Uri {
+    return appendPath(appendPath(workspaceFolder.uri, ".vscode"), "bookmarks.json");
+}
+
+export function isProjectBookmarksInternalWrite(uri: Uri): boolean {
+    return projectBookmarksInternalWrites.has(uri.toString());
+}
+
+function markProjectBookmarksInternalWrite(uri: Uri): void {
+    projectBookmarksInternalWrites.add(uri.toString());
+}
+
+function unmarkProjectBookmarksInternalWriteSoon(uri: Uri): void {
+    setTimeout(() => {
+        projectBookmarksInternalWrites.delete(uri.toString());
+    }, 500);
+}
+
+export async function reloadBookmarks(controller: Controller): Promise<void> {
+    if (!controller.workspaceFolder) {
+        return;
+    }
+
+    const reloadedController = await loadBookmarks(controller.workspaceFolder);
+    controller.files = reloadedController.files;
+}
+
 export async function loadBookmarks(workspaceFolder: WorkspaceFolder): Promise<Controller> {
     const saveBookmarksInProject: boolean = canSaveBookmarksInProject();
 
     const newController = new Controller(workspaceFolder);
 
     if (saveBookmarksInProject) {
-        const bookmarksFileInProject = appendPath(appendPath(workspaceFolder.uri, ".vscode"), "bookmarks.json");
+        const bookmarksFileInProject = getProjectBookmarksUri(workspaceFolder);
         if (! await uriExists(bookmarksFileInProject)) {
             return newController;
         }
@@ -54,20 +83,27 @@ export function saveBookmarks(controller: Controller): void {
     const saveBookmarksInProject: boolean = canSaveBookmarksInProject();
     
     if (saveBookmarksInProject) {
-        const bookmarksFileInProject = appendPath(appendPath(controller.workspaceFolder.uri, ".vscode"), "bookmarks.json");
+        const bookmarksFileInProject = getProjectBookmarksUri(controller.workspaceFolder);
+        markProjectBookmarksInternalWrite(bookmarksFileInProject);
 
-        // avoid empty bookmarks.json file
-        if (!controller.hasAnyBookmark()) {
-            if (uriExists(bookmarksFileInProject)) {
-                deleteFileUri(bookmarksFileInProject);
+        void (async () => {
+            try {
+                // avoid empty bookmarks.json file
+                if (!controller.hasAnyBookmark()) {
+                    if (await uriExists(bookmarksFileInProject)) {
+                        await deleteFileUri(bookmarksFileInProject);
+                    }
+                    return;
+                }
+
+                if (! await uriExists(appendPath(controller.workspaceFolder.uri, ".vscode"))) {
+                    await createDirectoryUri(appendPath(controller.workspaceFolder.uri, ".vscode"));
+                }
+                await writeFileUri(bookmarksFileInProject, JSON.stringify(controller.zip(), null, "\t"));
+            } finally {
+                unmarkProjectBookmarksInternalWriteSoon(bookmarksFileInProject);
             }
-            return;
-        }
-
-        if (!uriExists(appendPath(controller.workspaceFolder.uri, ".vscode"))) {
-            createDirectoryUri(appendPath(controller.workspaceFolder.uri, ".vscode"));
-        }
-        writeFileUri(bookmarksFileInProject, JSON.stringify(controller.zip(), null, "\t"));   
+        })();
     } else {
         Container.context.workspaceState.update("bookmarks", JSON.stringify(controller.zip()));
     }

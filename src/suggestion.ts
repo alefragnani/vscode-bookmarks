@@ -27,14 +27,16 @@ export function suggestLabel(selection: Selection): string {
         case SuggestionMode.suggestWhenSelected:
         case SuggestionMode.useWhenSelected:
             if (!selection.isEmpty) {
-                return window.activeTextEditor.document.getText(selection);
+                const selectedText = window.activeTextEditor.document.getText(selection).trim();
+                return selectedText.replace(/\s+/g, " ");
             } else {
                 return "";
             }
     
         case SuggestionMode.suggestWhenSelectedOrLineWhenNoSelected:
             if (!selection.isEmpty) {
-                return window.activeTextEditor.document.getText(selection);
+                const selectedText = window.activeTextEditor.document.getText(selection).trim();
+                return selectedText.replace(/\s+/g, " ");
             } else {
                 return window.activeTextEditor.document.lineAt(selection.start.line).text.trim();
             }

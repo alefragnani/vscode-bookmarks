@@ -86,5 +86,6 @@
     "bookmarks.colors.lineBorder.description": "Цвет фона для границы вокруг линии с закладкой",
     "bookmarks.colors.overviewRuler.description": "Обзор цвета маркера линейки для закладок",
     "bookmarks.colors.labelInlineMessageTextColor.description": "Цвет текста для встроенного текста метки закладки. Если не указан, используется тот же цвет, что и для аннотаций git. Имеет смысл только если параметр bookmarks.label.inline.enabled включен",
-    "bookmarks.colors.labelInlineMessageBackgroundColor.description": "Цвет фона для встроенного текста метки закладки. Если не указан, цвет фона не используется. Имеет смысл только если параметр bookmarks.label.inline.enabled включен"
+    "bookmarks.colors.labelInlineMessageBackgroundColor.description": "Цвет фона для встроенного текста метки закладки. Если не указан, цвет фона не используется. Имеет смысл только если параметр bookmarks.label.inline.enabled включен",
+    "bookmarks.colors.labelInlineMessageBorderColor.description": "Border color for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled"
 }

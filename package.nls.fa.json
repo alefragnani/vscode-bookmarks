@@ -93,6 +93,7 @@
     "bookmarks.colors.overviewRuler.description": "رنگ نشانگر خط‌کش نمای کلی برای بوکمارک",
     "bookmarks.colors.labelInlineMessageTextColor.description": "رنگ متن برای متن برچسب بوکمارک درون‌خطی. اگر مشخص نشود، از همان رنگ تزیین git blame استفاده می‌شود. تنها در صورتی منطقی است که تنظیم bookmarks.label.inline.enabled فعال باشد",
     "bookmarks.colors.labelInlineMessageBackgroundColor.description": "رنگ پس‌زمینه برای متن برچسب بوکمارک درون‌خطی. اگر مشخص نشود، هیچ رنگ پس‌زمینه استفاده نمی‌شود. تنها در صورتی منطقی است که تنظیم bookmarks.label.inline.enabled فعال باشد",
+    "bookmarks.colors.labelInlineMessageBorderColor.description": "Border color for bookmark label inline text. Makes sense only if bookmarks.label.inline.enabled setting enabled",
     "bookmarks.walkthroughs.title": "شروع به کار با بوکمارک",
     "bookmarks.walkthroughs.description": "درباره بوکمارک بیشتر یاد بگیرید تا جریان کاری خود را بهینه کنید",
     "bookmarks.walkthroughs.toggle.title": "تغییر وضعیت بوکمارک",
